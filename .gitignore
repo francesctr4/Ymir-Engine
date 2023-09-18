@@ -97,9 +97,6 @@ StyleCopReport.xml
 *.pidb
 *.svclog
 *.scc
-!EngineName_v0.0/EXP_Engine_Sol/MathGeoLib/libx86/Debug/MathGeoLib.lib
-!EngineName_v0.0/EXP_Engine_Sol/MathGeoLib/libx86/Debug/MathGeoLib.pdb
-!EngineName_v0.0/EXP_Engine_Sol/MathGeoLib/libx86/Release/MathGeoLib.lib
 
 # Chutzpah Test files
 _Chutzpah*
