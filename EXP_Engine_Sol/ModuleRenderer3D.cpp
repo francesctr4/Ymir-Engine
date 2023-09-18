@@ -10,9 +10,9 @@
 #pragma comment (lib, "Glew/libx86/glew32.lib")
 
 #ifdef _DEBUG
-#pragma comment (lib, "MathGeoLib/libx86/Debug/MathGeoLib.lib") /* link Microsoft OpenGL lib   */
+#pragma comment (lib, "MathGeoLib/libx86/lib_Debug/MathGeoLib.lib") /* link Microsoft OpenGL lib   */
 #else
-#pragma comment (lib, "MathGeoLib/libx86/Release/MathGeoLib.lib") /* link Microsoft OpenGL lib   */
+#pragma comment (lib, "MathGeoLib/libx86/lib_Release/MathGeoLib.lib") /* link Microsoft OpenGL lib   */
 #endif // _DEBUG
 
 
