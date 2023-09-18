@@ -59,11 +59,12 @@ int main(int argc, char ** argv)
 				LOG("Application Update exits with ERROR");
 				state = MAIN_EXIT;
 			}
-
-			if (update_return == UPDATE_STOP)
+			else if (update_return == UPDATE_STOP)
 				state = MAIN_FINISH;
-		}
+
 			break;
+
+		}
 
 		case MAIN_FINISH:
 
