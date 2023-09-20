@@ -62,6 +62,14 @@ int main(int argc, char ** argv)
 			else if (update_return == UPDATE_STOP)
 				state = MAIN_FINISH;
 
+			// Easy solution to close the program
+
+			if (App->input->quit == true || App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_UP) {
+
+				return MAIN_FINISH;
+
+			}
+
 			break;
 
 		}

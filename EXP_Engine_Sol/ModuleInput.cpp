@@ -124,11 +124,13 @@ update_status ModuleInput::PreUpdate(float dt)
 
 	}
 
-	if (quit == true || keyboard[SDL_SCANCODE_ESCAPE] == KEY_UP) {
+	// No hace nada, porque no funciona el UPDATE_STOP. El código está en el main.cpp
+
+	/*if (quit == true || keyboard[SDL_SCANCODE_ESCAPE] == KEY_UP) {
 
 		return UPDATE_STOP;
 
-	}
+	}*/
 
 	return UPDATE_CONTINUE;
 }

@@ -68,5 +68,8 @@ private:
 	int mouse_y_motion;
 	//int mouse_z_motion;
 
+public:
+
 	bool quit = false;
+
 };
