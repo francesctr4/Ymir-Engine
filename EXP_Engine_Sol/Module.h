@@ -5,10 +5,12 @@ struct PhysBody3D;
 
 class Module
 {
-private :
-	bool enabled;
+private:
+
+	bool enabled = false;
 
 public:
+
 	Application* App;
 
 	Module(Application* parent, bool start_enabled = true) : App(parent)
