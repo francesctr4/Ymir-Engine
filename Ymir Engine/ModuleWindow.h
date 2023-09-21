@@ -10,6 +10,7 @@ class ModuleWindow : public Module
 {
 public:
 
+	// Constructor
 	explicit ModuleWindow(Application* app, bool start_enabled = true);
 
 	// Destructor
