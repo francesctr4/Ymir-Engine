@@ -15,13 +15,14 @@
 class ModuleRenderer3D : public Module
 {
 public:
-	ModuleRenderer3D(Application* app, bool start_enabled = true);
-	~ModuleRenderer3D();
 
-	bool Init();
-	update_status PreUpdate(float dt);
-	update_status PostUpdate(float dt);
-	bool CleanUp();
+	explicit ModuleRenderer3D(Application* app, bool start_enabled = true);
+	virtual ~ModuleRenderer3D();
+
+	bool Init() override;
+	update_status PreUpdate(float dt) override;
+	update_status PostUpdate(float dt) override;
+	bool CleanUp() override;
 
 	void OnResize(int width, int height);
 

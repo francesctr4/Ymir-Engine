@@ -10,13 +10,13 @@ class ModuleWindow : public Module
 {
 public:
 
-	ModuleWindow(Application* app, bool start_enabled = true);
+	explicit ModuleWindow(Application* app, bool start_enabled = true);
 
 	// Destructor
 	virtual ~ModuleWindow();
 
-	bool Init();
-	bool CleanUp();
+	bool Init() override;
+	bool CleanUp() override;
 
 	void SetTitle(const char* title);
 

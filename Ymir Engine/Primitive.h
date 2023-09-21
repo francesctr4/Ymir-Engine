@@ -44,7 +44,7 @@ class Cube : public Primitive
 public :
 	Cube();
 	Cube(float sizeX, float sizeY, float sizeZ);
-	void InnerRender() const;
+	void InnerRender() const override;
 public:
 	float3 size;
 };
@@ -55,7 +55,7 @@ class CCylinder : public Primitive
 public:
 	CCylinder();
 	CCylinder(float radius, float height);
-	void InnerRender() const;
+	void InnerRender() const override;
 public:
 	float radius;
 	float height;
@@ -67,7 +67,7 @@ class CLine : public Primitive
 public:
 	CLine();
 	CLine(float x, float y, float z);
-	void InnerRender() const;
+	void InnerRender() const override;
 public:
 	float3 origin;
 	float3 destination;
@@ -79,7 +79,7 @@ class CPlane : public Primitive
 public:
 	CPlane();
 	CPlane(float x, float y, float z, float d);
-	void InnerRender() const;
+	void InnerRender() const override;
 public:
 	float3 normal;
 	float constant;

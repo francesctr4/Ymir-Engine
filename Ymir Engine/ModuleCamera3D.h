@@ -11,12 +11,14 @@
 class ModuleCamera3D : public Module
 {
 public:
-	ModuleCamera3D(Application* app, bool start_enabled = true);
-	~ModuleCamera3D();
 
-	bool Start();
-	update_status Update(float dt);
-	bool CleanUp();
+	explicit ModuleCamera3D(Application* app, bool start_enabled = true);
+
+	virtual ~ModuleCamera3D();
+
+	bool Start() override;
+	update_status Update(float dt) override;
+	bool CleanUp() override;
 
 	void Look(const float3 &Position, const float3&Reference, bool RotateAroundReference = false);
 	void LookAt(const float3&Spot);

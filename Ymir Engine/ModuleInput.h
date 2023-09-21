@@ -16,12 +16,12 @@ class ModuleInput : public Module
 {
 public:
 	
-	ModuleInput(Application* app, bool start_enabled = true);
-	~ModuleInput();
+	explicit ModuleInput(Application* app, bool start_enabled = true);
+	virtual ~ModuleInput();
 
-	bool Init();
-	update_status PreUpdate(float dt);
-	bool CleanUp();
+	bool Init() override;
+	update_status PreUpdate(float dt) override;
+	bool CleanUp() override;
 
 	KEY_STATE GetKey(int id) const
 	{
