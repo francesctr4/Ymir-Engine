@@ -1,9 +1,9 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
-#include "MathGeoLib/include/Math/float3.h"
-#include "MathGeoLib/include/Math/float4x4.h"
-#include "MathGeoLib/include/Geometry/Frustum.h"
+#include "External/MathGeoLib/include/Math/float3.h"
+#include "External/MathGeoLib/include/Math/float4x4.h"
+#include "External/MathGeoLib/include/Geometry/Frustum.h"
 
 //todo: REMOVE this before 1st delivery!!
 #include "glmath.h"
