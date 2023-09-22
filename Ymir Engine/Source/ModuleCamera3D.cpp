@@ -44,8 +44,9 @@ update_status ModuleCamera3D::Update(float dt)
 
 	float3 newPos(0,0,0);
 	float speed = 20.0f * dt;
+
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
-		speed = 30.0f * dt;
+		speed *= 2;
 
 	if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
 	if(App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
@@ -86,7 +87,6 @@ update_status ModuleCamera3D::Update(float dt)
 			Y = rotationQuat * Y;
 			Z = rotationQuat * Z;
 		}
-
 		if(dy != 0)
 		{
 			float DeltaY = (float)dy * Sensitivity;
@@ -101,9 +101,11 @@ update_status ModuleCamera3D::Update(float dt)
 				Z = float3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
 				Y = Z.Cross(X);
 			}
+
 		}
 
 		Position = Reference + Z * Position.Length();
+		//Position = Reference + Z;
 	}
 
 	LookAt(Reference);
