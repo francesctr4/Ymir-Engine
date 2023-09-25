@@ -21,6 +21,8 @@ public:
 private:
 
 	//std::vector<float> mFPSLog;
+	
+	bool UpdateAndRenderAdditionalPlatformWindows = false;
 
 };
 
