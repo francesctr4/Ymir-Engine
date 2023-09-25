@@ -1,4 +1,7 @@
 #include <stdlib.h>
+
+//#include "External/mmgr/mmgr.h"
+
 #include "Application.h"
 #include "Globals.h"
 #include "ModuleInput.h"
@@ -25,6 +28,8 @@ enum main_states
 
 int main(int argc, char ** argv)
 {
+	//MMGR_INIT;
+
 	LOG("Starting engine '%s'....", TITLE);
 
 	int main_return = EXIT_FAILURE;
@@ -103,5 +108,8 @@ int main(int argc, char ** argv)
 
 	delete App;
 	LOG("Exiting engine '%s'...\n", TITLE);
+
+	//MMGR_TERM;
+
 	return main_return;
 }
