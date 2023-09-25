@@ -12,7 +12,7 @@ class ModuleCamera3D : public Module
 {
 public:
 
-	explicit ModuleCamera3D(Application* app, bool start_enabled = true);
+	ModuleCamera3D(Application* app, bool start_enabled = true);
 
 	virtual ~ModuleCamera3D();
 

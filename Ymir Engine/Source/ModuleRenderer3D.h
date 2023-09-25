@@ -16,7 +16,7 @@ class ModuleRenderer3D : public Module
 {
 public:
 
-	explicit ModuleRenderer3D(Application* app, bool start_enabled = true);
+	ModuleRenderer3D(Application* app, bool start_enabled = true);
 	virtual ~ModuleRenderer3D();
 
 	bool Init() override;

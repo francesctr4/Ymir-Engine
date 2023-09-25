@@ -9,7 +9,7 @@ class ModuleEditor : public Module
 {
 public:
 
-	explicit ModuleEditor(Application* app, bool start_enabled = true);
+	ModuleEditor(Application* app, bool start_enabled = true);
 	virtual ~ModuleEditor();
 
 	bool Init() override;

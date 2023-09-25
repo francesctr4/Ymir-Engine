@@ -16,7 +16,7 @@ class ModuleInput : public Module
 {
 public:
 	
-	explicit ModuleInput(Application* app, bool start_enabled = true);
+	ModuleInput(Application* app, bool start_enabled = true);
 	virtual ~ModuleInput();
 
 	bool Init() override;

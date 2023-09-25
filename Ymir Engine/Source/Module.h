@@ -15,7 +15,7 @@ public:
 
 	Application* App;
 
-	explicit Module(Application* parent, bool start_enabled = true) : App(parent)
+	Module(Application* parent, bool start_enabled = true) : App(parent)
 	{}
 
 	virtual ~Module()
