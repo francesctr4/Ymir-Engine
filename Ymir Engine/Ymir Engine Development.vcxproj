@@ -92,6 +92,11 @@
     <ClInclude Include="Source\External\ImGui\imstb_rectpack.h" />
     <ClInclude Include="Source\External\ImGui\imstb_textedit.h" />
     <ClInclude Include="Source\External\ImGui\imstb_truetype.h" />
+    <ClInclude Include="Source\External\mmgr\mmgr.h" />
+    <ClInclude Include="Source\External\mmgr\nommgr.h" />
+    <ClInclude Include="Source\External\Optick\include\optick.config.h" />
+    <ClInclude Include="Source\External\Optick\include\optick.h" />
+    <ClInclude Include="Source\External\Parson\parson.h" />
     <ClInclude Include="Source\glmath.h" />
     <ClInclude Include="Source\Globals.h" />
     <ClInclude Include="Source\Light.h" />
@@ -175,6 +180,8 @@
     <ClCompile Include="Source\External\ImGui\imgui_draw.cpp" />
     <ClCompile Include="Source\External\ImGui\imgui_tables.cpp" />
     <ClCompile Include="Source\External\ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="Source\External\mmgr\mmgr.cpp" />
+    <ClCompile Include="Source\External\Parson\parson.cpp" />
     <ClCompile Include="Source\glmath.cpp" />
     <ClCompile Include="Source\Light.cpp" />
     <ClCompile Include="Source\log.cpp" />

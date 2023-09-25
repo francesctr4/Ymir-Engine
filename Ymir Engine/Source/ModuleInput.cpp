@@ -4,6 +4,8 @@
 #include "ModuleRenderer3D.h"
 #include "External/ImGui/backends/imgui_impl_sdl2.h"
 
+#include "External/Optick/include/optick.h"
+
 #define MAX_KEYS 300
 
 ModuleInput::ModuleInput(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -38,6 +40,8 @@ bool ModuleInput::Init()
 // Called every draw update
 update_status ModuleInput::PreUpdate(float dt)
 {
+	OPTICK_EVENT();
+
 	SDL_PumpEvents();
 
 	const Uint8* keys = SDL_GetKeyboardState(NULL);

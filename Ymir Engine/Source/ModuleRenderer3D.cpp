@@ -8,6 +8,8 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 
+#include "External/Optick/include/optick.h"
+
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 #pragma comment (lib, "glu32.lib") /* link Microsoft OpenGL lib   */
 #pragma comment (lib, "Source/External/Glew/libx86/glew32.lib")
@@ -118,6 +120,8 @@ bool ModuleRenderer3D::Init()
 // PreUpdate: clear buffer
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
+	OPTICK_EVENT();
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
@@ -138,6 +142,8 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
+	OPTICK_EVENT();
+
 	App->editor->DrawEditor();
 
 	Grid.Render();

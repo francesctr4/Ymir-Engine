@@ -43,6 +43,15 @@
     <Filter Include="Externals\ImGui\backends">
       <UniqueIdentifier>{227a6f16-1bd8-4cd9-8d8f-8c75a38cb551}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Externals\Optick">
+      <UniqueIdentifier>{a4bae3ac-2b44-4fbe-82df-c84fb5ae1ce0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Externals\Parson">
+      <UniqueIdentifier>{c3a7d751-931d-45a1-b1e0-b82a22c8c704}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Externals\mmgr">
+      <UniqueIdentifier>{84360623-1682-42f2-b65a-1dcd2a4ce074}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Module.h">
@@ -294,6 +303,21 @@
     <ClInclude Include="Source\External\ImGui\backends\imgui_impl_sdlrenderer2.h">
       <Filter>Externals\ImGui\backends</Filter>
     </ClInclude>
+    <ClInclude Include="Source\External\mmgr\mmgr.h">
+      <Filter>Externals\mmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\External\mmgr\nommgr.h">
+      <Filter>Externals\mmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\External\Parson\parson.h">
+      <Filter>Externals\Parson</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\External\Optick\include\optick.config.h">
+      <Filter>Externals\Optick</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\External\Optick\include\optick.h">
+      <Filter>Externals\Optick</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -454,6 +478,12 @@
     </ClCompile>
     <ClCompile Include="Source\External\ImGui\backends\imgui_impl_sdlrenderer2.cpp">
       <Filter>Externals\ImGui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\External\mmgr\mmgr.cpp">
+      <Filter>Externals\mmgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\External\Parson\parson.cpp">
+      <Filter>Externals\Parson</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

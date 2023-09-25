@@ -4,6 +4,8 @@
 #include "ModuleInput.h"
 #include "External/MathGeoLib/include/Math/Quat.h"
 
+#include "External/Optick/include/optick.h"
+
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	X = float3(1.0f, 0.0f, 0.0f);
@@ -40,6 +42,8 @@ bool ModuleCamera3D::CleanUp()
 // -----------------------------------------------------------------
 update_status ModuleCamera3D::Update(float dt)
 {
+	OPTICK_EVENT();
+
 	// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
 

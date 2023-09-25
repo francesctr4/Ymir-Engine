@@ -7,6 +7,13 @@
 #pragma comment( lib, "Source/External/SDL/libx86/SDL2.lib" )
 #pragma comment( lib, "Source/External/SDL/libx86/SDL2main.lib" )
 
+#include "External/Optick/include/optick.h"
+#ifdef _DEBUG
+#pragma comment( lib, "Source/External/Optick/lib/debugLib/OptickCore.lib" )
+#else
+#pragma comment (lib, "Source/External/Optick/lib/releaseLib/OptickCore.lib") 
+#endif // _DEBUG
+
 enum main_states
 {
 	MAIN_CREATION,
@@ -53,6 +60,8 @@ int main(int argc, char ** argv)
 
 		case MAIN_UPDATE:
 		{
+			OPTICK_FRAME("Main Loop");
+
 			int update_return = App->Update();
 
 			if (update_return == UPDATE_ERROR)

@@ -7,6 +7,8 @@
 #include "ModuleCamera3D.h"
 #include "ModuleEditor.h"
 
+#include "External/Optick/include/optick.h"
+
 Application::Application()
 {
 	window = new ModuleWindow(this);
@@ -62,6 +64,8 @@ bool Application::Init()
 // ---------------------------------------------
 void Application::PrepareUpdate()
 {
+	OPTICK_EVENT();
+
 	dt = (float)ms_timer.Read() / 1000.0f;
 	ms_timer.Start();
 }
@@ -69,11 +73,13 @@ void Application::PrepareUpdate()
 // ---------------------------------------------
 void Application::FinishUpdate()
 {
+	OPTICK_EVENT();
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules
 update_status Application::Update()
 {
+	OPTICK_EVENT();
 	update_status ret = UPDATE_CONTINUE;
 	PrepareUpdate();
 	
