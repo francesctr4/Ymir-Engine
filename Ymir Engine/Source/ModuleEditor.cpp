@@ -1,6 +1,6 @@
 #include "ModuleEditor.h"
 #include "External/ImGui/imgui.h"
-#include "External/ImGui/backends/imgui_impl_sdl.h"
+#include "External/ImGui/backends/imgui_impl_sdl2.h"
 #include "External/ImGui/backends/imgui_impl_opengl3.h"
 #include "Application.h"
 #include "ModuleWindow.h"

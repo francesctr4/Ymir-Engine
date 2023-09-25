@@ -2,7 +2,7 @@
 #include "Application.h"
 #include "ModuleInput.h"
 #include "ModuleRenderer3D.h"
-#include "External/ImGui/backends/imgui_impl_sdl.h"
+#include "External/ImGui/backends/imgui_impl_sdl2.h"
 
 #define MAX_KEYS 300
 
