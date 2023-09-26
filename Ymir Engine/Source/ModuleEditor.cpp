@@ -12,13 +12,16 @@
 //#include "External/Parson/parson.h"
 #include <Windows.h>
 
+// Constructor
 ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app,start_enabled)
 {
+    // Reserve memory for Framerate Histograms vectors
     FPSvec.reserve(30);
     DTvec.reserve(30);
     MSvec.reserve(30);
 }
 
+// Destructor
 ModuleEditor::~ModuleEditor()
 {
 
@@ -27,6 +30,12 @@ ModuleEditor::~ModuleEditor()
 bool ModuleEditor::Init()
 {
     bool ret = true;
+
+    // Retrieving data from window initial status
+
+    windowWidth = App->window->width;
+    windowHeight = App->window->height;
+    opacity = 1.0f;
 
     // Setup Dear ImGui context
 
@@ -50,9 +59,6 @@ bool ModuleEditor::Init()
     }
 
     // Setup Dear ImGui style
-
-    ImGui::StyleColorsDark();
-    //ImGui::StyleColorsLight();
 
     // When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
 
@@ -103,7 +109,9 @@ void ModuleEditor::DrawEditor()
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
 
-    // Here starts the code for the editor
+    // --------------------------------- Here starts the code for the editor ----------------------------------------
+
+    // MAIN MENU BAR START
 
     if (ImGui::BeginMainMenuBar()) {
 
@@ -236,25 +244,15 @@ void ModuleEditor::DrawEditor()
 
     }
 
-    /*if (ImGui::Begin("Configuration"), true) {
+    // END OF MAIN MENU BAR
 
-        char title[50];
-
-        sprintf_s(title, 50, "Framerate (FPS): %.3f", FPSvec[FPSvec.size() - 1]);
-        ImGui::PlotHistogram("## Framerate", &FPSvec[0], FPSvec.size(), 0, title, 0.0f, 250.0f, ImVec2(300, 100));
-
-        sprintf_s(title, 50, "DeltaTime (DT): %.3f", DTvec[DTvec.size() - 1]);
-        ImGui::PlotHistogram("## DeltaTime", &DTvec[0], DTvec.size(), 0, title, 0.0f, 0.032f, ImVec2(300, 100));
-
-        sprintf_s(title, 50, "Milliseconds (MS): %.3f", MSvec[MSvec.size() - 1]);
-        ImGui::PlotHistogram("## Milliseconds", &MSvec[0], MSvec.size(), 0, title, 0.0f, 32.0f, ImVec2(300, 100));
-
-        ImGui::End();
-    }*/
+    // APPLICATION MENU START
 
     if (ImGui::Begin("Application"), true) {
 
         if (ImGui::CollapsingHeader("Configuration")) {
+
+            // FPS Graph
 
             char title[50];
 
@@ -271,6 +269,59 @@ void ModuleEditor::DrawEditor()
 
         if (ImGui::CollapsingHeader("Window")) {
 
+            // Window Options
+
+            ImGui::Indent(); // Indent to make the checkbox visually nested under the header
+
+            // Light/Dark Mode Checkbox
+            if (ImGui::Checkbox("Toggle light mode", &lightMode)) {
+
+                ToggleLightMode(lightMode);
+
+            }
+
+            // Width and Height Sliders
+            ImGui::SliderInt("Width", &windowWidth, 0, 1280);
+            ImGui::SliderInt("Height", &windowHeight, 0, 1024);
+            SDL_SetWindowSize(App->window->window, windowWidth, windowHeight);
+
+            // Opacity Slider
+            ImGui::SliderFloat("Opacity", &opacity, 0.0f, 1.0f);
+            SDL_SetWindowOpacity(App->window->window, opacity);
+
+            // Window Options Checkbox
+            if (ImGui::Checkbox("Fullscreen", &fullscreen)) {
+
+                ToggleFullscreen(fullscreen);
+
+            }
+            ImGui::SameLine();
+            if (ImGui::Checkbox("Resizable", &resizable)) {
+
+                ToggleResizable(resizable);
+
+            }
+
+            if (ImGui::Checkbox("Borderless", &borderless)) {
+
+                ToggleBorderless(borderless);
+
+            }
+            ImGui::SameLine();
+            if (ImGui::Checkbox("Fullscreen Desktop", &fullscreenDesktop)) {
+
+                ToggleFullscreenDesktop(fullscreenDesktop);
+
+            }
+
+            ImGui::Unindent(); // Unindent to return to the previous level of indentation
+
+        }
+
+        if (ImGui::CollapsingHeader("Hardware")) {
+
+            // Hardware Detection (TODO)
+
 
 
         }
@@ -278,9 +329,11 @@ void ModuleEditor::DrawEditor()
         ImGui::End();
     }
 
+    // END OF APPLICATION MENU
+
     ImGui::ShowDemoWindow();
 
-    // Here finishes the code for the editor
+    // --------------------------------- Here finishes the code for the editor ----------------------------------------
     
     // Rendering
 
@@ -393,4 +446,74 @@ void ModuleEditor::AddMS(const float aMS)
 void ModuleEditor::RequestBrowser(const char* url)
 {
     HINSTANCE result = ShellExecuteA(nullptr, "open", url, nullptr, nullptr, SW_SHOWNORMAL);
+}
+
+void ModuleEditor::ToggleFullscreen(bool fullscreen)
+{
+    if (fullscreen) {
+
+        SDL_SetWindowFullscreen(App->window->window, SDL_WINDOW_FULLSCREEN);
+
+    }
+    else {
+
+        SDL_SetWindowFullscreen(App->window->window, 0);
+
+    }
+}
+
+void ModuleEditor::ToggleResizable(bool resizable)
+{
+    if (resizable) {
+
+        SDL_SetWindowResizable(App->window->window, SDL_TRUE);
+
+    }
+    else {
+
+        SDL_SetWindowResizable(App->window->window, SDL_FALSE);
+
+    }
+}
+
+void ModuleEditor::ToggleBorderless(bool borderless)
+{
+    if (borderless) {
+
+        SDL_SetWindowBordered(App->window->window, SDL_FALSE);
+
+    }
+    else {
+
+        SDL_SetWindowBordered(App->window->window, SDL_TRUE);
+
+    }
+}
+
+void ModuleEditor::ToggleFullscreenDesktop(bool fullscreenDesktop)
+{
+    if (fullscreenDesktop) {
+
+        SDL_SetWindowFullscreen(App->window->window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+
+    }
+    else {
+
+        SDL_SetWindowFullscreen(App->window->window, 0);
+
+    }
+}
+
+void ModuleEditor::ToggleLightMode(bool lightMode)
+{
+    if (lightMode) {
+
+        ImGui::StyleColorsLight();
+
+    }
+    else {
+
+        ImGui::StyleColorsDark();
+
+    }
 }
