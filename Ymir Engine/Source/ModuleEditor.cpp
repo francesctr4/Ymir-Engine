@@ -7,12 +7,16 @@
 #include "Application.h"
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleInput.h"
 
 //#include "External/Parson/parson.h"
+#include <Windows.h>
 
 ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app,start_enabled)
 {
-
+    FPSvec.reserve(30);
+    DTvec.reserve(30);
+    MSvec.reserve(30);
 }
 
 ModuleEditor::~ModuleEditor()
@@ -53,7 +57,7 @@ bool ModuleEditor::Init()
     // When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
 
     ImGuiStyle& style = ImGui::GetStyle();
-
+    
     if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
     {
         style.WindowRounding = 0.0f;
@@ -105,19 +109,174 @@ void ModuleEditor::DrawEditor()
 
         if (ImGui::BeginMenu("File")) {
 
-            ImGui::Text("Hello, world!");
+            ImGui::SeparatorText("Scene");
+
+            if (ImGui::MenuItem("New Scene")) {
+
+
+
+            }
+
+            if (ImGui::MenuItem("Open Scene")) {
+
+
+
+            }
+
+            ImGui::SeparatorText("Save");
+
+            if (ImGui::MenuItem("Save")) {
+
+
+
+            }
+
+            if (ImGui::MenuItem("Save As...")) {
+
+
+
+            }
+
+            ImGui::SeparatorText("Project");
+
+            if (ImGui::MenuItem("New Project")) {
+
+
+
+            }
+
+            if (ImGui::MenuItem("Open Project")) {
+
+
+
+            }
+
+            ImGui::SeparatorText("Exit");
+
+            if (ImGui::MenuItem("Exit")) {
+
+                App->input->quit = true;
+
+            }
+
+            ImGui::EndMenu();
+       
+        }
+
+        if (ImGui::BeginMenu("Edit")) {
+
+
+
+
             ImGui::EndMenu();
 
         }
+
+        if (ImGui::BeginMenu("View")) {
+
+
+
+
+            ImGui::EndMenu();
+
+        }
+
+        if (ImGui::BeginMenu("GameObject")) {
+
+
+
+
+            ImGui::EndMenu();
+
+        }
+
+        if (ImGui::BeginMenu("Help")) {
+
+            if (ImGui::MenuItem("About")) {
+
+                
+
+            }
+
+            if (ImGui::MenuItem("Repository")) {
+
+                RequestBrowser("https://github.com/francesctr4/Ymir-Engine");
+
+            }
+
+            if (ImGui::MenuItem("Documentation")) {
+
+                
+
+            }
+
+            if (ImGui::MenuItem("Releases")) {
+
+
+
+            }
+
+            if (ImGui::MenuItem("Bug report")) {
+
+
+
+            }
+
+            if (ImGui::MenuItem("Show ImGui demo")) {
+
+
+
+            }
+
+            ImGui::EndMenu();
+
+        }
+
         ImGui::EndMainMenuBar();
+
     }
 
-    /*if (ImGui::Begin("Configuration")) {
+    /*if (ImGui::Begin("Configuration"), true) {
 
-        ImGui::PlotHistogram("FPS", &mFPSLog[0], mFPSLog.size());
+        char title[50];
+
+        sprintf_s(title, 50, "Framerate (FPS): %.3f", FPSvec[FPSvec.size() - 1]);
+        ImGui::PlotHistogram("## Framerate", &FPSvec[0], FPSvec.size(), 0, title, 0.0f, 250.0f, ImVec2(300, 100));
+
+        sprintf_s(title, 50, "DeltaTime (DT): %.3f", DTvec[DTvec.size() - 1]);
+        ImGui::PlotHistogram("## DeltaTime", &DTvec[0], DTvec.size(), 0, title, 0.0f, 0.032f, ImVec2(300, 100));
+
+        sprintf_s(title, 50, "Milliseconds (MS): %.3f", MSvec[MSvec.size() - 1]);
+        ImGui::PlotHistogram("## Milliseconds", &MSvec[0], MSvec.size(), 0, title, 0.0f, 32.0f, ImVec2(300, 100));
+
         ImGui::End();
-
     }*/
+
+    if (ImGui::Begin("Application"), true) {
+
+        if (ImGui::CollapsingHeader("Configuration")) {
+
+            char title[50];
+
+            sprintf_s(title, 50, "Framerate (FPS): %.3f", FPSvec[FPSvec.size() - 1]);
+            ImGui::PlotHistogram("## Framerate", &FPSvec[0], FPSvec.size(), 0, title, 0.0f, 250.0f, ImVec2(300, 100));
+
+            sprintf_s(title, 50, "DeltaTime (DT): %.3f", DTvec[DTvec.size() - 1]);
+            ImGui::PlotHistogram("## DeltaTime", &DTvec[0], DTvec.size(), 0, title, 0.0f, 0.032f, ImVec2(300, 100));
+
+            sprintf_s(title, 50, "Milliseconds (MS): %.3f", MSvec[MSvec.size() - 1]);
+            ImGui::PlotHistogram("## Milliseconds", &MSvec[0], MSvec.size(), 0, title, 0.0f, 32.0f, ImVec2(300, 100));
+
+        }
+
+        if (ImGui::CollapsingHeader("Window")) {
+
+
+
+        }
+
+        ImGui::End();
+    }
 
     ImGui::ShowDemoWindow();
 
@@ -161,19 +320,77 @@ bool ModuleEditor::CleanUp()
 
 void ModuleEditor::AddFPS(const float aFPS)
 {
+    if (FPSvec.size() < 30) {
 
-    /*if (mFPSLog.size() < 30) {
-
-        mFPSLog.push_back(aFPS);
+        FPSvec.push_back(aFPS);
 
     }
     else {
 
-        std::vector<float> mTempFPS;
-        mTempFPS.reserve(30);
-        memcpy(&mTempFPS[0], &mFPSLog[1], 29);
-        mTempFPS.push_back(aFPS);
-        mFPSLog = mTempFPS;
-    }*/
+        for (int i = 0; i < FPSvec.size(); i++) {
 
+            if (i + 1 < FPSvec.size()) {
+
+                float copy = FPSvec[i + 1];
+                FPSvec[i] = copy;
+
+            }
+            
+        }
+        FPSvec[FPSvec.capacity() - 1] = aFPS;
+    }
+
+}
+
+void ModuleEditor::AddDT(const float aDT)
+{
+    if (DTvec.size() < 30) {
+
+        DTvec.push_back(aDT);
+
+    }
+    else {
+
+        for (int i = 0; i < DTvec.size(); i++) {
+
+            if (i + 1 < DTvec.size()) {
+
+                float copy = DTvec[i + 1];
+                DTvec[i] = copy;
+
+            }
+
+        }
+        DTvec[DTvec.capacity() - 1] = aDT;
+    }
+
+}
+
+void ModuleEditor::AddMS(const float aMS)
+{
+    if (MSvec.size() < 30) {
+
+        MSvec.push_back(aMS);
+
+    }
+    else {
+
+        for (int i = 0; i < MSvec.size(); i++) {
+
+            if (i + 1 < MSvec.size()) {
+
+                float copy = MSvec[i + 1];
+                MSvec[i] = copy;
+
+            }
+
+        }
+        MSvec[MSvec.capacity() - 1] = aMS;
+    }
+
+}
+
+void ModuleEditor::RequestBrowser(const char* url)
+{
+    HINSTANCE result = ShellExecuteA(nullptr, "open", url, nullptr, nullptr, SW_SHOWNORMAL);
 }

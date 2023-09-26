@@ -37,7 +37,9 @@ public:
 	update_status Update();
 	bool CleanUp();
 
+	float GetFPS();
 	float GetDT();
+	float GetMS();
 
 private:
 

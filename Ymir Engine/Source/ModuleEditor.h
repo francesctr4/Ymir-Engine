@@ -17,11 +17,17 @@ public:
 	bool CleanUp() override;
 
 	void AddFPS(const float aFPS);
+	void AddDT(const float aDT);
+	void AddMS(const float aMS);
 
-private:
+	void RequestBrowser(const char* url);
 
-	//std::vector<float> mFPSLog;
-	
+public:
+
+	std::vector<float> FPSvec;
+	std::vector<float> DTvec;
+	std::vector<float> MSvec;
+
 	bool UpdateAndRenderAdditionalPlatformWindows = false;
 
 };

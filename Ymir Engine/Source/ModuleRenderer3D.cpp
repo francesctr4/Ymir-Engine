@@ -134,7 +134,9 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	for(uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
 
-	//App->editor->AddFPS(App->GetDT());
+	App->editor->AddFPS(App->GetFPS());
+	App->editor->AddDT(App->GetDT());
+	App->editor->AddMS(App->GetMS());
 
 	return UPDATE_CONTINUE;
 }
@@ -144,9 +146,10 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	OPTICK_EVENT();
 
+	Grid.Render();
+
 	App->editor->DrawEditor();
 
-	Grid.Render();
 	SDL_GL_SwapWindow(App->window->window);
 
 	return UPDATE_CONTINUE;

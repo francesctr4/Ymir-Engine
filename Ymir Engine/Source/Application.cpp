@@ -112,9 +112,19 @@ bool Application::CleanUp()
 	return ret;
 }
 
+float Application::GetFPS()
+{
+	return 1 / dt;
+}
+
 float Application::GetDT()
 {
 	return dt;
+}
+
+float Application::GetMS()
+{
+	return dt * 1000;
 }
 
 void Application::AddModule(Module* mod)
