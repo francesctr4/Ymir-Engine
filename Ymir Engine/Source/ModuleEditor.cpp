@@ -1,19 +1,19 @@
-#include "ModuleEditor.h"
-
-#include "External/SDL/include/SDL_opengl.h"
-
-#include "External/ImGui/imgui.h"
-#include "External/ImGui/backends/imgui_impl_sdl2.h"
-#include "External/ImGui/backends/imgui_impl_opengl3.h"
+#include <Windows.h>
+#include <Psapi.h>
+#include <iostream>
+#include <fstream>
 
 #include "Application.h"
+#include "ModuleEditor.h"
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleInput.h"
 
+#include "External/SDL/include/SDL_opengl.h"
+#include "External/ImGui/imgui.h"
+#include "External/ImGui/backends/imgui_impl_sdl2.h"
+#include "External/ImGui/backends/imgui_impl_opengl3.h"
 //#include "External/Parson/parson.h"
-#include <Windows.h>
-#include <Psapi.h>
 
 // Constructor
 ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app,start_enabled)
@@ -22,6 +22,8 @@ ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app,st
     FPSvec.reserve(30);
     DTvec.reserve(30);
     MSvec.reserve(30);
+
+    licenseFileContents = ReadFile("../../LICENSE");
 }
 
 // Destructor
@@ -187,7 +189,6 @@ void ModuleEditor::DrawEditor()
 
 
 
-
             ImGui::EndMenu();
 
         }
@@ -196,16 +197,14 @@ void ModuleEditor::DrawEditor()
 
 
 
-
             ImGui::EndMenu();
-
         }
 
         if (ImGui::BeginMenu("Help")) {
 
             if (ImGui::MenuItem("About")) {
 
-                
+                showAboutPopUp = true;
 
             }
 
@@ -244,6 +243,36 @@ void ModuleEditor::DrawEditor()
         }
 
         ImGui::EndMainMenuBar();
+
+    }
+
+    if (showAboutPopUp) {
+
+        ImGui::OpenPopup("About");
+
+        if (ImGui::BeginPopupModal("About")) {
+
+            ImGui::Text("Name of your Engine");
+            ImGui::Text("One (or few) line description");
+            ImGui::Text("Name of the Author with link to github page");
+            ImGui::Text("Libraries (with versions queried in real time) used with links to their web");
+            ImGui::Separator();
+            ImGui::Text("Engine license:");
+            ImGui::NewLine();
+            ImGui::TextWrapped("%s", licenseFileContents.c_str());
+            ImGui::NewLine();
+
+            if (ImGui::Button("Close")) {
+
+                showAboutPopUp = false;
+
+                ImGui::CloseCurrentPopup();
+
+            }
+
+            ImGui::EndPopup();
+
+        }
 
     }
 
@@ -721,4 +750,21 @@ void ModuleEditor::ShowDiskInfo()
     ImGui::Text("Available C: Disk Space:");
     ImGui::SameLine();
     ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%.3f gb", static_cast<float>(freeSpaceGB));
+}
+
+std::string ModuleEditor::ReadFile(const std::string& filename) {
+
+    std::ifstream file(filename);
+
+    if (!file.is_open()) {
+
+        return "Error: Unable to open file.";
+
+    }
+
+    std::string fileContents((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+
+    file.close();
+
+    return fileContents;
 }

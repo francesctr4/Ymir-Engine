@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include <vector>
+#include <string>
 
 class ModuleEditor : public Module
 {
@@ -44,6 +45,9 @@ public:
 	void ShowRAMInfo();
 	void ShowDiskInfo();
 
+	// Function to encapsulate Reading files (to read LICENSE)
+	std::string ModuleEditor::ReadFile(const std::string& filename);
+
 public:
 
 	// Enables ImGui to render additional data
@@ -65,6 +69,10 @@ public:
 	int windowWidth = 0;
 	int windowHeight = 0;
 	float opacity = 0.0f;
+
+	// About modal window inside help menu
+	bool showAboutPopUp = false;
+	std::string licenseFileContents;
 
 };
 
