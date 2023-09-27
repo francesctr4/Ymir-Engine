@@ -37,6 +37,13 @@ public:
 	void ToggleFullscreenDesktop(bool fullscreenDesktop);
 	void ToggleLightMode(bool lightMode);
 
+	// Hardware Detection
+	void ShowPlatformInfo();
+	void ShowCPUInfo();
+	void ShowGPUInfo();
+	void ShowRAMInfo();
+	void ShowDiskInfo();
+
 public:
 
 	// Enables ImGui to render additional data

@@ -1,5 +1,7 @@
 #include "ModuleEditor.h"
 
+#include "External/SDL/include/SDL_opengl.h"
+
 #include "External/ImGui/imgui.h"
 #include "External/ImGui/backends/imgui_impl_sdl2.h"
 #include "External/ImGui/backends/imgui_impl_opengl3.h"
@@ -11,6 +13,7 @@
 
 //#include "External/Parson/parson.h"
 #include <Windows.h>
+#include <Psapi.h>
 
 // Constructor
 ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app,start_enabled)
@@ -320,9 +323,25 @@ void ModuleEditor::DrawEditor()
 
         if (ImGui::CollapsingHeader("Hardware")) {
 
-            // Hardware Detection (TODO)
+            // Hardware Detection
 
+            ShowPlatformInfo();
 
+            ImGui::Separator();
+
+            ShowCPUInfo();
+
+            ImGui::Separator();
+
+            ShowRAMInfo();
+
+            ImGui::Separator();
+
+            ShowGPUInfo();
+
+            ImGui::Separator();
+
+            ShowDiskInfo();
 
         }
 
@@ -516,4 +535,190 @@ void ModuleEditor::ToggleLightMode(bool lightMode)
         ImGui::StyleColorsDark();
 
     }
+}
+
+void ModuleEditor::ShowPlatformInfo() {
+
+    ImGui::Text("Platform:");
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%s", SDL_GetPlatform());
+
+    ImGui::Text("SDL Version:");
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "2.0.4");
+
+}
+
+void ModuleEditor::ShowCPUInfo()
+{
+    ImGui::Text("CPU Cores:");
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), std::to_string(SDL_GetCPUCount()).c_str());
+
+    ImGui::Text("CPU Cache:");
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%s kb", std::to_string(SDL_GetCPUCacheLineSize()).c_str());
+
+    ImGui::Text("Caps:");
+    ImGui::SameLine();
+
+    if (SDL_Has3DNow()) {
+
+        ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "3DNow,");
+
+    }
+
+    ImGui::SameLine();
+
+    if (SDL_HasAltiVec()) {
+
+        ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "Altivec,");
+
+    }
+
+    ImGui::SameLine();
+
+    if (SDL_HasAVX()) {
+
+        ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "AVX,");
+
+    }
+
+    ImGui::SameLine();
+
+    if (SDL_HasAVX2()) {
+
+        ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "AVX2,");
+
+    }
+
+    ImGui::SameLine();
+
+    if (SDL_HasMMX()) {
+
+        ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "MMX,");
+
+    }
+
+    ImGui::SameLine();
+
+    if (SDL_HasRDTSC()) {
+
+        ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "RDTSC,");
+
+    }
+
+    ImGui::SameLine();
+
+    if (SDL_HasSSE()) {
+
+        ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "SSE,");
+
+    }
+
+    if (SDL_HasSSE2()) {
+
+        ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "SSE2,");
+
+    }
+
+    ImGui::SameLine();
+
+    if (SDL_HasSSE3()) {
+
+        ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "SSE3,");
+
+    }
+
+    ImGui::SameLine();
+
+    if (SDL_HasSSE41()) {
+
+        ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "SSE41,");
+
+    }
+
+    ImGui::SameLine();
+
+    if (SDL_HasSSE42()) {
+
+        ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "SSE42");
+
+    }
+
+}
+
+void ModuleEditor::ShowGPUInfo()
+{
+    const GLubyte* renderer = glGetString(GL_RENDERER);
+    ImGui::Text("GPU:");
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%s", renderer);
+
+    const GLubyte* version = glGetString(GL_VERSION);
+    ImGui::Text("OpenGL version supported:");
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%s", version);
+
+    GLint totalMemoryKB = 0;
+    glGetIntegerv(GL_GPU_MEMORY_INFO_TOTAL_AVAILABLE_MEMORY_NVX, &totalMemoryKB);
+    ImGui::Text("Total VRAM:");
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%.3f mb", static_cast<float>(totalMemoryKB / 1000.0f));
+
+    GLint currentMemoryKB = 0;
+    glGetIntegerv(GL_GPU_MEMORY_INFO_CURRENT_AVAILABLE_VIDMEM_NVX, &currentMemoryKB);
+    ImGui::Text("Available VRAM:");
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%.3f mb", static_cast<float>(currentMemoryKB / 1000.0f));
+
+    PERFORMANCE_INFORMATION perfInfo;
+    GetPerformanceInfo(&perfInfo, sizeof(perfInfo));
+    ImGui::Text("VRAM Usage:");
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%.3f mb", static_cast<float>(perfInfo.CommitTotal / 1000000.0f));
+}
+
+void ModuleEditor::ShowRAMInfo()
+{
+    ImGui::Text("System Total RAM:");
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%.2f gb", static_cast<float>(SDL_GetSystemRAM()) / 1000.0f);
+
+    MEMORYSTATUSEX memStatus;
+    memStatus.dwLength = sizeof(memStatus);
+    GlobalMemoryStatusEx(&memStatus);
+
+    ImGui::Text("Available RAM:");
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%.3f mb", static_cast<float>(memStatus.ullAvailPhys / (1024.0f * 1024.0f)));
+
+    ImGui::Text("Total RAM Usage:");
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%.3f mb", static_cast<float>(memStatus.ullTotalPhys - memStatus.ullAvailPhys) / (1024.0f * 1024.0f));
+}
+
+void ModuleEditor::ShowDiskInfo()
+{
+    ULARGE_INTEGER totalFreeBytes;
+    ULARGE_INTEGER totalBytes;
+    ULARGE_INTEGER totalFreeBytesToCaller;
+
+    GetDiskFreeSpaceEx(
+        nullptr,                   // Use the default drive (usually C:)
+        &totalFreeBytesToCaller,   // Total number of free bytes available to the caller
+        &totalBytes,               // Total number of bytes on the disk
+        &totalFreeBytes            // Total number of free bytes on the disk
+    );
+
+    double totalSpaceGB = static_cast<double>(totalBytes.QuadPart) / (1024 * 1024 * 1024);
+    double freeSpaceGB = static_cast<double>(totalFreeBytes.QuadPart) / (1024 * 1024 * 1024);
+
+    ImGui::Text("Total C: Disk Space:");
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%.3f gb", static_cast<float>(totalSpaceGB));
+
+    ImGui::Text("Available C: Disk Space:");
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%.3f gb", static_cast<float>(freeSpaceGB));
 }
