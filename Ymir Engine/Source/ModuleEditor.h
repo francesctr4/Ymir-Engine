@@ -45,8 +45,14 @@ public:
 	void ShowRAMInfo();
 	void ShowDiskInfo();
 
+	// Function to encapsulate About modal window
+	void AboutModalWindowContent();
+
 	// Function to encapsulate Reading files (to read LICENSE)
 	std::string ModuleEditor::ReadFile(const std::string& filename);
+
+	// TODO: Function to show log output on the editor
+	void RedirectLogOutput();
 
 public:
 
@@ -64,6 +70,7 @@ public:
 	bool borderless = false;
 	bool fullscreenDesktop = false;
 	bool lightMode = false;
+	bool showImGuiDemo = false;
 
 	// Window sliders
 	int windowWidth = 0;

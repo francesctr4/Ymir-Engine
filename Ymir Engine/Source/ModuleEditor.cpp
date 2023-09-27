@@ -232,12 +232,6 @@ void ModuleEditor::DrawEditor()
 
             }
 
-            if (ImGui::MenuItem("Show ImGui demo")) {
-
-
-
-            }
-
             ImGui::EndMenu();
 
         }
@@ -252,23 +246,7 @@ void ModuleEditor::DrawEditor()
 
         if (ImGui::BeginPopupModal("About")) {
 
-            ImGui::Text("Name of your Engine");
-            ImGui::Text("One (or few) line description");
-            ImGui::Text("Name of the Author with link to github page");
-            ImGui::Text("Libraries (with versions queried in real time) used with links to their web");
-            ImGui::Separator();
-            ImGui::Text("Engine license:");
-            ImGui::NewLine();
-            ImGui::TextWrapped("%s", licenseFileContents.c_str());
-            ImGui::NewLine();
-
-            if (ImGui::Button("Close")) {
-
-                showAboutPopUp = false;
-
-                ImGui::CloseCurrentPopup();
-
-            }
+            AboutModalWindowContent();
 
             ImGui::EndPopup();
 
@@ -311,6 +289,9 @@ void ModuleEditor::DrawEditor()
                 ToggleLightMode(lightMode);
 
             }
+
+            // ImGui Demo Window Checkbox
+            if (ImGui::Checkbox("Show ImGui demo window", &showImGuiDemo));
 
             // Width and Height Sliders
             ImGui::SliderInt("Width", &windowWidth, 0, 1280);
@@ -379,7 +360,11 @@ void ModuleEditor::DrawEditor()
 
     // END OF APPLICATION MENU
 
-    ImGui::ShowDemoWindow();
+    if (showImGuiDemo) {
+
+        ImGui::ShowDemoWindow();
+
+    }
 
     // --------------------------------- Here finishes the code for the editor ----------------------------------------
     
@@ -752,6 +737,129 @@ void ModuleEditor::ShowDiskInfo()
     ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%.3f gb", static_cast<float>(freeSpaceGB));
 }
 
+void ModuleEditor::AboutModalWindowContent()
+{
+    ImGui::Text("Ymir Engine v0.0");
+
+    ImGui::NewLine();
+
+    ImGui::Text("(Description)");
+
+    ImGui::NewLine();
+
+    ImGui::SeparatorText("AUTHORS");
+    ImGui::NewLine();
+
+    ImGui::Text("Francesc Teruel Rodriguez ->");
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(0.0f, 0.5f, 1.0f, 1.0f), "francesctr4");
+    if (ImGui::IsItemClicked()) {
+
+        RequestBrowser("https://github.com/francesctr4");
+
+    }
+
+    ImGui::Text("Joel Romero Botella ->");
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(0.0f, 0.5f, 1.0f, 1.0f), "Joeltecke25");
+    if (ImGui::IsItemClicked()) {
+
+        RequestBrowser("https://github.com/Joeltecke25");
+
+    }
+
+    ImGui::NewLine();
+    ImGui::SeparatorText("THIRD PARTY LIBRARIES");
+    ImGui::NewLine();
+
+    ImGui::BulletText("ImGui v1.89.9 ->");
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(0.0f, 0.5f, 1.0f, 1.0f), "https://github.com/ocornut/imgui");
+    if (ImGui::IsItemClicked()) {
+
+        RequestBrowser("https://github.com/ocornut/imgui");
+
+    }
+
+    ImGui::BulletText("MathGeoLib v1.5.0 ->");
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(0.0f, 0.5f, 1.0f, 1.0f), "https://github.com/juj/MathGeoLib");
+    if (ImGui::IsItemClicked()) {
+
+        RequestBrowser("https://github.com/juj/MathGeoLib");
+
+    }
+
+    ImGui::BulletText("mmgr ->");
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(0.0f, 0.5f, 1.0f, 1.0f), "https://www.flipcode.com/archives/Presenting_A_Memory_Manager.shtml");
+    if (ImGui::IsItemClicked()) {
+
+        RequestBrowser("https://www.flipcode.com/archives/Presenting_A_Memory_Manager.shtml");
+
+    }
+
+    ImGui::BulletText("Glew v2.2.0 ->");
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(0.0f, 0.5f, 1.0f, 1.0f), "https://github.com/nigels-com/glew");
+    if (ImGui::IsItemClicked()) {
+
+        RequestBrowser("https://github.com/nigels-com/glew");
+
+    }
+
+    ImGui::BulletText("SDL v2.0.4 ->");
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(0.0f, 0.5f, 1.0f, 1.0f), "https://github.com/libsdl-org/SDL");
+    if (ImGui::IsItemClicked()) {
+
+        RequestBrowser("https://github.com/libsdl-org/SDL");
+
+    }
+
+    ImGui::BulletText("OpenGL v4.6.0 ->");
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(0.0f, 0.5f, 1.0f, 1.0f), "https://www.opengl.org/");
+    if (ImGui::IsItemClicked()) {
+
+        RequestBrowser("https://www.opengl.org/");
+
+    }
+
+    ImGui::BulletText("Optick v1.4.0 ->");
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(0.0f, 0.5f, 1.0f, 1.0f), "https://github.com/bombomby/optick");
+    if (ImGui::IsItemClicked()) {
+
+        RequestBrowser("https://github.com/bombomby/optick");
+
+    }
+
+    ImGui::BulletText("Parson ->");
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(0.0f, 0.5f, 1.0f, 1.0f), "https://github.com/kgabis/parson");
+    if (ImGui::IsItemClicked()) {
+
+        RequestBrowser("https://github.com/kgabis/parson");
+
+    }
+
+    ImGui::NewLine();
+    ImGui::SeparatorText("LICENSE");
+    ImGui::NewLine();
+
+    ImGui::TextWrapped("%s", licenseFileContents.c_str());
+
+    ImGui::NewLine();
+    if (ImGui::Button("Close")) {
+
+        showAboutPopUp = false;
+
+        ImGui::CloseCurrentPopup();
+
+    }
+}
+
 std::string ModuleEditor::ReadFile(const std::string& filename) {
 
     std::ifstream file(filename);
@@ -767,4 +875,9 @@ std::string ModuleEditor::ReadFile(const std::string& filename) {
     file.close();
 
     return fileContents;
+}
+
+void ModuleEditor::RedirectLogOutput()
+{
+    // TODO
 }
