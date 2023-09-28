@@ -7,6 +7,7 @@
 #include "ModuleEditor.h"
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleCamera3D.h"
 #include "ModuleInput.h"
 
 #include "External/SDL/include/SDL_opengl.h"
@@ -178,8 +179,27 @@ void ModuleEditor::DrawEditor()
 
         if (ImGui::BeginMenu("Edit")) {
 
+            ImGui::SeparatorText("Editor");
+
+            if (ImGui::MenuItem("Save editor configuration")) {
 
 
+
+            }
+
+            if (ImGui::MenuItem("Load editor configuration")) {
+
+
+
+            }
+
+            ImGui::SeparatorText("Other");
+
+            if (ImGui::MenuItem("Preferences")) {
+
+
+
+            }
 
             ImGui::EndMenu();
 
@@ -260,38 +280,11 @@ void ModuleEditor::DrawEditor()
 
     if (ImGui::Begin("Application"), true) {
 
-        if (ImGui::CollapsingHeader("Configuration")) {
-
-            // FPS Graph
-
-            char title[50];
-
-            sprintf_s(title, 50, "Framerate (FPS): %.3f", FPSvec[FPSvec.size() - 1]);
-            ImGui::PlotHistogram("## Framerate", &FPSvec[0], FPSvec.size(), 0, title, 0.0f, 250.0f, ImVec2(300, 100));
-
-            sprintf_s(title, 50, "DeltaTime (DT): %.3f", DTvec[DTvec.size() - 1]);
-            ImGui::PlotHistogram("## DeltaTime", &DTvec[0], DTvec.size(), 0, title, 0.0f, 0.032f, ImVec2(300, 100));
-
-            sprintf_s(title, 50, "Milliseconds (MS): %.3f", MSvec[MSvec.size() - 1]);
-            ImGui::PlotHistogram("## Milliseconds", &MSvec[0], MSvec.size(), 0, title, 0.0f, 32.0f, ImVec2(300, 100));
-
-        }
-
         if (ImGui::CollapsingHeader("Window")) {
 
             // Window Options
 
             ImGui::Indent(); // Indent to make the checkbox visually nested under the header
-
-            // Light/Dark Mode Checkbox
-            if (ImGui::Checkbox("Toggle light mode", &lightMode)) {
-
-                ToggleLightMode(lightMode);
-
-            }
-
-            // ImGui Demo Window Checkbox
-            if (ImGui::Checkbox("Show ImGui demo window", &showImGuiDemo));
 
             // Width and Height Sliders
             ImGui::SliderInt("Width", &windowWidth, 0, 1280);
@@ -328,6 +321,112 @@ void ModuleEditor::DrawEditor()
             }
 
             ImGui::Unindent(); // Unindent to return to the previous level of indentation
+
+        }
+
+        if (ImGui::CollapsingHeader("Renderer3D")) {
+
+            ImGui::Indent(); // Indent to make the checkbox visually nested under the header
+
+            if (ImGui::Checkbox("VSync", &vsync)) {
+
+                ToggleVSync(vsync);
+
+            }
+
+            ImGui::Unindent(); // Unindent to return to the previous level of indentation
+
+        }
+
+        if (ImGui::CollapsingHeader("Camera3D")) {
+
+            // Camera Options
+
+            ImGui::SeparatorText("POSITION & REFERENCE");
+
+            ImGui::BulletText("Camera Position: (%.2f, %.2f, %.2f)", App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
+            ImGui::BulletText("Camera Reference: (%.2f, %.2f, %.2f)", App->camera->Reference.x, App->camera->Reference.y, App->camera->Reference.z);
+
+            ImGui::SeparatorText("ORIENTATION");
+
+            ImGui::BulletText("Camera X: (%.2f, %.2f, %.2f)", App->camera->X.x, App->camera->X.y, App->camera->X.z);
+            ImGui::BulletText("Camera Y: (%.2f, %.2f, %.2f)", App->camera->Y.x, App->camera->Y.y, App->camera->Y.z);
+            ImGui::BulletText("Camera Z: (%.2f, %.2f, %.2f)", App->camera->Z.x, App->camera->Z.y, App->camera->Z.z);
+
+        }
+
+        if (ImGui::CollapsingHeader("Input")) {
+
+            // Input Options
+
+            ImGuiIO& io = ImGui::GetIO();
+
+            // Mouse Info
+
+            ImGui::SeparatorText("MOUSE");
+
+            if (ImGui::IsMousePosValid()) {
+
+                ImGui::BulletText("Mouse pos: (%g, %g)", io.MousePos.x, io.MousePos.y);
+
+            }   
+            else {
+                
+                ImGui::BulletText("Mouse pos: <INVALID>");
+
+            }
+                    
+            ImGui::BulletText("Mouse delta: (%g, %g)", io.MouseDelta.x, io.MouseDelta.y);
+            ImGui::BulletText("Mouse down:");
+
+            for (int i = 0; i < IM_ARRAYSIZE(io.MouseDown); i++) if (ImGui::IsMouseDown(i)) { ImGui::SameLine(); ImGui::Text("b%d (%.02f secs)", i, io.MouseDownDuration[i]); }
+            ImGui::BulletText("Mouse wheel: %.1f", io.MouseWheel);
+
+            // Keys info
+
+            ImGui::SeparatorText("KEYS");
+
+            struct funcs { static bool IsLegacyNativeDupe(ImGuiKey key) { return key < 512 && ImGui::GetIO().KeyMap[key] != -1; } }; // Hide Native<>ImGuiKey duplicates when both exists in the array
+            ImGuiKey start_key = (ImGuiKey)0;
+
+            ImGui::BulletText("Keys down:");         for (ImGuiKey key = start_key; key < ImGuiKey_NamedKey_END; key = (ImGuiKey)(key + 1)) { if (funcs::IsLegacyNativeDupe(key) || !ImGui::IsKeyDown(key)) continue; ImGui::SameLine(); ImGui::Text((key < ImGuiKey_NamedKey_BEGIN) ? "\"%s\"" : "\"%s\" %d", ImGui::GetKeyName(key), key); }
+            ImGui::BulletText("Keys mods: %s%s%s%s", io.KeyCtrl ? "CTRL " : "", io.KeyShift ? "SHIFT " : "", io.KeyAlt ? "ALT " : "", io.KeySuper ? "SUPER " : "");
+            ImGui::BulletText("Chars queue:");       for (int i = 0; i < io.InputQueueCharacters.Size; i++) { ImWchar c = io.InputQueueCharacters[i]; ImGui::SameLine();  ImGui::Text("\'%c\' (0x%04X)", (c > ' ' && c <= 255) ? (char)c : '?', c); } // FIXME: We should convert 'c' to UTF-8 here but the functions are not public.
+
+        }
+
+        if (ImGui::CollapsingHeader("Editor")) {
+
+            ImGui::Indent(); // Indent to make the checkbox visually nested under the header
+
+            // Light/Dark Mode Checkbox
+            if (ImGui::Checkbox("Toggle light mode", &lightMode)) {
+
+                ToggleLightMode(lightMode);
+
+            }
+
+            // ImGui Demo Window Checkbox
+            if (ImGui::Checkbox("Show ImGui demo window", &showImGuiDemo));
+
+            ImGui::Unindent(); // Unindent to return to the previous level of indentation
+
+        }
+
+        if (ImGui::CollapsingHeader("Framerate")) {
+
+            // FPS Graph
+
+            char title[50];
+
+            sprintf_s(title, 50, "Framerate (FPS): %.3f", FPSvec[FPSvec.size() - 1]);
+            ImGui::PlotHistogram("## Framerate", &FPSvec[0], FPSvec.size(), 0, title, 0.0f, 250.0f, ImVec2(300, 100));
+
+            sprintf_s(title, 50, "DeltaTime (DT): %.3f", DTvec[DTvec.size() - 1]);
+            ImGui::PlotHistogram("## DeltaTime", &DTvec[0], DTvec.size(), 0, title, 0.0f, 0.032f, ImVec2(300, 100));
+
+            sprintf_s(title, 50, "Milliseconds (MS): %.3f", MSvec[MSvec.size() - 1]);
+            ImGui::PlotHistogram("## Milliseconds", &MSvec[0], MSvec.size(), 0, title, 0.0f, 32.0f, ImVec2(300, 100));
 
         }
 
@@ -543,6 +642,20 @@ void ModuleEditor::ToggleFullscreenDesktop(bool fullscreenDesktop)
     else {
 
         SDL_SetWindowFullscreen(App->window->window, 0);
+
+    }
+}
+
+void ModuleEditor::ToggleVSync(bool vsync)
+{
+    if (vsync) {
+
+        SDL_GL_SetSwapInterval(1);
+
+    }
+    else {
+
+        SDL_GL_SetSwapInterval(0);
 
     }
 }

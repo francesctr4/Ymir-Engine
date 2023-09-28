@@ -32,11 +32,16 @@ public:
 	// Function to encapsulate website redirection OnClick()
 	void RequestBrowser(const char* url);
 
-	// Window checkbox toggle encapsulation
+	// Window settings checkbox toggle encapsulation
 	void ToggleFullscreen(bool fullscreen);
 	void ToggleResizable(bool resizable);
 	void ToggleBorderless(bool borderless);
 	void ToggleFullscreenDesktop(bool fullscreenDesktop);
+
+	// Renderer3D settings checkbox toggle encapsulation
+	void ToggleVSync(bool vsync);
+
+	// Editor settings checkbox toggle encapsulation
 	void ToggleLightMode(bool lightMode);
 
 	// Hardware Detection
@@ -65,11 +70,16 @@ public:
 	std::vector<float> DTvec;
 	std::vector<float> MSvec;
 
-	// Window checkbox toggle booleans
+	// Window settings checkbox toggle booleans
 	bool fullscreen = false;
 	bool resizable = false;
 	bool borderless = false;
 	bool fullscreenDesktop = false;
+
+	// Renderer3D settings checkbox toggle booleans
+	bool vsync = true;
+
+	// Editor settings checkbox toggle booleans
 	bool lightMode = false;
 	bool showImGuiDemo = false;
 
