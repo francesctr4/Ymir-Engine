@@ -355,15 +355,17 @@ void ModuleEditor::DrawEditor()
 
         }
 
-        if (ImGui::CollapsingHeader("Log Output")) {
+        ImGui::End();
+    }
 
-            // Redirect Log Output
+    if (ImGui::Begin("Console"), true) {
 
-            RedirectLogOutput();
+        // Redirect Log Output
 
-        }
+        RedirectLogOutput();
 
         ImGui::End();
+
     }
 
     // END OF APPLICATION MENU
