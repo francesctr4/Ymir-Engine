@@ -1,20 +1,17 @@
-#ifndef __LOG_H__
-#define __LOG_H__
+#pragma once
 
 #include <windows.h>
 #include <stdio.h>
 #include <vector>
 #include <string>
 
-#include "Module.h"
+#define LOG(format, ...) Log::log(__FILE__, __LINE__, format, __VA_ARGS__)
 
-#define LOG(format, ...) Logger::log(__FILE__, __LINE__, format, __VA_ARGS__)
-
-class Logger : public Module {
+class Log {
 public:
 
-    Logger(Application* app, bool start_enabled = true);
-    virtual ~Logger();
+    Log() {}
+    virtual ~Log() {}
 
     static void log(const char file[], int line, const char* format, ...);
 
@@ -26,5 +23,3 @@ public:
     static std::vector<std::string> debugStrings;
 
 };
-
-#endif //__LOG_H__

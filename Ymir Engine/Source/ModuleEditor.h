@@ -52,7 +52,7 @@ public:
 	// Function to encapsulate Reading files (to read LICENSE)
 	std::string ModuleEditor::ReadFile(const std::string& filename);
 
-	// TODO: Function to show log output on the editor
+	// Function to show log output on the editor
 	void RedirectLogOutput();
 
 public:
@@ -81,8 +81,6 @@ public:
 	// About modal window inside help menu
 	bool showAboutPopUp = false;
 	std::string licenseFileContents;
-
-	//std::vector<std::string> debugStrings;
 
 };
 

@@ -889,12 +889,9 @@ std::string ModuleEditor::ReadFile(const std::string& filename) {
 
 void ModuleEditor::RedirectLogOutput()
 {
-    // TODO
-
-    for (auto it = Logger::debugStrings.begin(); it != Logger::debugStrings.end(); ++it) {
+    for (auto it = Log::debugStrings.begin(); it != Log::debugStrings.end(); ++it) {
 
         ImGui::Text((*it).c_str());
         
     }
-
 }
