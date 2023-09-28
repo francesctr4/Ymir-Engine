@@ -355,6 +355,14 @@ void ModuleEditor::DrawEditor()
 
         }
 
+        if (ImGui::CollapsingHeader("Log Output")) {
+
+            // Redirect Log Output
+
+            RedirectLogOutput();
+
+        }
+
         ImGui::End();
     }
 
@@ -880,4 +888,13 @@ std::string ModuleEditor::ReadFile(const std::string& filename) {
 void ModuleEditor::RedirectLogOutput()
 {
     // TODO
+
+    //debugStrings.push_back(tmp_string2);
+
+    for (auto it = debugStrings.begin(); it != debugStrings.end(); ++it) {
+
+        ImGui::Text((*it).c_str());
+        
+    }
+
 }

@@ -81,6 +81,8 @@ public:
 	bool showAboutPopUp = false;
 	std::string licenseFileContents;
 
+	std::vector<std::string> debugStrings;
+
 };
 
 #endif // MODULE_EDITOR
