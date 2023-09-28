@@ -4,6 +4,8 @@
 #include "ModuleWindow.h"
 #include "ModuleCamera3D.h"
 #include "ModuleEditor.h"
+#include "Log.h"
+
 #include "External/SDL/include/SDL_opengl.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>

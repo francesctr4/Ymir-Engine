@@ -3,9 +3,10 @@
 #include "Module.h"
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
+#include "ModuleEditor.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
-#include "ModuleEditor.h"
+#include "Log.h"
 
 #include "External/Optick/include/optick.h"
 
@@ -16,6 +17,7 @@ Application::Application()
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
 	editor = new ModuleEditor(this);
+	logger = new Logger(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -23,6 +25,7 @@ Application::Application()
 
 	// Main Modules
 	AddModule(window);
+	AddModule(logger);
 	AddModule(camera);
 	AddModule(input);
 

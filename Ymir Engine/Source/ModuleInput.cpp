@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleInput.h"
 #include "ModuleRenderer3D.h"
+#include "Log.h"
 #include "External/ImGui/backends/imgui_impl_sdl2.h"
 
 #include "External/Optick/include/optick.h"

@@ -22,7 +22,7 @@ ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app,st
     FPSvec.reserve(30);
     DTvec.reserve(30);
     MSvec.reserve(30);
-
+    
     licenseFileContents = ReadFile("../../LICENSE");
 }
 
@@ -550,11 +550,13 @@ void ModuleEditor::ToggleLightMode(bool lightMode)
     if (lightMode) {
 
         ImGui::StyleColorsLight();
+        LOG("Enable light mode");
 
     }
     else {
 
         ImGui::StyleColorsDark();
+        LOG("Enable dark mode");
 
     }
 }
@@ -889,9 +891,7 @@ void ModuleEditor::RedirectLogOutput()
 {
     // TODO
 
-    //debugStrings.push_back(tmp_string2);
-
-    for (auto it = debugStrings.begin(); it != debugStrings.end(); ++it) {
+    for (auto it = Logger::debugStrings.begin(); it != Logger::debugStrings.end(); ++it) {
 
         ImGui::Text((*it).c_str());
         

@@ -11,6 +11,7 @@ class ModuleInput;
 class ModuleRenderer3D;
 class ModuleCamera3D;
 class ModuleEditor;
+class Logger;
 
 class Application
 {
@@ -21,6 +22,7 @@ public:
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
 	ModuleEditor* editor;
+	Logger* logger;
 
 private:
 

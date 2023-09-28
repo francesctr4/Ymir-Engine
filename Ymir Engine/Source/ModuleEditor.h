@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "Globals.h"
+#include "Log.h"
 #include <vector>
 #include <string>
 
@@ -81,7 +82,7 @@ public:
 	bool showAboutPopUp = false;
 	std::string licenseFileContents;
 
-	std::vector<std::string> debugStrings;
+	//std::vector<std::string> debugStrings;
 
 };
 

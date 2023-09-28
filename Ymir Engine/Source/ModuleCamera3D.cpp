@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleCamera3D.h"
 #include "ModuleInput.h"
+#include "Log.h"
 #include "External/MathGeoLib/include/Math/Quat.h"
 
 #include "External/Optick/include/optick.h"
