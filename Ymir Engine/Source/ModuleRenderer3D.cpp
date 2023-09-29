@@ -104,7 +104,7 @@ bool ModuleRenderer3D::Init()
 		GLfloat MaterialDiffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, MaterialDiffuse);
 		
-		// Enable/Disable gl initial configurations
+		// Enable OpenGL initial configurations
 
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_CULL_FACE);
@@ -113,7 +113,24 @@ bool ModuleRenderer3D::Init()
 		glEnable(GL_COLOR_MATERIAL);
 		glEnable(GL_TEXTURE_2D);
 
-		// TODO: Add more configurations (at least two more)
+		// Additional OpenGL configurations (starting disabled)
+
+		glDisable(GL_TEXTURE_3D);
+		glDisable(GL_BLEND);
+		glDisable(GL_MULTISAMPLE);
+		glDisable(GL_STENCIL_TEST);
+		glDisable(GL_SCISSOR_TEST);
+		glDisable(GL_ALPHA_TEST);
+		glDisable(GL_POINT_SPRITE);
+		glDisable(GL_FOG);
+		glDisable(GL_POINT_SMOOTH);
+		glDisable(GL_LINE_SMOOTH);
+		glDisable(GL_NORMALIZE);
+		glDisable(GL_POLYGON_OFFSET_FILL);
+
+		// Wireframe-Only Mode starting disabled
+
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	}
 
@@ -153,6 +170,12 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	OPTICK_EVENT();
+
+	Cube cube(3, 4, 5);
+	cube.Render();
+
+	Cube cube2(2, 2, 2);
+	cube2.Render();
 
 	Grid.Render();
 

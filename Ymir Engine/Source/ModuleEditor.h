@@ -24,6 +24,26 @@ public:
 	// Draws the editor on the window
 	void DrawEditor();
 
+	// OpenGL settings checkbox toggle encapsulation
+	void Toggle_GL_DepthTesting(bool depthTesting);
+	void Toggle_GL_FaceCulling(bool faceCulling);
+	void Toggle_GL_Lighting(bool lighting);
+	void Toggle_GL_ColorMaterial(bool colorMaterial);
+	void Toggle_GL_TextureMapping2D(bool textureMapping2D);
+	void Toggle_GL_TextureMapping3D(bool textureMapping3D);
+	void Toggle_GL_Blending(bool blending);
+	void Toggle_GL_MSAA(bool msaa);
+	void Toggle_GL_StencilTesting(bool stencilTesting);
+	void Toggle_GL_ScissorTesting(bool scissorTesting);
+	void Toggle_GL_AlphaTesting(bool alphaTesting);
+	void Toggle_GL_PointSprites(bool pointSprites);
+	void Toggle_GL_Fog(bool fog);
+	void Toggle_GL_PointSmooth(bool pointSmooth);
+	void Toggle_GL_LineSmooth(bool lineSmooth);
+	void Toggle_GL_Normalization(bool normalization);
+	void Toggle_GL_PolygonOffset(bool polygonOffset);
+	void Toggle_GL_WireframeOnly(bool wireframeOnly);
+
 	// Functions related to Framerate Histograms
 	void AddFPS(const float aFPS);
 	void AddDT(const float aDT);
@@ -64,6 +84,26 @@ public:
 
 	// Enables ImGui to render additional data
 	bool UpdateAndRenderAdditionalPlatformWindows = false;
+
+	// OpenGL settings checkbox toggle booleans
+	bool gl_DepthTesting = true;
+	bool gl_FaceCulling = true;
+	bool gl_Lighting = true;
+	bool gl_ColorMaterial = true;
+	bool gl_TextureMapping2D = true;
+	bool gl_TextureMapping3D = false;
+	bool gl_Blending = false;
+	bool gl_MSAA = false;
+	bool gl_StencilTesting = false;
+	bool gl_ScissorTesting = false;
+	bool gl_AlphaTesting = false;
+	bool gl_PointSprites = false;
+	bool gl_Fog = false;
+	bool gl_PointSmooth = false;
+	bool gl_LineSmooth = false;
+	bool gl_Normalization = false;
+	bool gl_PolygonOffset = false;
+	bool gl_WireframeOnly = false;
 
 	// Vectors related to Framerate Histograms
 	std::vector<float> FPSvec;

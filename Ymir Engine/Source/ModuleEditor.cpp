@@ -284,14 +284,117 @@ void ModuleEditor::DrawEditor()
 
             // Functions to enable/disable opengl config with checkboxes
             
-            // GL_DEPTH_TEST,
-            // GL_CULL_FACE,
-            // GL_LIGHTING
-            // GL_COLOR_MATERIAL, 
-            // GL_TEXTURE_2D + 
-            // other 1
-            // other 2
-            // wireframe mode
+            ImGui::Indent(); // Indent to make the checkbox visually nested under the header
+
+            if (ImGui::Checkbox("Depth Testing", &gl_DepthTesting)) {
+
+                Toggle_GL_DepthTesting(gl_DepthTesting);
+
+            }
+            ImGui::SameLine();
+            if (ImGui::Checkbox("Face Culling", &gl_FaceCulling)) {
+
+                Toggle_GL_FaceCulling(gl_FaceCulling);
+
+            }
+
+            if (ImGui::Checkbox("Lighting", &gl_Lighting)) {
+
+                Toggle_GL_Lighting(gl_Lighting);
+
+            }
+            ImGui::SameLine();
+            if (ImGui::Checkbox("Color Material", &gl_ColorMaterial)) {
+
+                Toggle_GL_ColorMaterial(gl_ColorMaterial);
+
+            }
+
+            if (ImGui::Checkbox("Texture Mapping 2D", &gl_TextureMapping2D)) {
+
+                Toggle_GL_TextureMapping2D(gl_TextureMapping2D);
+
+            }
+            ImGui::SameLine();
+            if (ImGui::Checkbox("Texture Mapping 3D", &gl_TextureMapping3D)) {
+
+                Toggle_GL_TextureMapping3D(gl_TextureMapping3D);
+
+            }
+
+            if (ImGui::Checkbox("Blending", &gl_Blending)) {
+
+                Toggle_GL_Blending(gl_Blending);
+
+            }
+            ImGui::SameLine();
+            if (ImGui::Checkbox("MSAA", &gl_MSAA)) {
+
+                Toggle_GL_MSAA(gl_MSAA);
+
+            }
+
+            if (ImGui::Checkbox("Stencil Testing", &gl_StencilTesting)) {
+
+                Toggle_GL_StencilTesting(gl_StencilTesting);
+
+            }
+            ImGui::SameLine();
+            if (ImGui::Checkbox("Scissor Testing", &gl_ScissorTesting)) {
+
+                Toggle_GL_ScissorTesting(gl_ScissorTesting);
+
+            }
+
+            if (ImGui::Checkbox("Alpha Testing", &gl_AlphaTesting)) {
+
+                Toggle_GL_AlphaTesting(gl_AlphaTesting);
+
+            }
+            ImGui::SameLine();
+            if (ImGui::Checkbox("Point Sprites", &gl_PointSprites)) {
+
+                Toggle_GL_PointSprites(gl_PointSprites);
+
+            }
+
+            if (ImGui::Checkbox("Fog", &gl_Fog)) {
+
+                Toggle_GL_Fog(gl_Fog);
+
+            }
+            ImGui::SameLine();
+            if (ImGui::Checkbox("Point Smooth", &gl_PointSmooth)) {
+
+                Toggle_GL_PointSmooth(gl_PointSmooth);
+
+            }
+
+            if (ImGui::Checkbox("Line Smooth", &gl_LineSmooth)) {
+
+                Toggle_GL_LineSmooth(gl_LineSmooth);
+
+            }
+            ImGui::SameLine();
+            if (ImGui::Checkbox("Auto Normalization", &gl_Normalization)) {
+
+                Toggle_GL_Normalization(gl_Normalization);
+
+            }
+
+            if (ImGui::Checkbox("Polygon Offset", &gl_PolygonOffset)) {
+
+                Toggle_GL_PolygonOffset(gl_PolygonOffset);
+
+            }
+            ImGui::SameLine();
+            if (ImGui::Checkbox("Wireframe Only", &gl_WireframeOnly)) {
+
+                Toggle_GL_WireframeOnly(gl_WireframeOnly);
+
+            }
+
+            ImGui::Unindent(); // Unindent to return to the previous level of indentation
 
         }
 
@@ -513,6 +616,258 @@ void ModuleEditor::DrawEditor()
 
     }
 
+}
+
+void ModuleEditor::Toggle_GL_DepthTesting(bool depthTesting)
+{
+    if (depthTesting) {
+
+        glEnable(GL_DEPTH_TEST);
+
+    }
+    else {
+
+        glDisable(GL_DEPTH_TEST);
+
+    }
+}
+
+void ModuleEditor::Toggle_GL_FaceCulling(bool faceCulling)
+{
+    if (faceCulling) {
+
+        glEnable(GL_CULL_FACE);
+
+    }
+    else {
+
+        glDisable(GL_CULL_FACE);
+
+    }
+}
+
+void ModuleEditor::Toggle_GL_Lighting(bool lighting)
+{
+    if (lighting) {
+
+        glEnable(GL_LIGHTING);
+
+    }
+    else {
+
+        glDisable(GL_LIGHTING);
+
+    }
+}
+
+void ModuleEditor::Toggle_GL_ColorMaterial(bool colorMaterial)
+{
+    if (colorMaterial) {
+
+        glEnable(GL_COLOR_MATERIAL);
+
+    }
+    else {
+
+        glDisable(GL_COLOR_MATERIAL);
+
+    }
+}
+
+void ModuleEditor::Toggle_GL_TextureMapping2D(bool textureMapping2D)
+{
+    if (textureMapping2D) {
+
+        glEnable(GL_TEXTURE_2D);
+
+    }
+    else {
+
+        glDisable(GL_TEXTURE_2D);
+
+    }
+}
+
+void ModuleEditor::Toggle_GL_TextureMapping3D(bool textureMapping3D)
+{
+    if (textureMapping3D) {
+
+        glEnable(GL_TEXTURE_3D);
+
+    }
+    else {
+
+        glDisable(GL_TEXTURE_3D);
+
+    }
+}
+
+void ModuleEditor::Toggle_GL_Blending(bool blending)
+{
+    if (blending) {
+
+        glEnable(GL_BLEND);
+
+    }
+    else {
+
+        glDisable(GL_BLEND);
+
+    }
+}
+
+void ModuleEditor::Toggle_GL_MSAA(bool msaa)
+{
+    if (msaa) {
+
+        glEnable(GL_MULTISAMPLE);
+
+    }
+    else {
+
+        glDisable(GL_MULTISAMPLE);
+
+    }
+}
+
+void ModuleEditor::Toggle_GL_StencilTesting(bool stencilTesting)
+{
+    if (stencilTesting) {
+
+        glEnable(GL_STENCIL_TEST);
+
+    }
+    else {
+
+        glDisable(GL_STENCIL_TEST);
+
+    }
+}
+
+void ModuleEditor::Toggle_GL_ScissorTesting(bool scissorTesting)
+{
+    if (scissorTesting) {
+
+        glEnable(GL_SCISSOR_TEST);
+
+    }
+    else {
+
+        glDisable(GL_SCISSOR_TEST);
+
+    }
+}
+
+void ModuleEditor::Toggle_GL_AlphaTesting(bool alphaTesting)
+{
+    if (alphaTesting) {
+
+        glEnable(GL_ALPHA_TEST);
+
+    }
+    else {
+
+        glDisable(GL_ALPHA_TEST);
+
+    }
+}
+
+void ModuleEditor::Toggle_GL_PointSprites(bool pointSprites)
+{
+    if (pointSprites) {
+
+        glEnable(GL_POINT_SPRITE);
+
+    }
+    else {
+
+        glDisable(GL_POINT_SPRITE);
+
+    }
+}
+
+void ModuleEditor::Toggle_GL_Fog(bool fog)
+{
+    if (fog) {
+
+        glEnable(GL_FOG);
+
+    }
+    else {
+
+        glDisable(GL_FOG);
+
+    }
+}
+
+void ModuleEditor::Toggle_GL_PointSmooth(bool pointSmooth)
+{
+    if (pointSmooth) {
+
+        glEnable(GL_POINT_SMOOTH);
+
+    }
+    else {
+
+        glDisable(GL_POINT_SMOOTH);
+
+    }
+}
+
+void ModuleEditor::Toggle_GL_LineSmooth(bool lineSmooth)
+{
+    if (lineSmooth) {
+
+        glEnable(GL_LINE_SMOOTH);
+
+    }
+    else {
+
+        glDisable(GL_LINE_SMOOTH);
+
+    }
+}
+
+void ModuleEditor::Toggle_GL_Normalization(bool normalization)
+{
+    if (normalization) {
+
+        glEnable(GL_NORMALIZE);
+
+    }
+    else {
+
+        glDisable(GL_NORMALIZE);
+
+    }
+}
+
+void ModuleEditor::Toggle_GL_PolygonOffset(bool polygonOffset)
+{
+    if (polygonOffset) {
+
+        glEnable(GL_POLYGON_OFFSET_FILL);
+
+    }
+    else {
+
+        glDisable(GL_POLYGON_OFFSET_FILL);
+
+    }
+}
+
+void ModuleEditor::Toggle_GL_WireframeOnly(bool wireframeOnly)
+{
+    if (wireframeOnly) {
+
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+    }
+    else {
+
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+    }
 }
 
 bool ModuleEditor::CleanUp()
