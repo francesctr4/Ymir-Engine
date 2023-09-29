@@ -280,6 +280,21 @@ void ModuleEditor::DrawEditor()
 
     if (ImGui::Begin("Application"), true) {
 
+        if (ImGui::CollapsingHeader("OpenGL")) {
+
+            // Functions to enable/disable opengl config with checkboxes
+            
+            // GL_DEPTH_TEST,
+            // GL_CULL_FACE,
+            // GL_LIGHTING
+            // GL_COLOR_MATERIAL, 
+            // GL_TEXTURE_2D + 
+            // other 1
+            // other 2
+            // wireframe mode
+
+        }
+
         if (ImGui::CollapsingHeader("Window")) {
 
             // Window Options
