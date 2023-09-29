@@ -789,6 +789,11 @@ void ModuleEditor::ShowCPUInfo()
 
 void ModuleEditor::ShowGPUInfo()
 {
+    const GLubyte* vendor = glGetString(GL_VENDOR);
+    ImGui::Text("Vendor:");
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%s", vendor);
+
     const GLubyte* renderer = glGetString(GL_RENDERER);
     ImGui::Text("GPU:");
     ImGui::SameLine();
@@ -798,6 +803,11 @@ void ModuleEditor::ShowGPUInfo()
     ImGui::Text("OpenGL version supported:");
     ImGui::SameLine();
     ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%s", version);
+
+    const GLubyte* glsl = glGetString(GL_SHADING_LANGUAGE_VERSION);
+    ImGui::Text("GLSL:");
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%s", glsl);
 
     GLint totalMemoryKB = 0;
     glGetIntegerv(GL_GPU_MEMORY_INFO_TOTAL_AVAILABLE_MEMORY_NVX, &totalMemoryKB);
