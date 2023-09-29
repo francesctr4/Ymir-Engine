@@ -286,111 +286,153 @@ void ModuleEditor::DrawEditor()
             
             ImGui::Indent(); // Indent to make the checkbox visually nested under the header
 
-            if (ImGui::Checkbox("Depth Testing", &gl_DepthTesting)) {
+            if (ImGui::BeginTable("split", 2))
+            {
+                ImGui::TableNextColumn(); 
 
-                Toggle_GL_DepthTesting(gl_DepthTesting);
+                if (ImGui::Checkbox("Depth Testing", &gl_DepthTesting)) {
 
-            }
-            ImGui::SameLine();
-            if (ImGui::Checkbox("Face Culling", &gl_FaceCulling)) {
+                    Toggle_GL_DepthTesting(gl_DepthTesting);
 
-                Toggle_GL_FaceCulling(gl_FaceCulling);
+                }
 
-            }
+                ImGui::TableNextColumn(); 
 
-            if (ImGui::Checkbox("Lighting", &gl_Lighting)) {
+                if (ImGui::Checkbox("Face Culling", &gl_FaceCulling)) {
 
-                Toggle_GL_Lighting(gl_Lighting);
+                    Toggle_GL_FaceCulling(gl_FaceCulling);
 
-            }
-            ImGui::SameLine();
-            if (ImGui::Checkbox("Color Material", &gl_ColorMaterial)) {
+                }
 
-                Toggle_GL_ColorMaterial(gl_ColorMaterial);
+                ImGui::TableNextColumn(); 
 
-            }
+                if (ImGui::Checkbox("Lighting", &gl_Lighting)) {
 
-            if (ImGui::Checkbox("Texture Mapping 2D", &gl_TextureMapping2D)) {
+                    Toggle_GL_Lighting(gl_Lighting);
 
-                Toggle_GL_TextureMapping2D(gl_TextureMapping2D);
+                }
 
-            }
-            ImGui::SameLine();
-            if (ImGui::Checkbox("Texture Mapping 3D", &gl_TextureMapping3D)) {
+                ImGui::TableNextColumn(); 
 
-                Toggle_GL_TextureMapping3D(gl_TextureMapping3D);
+                if (ImGui::Checkbox("Color Material", &gl_ColorMaterial)) {
 
-            }
+                    Toggle_GL_ColorMaterial(gl_ColorMaterial);
 
-            if (ImGui::Checkbox("Blending", &gl_Blending)) {
+                }
 
-                Toggle_GL_Blending(gl_Blending);
+                ImGui::TableNextColumn(); 
 
-            }
-            ImGui::SameLine();
-            if (ImGui::Checkbox("MSAA", &gl_MSAA)) {
+                if (ImGui::Checkbox("Texture Mapping 2D", &gl_TextureMapping2D)) {
 
-                Toggle_GL_MSAA(gl_MSAA);
+                    Toggle_GL_TextureMapping2D(gl_TextureMapping2D);
 
-            }
+                }
 
-            if (ImGui::Checkbox("Stencil Testing", &gl_StencilTesting)) {
+                ImGui::TableNextColumn(); 
 
-                Toggle_GL_StencilTesting(gl_StencilTesting);
+                if (ImGui::Checkbox("Texture Mapping 3D", &gl_TextureMapping3D)) {
 
-            }
-            ImGui::SameLine();
-            if (ImGui::Checkbox("Scissor Testing", &gl_ScissorTesting)) {
+                    Toggle_GL_TextureMapping3D(gl_TextureMapping3D);
 
-                Toggle_GL_ScissorTesting(gl_ScissorTesting);
+                }
 
-            }
+                ImGui::TableNextColumn(); 
 
-            if (ImGui::Checkbox("Alpha Testing", &gl_AlphaTesting)) {
+                if (ImGui::Checkbox("Blending", &gl_Blending)) {
 
-                Toggle_GL_AlphaTesting(gl_AlphaTesting);
+                    Toggle_GL_Blending(gl_Blending);
 
-            }
-            ImGui::SameLine();
-            if (ImGui::Checkbox("Point Sprites", &gl_PointSprites)) {
+                }
 
-                Toggle_GL_PointSprites(gl_PointSprites);
+                ImGui::TableNextColumn(); 
 
-            }
+                if (ImGui::Checkbox("MSAA", &gl_MSAA)) {
 
-            if (ImGui::Checkbox("Fog", &gl_Fog)) {
+                    Toggle_GL_MSAA(gl_MSAA);
 
-                Toggle_GL_Fog(gl_Fog);
+                }
 
-            }
-            ImGui::SameLine();
-            if (ImGui::Checkbox("Point Smooth", &gl_PointSmooth)) {
+                ImGui::TableNextColumn(); 
 
-                Toggle_GL_PointSmooth(gl_PointSmooth);
+                if (ImGui::Checkbox("Stencil Testing", &gl_StencilTesting)) {
 
-            }
+                    Toggle_GL_StencilTesting(gl_StencilTesting);
 
-            if (ImGui::Checkbox("Line Smooth", &gl_LineSmooth)) {
+                }
 
-                Toggle_GL_LineSmooth(gl_LineSmooth);
+                ImGui::TableNextColumn(); 
 
-            }
-            ImGui::SameLine();
-            if (ImGui::Checkbox("Auto Normalization", &gl_Normalization)) {
+                if (ImGui::Checkbox("Scissor Testing", &gl_ScissorTesting)) {
 
-                Toggle_GL_Normalization(gl_Normalization);
+                    Toggle_GL_ScissorTesting(gl_ScissorTesting);
 
-            }
+                }
 
-            if (ImGui::Checkbox("Polygon Offset", &gl_PolygonOffset)) {
+                ImGui::TableNextColumn(); 
 
-                Toggle_GL_PolygonOffset(gl_PolygonOffset);
+                if (ImGui::Checkbox("Alpha Testing", &gl_AlphaTesting)) {
 
-            }
-            ImGui::SameLine();
-            if (ImGui::Checkbox("Wireframe Only", &gl_WireframeOnly)) {
+                    Toggle_GL_AlphaTesting(gl_AlphaTesting);
 
-                Toggle_GL_WireframeOnly(gl_WireframeOnly);
+                }
+
+                ImGui::TableNextColumn(); 
+
+                if (ImGui::Checkbox("Point Sprites", &gl_PointSprites)) {
+
+                    Toggle_GL_PointSprites(gl_PointSprites);
+
+                }
+
+                ImGui::TableNextColumn();
+
+                if (ImGui::Checkbox("Fog", &gl_Fog)) {
+
+                    Toggle_GL_Fog(gl_Fog);
+
+                }
+
+                ImGui::TableNextColumn();
+
+                if (ImGui::Checkbox("Point Smooth", &gl_PointSmooth)) {
+
+                    Toggle_GL_PointSmooth(gl_PointSmooth);
+
+                }
+
+                ImGui::TableNextColumn();
+
+                if (ImGui::Checkbox("Line Smooth", &gl_LineSmooth)) {
+
+                    Toggle_GL_LineSmooth(gl_LineSmooth);
+
+                }
+
+                ImGui::TableNextColumn();
+
+                if (ImGui::Checkbox("Auto Normalization", &gl_Normalization)) {
+
+                    Toggle_GL_Normalization(gl_Normalization);
+
+                }
+
+                ImGui::TableNextColumn();
+
+                if (ImGui::Checkbox("Polygon Offset", &gl_PolygonOffset)) {
+
+                    Toggle_GL_PolygonOffset(gl_PolygonOffset);
+
+                }
+
+                ImGui::TableNextColumn();
+
+                if (ImGui::Checkbox("Wireframe Mode", &gl_WireframeMode)) {
+
+                    Toggle_GL_WireframeMode(gl_WireframeMode);
+
+                }
+
+                ImGui::EndTable();
 
             }
 
@@ -620,252 +662,334 @@ void ModuleEditor::DrawEditor()
 
 void ModuleEditor::Toggle_GL_DepthTesting(bool depthTesting)
 {
+    // Allows objects to be rendered based on their depth in the scene, 
+    // ensuring that closer objects are rendered in front of farther objects. 
+
     if (depthTesting) {
 
         glEnable(GL_DEPTH_TEST);
+        LOG("Enabled Depth Testing");
 
     }
     else {
 
         glDisable(GL_DEPTH_TEST);
+        LOG("Disabled Depth Testing");
 
     }
 }
 
 void ModuleEditor::Toggle_GL_FaceCulling(bool faceCulling)
 {
+    // Enables the removal of back-facing or front-facing triangles, 
+    // which can improve rendering performance.
+
     if (faceCulling) {
 
         glEnable(GL_CULL_FACE);
+        LOG("Enabled Face Culling");
 
     }
     else {
 
         glDisable(GL_CULL_FACE);
+        LOG("Disabled Face Culling");
 
     }
 }
 
 void ModuleEditor::Toggle_GL_Lighting(bool lighting)
 {
+    // Enables OpenGL's lighting and shading capabilities.
+
     if (lighting) {
 
         glEnable(GL_LIGHTING);
+        LOG("Enabled Lighting");
 
     }
     else {
 
         glDisable(GL_LIGHTING);
+        LOG("Disabled Lighting");
 
     }
 }
 
 void ModuleEditor::Toggle_GL_ColorMaterial(bool colorMaterial)
 {
+    // Enables the automatic generation of material properties based on the current color.
+
     if (colorMaterial) {
 
         glEnable(GL_COLOR_MATERIAL);
+        LOG("Enabled Color Material");
 
     }
     else {
 
         glDisable(GL_COLOR_MATERIAL);
+        LOG("Disabled Color Material");
 
     }
 }
 
 void ModuleEditor::Toggle_GL_TextureMapping2D(bool textureMapping2D)
 {
+    // Enables texture mapping for 2D objects. This is essential for applying textures to surfaces.
+
     if (textureMapping2D) {
 
         glEnable(GL_TEXTURE_2D);
+        LOG("Enabled Texture Mapping 2D");
 
     }
     else {
 
         glDisable(GL_TEXTURE_2D);
+        LOG("Disabled Texture Mapping 2D");
 
     }
 }
 
 void ModuleEditor::Toggle_GL_TextureMapping3D(bool textureMapping3D)
 {
+    // Enables texture mapping for 3D objects.
+
     if (textureMapping3D) {
 
         glEnable(GL_TEXTURE_3D);
+        LOG("Enabled Texture Mapping 3D");
 
     }
     else {
 
         glDisable(GL_TEXTURE_3D);
+        LOG("Disabled Texture Mapping 3D");
 
     }
 }
 
 void ModuleEditor::Toggle_GL_Blending(bool blending)
 {
+    // Enables alpha blending, which is used to create transparency 
+    // and translucency effects in your renderings.
+
     if (blending) {
 
         glEnable(GL_BLEND);
+        LOG("Enabled Blending");
 
     }
     else {
 
         glDisable(GL_BLEND);
+        LOG("Disabled Blending");
 
     }
 }
 
 void ModuleEditor::Toggle_GL_MSAA(bool msaa)
 {
+    // Multisampling Anti-Aliasing (MSAA): Provides smoother edges by 
+    // sampling multiple points within a pixel.
+
     if (msaa) {
 
         glEnable(GL_MULTISAMPLE);
+        LOG("Enabled Multisampling Anti-Aliasing (MSAA)");
 
     }
     else {
 
         glDisable(GL_MULTISAMPLE);
+        LOG("Disabled Multisampling Anti-Aliasing (MSAA)");
 
     }
 }
 
 void ModuleEditor::Toggle_GL_StencilTesting(bool stencilTesting)
 {
+    // Allows you to perform operations based on stencil values, 
+    // which can be used for various effects.
+
     if (stencilTesting) {
 
         glEnable(GL_STENCIL_TEST);
+        LOG("Enabled Stencil Testing");
 
     }
     else {
 
         glDisable(GL_STENCIL_TEST);
+        LOG("Disabled Stencil Testing");
 
     }
 }
 
 void ModuleEditor::Toggle_GL_ScissorTesting(bool scissorTesting)
 {
+    // Clips rendering to a specified rectangular region on the screen.
+
     if (scissorTesting) {
 
         glEnable(GL_SCISSOR_TEST);
+        LOG("Enabled Scissor Testing");
 
     }
     else {
 
         glDisable(GL_SCISSOR_TEST);
+        LOG("Disabled Scissor Testing");
 
     }
 }
 
 void ModuleEditor::Toggle_GL_AlphaTesting(bool alphaTesting)
 {
+    // Enables the discarding of fragments based on an alpha test value. 
+    // This can be useful for certain rendering effects.
+
     if (alphaTesting) {
 
         glEnable(GL_ALPHA_TEST);
+        LOG("Enabled Alpha Testing");
 
     }
     else {
 
         glDisable(GL_ALPHA_TEST);
+        LOG("Disabled Alpha Testing");
 
     }
 }
 
 void ModuleEditor::Toggle_GL_PointSprites(bool pointSprites)
 {
+    // Enables rendering points as sprites, which can be textured and have other properties.
+
     if (pointSprites) {
 
         glEnable(GL_POINT_SPRITE);
+        LOG("Enabled Point Sprites");
 
     }
     else {
 
         glDisable(GL_POINT_SPRITE);
+        LOG("Disabled Point Sprites");
 
     }
 }
 
 void ModuleEditor::Toggle_GL_Fog(bool fog)
 {
+    // Enables fog effects in the scene.
+
     if (fog) {
 
         glEnable(GL_FOG);
+        LOG("Enabled Fog");
 
     }
     else {
 
         glDisable(GL_FOG);
+        LOG("Disabled Fog");
 
     }
 }
 
 void ModuleEditor::Toggle_GL_PointSmooth(bool pointSmooth)
 {
+    // Enables point size smoothing, which can make points appear smoother.
+
     if (pointSmooth) {
 
         glEnable(GL_POINT_SMOOTH);
+        LOG("Enabled Point Smooth");
 
     }
     else {
 
         glDisable(GL_POINT_SMOOTH);
+        LOG("Disabled Point Smooth");
 
     }
 }
 
 void ModuleEditor::Toggle_GL_LineSmooth(bool lineSmooth)
 {
+    // Enables line width smoothing for smoother lines.
+
     if (lineSmooth) {
 
         glEnable(GL_LINE_SMOOTH);
+        LOG("Enabled Line Smooth");
 
     }
     else {
 
         glDisable(GL_LINE_SMOOTH);
+        LOG("Disabled Line Smooth");
 
     }
 }
 
 void ModuleEditor::Toggle_GL_Normalization(bool normalization)
 {
+    // Automatically normalizes normals in fixed-function lighting calculations.
+
     if (normalization) {
 
         glEnable(GL_NORMALIZE);
+        LOG("Enabled Auto Normalization");
 
     }
     else {
 
         glDisable(GL_NORMALIZE);
+        LOG("Disabled Auto Normalization");
 
     }
 }
 
 void ModuleEditor::Toggle_GL_PolygonOffset(bool polygonOffset)
 {
+    // Enables the addition of an offset to the depth values of 
+    // rendered polygons, useful for avoiding z-fighting.
+
     if (polygonOffset) {
 
         glEnable(GL_POLYGON_OFFSET_FILL);
+        LOG("Enabled Polygon Offset");
 
     }
     else {
 
         glDisable(GL_POLYGON_OFFSET_FILL);
+        LOG("Disabled Polygon Offset");
 
     }
 }
 
-void ModuleEditor::Toggle_GL_WireframeOnly(bool wireframeOnly)
+void ModuleEditor::Toggle_GL_WireframeMode(bool wireframe)
 {
-    if (wireframeOnly) {
+    // Enable or disable wireframe mode for rendering by setting the 
+    // polygon mode to either GL_FILL or GL_LINE. When you set it to GL_FILL, 
+    // the objects will be rendered as solid surfaces, while setting 
+    // it to GL_LINE will render them in wireframe mode.
+
+    if (wireframe) {
 
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        LOG("Enabled Wireframe Mode");
 
     }
     else {
 
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        LOG("Disabled Wireframe Mode");
 
     }
 }

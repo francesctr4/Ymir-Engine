@@ -171,9 +171,6 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	OPTICK_EVENT();
 
-	Cube cube(3, 4, 5);
-	cube.Render();
-
 	Cube cube2(2, 2, 2);
 	cube2.Render();
 

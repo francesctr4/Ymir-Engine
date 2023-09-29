@@ -42,7 +42,7 @@ public:
 	void Toggle_GL_LineSmooth(bool lineSmooth);
 	void Toggle_GL_Normalization(bool normalization);
 	void Toggle_GL_PolygonOffset(bool polygonOffset);
-	void Toggle_GL_WireframeOnly(bool wireframeOnly);
+	void Toggle_GL_WireframeMode(bool wireframe);
 
 	// Functions related to Framerate Histograms
 	void AddFPS(const float aFPS);
@@ -103,7 +103,7 @@ public:
 	bool gl_LineSmooth = false;
 	bool gl_Normalization = false;
 	bool gl_PolygonOffset = false;
-	bool gl_WireframeOnly = false;
+	bool gl_WireframeMode = false;
 
 	// Vectors related to Framerate Histograms
 	std::vector<float> FPSvec;
