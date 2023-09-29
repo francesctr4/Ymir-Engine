@@ -6,6 +6,7 @@
 #include "ModuleEditor.h"
 #include "Log.h"
 
+#include "External/Glew/include/glew.h"
 #include "External/SDL/include/SDL_opengl.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
@@ -36,26 +37,43 @@ bool ModuleRenderer3D::Init()
 {
 	LOG("Creating 3D Renderer context");
 	bool ret = true;
+
+	// OpenGL initial attributes
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 	
-	//Create context
+	// Create context
 	context = SDL_GL_CreateContext(App->window->window);
 	if(context == NULL)
 	{
 		LOG("OpenGL context could not be created! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
+
+	// Initializing Glew 2.1.0
+	GLenum err = glewInit();
+	if (err != GLEW_OK) {
+		LOG("Error in loading Glew: %s\n", glewGetErrorString(err));
+	}
+	else {
+		LOG("Successfully using Glew %s", glewGetString(GLEW_VERSION));
+	}
 	
 	if(ret == true)
 	{
-		//Use Vsync
+		// Use Vsync
 		if(VSYNC && SDL_GL_SetSwapInterval(1) < 0)
 			LOG("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
 
-		//Initialize Projection Matrix
+		// Initialize Projection Matrix
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 
-		//Check for error
+		// Check for errors
 		GLenum error = glGetError();
 		if(error != GL_NO_ERROR)
 		{
@@ -63,11 +81,11 @@ bool ModuleRenderer3D::Init()
 			ret = false;
 		}
 
-		//Initialize Modelview Matrix
+		// Initialize Modelview Matrix
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 
-		//Check for error
+		// Check for errors
 		error = glGetError();
 		if(error != GL_NO_ERROR)
 		{
@@ -80,6 +98,8 @@ bool ModuleRenderer3D::Init()
 		
 		//Initialize clear color
 		glClearColor(0.f, 0.f, 0.f, 1.f);
+
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		//Check for error
 		error = glGetError();

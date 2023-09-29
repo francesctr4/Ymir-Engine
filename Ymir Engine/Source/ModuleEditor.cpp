@@ -1428,7 +1428,7 @@ void ModuleEditor::AboutModalWindowContent()
 
     }
 
-    ImGui::BulletText("Glew v2.2.0 ->");
+    ImGui::BulletText("Glew v2.1.0 ->");
     ImGui::SameLine();
     ImGui::TextColored(ImVec4(0.0f, 0.5f, 1.0f, 1.0f), "https://github.com/nigels-com/glew");
     if (ImGui::IsItemClicked()) {
