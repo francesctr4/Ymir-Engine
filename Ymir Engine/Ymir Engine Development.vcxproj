@@ -302,6 +302,7 @@
     <ClCompile Include="Source\External\MathGeoLib\include\Math\SSEMath.cpp" />
     <ClCompile Include="Source\External\MathGeoLib\include\Math\TransformOps.cpp" />
     <ClCompile Include="Source\External\MathGeoLib\include\Time\Clock.cpp" />
+    <ClCompile Include="Source\Module.cpp" />
     <ClCompile Include="Source\ModuleCamera3D.cpp" />
     <ClCompile Include="Source\ModuleEditor.cpp" />
     <ClCompile Include="Source\ModuleInput.cpp" />

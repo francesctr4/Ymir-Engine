@@ -743,6 +743,9 @@
     <ClCompile Include="Source\External\Parson\parson.cpp">
       <Filter>Externals\Parson</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Module.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\External\MathGeoLib\include\Geometry\KDTree.inl">
