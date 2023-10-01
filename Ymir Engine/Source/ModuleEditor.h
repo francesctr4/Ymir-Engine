@@ -85,6 +85,10 @@ public:
 	// Enables ImGui to render additional data
 	bool UpdateAndRenderAdditionalPlatformWindows = false;
 
+	// Booleans to Open/Close Editor windows
+	bool showApplication = false;
+	bool showConsole = false;
+
 	// OpenGL settings checkbox toggle booleans
 	bool gl_DepthTesting = true;
 	bool gl_FaceCulling = true;

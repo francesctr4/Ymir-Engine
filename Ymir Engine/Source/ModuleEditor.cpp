@@ -220,6 +220,23 @@ void ModuleEditor::DrawEditor()
             ImGui::EndMenu();
         }
 
+        if (ImGui::BeginMenu("Windows")) {
+
+            if (ImGui::MenuItem("Application")) {
+
+                showApplication = true;
+
+            }
+
+            if (ImGui::MenuItem("Console")) {
+
+                showConsole = true;
+
+            }
+
+            ImGui::EndMenu();
+        }
+
         if (ImGui::BeginMenu("Help")) {
 
             if (ImGui::MenuItem("About")) {
@@ -278,352 +295,361 @@ void ModuleEditor::DrawEditor()
 
     // APPLICATION MENU START
 
-    if (ImGui::Begin("Application"), true) {
+    if (showApplication) {
 
-        if (ImGui::CollapsingHeader("OpenGL")) {
+        if (ImGui::Begin("Application", &showApplication), true) {
 
-            // Functions to enable/disable opengl config with checkboxes
-            
-            ImGui::Indent(); // Indent to make the checkbox visually nested under the header
+            if (ImGui::CollapsingHeader("OpenGL")) {
 
-            if (ImGui::BeginTable("split", 2))
-            {
-                ImGui::TableNextColumn(); 
+                // Functions to enable/disable opengl config with checkboxes
 
-                if (ImGui::Checkbox("Depth Testing", &gl_DepthTesting)) {
+                ImGui::Indent(); // Indent to make the checkbox visually nested under the header
 
-                    Toggle_GL_DepthTesting(gl_DepthTesting);
+                if (ImGui::BeginTable("split", 2))
+                {
+                    ImGui::TableNextColumn();
+
+                    if (ImGui::Checkbox("Depth Testing", &gl_DepthTesting)) {
+
+                        Toggle_GL_DepthTesting(gl_DepthTesting);
+
+                    }
+
+                    ImGui::TableNextColumn();
+
+                    if (ImGui::Checkbox("Face Culling", &gl_FaceCulling)) {
+
+                        Toggle_GL_FaceCulling(gl_FaceCulling);
+
+                    }
+
+                    ImGui::TableNextColumn();
+
+                    if (ImGui::Checkbox("Lighting", &gl_Lighting)) {
+
+                        Toggle_GL_Lighting(gl_Lighting);
+
+                    }
+
+                    ImGui::TableNextColumn();
+
+                    if (ImGui::Checkbox("Color Material", &gl_ColorMaterial)) {
+
+                        Toggle_GL_ColorMaterial(gl_ColorMaterial);
+
+                    }
+
+                    ImGui::TableNextColumn();
+
+                    if (ImGui::Checkbox("Texture Mapping 2D", &gl_TextureMapping2D)) {
+
+                        Toggle_GL_TextureMapping2D(gl_TextureMapping2D);
+
+                    }
+
+                    ImGui::TableNextColumn();
+
+                    if (ImGui::Checkbox("Texture Mapping 3D", &gl_TextureMapping3D)) {
+
+                        Toggle_GL_TextureMapping3D(gl_TextureMapping3D);
+
+                    }
+
+                    ImGui::TableNextColumn();
+
+                    if (ImGui::Checkbox("Blending", &gl_Blending)) {
+
+                        Toggle_GL_Blending(gl_Blending);
+
+                    }
+
+                    ImGui::TableNextColumn();
+
+                    if (ImGui::Checkbox("MSAA", &gl_MSAA)) {
+
+                        Toggle_GL_MSAA(gl_MSAA);
+
+                    }
+
+                    ImGui::TableNextColumn();
+
+                    if (ImGui::Checkbox("Stencil Testing", &gl_StencilTesting)) {
+
+                        Toggle_GL_StencilTesting(gl_StencilTesting);
+
+                    }
+
+                    ImGui::TableNextColumn();
+
+                    if (ImGui::Checkbox("Scissor Testing", &gl_ScissorTesting)) {
+
+                        Toggle_GL_ScissorTesting(gl_ScissorTesting);
+
+                    }
+
+                    ImGui::TableNextColumn();
+
+                    if (ImGui::Checkbox("Alpha Testing", &gl_AlphaTesting)) {
+
+                        Toggle_GL_AlphaTesting(gl_AlphaTesting);
+
+                    }
+
+                    ImGui::TableNextColumn();
+
+                    if (ImGui::Checkbox("Point Sprites", &gl_PointSprites)) {
+
+                        Toggle_GL_PointSprites(gl_PointSprites);
+
+                    }
+
+                    ImGui::TableNextColumn();
+
+                    if (ImGui::Checkbox("Fog", &gl_Fog)) {
+
+                        Toggle_GL_Fog(gl_Fog);
+
+                    }
+
+                    ImGui::TableNextColumn();
+
+                    if (ImGui::Checkbox("Point Smooth", &gl_PointSmooth)) {
+
+                        Toggle_GL_PointSmooth(gl_PointSmooth);
+
+                    }
+
+                    ImGui::TableNextColumn();
+
+                    if (ImGui::Checkbox("Line Smooth", &gl_LineSmooth)) {
+
+                        Toggle_GL_LineSmooth(gl_LineSmooth);
+
+                    }
+
+                    ImGui::TableNextColumn();
+
+                    if (ImGui::Checkbox("Auto Normalization", &gl_Normalization)) {
+
+                        Toggle_GL_Normalization(gl_Normalization);
+
+                    }
+
+                    ImGui::TableNextColumn();
+
+                    if (ImGui::Checkbox("Polygon Offset", &gl_PolygonOffset)) {
+
+                        Toggle_GL_PolygonOffset(gl_PolygonOffset);
+
+                    }
+
+                    ImGui::TableNextColumn();
+
+                    if (ImGui::Checkbox("Wireframe Mode", &gl_WireframeMode)) {
+
+                        Toggle_GL_WireframeMode(gl_WireframeMode);
+
+                    }
+
+                    ImGui::EndTable();
 
                 }
 
-                ImGui::TableNextColumn(); 
-
-                if (ImGui::Checkbox("Face Culling", &gl_FaceCulling)) {
-
-                    Toggle_GL_FaceCulling(gl_FaceCulling);
-
-                }
-
-                ImGui::TableNextColumn(); 
-
-                if (ImGui::Checkbox("Lighting", &gl_Lighting)) {
-
-                    Toggle_GL_Lighting(gl_Lighting);
-
-                }
-
-                ImGui::TableNextColumn(); 
-
-                if (ImGui::Checkbox("Color Material", &gl_ColorMaterial)) {
-
-                    Toggle_GL_ColorMaterial(gl_ColorMaterial);
-
-                }
-
-                ImGui::TableNextColumn(); 
-
-                if (ImGui::Checkbox("Texture Mapping 2D", &gl_TextureMapping2D)) {
-
-                    Toggle_GL_TextureMapping2D(gl_TextureMapping2D);
-
-                }
-
-                ImGui::TableNextColumn(); 
-
-                if (ImGui::Checkbox("Texture Mapping 3D", &gl_TextureMapping3D)) {
-
-                    Toggle_GL_TextureMapping3D(gl_TextureMapping3D);
-
-                }
-
-                ImGui::TableNextColumn(); 
-
-                if (ImGui::Checkbox("Blending", &gl_Blending)) {
-
-                    Toggle_GL_Blending(gl_Blending);
-
-                }
-
-                ImGui::TableNextColumn(); 
-
-                if (ImGui::Checkbox("MSAA", &gl_MSAA)) {
-
-                    Toggle_GL_MSAA(gl_MSAA);
-
-                }
-
-                ImGui::TableNextColumn(); 
-
-                if (ImGui::Checkbox("Stencil Testing", &gl_StencilTesting)) {
-
-                    Toggle_GL_StencilTesting(gl_StencilTesting);
-
-                }
-
-                ImGui::TableNextColumn(); 
-
-                if (ImGui::Checkbox("Scissor Testing", &gl_ScissorTesting)) {
-
-                    Toggle_GL_ScissorTesting(gl_ScissorTesting);
-
-                }
-
-                ImGui::TableNextColumn(); 
-
-                if (ImGui::Checkbox("Alpha Testing", &gl_AlphaTesting)) {
-
-                    Toggle_GL_AlphaTesting(gl_AlphaTesting);
-
-                }
-
-                ImGui::TableNextColumn(); 
-
-                if (ImGui::Checkbox("Point Sprites", &gl_PointSprites)) {
-
-                    Toggle_GL_PointSprites(gl_PointSprites);
-
-                }
-
-                ImGui::TableNextColumn();
-
-                if (ImGui::Checkbox("Fog", &gl_Fog)) {
-
-                    Toggle_GL_Fog(gl_Fog);
-
-                }
-
-                ImGui::TableNextColumn();
-
-                if (ImGui::Checkbox("Point Smooth", &gl_PointSmooth)) {
-
-                    Toggle_GL_PointSmooth(gl_PointSmooth);
-
-                }
-
-                ImGui::TableNextColumn();
-
-                if (ImGui::Checkbox("Line Smooth", &gl_LineSmooth)) {
-
-                    Toggle_GL_LineSmooth(gl_LineSmooth);
-
-                }
-
-                ImGui::TableNextColumn();
-
-                if (ImGui::Checkbox("Auto Normalization", &gl_Normalization)) {
-
-                    Toggle_GL_Normalization(gl_Normalization);
-
-                }
-
-                ImGui::TableNextColumn();
-
-                if (ImGui::Checkbox("Polygon Offset", &gl_PolygonOffset)) {
-
-                    Toggle_GL_PolygonOffset(gl_PolygonOffset);
-
-                }
-
-                ImGui::TableNextColumn();
-
-                if (ImGui::Checkbox("Wireframe Mode", &gl_WireframeMode)) {
-
-                    Toggle_GL_WireframeMode(gl_WireframeMode);
-
-                }
-
-                ImGui::EndTable();
+                ImGui::Unindent(); // Unindent to return to the previous level of indentation
 
             }
 
-            ImGui::Unindent(); // Unindent to return to the previous level of indentation
+            if (ImGui::CollapsingHeader("Window")) {
 
-        }
+                // Window Options
 
-        if (ImGui::CollapsingHeader("Window")) {
+                ImGui::Indent(); // Indent to make the checkbox visually nested under the header
 
-            // Window Options
+                // Width and Height Sliders
+                ImGui::SliderInt("Width", &windowWidth, 0, 1280);
+                ImGui::SliderInt("Height", &windowHeight, 0, 1024);
+                SDL_SetWindowSize(App->window->window, windowWidth, windowHeight);
 
-            ImGui::Indent(); // Indent to make the checkbox visually nested under the header
+                // Opacity Slider
+                ImGui::SliderFloat("Opacity", &opacity, 0.0f, 1.0f);
+                SDL_SetWindowOpacity(App->window->window, opacity);
 
-            // Width and Height Sliders
-            ImGui::SliderInt("Width", &windowWidth, 0, 1280);
-            ImGui::SliderInt("Height", &windowHeight, 0, 1024);
-            SDL_SetWindowSize(App->window->window, windowWidth, windowHeight);
+                // Window Options Checkbox
+                if (ImGui::Checkbox("Fullscreen", &fullscreen)) {
 
-            // Opacity Slider
-            ImGui::SliderFloat("Opacity", &opacity, 0.0f, 1.0f);
-            SDL_SetWindowOpacity(App->window->window, opacity);
+                    ToggleFullscreen(fullscreen);
 
-            // Window Options Checkbox
-            if (ImGui::Checkbox("Fullscreen", &fullscreen)) {
+                }
+                ImGui::SameLine();
+                if (ImGui::Checkbox("Resizable", &resizable)) {
 
-                ToggleFullscreen(fullscreen);
+                    ToggleResizable(resizable);
 
-            }
-            ImGui::SameLine();
-            if (ImGui::Checkbox("Resizable", &resizable)) {
+                }
 
-                ToggleResizable(resizable);
+                if (ImGui::Checkbox("Borderless", &borderless)) {
 
-            }
+                    ToggleBorderless(borderless);
 
-            if (ImGui::Checkbox("Borderless", &borderless)) {
+                }
+                ImGui::SameLine();
+                if (ImGui::Checkbox("Fullscreen Desktop", &fullscreenDesktop)) {
 
-                ToggleBorderless(borderless);
+                    ToggleFullscreenDesktop(fullscreenDesktop);
 
-            }
-            ImGui::SameLine();
-            if (ImGui::Checkbox("Fullscreen Desktop", &fullscreenDesktop)) {
+                }
 
-                ToggleFullscreenDesktop(fullscreenDesktop);
-
-            }
-
-            ImGui::Unindent(); // Unindent to return to the previous level of indentation
-
-        }
-
-        if (ImGui::CollapsingHeader("Renderer3D")) {
-
-            ImGui::Indent(); // Indent to make the checkbox visually nested under the header
-
-            if (ImGui::Checkbox("VSync", &vsync)) {
-
-                ToggleVSync(vsync);
+                ImGui::Unindent(); // Unindent to return to the previous level of indentation
 
             }
 
-            ImGui::Unindent(); // Unindent to return to the previous level of indentation
+            if (ImGui::CollapsingHeader("Renderer3D")) {
 
-        }
+                ImGui::Indent(); // Indent to make the checkbox visually nested under the header
 
-        if (ImGui::CollapsingHeader("Camera3D")) {
+                if (ImGui::Checkbox("VSync", &vsync)) {
 
-            // Camera Options
+                    ToggleVSync(vsync);
 
-            ImGui::SeparatorText("POSITION & REFERENCE");
+                }
 
-            ImGui::BulletText("Camera Position: (%.2f, %.2f, %.2f)", App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
-            ImGui::BulletText("Camera Reference: (%.2f, %.2f, %.2f)", App->camera->Reference.x, App->camera->Reference.y, App->camera->Reference.z);
-
-            ImGui::SeparatorText("ORIENTATION");
-
-            ImGui::BulletText("Camera X: (%.2f, %.2f, %.2f)", App->camera->X.x, App->camera->X.y, App->camera->X.z);
-            ImGui::BulletText("Camera Y: (%.2f, %.2f, %.2f)", App->camera->Y.x, App->camera->Y.y, App->camera->Y.z);
-            ImGui::BulletText("Camera Z: (%.2f, %.2f, %.2f)", App->camera->Z.x, App->camera->Z.y, App->camera->Z.z);
-
-        }
-
-        if (ImGui::CollapsingHeader("Input")) {
-
-            // Input Options
-
-            ImGuiIO& io = ImGui::GetIO();
-
-            // Mouse Info
-
-            ImGui::SeparatorText("MOUSE");
-
-            if (ImGui::IsMousePosValid()) {
-
-                ImGui::BulletText("Mouse pos: (%g, %g)", io.MousePos.x, io.MousePos.y);
-
-            }   
-            else {
-                
-                ImGui::BulletText("Mouse pos: <INVALID>");
-
-            }
-                    
-            ImGui::BulletText("Mouse delta: (%g, %g)", io.MouseDelta.x, io.MouseDelta.y);
-            ImGui::BulletText("Mouse down:");
-
-            for (int i = 0; i < IM_ARRAYSIZE(io.MouseDown); i++) if (ImGui::IsMouseDown(i)) { ImGui::SameLine(); ImGui::Text("b%d (%.02f secs)", i, io.MouseDownDuration[i]); }
-            ImGui::BulletText("Mouse wheel: %.1f", io.MouseWheel);
-
-            // Keys info
-
-            ImGui::SeparatorText("KEYS");
-
-            struct funcs { static bool IsLegacyNativeDupe(ImGuiKey key) { return key < 512 && ImGui::GetIO().KeyMap[key] != -1; } }; // Hide Native<>ImGuiKey duplicates when both exists in the array
-            ImGuiKey start_key = (ImGuiKey)0;
-
-            ImGui::BulletText("Keys down:");         for (ImGuiKey key = start_key; key < ImGuiKey_NamedKey_END; key = (ImGuiKey)(key + 1)) { if (funcs::IsLegacyNativeDupe(key) || !ImGui::IsKeyDown(key)) continue; ImGui::SameLine(); ImGui::Text((key < ImGuiKey_NamedKey_BEGIN) ? "\"%s\"" : "\"%s\" %d", ImGui::GetKeyName(key), key); }
-            ImGui::BulletText("Keys mods: %s%s%s%s", io.KeyCtrl ? "CTRL " : "", io.KeyShift ? "SHIFT " : "", io.KeyAlt ? "ALT " : "", io.KeySuper ? "SUPER " : "");
-            ImGui::BulletText("Chars queue:");       for (int i = 0; i < io.InputQueueCharacters.Size; i++) { ImWchar c = io.InputQueueCharacters[i]; ImGui::SameLine();  ImGui::Text("\'%c\' (0x%04X)", (c > ' ' && c <= 255) ? (char)c : '?', c); } // FIXME: We should convert 'c' to UTF-8 here but the functions are not public.
-
-        }
-
-        if (ImGui::CollapsingHeader("Editor")) {
-
-            ImGui::Indent(); // Indent to make the checkbox visually nested under the header
-
-            // Light/Dark Mode Checkbox
-            if (ImGui::Checkbox("Toggle light mode", &lightMode)) {
-
-                ToggleLightMode(lightMode);
+                ImGui::Unindent(); // Unindent to return to the previous level of indentation
 
             }
 
-            // ImGui Demo Window Checkbox
-            if (ImGui::Checkbox("Show ImGui demo window", &showImGuiDemo));
+            if (ImGui::CollapsingHeader("Camera3D")) {
 
-            ImGui::Unindent(); // Unindent to return to the previous level of indentation
+                // Camera Options
+
+                ImGui::SeparatorText("POSITION & REFERENCE");
+
+                ImGui::BulletText("Camera Position: (%.2f, %.2f, %.2f)", App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
+                ImGui::BulletText("Camera Reference: (%.2f, %.2f, %.2f)", App->camera->Reference.x, App->camera->Reference.y, App->camera->Reference.z);
+
+                ImGui::SeparatorText("ORIENTATION");
+
+                ImGui::BulletText("Camera X: (%.2f, %.2f, %.2f)", App->camera->X.x, App->camera->X.y, App->camera->X.z);
+                ImGui::BulletText("Camera Y: (%.2f, %.2f, %.2f)", App->camera->Y.x, App->camera->Y.y, App->camera->Y.z);
+                ImGui::BulletText("Camera Z: (%.2f, %.2f, %.2f)", App->camera->Z.x, App->camera->Z.y, App->camera->Z.z);
+
+            }
+
+            if (ImGui::CollapsingHeader("Input")) {
+
+                // Input Options
+
+                ImGuiIO& io = ImGui::GetIO();
+
+                // Mouse Info
+
+                ImGui::SeparatorText("MOUSE");
+
+                if (ImGui::IsMousePosValid()) {
+
+                    ImGui::BulletText("Mouse pos: (%g, %g)", io.MousePos.x, io.MousePos.y);
+
+                }
+                else {
+
+                    ImGui::BulletText("Mouse pos: <INVALID>");
+
+                }
+
+                ImGui::BulletText("Mouse delta: (%g, %g)", io.MouseDelta.x, io.MouseDelta.y);
+                ImGui::BulletText("Mouse down:");
+
+                for (int i = 0; i < IM_ARRAYSIZE(io.MouseDown); i++) if (ImGui::IsMouseDown(i)) { ImGui::SameLine(); ImGui::Text("b%d (%.02f secs)", i, io.MouseDownDuration[i]); }
+                ImGui::BulletText("Mouse wheel: %.1f", io.MouseWheel);
+
+                // Keys info
+
+                ImGui::SeparatorText("KEYS");
+
+                struct funcs { static bool IsLegacyNativeDupe(ImGuiKey key) { return key < 512 && ImGui::GetIO().KeyMap[key] != -1; } }; // Hide Native<>ImGuiKey duplicates when both exists in the array
+                ImGuiKey start_key = (ImGuiKey)0;
+
+                ImGui::BulletText("Keys down:");         for (ImGuiKey key = start_key; key < ImGuiKey_NamedKey_END; key = (ImGuiKey)(key + 1)) { if (funcs::IsLegacyNativeDupe(key) || !ImGui::IsKeyDown(key)) continue; ImGui::SameLine(); ImGui::Text((key < ImGuiKey_NamedKey_BEGIN) ? "\"%s\"" : "\"%s\" %d", ImGui::GetKeyName(key), key); }
+                ImGui::BulletText("Keys mods: %s%s%s%s", io.KeyCtrl ? "CTRL " : "", io.KeyShift ? "SHIFT " : "", io.KeyAlt ? "ALT " : "", io.KeySuper ? "SUPER " : "");
+                ImGui::BulletText("Chars queue:");       for (int i = 0; i < io.InputQueueCharacters.Size; i++) { ImWchar c = io.InputQueueCharacters[i]; ImGui::SameLine();  ImGui::Text("\'%c\' (0x%04X)", (c > ' ' && c <= 255) ? (char)c : '?', c); } // FIXME: We should convert 'c' to UTF-8 here but the functions are not public.
+
+            }
+
+            if (ImGui::CollapsingHeader("Editor")) {
+
+                ImGui::Indent(); // Indent to make the checkbox visually nested under the header
+
+                // Light/Dark Mode Checkbox
+                if (ImGui::Checkbox("Toggle light mode", &lightMode)) {
+
+                    ToggleLightMode(lightMode);
+
+                }
+
+                // ImGui Demo Window Checkbox
+                if (ImGui::Checkbox("Show ImGui demo window", &showImGuiDemo));
+
+                ImGui::Unindent(); // Unindent to return to the previous level of indentation
+
+            }
+
+            if (ImGui::CollapsingHeader("Framerate")) {
+
+                // FPS Graph
+
+                char title[50];
+
+                sprintf_s(title, 50, "Framerate (FPS): %.3f", FPSvec[FPSvec.size() - 1]);
+                ImGui::PlotHistogram("## Framerate", &FPSvec[0], FPSvec.size(), 0, title, 0.0f, 250.0f, ImVec2(300, 100));
+
+                sprintf_s(title, 50, "DeltaTime (DT): %.3f", DTvec[DTvec.size() - 1]);
+                ImGui::PlotHistogram("## DeltaTime", &DTvec[0], DTvec.size(), 0, title, 0.0f, 0.032f, ImVec2(300, 100));
+
+                sprintf_s(title, 50, "Milliseconds (MS): %.3f", MSvec[MSvec.size() - 1]);
+                ImGui::PlotHistogram("## Milliseconds", &MSvec[0], MSvec.size(), 0, title, 0.0f, 32.0f, ImVec2(300, 100));
+
+            }
+
+            if (ImGui::CollapsingHeader("Hardware")) {
+
+                // Hardware Detection
+
+                ShowPlatformInfo();
+
+                ImGui::Separator();
+
+                ShowCPUInfo();
+
+                ImGui::Separator();
+
+                ShowRAMInfo();
+
+                ImGui::Separator();
+
+                ShowGPUInfo();
+
+                ImGui::Separator();
+
+                ShowDiskInfo();
+
+            }
+
+            ImGui::End();
 
         }
 
-        if (ImGui::CollapsingHeader("Framerate")) {
-
-            // FPS Graph
-
-            char title[50];
-
-            sprintf_s(title, 50, "Framerate (FPS): %.3f", FPSvec[FPSvec.size() - 1]);
-            ImGui::PlotHistogram("## Framerate", &FPSvec[0], FPSvec.size(), 0, title, 0.0f, 250.0f, ImVec2(300, 100));
-
-            sprintf_s(title, 50, "DeltaTime (DT): %.3f", DTvec[DTvec.size() - 1]);
-            ImGui::PlotHistogram("## DeltaTime", &DTvec[0], DTvec.size(), 0, title, 0.0f, 0.032f, ImVec2(300, 100));
-
-            sprintf_s(title, 50, "Milliseconds (MS): %.3f", MSvec[MSvec.size() - 1]);
-            ImGui::PlotHistogram("## Milliseconds", &MSvec[0], MSvec.size(), 0, title, 0.0f, 32.0f, ImVec2(300, 100));
-
-        }
-
-        if (ImGui::CollapsingHeader("Hardware")) {
-
-            // Hardware Detection
-
-            ShowPlatformInfo();
-
-            ImGui::Separator();
-
-            ShowCPUInfo();
-
-            ImGui::Separator();
-
-            ShowRAMInfo();
-
-            ImGui::Separator();
-
-            ShowGPUInfo();
-
-            ImGui::Separator();
-
-            ShowDiskInfo();
-
-        }
-
-        ImGui::End();
     }
 
-    if (ImGui::Begin("Console"), true) {
+    if (showConsole) {
 
-        // Redirect Log Output
+        if (ImGui::Begin("Console", &showConsole), true) {
 
-        RedirectLogOutput();
+            // Redirect Log Output
 
-        ImGui::End();
+            RedirectLogOutput();
+
+            ImGui::End();
+
+        }
 
     }
 
