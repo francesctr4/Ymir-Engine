@@ -23,47 +23,91 @@ ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Modul
 ModuleRenderer3D::~ModuleRenderer3D()
 {}
 
-static const GLfloat CubeVertices_BufferData[] = {
+static const GLfloat TriangleVertices_BufferData[] = {
 
-	// Front face
-	-0.5f, -0.5f,  0.5f, // Bottom-left
-	 0.5f, -0.5f,  0.5f, // Bottom-right
-	 0.5f,  0.5f,  0.5f, // Top-right
-	-0.5f,  0.5f,  0.5f, // Top-left
+	0, 0, 0,
+	1, 1, 0,
+	1, 0, 0,
 
-	// Back face
-	-0.5f, -0.5f, -0.5f, // Bottom-left
-	 0.5f, -0.5f, -0.5f, // Bottom-right
-	 0.5f,  0.5f, -0.5f, // Top-right
-	-0.5f,  0.5f, -0.5f  // Top-left
+	0, 0, 0,
+	0, 1, 0,
+	1, 1, 0,
+
+	0, 0, 1,
+	1, 0, 1,
+	1, 1, 1,
+
+	0, 0, 1,
+	1, 1, 1,
+	0, 1, 1,
+
+	0, 0, 0, 
+	1, 0, 0, 
+	0, 0, 1,
+
+	1, 0, 1,
+	0, 0, 1, 
+	1, 0, 0,
+
+	0, 1, 0, 
+	0, 1, 1,
+	1, 1, 0,
+
+	1, 1, 1,
+	1, 1, 0, 
+	0, 1, 1,
+
+	0, 0, 0, 
+	0, 1, 1, 
+	0, 1, 0,
+
+	0, 0, 0,
+	0, 0, 1,
+	0, 1, 1,
+
+	1, 0, 0,
+	1, 1, 0,
+	1, 1, 1,
+
+	1, 0, 0, 
+	1, 1, 1,
+	1, 0, 1
 
 };
 
-static const GLuint CubeIndices_BufferData[] = {
+static const GLfloat CubeVertices_BufferData[] = {
 
-	// Front face
-	0, 1, 2,
+	 1,1,1, // 0
+	 0,1,1, // 1
+	 0,0,1, // 2
+	 1,0,1, // 3
+
+	 1,0,0, // 4
+	 1,1,0, // 5
+	 0,1,0, // 6
+	 0,0,0  // 7
+
+};
+
+static const GLuint TriangleIndices_BufferData[] = {
+
+	0, 1, 2,   // Front face
 	2, 3, 0,
 
-	// Back face
-	4, 5, 6,
-	6, 7, 4,
+	6, 4, 7,   // Back face
+	4, 6, 5,
 
-	// Left face
-	7, 3, 0,
-	0, 4, 7,
+	0, 3, 4,   // Right face
+	4, 5, 0,
 
-	// Right face
-	1, 5, 6,
-	6, 2, 1,
+	1, 6, 2,   // Left face
+	6, 7, 2,
 
-	// Top face
-	3, 2, 6,
-	6, 7, 3,
+	0, 5, 6,   // Top face
+	0, 6, 1,
 
-	// Bottom face
-	0, 1, 5,
-	5, 4, 0
+	7, 4, 3,   // Bottom face
+	7, 3, 2
 
 };
 
@@ -198,6 +242,11 @@ bool ModuleRenderer3D::Init()
 
 		// Vertex Buffer Object: holds actual vertex attribute data.
 
+	/*glGenBuffers(1, &VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleVertices_BufferData), TriangleVertices_BufferData, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);*/
+
 	glGenBuffers(1, &VBO); 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO); 
 	glBufferData(GL_ARRAY_BUFFER, sizeof(CubeVertices_BufferData), CubeVertices_BufferData, GL_STATIC_DRAW); 
@@ -207,7 +256,7 @@ bool ModuleRenderer3D::Init()
 
 	glGenBuffers(1, &EBO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO); 
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(CubeIndices_BufferData), CubeIndices_BufferData, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(TriangleIndices_BufferData), TriangleIndices_BufferData, GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 		// Vertex Object Attributes: are used to manage the setup of vertex 
@@ -252,12 +301,11 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	OPTICK_EVENT();
 
-	/*Cube cube2(2, 2, 2);
-	cube2.Render();*/
+	// Render Grid
 
 	Grid.Render();
 
-	// Drawing a cube using OpenGL Direct Mode rendering
+	// -------------- Drawing a cube using OpenGL Direct Mode rendering --------------
 
 	/*glLineWidth(2.0f);
 	glBegin(GL_TRIANGLES);
@@ -283,23 +331,30 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	glEnd();
 	glLineWidth(1.0f);*/
 
-	// Drawing a cube using OpenGL Vertex Arrays Mode rendering
+	// -------------- Drawing a cube using OpenGL Vertex Arrays Mode rendering --------------
 
-	//glEnableClientState(GL_VERTEX_ARRAY);
-	//glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	//glVertexPointer(3, GL_FLOAT, 0, NULL);
-	//// ... bind and use other buffers
-	//glDrawArrays(GL_TRIANGLES, 0, (sizeof(CubeVertices_BufferData) / sizeof(float)) / 3);
-	//glDisableClientState(GL_VERTEX_ARRAY);
+	/*glEnableClientState(GL_VERTEX_ARRAY);
 
-	// Drawing a cube using OpenGL Vertex Indices Mode rendering
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
 
-	//glEnableClientState(GL_VERTEX_ARRAY);
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	//glVertexPointer(3, GL_FLOAT, 0, CubeVertices_BufferData);
-	//// ... bind and use other buffers
-	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, CubeIndices_BufferData);
-	//glDisableClientState(GL_VERTEX_ARRAY);
+	glDrawArrays(GL_TRIANGLES, 0, (sizeof(TriangleVertices_BufferData) / sizeof(float) / 3));
+
+	glDisableClientState(GL_VERTEX_ARRAY);*/
+
+	// -------------- Drawing a cube using OpenGL Vertex Indices Mode rendering --------------
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+
+	// --------------------------- Drawing editor and Swaping Window -------------------------
 
 	App->editor->DrawEditor();
 
