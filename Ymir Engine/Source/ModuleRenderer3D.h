@@ -34,4 +34,7 @@ public:
 	
 	//You won't need this after using Frustum
 	mat4x4 ProjectionMatrix;
+
+	uint VBO; // Vertex Buffer Object
+
 };

@@ -159,6 +159,14 @@ bool ModuleRenderer3D::Init()
 
 	Grid.axis = true;
 
+	// Only one time!! (In init)
+
+	//VBO = 0;
+	//glGenBuffers(1, &VBO); // Asignar un valor a VBO
+	//glBindBuffer(GL_ARRAY_BUFFER, VBO); // Bindear el buffer GL_ARRAY_BUFFER en el valor VBO
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW); // Hacer las operaciones necesarias
+	//glBindBuffer(GL_ARRAY_BUFFER, 0); // Resetear el buffer
+
 	return ret;
 }
 
@@ -196,6 +204,38 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	Grid.Render();
 
+	//// draw a line 10 units upwards (Direct mode)
+	//glLineWidth(2.0f);
+	//glBegin(GL_TRIANGLES);
+
+	//glVertex3d(0, 0, 0); glVertex3d(1, 1, 0); glVertex3d(1, 0, 0);
+	//glVertex3d(0, 0, 0); glVertex3d(0, 1, 0); glVertex3d(1, 1, 0);
+
+	//glVertex3d(0, 0, 1); glVertex3d(1, 0, 1); glVertex3d(1, 1, 1);
+	//glVertex3d(0, 0, 1); glVertex3d(1, 1, 1); glVertex3d(0, 1, 1);
+
+	//glVertex3d(0, 0, 0); glVertex3d(1, 0, 0); glVertex3d(0, 0, 1);
+	//glVertex3d(1, 0, 1); glVertex3d(0, 0, 1); glVertex3d(1, 0, 0);
+
+	//glVertex3d(0, 1, 0); glVertex3d(0, 1, 1); glVertex3d(1, 1, 0);
+	//glVertex3d(1, 1, 1); glVertex3d(1, 1, 0); glVertex3d(0, 1, 1);
+
+	//glVertex3d(0, 0, 0); glVertex3d(0, 1, 1); glVertex3d(0, 1, 0);
+	//glVertex3d(0, 0, 0); glVertex3d(0, 0, 1); glVertex3d(0, 1, 1);
+
+	//glVertex3d(1, 0, 0); glVertex3d(1, 1, 0); glVertex3d(1, 1, 1);
+	//glVertex3d(1, 0, 0); glVertex3d(1, 1, 1); glVertex3d(1, 0, 1);
+
+	//glEnd();
+	//glLineWidth(1.0f);
+
+	//glEnableClientState(GL_VERTEX_ARRAY);
+	//glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	//glVertexPointer(3, GL_FLOAT, 0, NULL);
+	//// ... bind and use other buffers
+	//glDrawArrays(GL_TRIANGLES, 0, (sizeof(g_vertex_buffer_data) / sizeof(float)) / 3);
+	//glDisableClientState(GL_VERTEX_ARRAY);
+
 	App->editor->DrawEditor();
 
 	SDL_GL_SwapWindow(App->window->window);
@@ -208,6 +248,13 @@ bool ModuleRenderer3D::CleanUp()
 {
 	LOG("Destroying 3D Renderer");
 
+	//if (VBO != 0) {
+
+	//	glDeleteBuffers(1, &VBO); // CleanUp Buffers
+	//	VBO = 0;
+
+	//}
+	
 	SDL_GL_DeleteContext(context);
 
 	return true;
