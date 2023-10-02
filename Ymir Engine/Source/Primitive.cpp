@@ -1,4 +1,3 @@
-
 #include "Primitive.h"
 #include "Globals.h"
 
@@ -156,6 +155,39 @@ void Cube::InnerRender() const
 	glVertex3f(-sx, -sy,  sz);
 
 	glEnd();
+}
+
+// SPHERE ============================================
+SSphere::SSphere() : Primitive(), radius(1.0f)
+{
+	type = PrimitiveTypes::Primitive_Sphere;
+}
+
+SSphere::SSphere(float radius) : Primitive(), radius(radius)
+{
+	type = PrimitiveTypes::Primitive_Sphere;
+}
+
+void SSphere::InnerRender() const
+{
+	// TODO
+
+}
+
+// PYRAMID ============================================
+Pyramid::Pyramid() : Primitive(), size(1.0f, 1.0f, 1.0f)
+{
+	type = PrimitiveTypes::Primitive_Pyramid;
+}
+
+Pyramid::Pyramid(float sizeX, float sizeY, float sizeZ) : Primitive(), size(sizeX, sizeY, sizeZ)
+{
+	type = PrimitiveTypes::Primitive_Pyramid;
+}
+
+void Pyramid::InnerRender() const
+{
+	// TODO
 }
 
 // CYLINDER ============================================

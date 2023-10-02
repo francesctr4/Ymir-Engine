@@ -1,7 +1,7 @@
-
 #pragma once
 #include "Color.h"
 #include "External/MathGeoLib/include/Math/float4x4.h"
+#include "External/MathGeoLib/include/Math/float2.h"
 #include "External/MathGeoLib/include/Math/float3.h"
 #include "External/MathGeoLib/include/Math/TransformOps.h"
 
@@ -12,6 +12,7 @@ enum PrimitiveTypes
 	Primitive_Plane,
 	Primitive_Cube,
 	Primitive_Sphere,
+	Primitive_Pyramid,
 	Primitive_Cylinder
 };
 
@@ -45,6 +46,28 @@ public :
 	Cube();
 	Cube(float sizeX, float sizeY, float sizeZ);
 	void InnerRender() const override;
+public:
+	float3 size;
+};
+
+// ============================================
+class SSphere : public Primitive
+{
+public:
+	SSphere();
+	SSphere(float radius);
+	void InnerRender() const;
+public:
+	float radius;
+};
+
+// ============================================
+class Pyramid : public Primitive
+{
+public:
+	Pyramid();
+	Pyramid(float sizeX, float sizeY, float sizeZ);
+	void InnerRender() const;
 public:
 	float3 size;
 };
