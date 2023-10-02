@@ -1,36 +1,71 @@
-#include "Globals.h"
-#include "Application.h"
 #include "ModuleRenderer3D.h"
+
+#include "Application.h"
 #include "ModuleWindow.h"
 #include "ModuleCamera3D.h"
 #include "ModuleEditor.h"
+#include "Globals.h"
 #include "Log.h"
 
-#include "External/Glew/include/glew.h"
-#include "External/SDL/include/SDL_opengl.h"
-#include <gl/GL.h>
-#include <gl/GLU.h>
-
 #include "External/Optick/include/optick.h"
-
-#pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
-#pragma comment (lib, "glu32.lib") /* link Microsoft OpenGL lib   */
-#pragma comment (lib, "Source/External/Glew/libx86/glew32.lib")
-
-#ifdef _DEBUG
-#pragma comment (lib, "Source/External/MathGeoLib/libx86/lib_Debug/MathGeoLib.lib") /* link Microsoft OpenGL lib   */
-#else
-#pragma comment (lib, "Source/External/MathGeoLib/libx86/lib_Release/MathGeoLib.lib") /* link Microsoft OpenGL lib   */
-#endif // _DEBUG
 
 ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	context = nullptr;
+
+	VBO = 0;
+	EBO = 0;
+	VAO = 0;
+
 }
 
 // Destructor
 ModuleRenderer3D::~ModuleRenderer3D()
 {}
+
+static const GLfloat CubeVertices_BufferData[] = {
+
+	// Front face
+	-0.5f, -0.5f,  0.5f, // Bottom-left
+	 0.5f, -0.5f,  0.5f, // Bottom-right
+	 0.5f,  0.5f,  0.5f, // Top-right
+	-0.5f,  0.5f,  0.5f, // Top-left
+
+	// Back face
+	-0.5f, -0.5f, -0.5f, // Bottom-left
+	 0.5f, -0.5f, -0.5f, // Bottom-right
+	 0.5f,  0.5f, -0.5f, // Top-right
+	-0.5f,  0.5f, -0.5f  // Top-left
+
+};
+
+static const GLuint CubeIndices_BufferData[] = {
+
+	// Front face
+	0, 1, 2,
+	2, 3, 0,
+
+	// Back face
+	4, 5, 6,
+	6, 7, 4,
+
+	// Left face
+	7, 3, 0,
+	0, 4, 7,
+
+	// Right face
+	1, 5, 6,
+	6, 2, 1,
+
+	// Top face
+	3, 2, 6,
+	6, 7, 3,
+
+	// Bottom face
+	0, 1, 5,
+	5, 4, 0
+
+};
 
 // Called before render is available
 bool ModuleRenderer3D::Init()
@@ -159,13 +194,31 @@ bool ModuleRenderer3D::Init()
 
 	Grid.axis = true;
 
-	// Only one time!! (In init)
+	// OpenGL buffers (This code must only be executed one time in Init)
 
-	//VBO = 0;
-	//glGenBuffers(1, &VBO); // Asignar un valor a VBO
-	//glBindBuffer(GL_ARRAY_BUFFER, VBO); // Bindear el buffer GL_ARRAY_BUFFER en el valor VBO
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW); // Hacer las operaciones necesarias
-	//glBindBuffer(GL_ARRAY_BUFFER, 0); // Resetear el buffer
+		// Vertex Buffer Object: holds actual vertex attribute data.
+
+	glGenBuffers(1, &VBO); 
+	glBindBuffer(GL_ARRAY_BUFFER, VBO); 
+	glBufferData(GL_ARRAY_BUFFER, sizeof(CubeVertices_BufferData), CubeVertices_BufferData, GL_STATIC_DRAW); 
+	glBindBuffer(GL_ARRAY_BUFFER, 0); 
+
+		// Element Buffer Object: holds indices used for indexed rendering.
+
+	glGenBuffers(1, &EBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO); 
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(CubeIndices_BufferData), CubeIndices_BufferData, GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+		// Vertex Object Attributes: are used to manage the setup of vertex 
+		// attributes, making it easier to switch between different sets of 
+	    // attributes when rendering different objects.
+
+	glGenVertexArrays(1, &VAO);
+	glBindVertexArray(VAO);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+	glBindVertexArray(0);
 
 	return ret;
 }
@@ -199,41 +252,53 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	OPTICK_EVENT();
 
-	Cube cube2(2, 2, 2);
-	cube2.Render();
+	/*Cube cube2(2, 2, 2);
+	cube2.Render();*/
 
 	Grid.Render();
 
-	//// draw a line 10 units upwards (Direct mode)
-	//glLineWidth(2.0f);
-	//glBegin(GL_TRIANGLES);
+	// Drawing a cube using OpenGL Direct Mode rendering
 
-	//glVertex3d(0, 0, 0); glVertex3d(1, 1, 0); glVertex3d(1, 0, 0);
-	//glVertex3d(0, 0, 0); glVertex3d(0, 1, 0); glVertex3d(1, 1, 0);
+	/*glLineWidth(2.0f);
+	glBegin(GL_TRIANGLES);
 
-	//glVertex3d(0, 0, 1); glVertex3d(1, 0, 1); glVertex3d(1, 1, 1);
-	//glVertex3d(0, 0, 1); glVertex3d(1, 1, 1); glVertex3d(0, 1, 1);
+	glVertex3d(0, 0, 0); glVertex3d(1, 1, 0); glVertex3d(1, 0, 0);
+	glVertex3d(0, 0, 0); glVertex3d(0, 1, 0); glVertex3d(1, 1, 0);
 
-	//glVertex3d(0, 0, 0); glVertex3d(1, 0, 0); glVertex3d(0, 0, 1);
-	//glVertex3d(1, 0, 1); glVertex3d(0, 0, 1); glVertex3d(1, 0, 0);
+	glVertex3d(0, 0, 1); glVertex3d(1, 0, 1); glVertex3d(1, 1, 1);
+	glVertex3d(0, 0, 1); glVertex3d(1, 1, 1); glVertex3d(0, 1, 1);
 
-	//glVertex3d(0, 1, 0); glVertex3d(0, 1, 1); glVertex3d(1, 1, 0);
-	//glVertex3d(1, 1, 1); glVertex3d(1, 1, 0); glVertex3d(0, 1, 1);
+	glVertex3d(0, 0, 0); glVertex3d(1, 0, 0); glVertex3d(0, 0, 1);
+	glVertex3d(1, 0, 1); glVertex3d(0, 0, 1); glVertex3d(1, 0, 0);
 
-	//glVertex3d(0, 0, 0); glVertex3d(0, 1, 1); glVertex3d(0, 1, 0);
-	//glVertex3d(0, 0, 0); glVertex3d(0, 0, 1); glVertex3d(0, 1, 1);
+	glVertex3d(0, 1, 0); glVertex3d(0, 1, 1); glVertex3d(1, 1, 0);
+	glVertex3d(1, 1, 1); glVertex3d(1, 1, 0); glVertex3d(0, 1, 1);
 
-	//glVertex3d(1, 0, 0); glVertex3d(1, 1, 0); glVertex3d(1, 1, 1);
-	//glVertex3d(1, 0, 0); glVertex3d(1, 1, 1); glVertex3d(1, 0, 1);
+	glVertex3d(0, 0, 0); glVertex3d(0, 1, 1); glVertex3d(0, 1, 0);
+	glVertex3d(0, 0, 0); glVertex3d(0, 0, 1); glVertex3d(0, 1, 1);
 
-	//glEnd();
-	//glLineWidth(1.0f);
+	glVertex3d(1, 0, 0); glVertex3d(1, 1, 0); glVertex3d(1, 1, 1);
+	glVertex3d(1, 0, 0); glVertex3d(1, 1, 1); glVertex3d(1, 0, 1);
+
+	glEnd();
+	glLineWidth(1.0f);*/
+
+	// Drawing a cube using OpenGL Vertex Arrays Mode rendering
 
 	//glEnableClientState(GL_VERTEX_ARRAY);
 	//glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	//glVertexPointer(3, GL_FLOAT, 0, NULL);
 	//// ... bind and use other buffers
-	//glDrawArrays(GL_TRIANGLES, 0, (sizeof(g_vertex_buffer_data) / sizeof(float)) / 3);
+	//glDrawArrays(GL_TRIANGLES, 0, (sizeof(CubeVertices_BufferData) / sizeof(float)) / 3);
+	//glDisableClientState(GL_VERTEX_ARRAY);
+
+	// Drawing a cube using OpenGL Vertex Indices Mode rendering
+
+	//glEnableClientState(GL_VERTEX_ARRAY);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	//glVertexPointer(3, GL_FLOAT, 0, CubeVertices_BufferData);
+	//// ... bind and use other buffers
+	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, CubeIndices_BufferData);
 	//glDisableClientState(GL_VERTEX_ARRAY);
 
 	App->editor->DrawEditor();
@@ -248,13 +313,25 @@ bool ModuleRenderer3D::CleanUp()
 {
 	LOG("Destroying 3D Renderer");
 
-	//if (VBO != 0) {
+	// CleanUp OpenGL Buffers
 
-	//	glDeleteBuffers(1, &VBO); // CleanUp Buffers
-	//	VBO = 0;
+	if (VBO != 0) {
+		glDeleteBuffers(1, &VBO); 
+		VBO = 0;
+	}
 
-	//}
+	if (EBO != 0) {
+		glDeleteBuffers(1, &EBO);
+		EBO = 0;
+	}
+
+	if (VAO != 0) {
+		glDeleteVertexArrays(1, &VAO);
+		VAO = 0;
+	}
 	
+	// Delete OpenGL context
+
 	SDL_GL_DeleteContext(context);
 
 	return true;

@@ -1,10 +1,26 @@
 #pragma once
-#include "Module.h"
-#include "Globals.h"
-#include "Light.h"
+
+#include "External/Glew/include/glew.h"
+#include "External/SDL/include/SDL_opengl.h"
+#include <gl/GL.h>
+#include <gl/GLU.h>
+
+#pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
+#pragma comment (lib, "glu32.lib") /* link Microsoft OpenGL lib   */
+#pragma comment (lib, "Source/External/Glew/libx86/glew32.lib")
 
 #include "External/MathGeoLib/include/Math/float3x3.h"
 #include "External/MathGeoLib/include/Math/float4x4.h"
+
+#ifdef _DEBUG
+#pragma comment (lib, "Source/External/MathGeoLib/libx86/lib_Debug/MathGeoLib.lib") /* link Microsoft OpenGL lib   */
+#else
+#pragma comment (lib, "Source/External/MathGeoLib/libx86/lib_Release/MathGeoLib.lib") /* link Microsoft OpenGL lib   */
+#endif // _DEBUG
+
+#include "Module.h"
+#include "Globals.h"
+#include "Light.h"
 #include "Primitive.h"
 
 //todo: REMOVE this before 1st delivery!!
@@ -32,9 +48,13 @@ public:
 	SDL_GLContext context;
 	CPlane Grid;
 	
-	//You won't need this after using Frustum
+	// You won't need this after using Frustum
 	mat4x4 ProjectionMatrix;
 
-	uint VBO; // Vertex Buffer Object
+	// OpenGL buffers
+
+	GLuint VBO; // Vertex Buffer Object
+	GLuint EBO; // Element Buffer Object
+	GLuint VAO; // Vertex Object Attributes
 
 };
