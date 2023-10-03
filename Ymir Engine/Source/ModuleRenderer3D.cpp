@@ -302,7 +302,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	OPTICK_EVENT();
 
 	// Render Grid
-
+	
 	Grid.Render();
 
 	// -------------- Drawing a cube using OpenGL Direct Mode rendering --------------

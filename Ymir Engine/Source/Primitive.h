@@ -13,7 +13,9 @@ enum PrimitiveTypes
 	Primitive_Cube,
 	Primitive_Sphere,
 	Primitive_Pyramid,
-	Primitive_Cylinder
+	Primitive_Cylinder,
+	Primitive_Cone,
+	Primitive_Torus,
 };
 
 class Primitive
@@ -40,33 +42,34 @@ protected:
 };
 
 // ============================================
-class Cube : public Primitive
+class CCube : public Primitive
 {
 public :
-	Cube();
-	Cube(float sizeX, float sizeY, float sizeZ);
+	CCube();
+	CCube(float sizeX, float sizeY, float sizeZ);
 	void InnerRender() const override;
 public:
 	float3 size;
 };
 
 // ============================================
-class SSphere : public Primitive
+class CSphere : public Primitive
 {
 public:
-	SSphere();
-	SSphere(float radius);
+	CSphere();
+	CSphere(float radius, float numFaces);
 	void InnerRender() const;
 public:
 	float radius;
+	int numFaces;
 };
 
 // ============================================
-class Pyramid : public Primitive
+class CPyramid : public Primitive
 {
 public:
-	Pyramid();
-	Pyramid(float sizeX, float sizeY, float sizeZ);
+	CPyramid();
+	CPyramid(float sizeX, float sizeY, float sizeZ);
 	void InnerRender() const;
 public:
 	float3 size;
@@ -106,4 +109,31 @@ public:
 public:
 	float3 normal;
 	float constant;
+};
+
+// ============================================
+class CCone : public Primitive
+{
+public:
+	CCone();
+	CCone(float radius, int numFaces, float height);
+	void InnerRender() const override;
+public:
+	float radius;
+	int numFaces;
+	float height;
+};
+
+// ============================================
+class CTorus : public Primitive
+{
+public:
+	CTorus();
+	CTorus(float outerRadius, float innerRadius, int numFacesOuter, int numFacesInner);
+	void InnerRender() const override;
+public:
+	float outerRadius;
+	float innerRadius;
+	int numFacesOuter;
+	int numFacesInner;
 };
