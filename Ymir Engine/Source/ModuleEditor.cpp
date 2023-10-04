@@ -215,7 +215,68 @@ void ModuleEditor::DrawEditor()
 
         if (ImGui::BeginMenu("GameObject")) {
 
+            if (ImGui::MenuItem("Empty")) {
 
+
+
+            }
+
+            ImGui::SeparatorText("3D Primitive");
+
+            if (ImGui::MenuItem("Point")) {
+
+
+
+            }
+
+            if (ImGui::MenuItem("Line")) {
+
+
+
+            }
+
+            if (ImGui::MenuItem("Plane")) {
+
+
+
+            }
+
+            if (ImGui::MenuItem("Cube")) {
+
+                CCube c;
+                App->renderer3D->primitives.push_back(c);
+
+            }
+
+            if (ImGui::MenuItem("Pyramid")) {
+
+
+
+            }
+
+            if (ImGui::MenuItem("Cylinder")) {
+
+
+
+            }
+
+            if (ImGui::MenuItem("Cone")) {
+
+
+
+            }
+
+            if (ImGui::MenuItem("Sphere")) {
+
+
+
+            }
+
+            if (ImGui::MenuItem("Torus")) {
+
+
+
+            }
 
             ImGui::EndMenu();
         }
@@ -587,6 +648,9 @@ void ModuleEditor::DrawEditor()
 
                 // ImGui Demo Window Checkbox
                 if (ImGui::Checkbox("Show ImGui demo window", &showImGuiDemo));
+
+                // World Grid Checkbox
+                if (ImGui::Checkbox("Show Grid", &App->renderer3D->showGrid));
 
                 ImGui::Unindent(); // Unindent to return to the previous level of indentation
 

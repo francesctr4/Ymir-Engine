@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include "Log.h"
+#include "Primitive.h"
 #include <vector>
 #include <string>
 

@@ -46,7 +46,10 @@ public:
 
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;
+
 	CPlane Grid;
+	bool showGrid = true;
+	std::vector<Primitive> primitives;
 	
 	// You won't need this after using Frustum
 	mat4x4 ProjectionMatrix;

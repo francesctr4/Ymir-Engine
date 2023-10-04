@@ -303,8 +303,12 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	// Render Grid
 	
-	Grid.Render();
+	if (showGrid) {
 
+		Grid.Render();
+
+	}
+	
 	// -------------- Drawing a cube using OpenGL Direct Mode rendering --------------
 
 	/*glLineWidth(2.0f);
@@ -353,6 +357,12 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
+
+	// -------------- Drawing vector of primitives -----------------
+
+	for (auto it = primitives.begin(); it != primitives.end(); ++it) {
+		(*it).Render();
+	}
 
 	// --------------------------- Drawing editor and Swaping Window -------------------------
 
