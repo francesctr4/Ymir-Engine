@@ -13,7 +13,7 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 	Y = float3(0.0f, 1.0f, 0.0f);
 	Z = float3(0.0f, 0.0f, 1.0f);
 
-	Position = float3(0.0f, 10.0f, 5.0f);
+	Position = float3(0.0f, 5.0f, 5.0f);
 	Reference = float3(0.0f, 0.0f, 0.0f);
 	ViewMatrix = IdentityMatrix;
 
@@ -68,12 +68,14 @@ update_status ModuleCamera3D::Update(float dt)
 	if (App->input->GetMouseZ() > 0) newPos -= Z * speed;
 	if (App->input->GetMouseZ() < 0) newPos += Z * speed;
 
+	// Mouse wheel pressed while dragging movement handling
+
 	if (App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_REPEAT) {
 
 		int dx = -App->input->GetMouseXMotion();
 		int dy = -App->input->GetMouseYMotion();
 
-		float Sensitivity = dt;
+		float Sensitivity = 1.6f * dt;
 
 		float DeltaX = (float)dx * Sensitivity;
 		float DeltaY = (float)dy * Sensitivity;
@@ -125,6 +127,8 @@ update_status ModuleCamera3D::Update(float dt)
 
 		}
 
+		// Orbital camera FPS when we aren't pressing Left Alt
+
 		if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_IDLE) {
 
 			Position = Reference;
@@ -137,6 +141,8 @@ update_status ModuleCamera3D::Update(float dt)
 		}
 		
 	}
+
+	// Center camera to 0,0,0 when pressing Left Alt
 
 	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_IDLE) {
 
