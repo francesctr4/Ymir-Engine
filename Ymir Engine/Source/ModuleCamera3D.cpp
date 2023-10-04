@@ -68,12 +68,27 @@ update_status ModuleCamera3D::Update(float dt)
 	if (App->input->GetMouseZ() > 0) newPos -= Z * speed;
 	if (App->input->GetMouseZ() < 0) newPos += Z * speed;
 
+	if (App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_REPEAT) {
+
+		int dx = -App->input->GetMouseXMotion();
+		int dy = -App->input->GetMouseYMotion();
+
+		float Sensitivity = dt;
+
+		float DeltaX = (float)dx * Sensitivity;
+		float DeltaY = (float)dy * Sensitivity;
+
+		newPos -= Y * speed * DeltaY;
+		newPos += X * speed * DeltaX;
+
+	}
+
 	Position += newPos;
 	Reference += newPos;
 
 	// Mouse motion ----------------
 
-	if(App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+	if(App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_IDLE)
 	{
 		int dx = -App->input->GetMouseXMotion();
 		int dy = -App->input->GetMouseYMotion();
@@ -110,11 +125,30 @@ update_status ModuleCamera3D::Update(float dt)
 
 		}
 
-		Position = Reference + Z * Position.Length();
-		//Position = Reference + Z;
+		if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_IDLE) {
+
+			Position = Reference;
+
+		}
+		else {
+
+			Position = Reference + Z * Position.Length();
+
+		}
+		
 	}
 
-	LookAt(Reference);
+	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_IDLE) {
+
+		Reference = float3(0.0f, 0.0f, 0.0f);
+		LookAt(Reference);
+
+	}
+	else {
+
+		Reference = Position;
+
+	}
 
 	// Recalculate matrix -------------
 	CalculateViewMatrix();
