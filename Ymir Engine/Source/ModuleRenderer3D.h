@@ -43,15 +43,18 @@ public:
 
 	void OnResize(int width, int height);
 
+	void DrawPrimitives();
+	void ClearPrimitives();
+
 public:
+
+	std::vector<Primitive*> primitives;
 
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;
 
 	CPlane Grid;
 	bool showGrid = true;
-
-	std::vector<Primitive> primitives;
 	
 	// You won't need this after using Frustum
 	mat4x4 ProjectionMatrix;

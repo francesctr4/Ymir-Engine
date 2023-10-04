@@ -225,55 +225,73 @@ void ModuleEditor::DrawEditor()
 
             if (ImGui::MenuItem("Point")) {
 
-
+                App->renderer3D->primitives.emplace_back(new CPoint());
+                LOG("Point created successfully");
 
             }
 
             if (ImGui::MenuItem("Line")) {
 
-
+                App->renderer3D->primitives.emplace_back(new CLine());
+                LOG("Line created successfully");
 
             }
 
             if (ImGui::MenuItem("Plane")) {
 
-
+                App->renderer3D->primitives.emplace_back(new CPlane());
+                LOG("Plane created successfully");
 
             }
 
             if (ImGui::MenuItem("Cube")) {
 
-                //App->renderer3D->primitives.push_back(CCube());
+                App->renderer3D->primitives.emplace_back(new CCube());
+                LOG("Cube created successfully");
 
             }
 
             if (ImGui::MenuItem("Pyramid")) {
 
-
+                App->renderer3D->primitives.emplace_back(new CPyramid());
+                LOG("Pyramid created successfully");
 
             }
 
             if (ImGui::MenuItem("Cylinder")) {
 
-
+                App->renderer3D->primitives.emplace_back(new CCylinder());
+                LOG("Cylinder created successfully");
 
             }
 
             if (ImGui::MenuItem("Cone")) {
 
-
+                App->renderer3D->primitives.emplace_back(new CCone());
+                LOG("Cone created successfully");
 
             }
 
             if (ImGui::MenuItem("Sphere")) {
 
-
+                App->renderer3D->primitives.emplace_back(new CSphere());
+                LOG("Sphere created successfully");
 
             }
 
             if (ImGui::MenuItem("Torus")) {
 
+                App->renderer3D->primitives.emplace_back(new CTorus());
+                LOG("Torus created successfully");
 
+            }
+
+            ImGui::Separator();
+
+            if (ImGui::MenuItem("Clear Scene")) {
+
+                App->renderer3D->ClearPrimitives();
+                LOG("Scene cleared successfully");
 
             }
 

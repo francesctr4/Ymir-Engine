@@ -343,6 +343,26 @@ void CCylinder::InnerRender() const
 	glEnd();
 }
 
+// POINT ==================================================
+CPoint::CPoint() : Primitive(), position(0.0f,0.0f,0.0f)
+{
+	type = PrimitiveTypes::Primitive_Point;
+}
+
+CPoint::CPoint(float x, float y, float z) : Primitive(), position(x, y, z)
+{
+	type = PrimitiveTypes::Primitive_Point;
+}
+
+void CPoint::InnerRender() const
+{
+	glBegin(GL_POINTS);
+
+	glVertex3f(position.x, position.y, position.z);
+
+	glEnd();
+}
+
 // LINE ==================================================
 CLine::CLine() : Primitive(), origin(0, 0, 0), destination(1, 1, 1)
 {

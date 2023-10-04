@@ -136,6 +136,7 @@ update_status ModuleCamera3D::Update(float dt)
 		}
 		else {
 
+			// Orbital camera FPS when we aren't pressing Left Alt
 			Position = Reference + Z * Position.Length();
 
 		}

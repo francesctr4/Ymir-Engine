@@ -348,23 +348,19 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	// -------------- Drawing a cube using OpenGL Vertex Indices Mode rendering --------------
 
-	glEnableClientState(GL_VERTEX_ARRAY);
+	/*glEnableClientState(GL_VERTEX_ARRAY);
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
-
+	
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
 
-	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_VERTEX_ARRAY);*/
 
 	// -------------- Drawing vector of primitives -----------------
 
-	/*for (auto it = primitives.begin(); it != primitives.end(); ++it) {
-
-		(*it).Render();
-
-	}*/
+	DrawPrimitives();
 
 	// --------------------------- Drawing editor and Swaping Window -------------------------
 
@@ -418,4 +414,24 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+}
+
+void ModuleRenderer3D::DrawPrimitives()
+{
+	for (auto it = primitives.begin(); it != primitives.end(); ++it) {
+
+		(*it)->Render();
+
+	}
+}
+
+void ModuleRenderer3D::ClearPrimitives()
+{
+	for (auto it = primitives.begin(); it != primitives.end(); ++it) {
+
+		delete (*it);
+		(*it) = nullptr;
+	}
+
+	primitives.clear();
 }

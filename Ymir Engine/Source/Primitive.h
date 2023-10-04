@@ -88,6 +88,17 @@ public:
 };
 
 // ============================================
+class CPoint : public Primitive
+{
+public:
+	CPoint();
+	CPoint(float x, float y, float z);
+	void InnerRender() const override;
+public:
+	float3 position;
+};
+
+// ============================================
 class CLine : public Primitive
 {
 public:
