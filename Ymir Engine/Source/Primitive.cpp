@@ -490,7 +490,7 @@ void CCone::InnerRender() const
 }
 
 // TORUS ==================================================
-CTorus::CTorus() : Primitive(), outerRadius(3.0f), innerRadius(1.0f), numFacesOuter(20), numFacesInner(20)
+CTorus::CTorus() : Primitive(), outerRadius(1.5f), innerRadius(0.5f), numFacesOuter(20), numFacesInner(20)
 {
 	type = PrimitiveTypes::Primitive_Torus;
 }
