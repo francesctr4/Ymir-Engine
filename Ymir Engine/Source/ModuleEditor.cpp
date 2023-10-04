@@ -243,8 +243,7 @@ void ModuleEditor::DrawEditor()
 
             if (ImGui::MenuItem("Cube")) {
 
-                CCube c;
-                App->renderer3D->primitives.push_back(c);
+                //App->renderer3D->primitives.push_back(CCube());
 
             }
 

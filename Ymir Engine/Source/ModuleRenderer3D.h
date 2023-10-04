@@ -18,6 +18,7 @@
 #pragma comment (lib, "Source/External/MathGeoLib/libx86/lib_Release/MathGeoLib.lib") /* link Microsoft OpenGL lib   */
 #endif // _DEBUG
 
+#include <vector>
 #include "Module.h"
 #include "Globals.h"
 #include "Light.h"
@@ -49,6 +50,7 @@ public:
 
 	CPlane Grid;
 	bool showGrid = true;
+
 	std::vector<Primitive> primitives;
 	
 	// You won't need this after using Frustum

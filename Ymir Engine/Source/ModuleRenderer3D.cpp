@@ -360,9 +360,11 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	// -------------- Drawing vector of primitives -----------------
 
-	for (auto it = primitives.begin(); it != primitives.end(); ++it) {
+	/*for (auto it = primitives.begin(); it != primitives.end(); ++it) {
+
 		(*it).Render();
-	}
+
+	}*/
 
 	// --------------------------- Drawing editor and Swaping Window -------------------------
 
