@@ -180,6 +180,7 @@
     <ClInclude Include="Source\External\SDL\include\SDL_version.h" />
     <ClInclude Include="Source\External\SDL\include\SDL_video.h" />
     <ClInclude Include="Source\External\SDL\include\SDL_vulkan.h" />
+    <ClInclude Include="Source\External\stb_image\stb_image.h" />
     <ClInclude Include="Source\glmath.h" />
     <ClInclude Include="Source\Globals.h" />
     <ClInclude Include="Source\Light.h" />

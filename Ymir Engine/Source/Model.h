@@ -27,9 +27,15 @@ private:
 
     std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
 
+    uint TextureFromFile(const std::string& path, const std::string& directory, bool gamma = false);
+
     // Model Data
 
     std::vector<Mesh> meshes;
     std::string directory;
+
+    // Vector of already loaded textures
+
+    std::vector<Texture> loadedTextures;
 
 };

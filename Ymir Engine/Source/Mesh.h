@@ -26,6 +26,7 @@ struct Texture {
 
     uint id;
     std::string type;
+    std::string path; // With the path we can compare with other textures to not load already loaded textures
 
 };
 
@@ -35,7 +36,7 @@ public:
     Mesh(std::vector<Vertex>& vertices, std::vector<uint>& indices, std::vector<Texture>& textures);
     virtual ~Mesh();
 
-    void DrawMesh();
+    void DrawMesh() const;
 
 public:
 

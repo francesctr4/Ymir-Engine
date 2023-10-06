@@ -17,6 +17,7 @@ ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Modul
 	EBO = 0;
 	VAO = 0;
 
+	model = nullptr;
 }
 
 // Destructor
@@ -274,6 +275,8 @@ bool ModuleRenderer3D::Init()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	glBindVertexArray(0);
 
+	model = new Model("Assets/BakerHouse.fbx");
+	
 	return ret;
 }
 
@@ -368,6 +371,8 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	DrawPrimitives();
 
 	// --------------------------- Drawing editor and Swaping Window -------------------------
+
+	model->DrawModel();
 
 	App->editor->DrawEditor();
 

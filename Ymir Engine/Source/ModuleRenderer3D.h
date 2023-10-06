@@ -5,6 +5,7 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #include "AssetImporter3D.h"
+#include "Model.h"
 
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 #pragma comment (lib, "glu32.lib") /* link Microsoft OpenGL lib   */
@@ -65,5 +66,8 @@ public:
 	GLuint VBO; // Vertex Buffer Object
 	GLuint EBO; // Element Buffer Object
 	GLuint VAO; // Vertex Object Attributes
+
+	// Try to load a model
+	Model* model;
 
 };
