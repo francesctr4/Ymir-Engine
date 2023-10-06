@@ -6,8 +6,12 @@
 
 #pragma comment (lib, "Source/External/Assimp/libx86/assimp.lib")
 
-namespace ModelImporter {
+namespace AssetImporter3D {
 
+	// Stream Assimp Log messages to Debug window
+	void EnableAssimpDebugger();
 
+	// Detach Assimp Log Stream
+	void CleanUpAssimpDebugger();
 
 }

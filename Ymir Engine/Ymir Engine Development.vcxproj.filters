@@ -576,7 +576,13 @@
     <ClInclude Include="Source\Log.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ModuleLoadGeometry.h">
+    <ClInclude Include="Source\AssetImporter3D.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Mesh.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Model.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
   </ItemGroup>
@@ -749,7 +755,13 @@
     <ClCompile Include="Source\Module.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ModuleLoadGeometry.cpp">
+    <ClCompile Include="Source\AssetImporter3D.cpp">
+      <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Mesh.cpp">
+      <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Model.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
   </ItemGroup>

@@ -6,7 +6,6 @@
 #include "ModuleEditor.h"
 #include "Globals.h"
 #include "Log.h"
-#include "ModuleLoadGeometry.h"
 
 #include "External/Optick/include/optick.h"
 
@@ -18,16 +17,13 @@ ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Modul
 	EBO = 0;
 	VAO = 0;
 
-	// Stream log messages to Debug window
-	struct aiLogStream stream;
-	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
-	aiAttachLogStream(&stream);
-
 }
 
 // Destructor
 ModuleRenderer3D::~ModuleRenderer3D()
-{}
+{
+
+}
 
 static const GLfloat TriangleVertices_BufferData[] = {
 
@@ -122,6 +118,9 @@ bool ModuleRenderer3D::Init()
 {
 	LOG("Creating 3D Renderer context");
 	bool ret = true;
+
+	// Stream Assimp Log messages to Debug window
+	AssetImporter3D::EnableAssimpDebugger();
 
 	// OpenGL initial attributes
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
@@ -271,8 +270,8 @@ bool ModuleRenderer3D::Init()
 
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	glBindVertexArray(0);
 
 	return ret;
@@ -382,6 +381,9 @@ bool ModuleRenderer3D::CleanUp()
 {
 	LOG("Destroying 3D Renderer");
 
+	// Detach Assimp Log Stream
+	AssetImporter3D::CleanUpAssimpDebugger();
+
 	// CleanUp OpenGL Buffers
 
 	if (VBO != 0) {
@@ -398,12 +400,8 @@ bool ModuleRenderer3D::CleanUp()
 		glDeleteVertexArrays(1, &VAO);
 		VAO = 0;
 	}
-
-	// detach log stream
-	aiDetachAllLogStreams();
 	
 	// Delete OpenGL context
-
 	SDL_GL_DeleteContext(context);
 
 	return true;
