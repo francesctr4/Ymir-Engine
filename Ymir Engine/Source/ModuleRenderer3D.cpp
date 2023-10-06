@@ -6,6 +6,7 @@
 #include "ModuleEditor.h"
 #include "Globals.h"
 #include "Log.h"
+#include "ModuleLoadGeometry.h"
 
 #include "External/Optick/include/optick.h"
 
@@ -16,6 +17,11 @@ ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Modul
 	VBO = 0;
 	EBO = 0;
 	VAO = 0;
+
+	// Stream log messages to Debug window
+	struct aiLogStream stream;
+	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
+	aiAttachLogStream(&stream);
 
 }
 
@@ -392,6 +398,9 @@ bool ModuleRenderer3D::CleanUp()
 		glDeleteVertexArrays(1, &VAO);
 		VAO = 0;
 	}
+
+	// detach log stream
+	aiDetachAllLogStreams();
 	
 	// Delete OpenGL context
 

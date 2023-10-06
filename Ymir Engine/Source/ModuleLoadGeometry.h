@@ -5,3 +5,9 @@
 #include "External/Assimp/include/postprocess.h"
 
 #pragma comment (lib, "Source/External/Assimp/libx86/assimp.lib")
+
+namespace ModelImporter {
+
+
+
+}
