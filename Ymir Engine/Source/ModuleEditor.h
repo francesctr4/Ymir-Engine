@@ -75,11 +75,14 @@ public:
 	// Function to encapsulate About modal window
 	void AboutModalWindowContent();
 
-	// Function to encapsulate Reading files (to read LICENSE)
+	// Function to encapsulate Reading files
 	std::string ModuleEditor::ReadFile(const std::string& filename);
 
 	// Function to show log output on the editor
 	void RedirectLogOutput();
+
+	// Function to show memleaks file output on the editor
+	void MemoryLeaksOutput();
 
 public:
 
@@ -89,6 +92,7 @@ public:
 	// Booleans to Open/Close Editor windows
 	bool showApplication = false;
 	bool showConsole = false;
+	bool showMemoryLeaks = false;
 
 	// OpenGL settings checkbox toggle booleans
 	bool gl_DepthTesting = true;
@@ -136,6 +140,9 @@ public:
 	// About modal window inside help menu
 	bool showAboutPopUp = false;
 	std::string licenseFileContents;
+
+	// Memory Leaks file
+	std::string memleaksFileContents;
 
 };
 

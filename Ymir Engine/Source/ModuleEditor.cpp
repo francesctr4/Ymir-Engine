@@ -25,6 +25,7 @@ ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app,st
     MSvec.reserve(30);
     
     licenseFileContents = ReadFile("../../LICENSE");
+    memleaksFileContents = ReadFile("memleaks.log");
 }
 
 // Destructor
@@ -309,6 +310,12 @@ void ModuleEditor::DrawEditor()
             if (ImGui::MenuItem("Console")) {
 
                 showConsole = true;
+
+            }
+
+            if (ImGui::MenuItem("Memory Leaks")) {
+
+                showMemoryLeaks = true;
 
             }
 
@@ -727,6 +734,20 @@ void ModuleEditor::DrawEditor()
             // Redirect Log Output
 
             RedirectLogOutput();
+
+            ImGui::End();
+
+        }
+
+    }
+
+    if (showMemoryLeaks) {
+
+        if (ImGui::Begin("Memory Leaks", &showMemoryLeaks), true) {
+
+            // Show Memory Leaks File
+
+            MemoryLeaksOutput();
 
             ImGui::End();
 
@@ -1620,4 +1641,9 @@ void ModuleEditor::RedirectLogOutput()
         ImGui::Text((*it).c_str());
         
     }
+}
+
+void ModuleEditor::MemoryLeaksOutput()
+{
+    ImGui::TextWrapped("%s", memleaksFileContents.c_str());
 }
