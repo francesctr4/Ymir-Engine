@@ -277,7 +277,7 @@ bool ModuleRenderer3D::Init()
 
 	// 3D Model Loading
 	
-	gameObjects.push_back(Model("Assets/BakerHouse.fbx"));
+	gameObjects.push_back(Model("Assets/warrior.fbx"));
 
 	return ret;
 }
