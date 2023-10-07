@@ -4,8 +4,6 @@
 #include "External/SDL/include/SDL_opengl.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
-#include "AssetImporter3D.h"
-#include "Model.h"
 
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 #pragma comment (lib, "glu32.lib") /* link Microsoft OpenGL lib   */
@@ -25,6 +23,9 @@
 #include "Globals.h"
 #include "Light.h"
 #include "Primitive.h"
+
+#include "AssetImporter3D.h"
+#include "Model.h"
 
 //todo: REMOVE this before 1st delivery!!
 #include "glmath.h"
@@ -67,7 +68,7 @@ public:
 	GLuint EBO; // Element Buffer Object
 	GLuint VAO; // Vertex Object Attributes
 
-	// Try to load a model
+	// 3D Model Loading
 	Model* model;
 
 };

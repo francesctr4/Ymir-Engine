@@ -275,6 +275,7 @@ bool ModuleRenderer3D::Init()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	glBindVertexArray(0);
 
+	// 3D Model Loading
 	model = new Model("Assets/BakerHouse.fbx");
 	
 	return ret;
@@ -370,10 +371,11 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	DrawPrimitives();
 
-	// --------------------------- Drawing editor and Swaping Window -------------------------
-
+	// 3D Model Drawing
 	model->DrawModel();
 
+	// --------------------------- Drawing editor and Swaping Window -------------------------
+	
 	App->editor->DrawEditor();
 
 	SDL_GL_SwapWindow(App->window->window);

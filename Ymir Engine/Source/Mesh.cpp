@@ -40,32 +40,38 @@ void Mesh::DrawMesh() const
 
 	for (uint i = 0; i < textures.size(); i++)
 	{
-		glActiveTexture(GL_TEXTURE0 + i); // activate proper texture unit before binding
+		glActiveTexture(GL_TEXTURE0 + i); // Activate Proper Texture unit before binding
 
-		// retrieve texture number (the N in diffuse_textureN)
+		// Retrieve texture number (the N in diffuse_textureN)
 
 		std::string number;
 		std::string name = textures[i].type;
-		if (name == "texture_diffuse")
+
+		if (name == "texture_diffuse") {
+
 			number = std::to_string(diffuseNr++);
-		else if (name == "texture_specular")
+
+		}
+		else if (name == "texture_specular") {
+
 			number = std::to_string(specularNr++);
 
+		}
+
 		glBindTexture(GL_TEXTURE_2D, textures[i].id);
+
 	}
+
 	glActiveTexture(GL_TEXTURE0);
 
 	// Draw Geometry
 
-	glEnableClientState(GL_VERTEX_ARRAY);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBindVertexArray(VAO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 
-	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, NULL);
+	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 
 	glBindVertexArray(0);
-	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
 void Mesh::LoadMesh()
@@ -101,7 +107,7 @@ void Mesh::LoadMesh()
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, textureCoordinates));
 
-	//// Attribute 0: Position
+	// Attribute 0: Position
 	//glEnableVertexAttribArray(0);
 	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 
