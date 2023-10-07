@@ -17,7 +17,7 @@ ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Modul
 	EBO = 0;
 	VAO = 0;
 
-	model = nullptr;
+	//model = nullptr;
 }
 
 // Destructor
@@ -276,8 +276,9 @@ bool ModuleRenderer3D::Init()
 	glBindVertexArray(0);
 
 	// 3D Model Loading
-	model = new Model("Assets/BakerHouse.fbx");
 	
+	gameObjects.push_back(Model("Assets/BakerHouse.fbx"));
+
 	return ret;
 }
 
@@ -372,7 +373,13 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	DrawPrimitives();
 
 	// 3D Model Drawing
-	model->DrawModel();
+	//model->DrawModel();
+
+	for (auto it = gameObjects.begin(); it != gameObjects.end(); ++it) {
+
+		(*it).DrawModel();
+
+	}
 
 	// --------------------------- Drawing editor and Swaping Window -------------------------
 	

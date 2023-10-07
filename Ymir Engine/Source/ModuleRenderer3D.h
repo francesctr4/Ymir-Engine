@@ -69,6 +69,7 @@ public:
 	GLuint VAO; // Vertex Object Attributes
 
 	// 3D Model Loading
-	Model* model;
+	//Model* model;
+	std::vector<Model> gameObjects;
 
 };
