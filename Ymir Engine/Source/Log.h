@@ -17,9 +17,11 @@ public:
 
 public:
 
+    static std::vector<std::string> debugStrings;
+
+private:
+
     static char tmp_string[4096];
     static char tmp_string2[4096];
-
-    static std::vector<std::string> debugStrings;
 
 };
