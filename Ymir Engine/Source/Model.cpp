@@ -4,6 +4,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "External/stb_image/stb_image.h"
 
+#define ASSIMP_LOAD_FLAGS (aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_JoinIdenticalVertices)
+
 Model::Model(const std::string& path)
 {
 	LoadModel(path);
@@ -26,7 +28,7 @@ void Model::DrawModel()
 void Model::LoadModel(const std::string& path)
 {
 	Assimp::Importer importer;
-	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_JoinIdenticalVertices);
+	const aiScene* scene = importer.ReadFile(path, ASSIMP_LOAD_FLAGS);
 
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
@@ -65,6 +67,7 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 
 	for (uint i = 0; i < mesh->mNumVertices; i++)
 	{
+		LOG("Vertex read");
 		Vertex vertex;
 
 		// Process vertex positions
@@ -110,6 +113,7 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 
 	for (uint i = 0; i < mesh->mNumFaces; i++)
 	{
+		LOG("Index read");
 		aiFace face = mesh->mFaces[i];
 
 		for (uint j = 0; j < face.mNumIndices; j++) 

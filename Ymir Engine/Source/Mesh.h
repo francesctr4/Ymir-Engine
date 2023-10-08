@@ -36,7 +36,7 @@ public:
     Mesh(std::vector<Vertex>& vertices, std::vector<uint>& indices, std::vector<Texture>& textures);
     virtual ~Mesh();
 
-    void DrawMesh() const;
+    void DrawMesh();
 
 public:
 
@@ -55,5 +55,6 @@ private:
     GLuint VAO;
 
     void LoadMesh();
+    void LoadMesh2();
     
 };
