@@ -17,7 +17,6 @@ ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Modul
 	EBO = 0;
 	VAO = 0;
 
-	//model = nullptr;
 }
 
 // Destructor
@@ -248,37 +247,35 @@ bool ModuleRenderer3D::Init()
 
 		// Vertex Buffer Object: holds actual vertex attribute data.
 
-	/*glGenBuffers(1, &VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleVertices_BufferData), TriangleVertices_BufferData, GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);*/
+	///*glGenBuffers(1, &VBO);
+	//glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleVertices_BufferData), TriangleVertices_BufferData, GL_STATIC_DRAW);
+	//glBindBuffer(GL_ARRAY_BUFFER, 0);*/
 
-	glGenBuffers(1, &VBO); 
-	glBindBuffer(GL_ARRAY_BUFFER, VBO); 
-	glBufferData(GL_ARRAY_BUFFER, sizeof(CubeVertices_BufferData), CubeVertices_BufferData, GL_STATIC_DRAW); 
-	glBindBuffer(GL_ARRAY_BUFFER, 0); 
+	//glGenBuffers(1, &VBO); 
+	//glBindBuffer(GL_ARRAY_BUFFER, VBO); 
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(CubeVertices_BufferData), CubeVertices_BufferData, GL_STATIC_DRAW); 
+	//glBindBuffer(GL_ARRAY_BUFFER, 0); 
 
-		// Element Buffer Object: holds indices used for indexed rendering.
+	//	// Element Buffer Object: holds indices used for indexed rendering.
 
-	glGenBuffers(1, &EBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO); 
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(TriangleIndices_BufferData), TriangleIndices_BufferData, GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	//glGenBuffers(1, &EBO);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO); 
+	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(TriangleIndices_BufferData), TriangleIndices_BufferData, GL_STATIC_DRAW);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-		// Vertex Object Attributes: are used to manage the setup of vertex 
-		// attributes, making it easier to switch between different sets of 
-	    // attributes when rendering different objects.
+	//	// Vertex Object Attributes: are used to manage the setup of vertex 
+	//	// attributes, making it easier to switch between different sets of 
+	//    // attributes when rendering different objects.
 
-	glGenVertexArrays(1, &VAO);
-	glBindVertexArray(VAO);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-	glBindVertexArray(0);
+	//glGenVertexArrays(1, &VAO);
+	//glBindVertexArray(VAO);
+	//glEnableVertexAttribArray(0);
+	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	//glBindVertexArray(0);
 
 	// 3D Model Loading
-	
-	gameObjects.push_back(Model("Assets/warrior.fbx"));
-	//model = new Model("Assets/warrior.fbx");
+	models.push_back(new Model("Assets/warrior.fbx"));
 
 	return ret;
 }
@@ -373,14 +370,9 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	DrawPrimitives();
 
-	// 3D Model Drawing
-	//model->DrawModel();
+	// -------------------- Drawing 3D Models ---------------------
 
-	for (auto it = gameObjects.begin(); it != gameObjects.end(); ++it) {
-
-		(*it).DrawModel();
-
-	}
+	DrawModels();
 
 	// --------------------------- Drawing editor and Swaping Window -------------------------
 	
@@ -456,4 +448,24 @@ void ModuleRenderer3D::ClearPrimitives()
 	}
 
 	primitives.clear();
+}
+
+void ModuleRenderer3D::DrawModels()
+{
+	for (auto it = models.begin(); it != models.end(); ++it) {
+
+		(*it)->DrawModel();
+
+	}
+}
+
+void ModuleRenderer3D::ClearModels()
+{
+	for (auto it = models.begin(); it != models.end(); ++it) {
+
+		delete (*it);
+		(*it) = nullptr;
+	}
+
+	models.clear();
 }

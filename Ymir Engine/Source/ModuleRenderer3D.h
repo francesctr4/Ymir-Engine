@@ -49,6 +49,9 @@ public:
 	void DrawPrimitives();
 	void ClearPrimitives();
 
+	void DrawModels();
+	void ClearModels();
+
 public:
 
 	std::vector<Primitive*> primitives;
@@ -69,6 +72,6 @@ public:
 	GLuint VAO; // Vertex Object Attributes
 
 	// 3D Model Loading
-	std::vector<Model> models;
+	std::vector<Model*> models;
 
 };
