@@ -1529,7 +1529,37 @@ void ModuleEditor::AboutModalWindowContent()
     ImGui::SeparatorText("THIRD PARTY LIBRARIES");
     ImGui::NewLine();
 
-    ImGui::BulletText("ImGui v1.89.9 ->");
+    SDL_version version;
+    SDL_GetVersion(&version);
+    
+    ImGui::BulletText("SDL v%d.%d.%d -> ", version.major, version.minor, version.patch);
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(0.0f, 0.5f, 1.0f, 1.0f), "https://github.com/libsdl-org/SDL");
+    if (ImGui::IsItemClicked()) {
+
+        RequestBrowser("https://github.com/libsdl-org/SDL");
+
+    }
+
+    ImGui::BulletText("OpenGL v%s ->", glGetString(GL_VERSION));
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(0.0f, 0.5f, 1.0f, 1.0f), "https://www.opengl.org/");
+    if (ImGui::IsItemClicked()) {
+
+        RequestBrowser("https://www.opengl.org/");
+
+    }
+
+    ImGui::BulletText("Glew v%s ->", glewGetString(GLEW_VERSION));
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(0.0f, 0.5f, 1.0f, 1.0f), "https://github.com/nigels-com/glew");
+    if (ImGui::IsItemClicked()) {
+
+        RequestBrowser("https://github.com/nigels-com/glew");
+
+    }
+
+    ImGui::BulletText("ImGui v%s ->", IMGUI_VERSION);
     ImGui::SameLine();
     ImGui::TextColored(ImVec4(0.0f, 0.5f, 1.0f, 1.0f), "https://github.com/ocornut/imgui");
     if (ImGui::IsItemClicked()) {
@@ -1538,12 +1568,21 @@ void ModuleEditor::AboutModalWindowContent()
 
     }
 
-    ImGui::BulletText("MathGeoLib v1.5.0 ->");
+    ImGui::BulletText("MathGeoLib ->");
     ImGui::SameLine();
     ImGui::TextColored(ImVec4(0.0f, 0.5f, 1.0f, 1.0f), "https://github.com/juj/MathGeoLib");
     if (ImGui::IsItemClicked()) {
 
         RequestBrowser("https://github.com/juj/MathGeoLib");
+
+    }
+
+    ImGui::BulletText("Optick ->");
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(0.0f, 0.5f, 1.0f, 1.0f), "https://github.com/bombomby/optick");
+    if (ImGui::IsItemClicked()) {
+
+        RequestBrowser("https://github.com/bombomby/optick");
 
     }
 
@@ -1553,42 +1592,6 @@ void ModuleEditor::AboutModalWindowContent()
     if (ImGui::IsItemClicked()) {
 
         RequestBrowser("https://www.flipcode.com/archives/Presenting_A_Memory_Manager.shtml");
-
-    }
-
-    ImGui::BulletText("Glew v2.1.0 ->");
-    ImGui::SameLine();
-    ImGui::TextColored(ImVec4(0.0f, 0.5f, 1.0f, 1.0f), "https://github.com/nigels-com/glew");
-    if (ImGui::IsItemClicked()) {
-
-        RequestBrowser("https://github.com/nigels-com/glew");
-
-    }
-
-    ImGui::BulletText("SDL v2.0.4 ->");
-    ImGui::SameLine();
-    ImGui::TextColored(ImVec4(0.0f, 0.5f, 1.0f, 1.0f), "https://github.com/libsdl-org/SDL");
-    if (ImGui::IsItemClicked()) {
-
-        RequestBrowser("https://github.com/libsdl-org/SDL");
-
-    }
-
-    ImGui::BulletText("OpenGL v4.6.0 ->");
-    ImGui::SameLine();
-    ImGui::TextColored(ImVec4(0.0f, 0.5f, 1.0f, 1.0f), "https://www.opengl.org/");
-    if (ImGui::IsItemClicked()) {
-
-        RequestBrowser("https://www.opengl.org/");
-
-    }
-
-    ImGui::BulletText("Optick v1.4.0 ->");
-    ImGui::SameLine();
-    ImGui::TextColored(ImVec4(0.0f, 0.5f, 1.0f, 1.0f), "https://github.com/bombomby/optick");
-    if (ImGui::IsItemClicked()) {
-
-        RequestBrowser("https://github.com/bombomby/optick");
 
     }
 
