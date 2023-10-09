@@ -66,16 +66,6 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 	for (uint i = 0; i < mesh->mNumVertices; i++)
 	{
 		LOG("Vertex read");
-
-		// Process vertex positions
-
-		// Process vertex normals
-
-		/* TODO */
-
-		// Process vertex texture coordinates
-
-		/* TODO */
 			
 		aiVector3D& pos = mesh->mVertices[i];
 		vertices.push_back(pos.x);
@@ -96,10 +86,6 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 		}
 
 	}
-	
-	// Process materials
-
-	/* TODO */
 
 	return Mesh(vertices,indices); // Retrieve the Mesh with all the necessary data to draw
 }

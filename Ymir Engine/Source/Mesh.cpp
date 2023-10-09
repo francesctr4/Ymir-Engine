@@ -27,10 +27,6 @@ Mesh::~Mesh()
 
 void Mesh::DrawMesh()
 {
-	// Draw Textures
-
-		/* TODO */
-
 	// Draw Geometry
 
 	glEnableClientState(GL_VERTEX_ARRAY);

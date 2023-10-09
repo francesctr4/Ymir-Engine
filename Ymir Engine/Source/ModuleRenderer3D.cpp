@@ -17,8 +17,6 @@ ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Modul
 	EBO = 0;
 	VAO = 0;*/
 
-	model = nullptr;
-
 }
 
 // Destructor
@@ -277,11 +275,7 @@ bool ModuleRenderer3D::Init()
 	//glBindVertexArray(0);
 
 	// 3D Model Loading
-	//models.push_back(new Model("Assets/warrior.fbx"));
-
-	//model.LoadModel("Assets/BakerHouse.fbx");
-	model = new Model("Assets/BakerHouse.fbx");
-	models.push_back(model);
+	models.push_back(new Model("Assets/BakerHouse.fbx"));
 
 	return ret;
 }
@@ -377,8 +371,6 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	DrawPrimitives();
 
 	// -------------------- Drawing 3D Models ---------------------
-
-	model->DrawModel();
 
 	DrawModels();
 

@@ -73,6 +73,4 @@ public:
 	// 3D Model Loading
 	std::vector<Model*> models;
 
-	Model* model;
-
 };
