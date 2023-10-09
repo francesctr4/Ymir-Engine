@@ -13,9 +13,11 @@ ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Modul
 {
 	context = nullptr;
 
-	VBO = 0;
+	/*VBO = 0;
 	EBO = 0;
-	VAO = 0;
+	VAO = 0;*/
+
+	model = nullptr;
 
 }
 
@@ -120,7 +122,7 @@ bool ModuleRenderer3D::Init()
 	bool ret = true;
 
 	// Stream Assimp Log messages to Debug window
-	AssetImporter3D::EnableAssimpDebugger();
+	//AssetImporter3D::EnableAssimpDebugger();
 
 	// OpenGL initial attributes
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE); // Using OpenGL core profile
@@ -247,10 +249,10 @@ bool ModuleRenderer3D::Init()
 
 		// Vertex Buffer Object: holds actual vertex attribute data.
 
-	///*glGenBuffers(1, &VBO);
-	//glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleVertices_BufferData), TriangleVertices_BufferData, GL_STATIC_DRAW);
-	//glBindBuffer(GL_ARRAY_BUFFER, 0);*/
+	/*glGenBuffers(1, &VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleVertices_BufferData), TriangleVertices_BufferData, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);*/
 
 	//glGenBuffers(1, &VBO); 
 	//glBindBuffer(GL_ARRAY_BUFFER, VBO); 
@@ -275,7 +277,11 @@ bool ModuleRenderer3D::Init()
 	//glBindVertexArray(0);
 
 	// 3D Model Loading
-	models.push_back(new Model("Assets/BakerHouse.fbx"));
+	//models.push_back(new Model("Assets/warrior.fbx"));
+
+	//model.LoadModel("Assets/BakerHouse.fbx");
+	model = new Model("Assets/BakerHouse.fbx");
+	models.push_back(model);
 
 	return ret;
 }
@@ -372,6 +378,8 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	// -------------------- Drawing 3D Models ---------------------
 
+	model->DrawModel();
+
 	DrawModels();
 
 	// --------------------------- Drawing editor and Swaping Window -------------------------
@@ -389,11 +397,11 @@ bool ModuleRenderer3D::CleanUp()
 	LOG("Destroying 3D Renderer");
 
 	// Detach Assimp Log Stream
-	AssetImporter3D::CleanUpAssimpDebugger();
+	//AssetImporter3D::CleanUpAssimpDebugger();
 
 	// CleanUp OpenGL Buffers
 
-	if (VBO != 0) {
+	/*if (VBO != 0) {
 		glDeleteBuffers(1, &VBO); 
 		VBO = 0;
 	}
@@ -406,7 +414,7 @@ bool ModuleRenderer3D::CleanUp()
 	if (VAO != 0) {
 		glDeleteVertexArrays(1, &VAO);
 		VAO = 0;
-	}
+	}*/
 	
 	// Delete OpenGL context
 	SDL_GL_DeleteContext(context);
@@ -461,11 +469,11 @@ void ModuleRenderer3D::DrawModels()
 
 void ModuleRenderer3D::ClearModels()
 {
-	for (auto it = models.begin(); it != models.end(); ++it) {
+	/*for (auto it = models.begin(); it != models.end(); ++it) {
 
 		delete (*it);
 		(*it) = nullptr;
 	}
 
-	models.clear();
+	models.clear();*/
 }

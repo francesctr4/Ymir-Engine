@@ -58,9 +58,6 @@
     <Filter Include="Externals\Glew">
       <UniqueIdentifier>{9177f949-b8af-465d-948d-bc9d2bf09fc7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Externals\stb_image">
-      <UniqueIdentifier>{73f51c0c-f854-4916-9950-e209aa275083}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Module.h">
@@ -579,17 +576,11 @@
     <ClInclude Include="Source\Log.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
-    <ClInclude Include="Source\AssetImporter3D.h">
-      <Filter>Sources\Tools</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Mesh.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
     <ClInclude Include="Source\Model.h">
       <Filter>Sources\Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\External\stb_image\stb_image.h">
-      <Filter>Externals\stb_image</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -760,9 +751,6 @@
     </ClCompile>
     <ClCompile Include="Source\Module.cpp">
       <Filter>Sources\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\AssetImporter3D.cpp">
-      <Filter>Sources\Tools</Filter>
     </ClCompile>
     <ClCompile Include="Source\Mesh.cpp">
       <Filter>Sources\Tools</Filter>

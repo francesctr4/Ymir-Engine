@@ -24,7 +24,6 @@
 #include "Light.h"
 #include "Primitive.h"
 
-#include "AssetImporter3D.h"
 #include "Model.h"
 
 //todo: REMOVE this before 1st delivery!!
@@ -67,11 +66,13 @@ public:
 
 	// OpenGL buffers
 
-	GLuint VBO; // Vertex Buffer Object
-	GLuint EBO; // Element Buffer Object
-	GLuint VAO; // Vertex Object Attributes
+	//GLuint VBO; // Vertex Buffer Object
+	//GLuint EBO; // Element Buffer Object
+	//GLuint VAO; // Vertex Object Attributes
 
 	// 3D Model Loading
 	std::vector<Model*> models;
+
+	Model* model;
 
 };
