@@ -180,6 +180,7 @@
     <ClInclude Include="Source\External\SDL\include\SDL_version.h" />
     <ClInclude Include="Source\External\SDL\include\SDL_video.h" />
     <ClInclude Include="Source\External\SDL\include\SDL_vulkan.h" />
+    <ClInclude Include="Source\External\stb_image\stb_image.h" />
     <ClInclude Include="Source\glmath.h" />
     <ClInclude Include="Source\Globals.h" />
     <ClInclude Include="Source\Light.h" />
@@ -253,6 +254,8 @@
     <ClInclude Include="Source\ModuleInput.h" />
     <ClInclude Include="Source\ModuleWindow.h" />
     <ClInclude Include="Source\Primitive.h" />
+    <ClInclude Include="Source\Shader.h" />
+    <ClInclude Include="Source\Texture.h" />
     <ClInclude Include="Source\Timer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -313,6 +316,8 @@
     <ClCompile Include="Source\ModuleRenderer3D.cpp" />
     <ClCompile Include="Source\ModuleWindow.cpp" />
     <ClCompile Include="Source\Primitive.cpp" />
+    <ClCompile Include="Source\Shader.cpp" />
+    <ClCompile Include="Source\Texture.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -322,6 +327,8 @@
     <None Include="Source\External\MathGeoLib\include\Geometry\TriangleMesh_IntersectRay_CPP.inl" />
     <None Include="Source\External\MathGeoLib\include\Geometry\TriangleMesh_IntersectRay_SSE.inl" />
     <None Include="Source\External\MathGeoLib\include\Math\Matrix.inl" />
+    <None Include="Source\shader.fs" />
+    <None Include="Source\shader.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

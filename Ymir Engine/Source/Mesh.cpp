@@ -2,13 +2,13 @@
 
 Mesh::Mesh(std::vector<GLfloat>& vertices, std::vector<GLuint>& indices)
 {
-    VBO = 0;
-    EBO = 0;
+	VBO = 0;
+	EBO = 0;
 
-    this->vertices = vertices;
-    this->indices = indices;
+	this->vertices = vertices;
+	this->indices = indices;
 
-    LoadMesh();
+	LoadMesh();
 }
 
 Mesh::~Mesh()

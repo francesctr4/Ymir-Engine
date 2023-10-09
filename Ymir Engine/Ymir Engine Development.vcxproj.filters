@@ -58,6 +58,15 @@
     <Filter Include="Externals\Glew">
       <UniqueIdentifier>{9177f949-b8af-465d-948d-bc9d2bf09fc7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Externals\stb_image">
+      <UniqueIdentifier>{10c8953e-0188-45c6-b3c5-2db04cedcf82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Tools\Shaders">
+      <UniqueIdentifier>{10b8c814-36c8-4f12-93e9-d72c057a2bb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Tools\Shaders\GLSL">
+      <UniqueIdentifier>{0cdf3689-43eb-48d1-ad72-4aa2394dac16}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Module.h">
@@ -582,6 +591,15 @@
     <ClInclude Include="Source\Model.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="Source\External\stb_image\stb_image.h">
+      <Filter>Externals\stb_image</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Shader.h">
+      <Filter>Sources\Tools\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Texture.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -758,6 +776,12 @@
     <ClCompile Include="Source\Model.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Shader.cpp">
+      <Filter>Sources\Tools\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Texture.cpp">
+      <Filter>Sources\Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\External\MathGeoLib\include\Geometry\KDTree.inl">
@@ -777,6 +801,12 @@
     </None>
     <None Include="Source\External\MathGeoLib\include\Math\Matrix.inl">
       <Filter>Externals\MathGeoLib\Math</Filter>
+    </None>
+    <None Include="Source\shader.fs">
+      <Filter>Sources\Tools\Shaders\GLSL</Filter>
+    </None>
+    <None Include="Source\shader.vs">
+      <Filter>Sources\Tools\Shaders\GLSL</Filter>
     </None>
   </ItemGroup>
 </Project>

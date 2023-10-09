@@ -1,7 +1,10 @@
 #include "Model.h"
 #include "Log.h"
 
-#define ASSIMP_LOAD_FLAGS (aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_JoinIdenticalVertices | aiProcessPreset_TargetRealtime_MaxQuality)
+#define STB_IMAGE_IMPLEMENTATION
+#include "External/stb_image/stb_image.h"
+
+#define ASSIMP_LOAD_FLAGS (aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_JoinIdenticalVertices)
 
 Model::Model(const std::string& path)
 {
@@ -37,7 +40,7 @@ void Model::LoadModel(const std::string& path)
 	{
 		LOG("Error loading scene %s", path.c_str());
 	}
-		
+
 }
 
 void Model::ProcessNode(aiNode* node, const aiScene* scene)
@@ -65,8 +68,6 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 
 	for (uint i = 0; i < mesh->mNumVertices; i++)
 	{
-		LOG("Vertex read");
-			
 		aiVector3D& pos = mesh->mVertices[i];
 		vertices.push_back(pos.x);
 		vertices.push_back(pos.y);
@@ -77,15 +78,14 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 
 	for (uint i = 0; i < mesh->mNumFaces; i++)
 	{
-		LOG("Index read");
 		aiFace face = mesh->mFaces[i];
 
-		for (uint j = 0; j < face.mNumIndices; j++) 
+		for (uint j = 0; j < face.mNumIndices; j++)
 		{
 			indices.push_back(face.mIndices[j]);
 		}
 
 	}
 
-	return Mesh(vertices,indices); // Retrieve the Mesh with all the necessary data to draw
+	return Mesh(vertices, indices); // Retrieve the Mesh with all the necessary data to draw
 }

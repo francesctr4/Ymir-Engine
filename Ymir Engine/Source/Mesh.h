@@ -9,6 +9,7 @@
 #include <gl/GLU.h>
 
 #include "External/MathGeoLib/include/Math/float3.h"
+#include "External/MathGeoLib/include/Math/float2.h"
 
 #include "Globals.h"
 
@@ -26,7 +27,7 @@ public:
 
     std::vector<GLfloat> vertices;
     std::vector<GLuint> indices;
-    
+
 private:
 
     // Buffers Data
@@ -35,5 +36,5 @@ private:
     GLuint EBO;
 
     void LoadMesh();
-    
+
 };

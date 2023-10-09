@@ -13,9 +13,9 @@ ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Modul
 {
 	context = nullptr;
 
-	/*VBO = 0;
+	VBO = 0;
 	EBO = 0;
-	VAO = 0;*/
+	VAO = 0;
 
 }
 
@@ -264,9 +264,9 @@ bool ModuleRenderer3D::Init()
 	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(TriangleIndices_BufferData), TriangleIndices_BufferData, GL_STATIC_DRAW);
 	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-	//	// Vertex Object Attributes: are used to manage the setup of vertex 
-	//	// attributes, making it easier to switch between different sets of 
-	//    // attributes when rendering different objects.
+	////	// Vertex Object Attributes: are used to manage the setup of vertex 
+	////	// attributes, making it easier to switch between different sets of 
+	////    // attributes when rendering different objects.
 
 	//glGenVertexArrays(1, &VAO);
 	//glBindVertexArray(VAO);
@@ -276,6 +276,8 @@ bool ModuleRenderer3D::Init()
 
 	// 3D Model Loading
 	models.push_back(new Model("Assets/BakerHouse.fbx"));
+	myShader.LoadShader("Source/shader.vs","Source/shader.fs");
+	myShader.UseShader();
 
 	return ret;
 }
@@ -356,16 +358,16 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	// -------------- Drawing a cube using OpenGL Vertex Indices Mode rendering --------------
 
-	/*glEnableClientState(GL_VERTEX_ARRAY);
+	//glEnableClientState(GL_VERTEX_ARRAY);
+	//
+	//glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	//glVertexPointer(3, GL_FLOAT, 0, NULL);
 
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
+	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
+
+	//glDisableClientState(GL_VERTEX_ARRAY);
 	
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
-
-	glDisableClientState(GL_VERTEX_ARRAY);*/
-
 	// -------------- Drawing vector of primitives -----------------
 
 	DrawPrimitives();
@@ -390,6 +392,8 @@ bool ModuleRenderer3D::CleanUp()
 
 	// Detach Assimp Log Stream
 	//AssetImporter3D::CleanUpAssimpDebugger();
+
+	myShader.ClearShader();
 
 	// CleanUp OpenGL Buffers
 

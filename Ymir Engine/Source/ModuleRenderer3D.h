@@ -18,6 +18,7 @@
 #pragma comment (lib, "Source/External/MathGeoLib/libx86/lib_Release/MathGeoLib.lib") /* link Microsoft OpenGL lib   */
 #endif // _DEBUG
 
+#include <fstream>
 #include <vector>
 #include "Module.h"
 #include "Globals.h"
@@ -25,6 +26,7 @@
 #include "Primitive.h"
 
 #include "Model.h"
+#include "Shader.h"
 
 //todo: REMOVE this before 1st delivery!!
 #include "glmath.h"
@@ -66,11 +68,12 @@ public:
 
 	// OpenGL buffers
 
-	//GLuint VBO; // Vertex Buffer Object
-	//GLuint EBO; // Element Buffer Object
-	//GLuint VAO; // Vertex Object Attributes
+	GLuint VBO; // Vertex Buffer Object
+	GLuint EBO; // Element Buffer Object
+	GLuint VAO; // Vertex Object Attributes
 
 	// 3D Model Loading
 	std::vector<Model*> models;
+	Shader myShader;
 
 };
