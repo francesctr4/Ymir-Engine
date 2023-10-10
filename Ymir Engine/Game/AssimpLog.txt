@@ -1,0 +1,18 @@
+Info,  T30092: Load Assets/BakerHouse.fbx
+Debug, T30092: Assimp 3.3.0 x86 msvc shared singlethreaded
+Info,  T30092: Found a matching importer for this file format: Autodesk FBX Importer.
+Info,  T30092: Import root directory is 'Assets\'
+Warn,  T30092: FBX-DOM (TOK_KEY, offset 0xd7b7) shading mode not recognized: Phong
+Info,  T30092: Entering post processing pipeline
+Debug, T30092: FlipUVsProcess begin
+Debug, T30092: FlipUVsProcess finished
+Debug, T30092: TriangulateProcess begin
+Debug, T30092: TriangulateProcess finished. There was nothing to be done.
+Debug, T30092: Generate spatially-sorted vertex cache
+Debug, T30092: GenVertexNormalsProcess begin
+Debug, T30092: GenVertexNormalsProcess finished. Normals are already there
+Debug, T30092: JoinVerticesProcess begin
+Debug, T30092: Mesh 0 (Untitled.001) | Verts in: 324 out: 160 | ~50.6173%
+Debug, T30092: Mesh 1 (Untitled) | Verts in: 2751 out: 1493 | ~45.7288%
+Info,  T30092: JoinVerticesProcess finished | Verts in: 3075 out: 1653 | ~46.2%
+Info,  T30092: Leaving post processing pipeline

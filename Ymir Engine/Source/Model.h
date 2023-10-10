@@ -29,13 +29,11 @@ private:
 
 public:
 
-    std::string name;
-    std::vector<Mesh> meshes;
-
-private:
-
     // Model Data
 
+    std::string name;
+
+    std::vector<Mesh> meshes;
     std::string directory;
 
 };

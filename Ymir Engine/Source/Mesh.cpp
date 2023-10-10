@@ -11,6 +11,8 @@ Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vec
 	this->indices = indices;
     this->textures = textures;
 
+    enableNormals = false;
+
 	LoadMesh();
 }
 
@@ -35,53 +37,95 @@ Mesh::~Mesh()
 
 void Mesh::DrawMesh()
 {
-    // Draw Textures
+    // ------------------- Draw Textures --------------------
 
-	/* TODO */
+	    /* TODO */
 
-	// Draw Geometry
+	// ------------------- Draw Geometry --------------------
 
-	glBindVertexArray(VAO);
+    // Draw Vertex Positions
 
-	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, NULL);
+    glBindVertexArray(VAO);
 
-	glBindVertexArray(0);
+    glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+
+    glBindVertexArray(0);
+
+    // Draw Vertex Normals (Direct Mode)
+
+    if (enableNormals) {
+
+        glColor3f(1.0f, 0.0f, 0.0f); // Set the color of the normals (red)
+
+        for (size_t i = 0; i < vertices.size(); ++i) {
+
+            const Vertex& vertex = vertices[i];
+            const float3& normal = vertex.normal * 0.1;
+
+            glBegin(GL_LINES);
+
+            glVertex3f(vertex.position.x, vertex.position.y, vertex.position.z);
+            glVertex3f(vertex.position.x + normal.x, vertex.position.y + normal.y, vertex.position.z + normal.z);
+
+            glEnd();
+
+        }
+
+        glColor3f(1.0f, 1.0f, 1.0f); 
+
+    }
 
 }
 
 void Mesh::LoadMesh()
 {
-    // create buffers/arrays
+    // 1. Create Buffers
+
     glGenVertexArrays(1, &VAO);
+
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
 
+    // 2. Bind Buffers
+
     glBindVertexArray(VAO);
-    // load data into vertex buffers
+
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    // A great thing about structs is that their memory layout is sequential for all its items.
-    // The effect is that we can simply pass a pointer to the struct and it translates perfectly to a glm::vec3/2 array which
-    // again translates to 3/2 floats which translates to a byte array.
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
-
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+    
+    // 3. Set the Vertex Attribute Pointers
 
-    // set the vertex attribute pointers
-    // vertex Positions
+        // Vertex Positions
+
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
-    // vertex normals
+
+        // Vertex Normals
+
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
-    // vertex texture
+
+        // Vertex Texture Coordinates
+
     glEnableVertexAttribArray(2);
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, textureCoordinates));
 
+    // 4. Load data into Vertex Buffers
+
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), &indices[0], GL_STATIC_DRAW);
+
+    LOG("Mesh loaded with: %d vertices, %d indices", vertices.size(), indices.size());
+
+    // 5. Unbind Buffers
+
     glBindVertexArray(0);
 
-	LOG("Mesh created with: %d vertices, %d indices", vertices.size(), indices.size());
+    glDisableVertexAttribArray(0);
+    glDisableVertexAttribArray(1);
+    glDisableVertexAttribArray(2);
 
-    // Disable bindings
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 }

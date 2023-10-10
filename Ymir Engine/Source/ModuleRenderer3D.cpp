@@ -121,7 +121,7 @@ bool ModuleRenderer3D::Init()
 	bool ret = true;
 
 	// Stream Assimp Log messages to Debug window
-	//AssetImporter3D::EnableAssimpDebugger();
+	EnableAssimpDebugger();
 
 	// OpenGL initial attributes
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE); // Using OpenGL core profile
@@ -276,11 +276,10 @@ bool ModuleRenderer3D::Init()
 	//glBindVertexArray(0);
 
 	// 3D Model Loading
-	//models.push_back(new Model("Assets/BakerHouse.fbx"));
 	//myShader.LoadShader("Source/shader.vs","Source/shader.fs");
 	//myShader.UseShader();
 
-	//models.push_back(Model("Assets/BakerHouse.fbx"));
+	models.push_back(Model("Assets/BakerHouse.fbx"));
 	//models.push_back(Model("Assets/warrior.fbx"));
 
 	return ret;
@@ -378,16 +377,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	// -------------------- Drawing 3D Models ---------------------
 
-	if (App->input->droppedFile) {
-
-		Model tmpModel;
-		tmpModel.LoadModel(App->input->droppedFileDirectory);
-
-		models.push_back(tmpModel);
-
-		App->input->droppedFile = false;
-
-	}
+	HandleModelDragDrop();
 
 	DrawModels();
 
@@ -406,7 +396,7 @@ bool ModuleRenderer3D::CleanUp()
 	LOG("Destroying 3D Renderer");
 
 	// Detach Assimp Log Stream
-	//AssetImporter3D::CleanUpAssimpDebugger();
+	CleanUpAssimpDebugger();
 
 	/*myShader.ClearShader();*/
 
@@ -469,6 +459,20 @@ void ModuleRenderer3D::ClearPrimitives()
 	primitives.clear();
 }
 
+void ModuleRenderer3D::HandleModelDragDrop()
+{
+	if (App->input->droppedFile) {
+
+		Model tmpModel;
+		tmpModel.LoadModel(App->input->droppedFileDirectory);
+
+		models.push_back(tmpModel);
+
+		App->input->droppedFile = false;
+
+	}
+}
+
 void ModuleRenderer3D::DrawModels()
 {
 	for (auto it = models.begin(); it != models.end(); ++it) {
@@ -481,4 +485,16 @@ void ModuleRenderer3D::DrawModels()
 void ModuleRenderer3D::ClearModels()
 {
 	models.clear();
+}
+
+void ModuleRenderer3D::EnableAssimpDebugger()
+{
+	struct aiLogStream stream;
+	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
+	aiAttachLogStream(&stream);
+}
+
+void ModuleRenderer3D::CleanUpAssimpDebugger()
+{
+	aiDetachAllLogStreams();
 }

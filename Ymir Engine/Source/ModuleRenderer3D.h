@@ -50,8 +50,12 @@ public:
 	void DrawPrimitives();
 	void ClearPrimitives();
 
+	void HandleModelDragDrop();
 	void DrawModels();
 	void ClearModels();
+
+	void EnableAssimpDebugger();
+	void CleanUpAssimpDebugger();
 
 public:
 

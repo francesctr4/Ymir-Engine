@@ -4,7 +4,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "External/stb_image/stb_image.h"
 
-#define ASSIMP_LOAD_FLAGS (aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_JoinIdenticalVertices)
+#define ASSIMP_LOAD_FLAGS (aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_JoinIdenticalVertices | aiProcessPreset_TargetRealtime_MaxQuality)
 
 Model::Model()
 {
@@ -32,19 +32,9 @@ void Model::DrawModel()
 
 void Model::LoadModel(const std::string& path)
 {
-	const aiScene* scene = aiImportFile(path.c_str(), ASSIMP_LOAD_FLAGS);
+	// Retrieve info about Model (directory and name)
 
-	if (scene != nullptr && scene->HasMeshes())
-	{
-		// Use scene->mNumMeshes to iterate on scene->mMeshes array
-		directory = path.substr(0, path.find_last_of('/'));
-		ProcessNode(scene->mRootNode, scene);
-		aiReleaseImport(scene);
-	}
-	else
-	{
-		LOG("Error loading scene %s", path.c_str());
-	}
+	directory = path.substr(0, path.find_last_of('/'));
 
 	if (path.find("/") != std::string::npos) {
 
@@ -58,26 +48,44 @@ void Model::LoadModel(const std::string& path)
 		name = path.substr(lastSlash);
 
 	}
-	
 
-	LOG("Model created: %s", name.c_str());
-	
+	// Import the model using Assimp
+
+	const aiScene* scene = aiImportFile(path.c_str(), ASSIMP_LOAD_FLAGS);
+
+	if (scene != nullptr && scene->HasMeshes())
+	{
+		ProcessNode(scene->mRootNode, scene);
+
+		LOG("Model created: %s", name.c_str());
+
+		aiReleaseImport(scene);
+	}
+	else
+	{
+		LOG("Error loading scene %s", path.c_str());
+	}
+
 }
 
 void Model::ProcessNode(aiNode* node, const aiScene* scene)
 {
 	// Process all the node's meshes (if any)
+
 	for (uint i = 0; i < node->mNumMeshes; i++)
 	{
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
+
 		meshes.push_back(ProcessMesh(mesh, scene));
 	}
 
 	// Then do the same for each of its children
+
 	for (uint i = 0; i < node->mNumChildren; i++)
 	{
 		ProcessNode(node->mChildren[i], scene);
 	}
+	
 }
 
 Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
@@ -86,57 +94,76 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 	std::vector<GLuint> indices;
 	std::vector<Texture> textures;
 
-	// Process vertices
+	// Process Vertices
 
 	for (uint i = 0; i < mesh->mNumVertices; i++)
 	{
 		Vertex vertex;
-		float3 vector; // we declare a placeholder vector since assimp uses its own vector class that doesn't directly convert to glm's vec3 class so we transfer the data to this placeholder glm::vec3 first.
-		// positions
-		vector.x = mesh->mVertices[i].x;
-		vector.y = mesh->mVertices[i].y;
-		vector.z = mesh->mVertices[i].z;
-		vertex.position = vector;
-		// normals
+
+		// Retrieve vertex positions
+
+		float3 vPosition;
+
+		vPosition.x = mesh->mVertices[i].x;
+		vPosition.y = mesh->mVertices[i].y;
+		vPosition.z = mesh->mVertices[i].z;
+
+		vertex.position = vPosition;
+
+		// Retrieve vertex normals
+
 		if (mesh->HasNormals())
 		{
-			vector.x = mesh->mNormals[i].x;
-			vector.y = mesh->mNormals[i].y;
-			vector.z = mesh->mNormals[i].z;
-			vertex.normal = vector;
+			float3 vNormals;
+
+			vNormals.x = mesh->mNormals[i].x;
+			vNormals.y = mesh->mNormals[i].y;
+			vNormals.z = mesh->mNormals[i].z;
+
+			vertex.normal = vNormals;
 		}
-		// textures
-		if (mesh->mTextureCoords[0]) // Check if the mesh contains texture coordinates
+
+		// Retrieve vertex texture coordinates
+
+		if (mesh->HasTextureCoords(0))
 		{
-			float2 tempTextureCoords;
+			float2 vTextureCoords;
+			
+			vTextureCoords.x = mesh->mTextureCoords[0][i].x;
+			vTextureCoords.y = mesh->mTextureCoords[0][i].y;
 
-			tempTextureCoords.x = mesh->mTextureCoords[0][i].x;
-			tempTextureCoords.y = mesh->mTextureCoords[0][i].y;
-
-			vertex.textureCoordinates = tempTextureCoords;
+			vertex.textureCoordinates = vTextureCoords;
 		}
 		else
 		{
 			vertex.textureCoordinates = float2(0.0f, 0.0f);
 		}
 
+		// Create vertex with all the information stored
+
 		vertices.push_back(vertex);
 	}
 
-	// Process indices
+	// Process Indices
 
-	for (uint i = 0; i < mesh->mNumFaces; i++)
-	{
-		aiFace face = mesh->mFaces[i];
+	if (mesh->HasFaces()) {
 
-		for (uint j = 0; j < face.mNumIndices; j++)
+		for (uint i = 0; i < mesh->mNumFaces; i++)
 		{
-			indices.push_back(face.mIndices[j]);
+			aiFace face = mesh->mFaces[i];
+
+			for (uint j = 0; j < face.mNumIndices; j++)
+			{
+				indices.push_back(face.mIndices[j]);
+			}
+
 		}
 
 	}
 
-	// Process textures
+	// Process Textures
+
+	/* TODO */
 
 	return Mesh(vertices, indices, textures); // Retrieve the Mesh with all the necessary data to draw
 }

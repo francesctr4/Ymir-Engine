@@ -65,6 +65,9 @@ public:
 	// Editor settings checkbox toggle encapsulation
 	void ToggleLightMode(bool lightMode);
 
+	//  Meshes normal settings checkbox toggle encapsulation
+	void ToggleMeshesNormals(bool showNormals);
+
 	// Hardware Detection
 	void ShowPlatformInfo();
 	void ShowCPUInfo();
@@ -84,6 +87,9 @@ public:
 	// Function to show memleaks file output on the editor
 	void MemoryLeaksOutput();
 
+	// Function to show memleaks file output on the editor
+	void AssimpLogOutput();
+
 public:
 
 	// Enables ImGui to render additional data
@@ -93,6 +99,7 @@ public:
 	bool showApplication = false;
 	bool showConsole = false;
 	bool showMemoryLeaks = false;
+	bool showAssimpLog = false;
 	bool showHierarchy = false;
 
 	// OpenGL settings checkbox toggle booleans
@@ -144,6 +151,12 @@ public:
 
 	// Memory Leaks file
 	std::string memleaksFileContents;
+
+	// Assimp Log file
+	std::string AssimpLogFileContents;
+
+	// 3D Meshes Configuration
+	bool showNormals = false;
 
 };
 

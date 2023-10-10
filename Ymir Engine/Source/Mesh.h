@@ -44,6 +44,8 @@ public:
     std::vector<GLuint> indices;
     std::vector<Texture> textures;
 
+    bool enableNormals;
+
 private:
 
     // Buffers Data

@@ -26,6 +26,8 @@ ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app,st
     
     licenseFileContents = ReadFile("../../LICENSE");
     memleaksFileContents = ReadFile("memleaks.log");
+    AssimpLogFileContents = ReadFile("AssimpLog.txt");
+
 }
 
 // Destructor
@@ -320,7 +322,15 @@ void ModuleEditor::DrawEditor()
                 showMemoryLeaks = true;
 
 
+
             }
+
+            if (ImGui::MenuItem("Assimp Log")) {
+
+                showAssimpLog = true;
+
+            }
+
             if (ImGui::MenuItem("Hierarchy")) {
 
                 showHierarchy = true;
@@ -729,6 +739,22 @@ void ModuleEditor::DrawEditor()
 
             }
 
+            if (ImGui::CollapsingHeader("Meshes")) {
+
+                // 3D Meshes Configuration
+
+                ImGui::Indent(); // Indent to make the checkbox visually nested under the header
+
+                if (ImGui::Checkbox("Show Vertex Normals", &showNormals)) {
+
+                    ToggleMeshesNormals(showNormals);
+
+                }
+
+                ImGui::Unindent(); // Unindent to return to the previous level of indentation
+
+            }
+
             ImGui::End();
 
         }
@@ -756,6 +782,20 @@ void ModuleEditor::DrawEditor()
             // Show Memory Leaks File
 
             MemoryLeaksOutput();
+
+            ImGui::End();
+
+        }
+
+    }
+
+    if (showAssimpLog) {
+
+        if (ImGui::Begin("Assimp Log", &showAssimpLog), true) {
+
+            // Show Assimp Log File
+
+            AssimpLogOutput();
 
             ImGui::End();
 
@@ -1333,6 +1373,29 @@ void ModuleEditor::ToggleLightMode(bool lightMode)
     }
 }
 
+void ModuleEditor::ToggleMeshesNormals(bool showNormals)
+{
+    for (auto it1 = App->renderer3D->models.begin(); it1 != App->renderer3D->models.end(); ++it1) {
+     
+        for (auto it2 = (*it1).meshes.begin(); it2 != (*it1).meshes.end(); ++it2) {
+
+            if (showNormals) {
+
+                (*it2).enableNormals = true;
+
+            }
+            else {
+
+                (*it2).enableNormals = false;
+
+            }
+
+        }
+        
+    }
+
+}
+
 void ModuleEditor::ShowPlatformInfo() {
 
     ImGui::Text("Platform:");
@@ -1684,4 +1747,9 @@ void ModuleEditor::RedirectLogOutput()
 void ModuleEditor::MemoryLeaksOutput()
 {
     ImGui::TextWrapped("%s", memleaksFileContents.c_str());
+}
+
+void ModuleEditor::AssimpLogOutput()
+{
+    ImGui::TextWrapped("%s", AssimpLogFileContents.c_str());
 }
