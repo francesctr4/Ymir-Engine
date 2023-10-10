@@ -46,11 +46,22 @@ void Model::LoadModel(const std::string& path)
 		LOG("Error loading scene %s", path.c_str());
 	}
 
-	size_t lastSlashPos = path.find_last_of('/');
-	std::string name = path.substr(lastSlashPos + 1);
+	if (path.find("/") != std::string::npos) {
+
+		size_t lastSlash = path.find_last_of('/') + 1;
+		name = path.substr(lastSlash);
+
+	}
+	else {
+
+		size_t lastSlash = path.find_last_of('\\') + 1;
+		name = path.substr(lastSlash);
+
+	}
+	
 
 	LOG("Model created: %s", name.c_str());
-
+	
 }
 
 void Model::ProcessNode(aiNode* node, const aiScene* scene)

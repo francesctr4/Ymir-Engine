@@ -122,12 +122,26 @@ update_status ModuleInput::PreUpdate(float dt)
 		}
 		case SDL_WINDOWEVENT:
 		{
-			if (e.window.event == SDL_WINDOWEVENT_RESIZED)
+			if (e.window.event == SDL_WINDOWEVENT_RESIZED) {
+
 				App->renderer3D->OnResize(e.window.data1, e.window.data2);
+
+			}
+
+			break;
 		}
+		case SDL_DROPFILE: { // In case if dropped file
+
+			droppedFile = true;
+			droppedFileDirectory = e.drop.file;
+			// Shows directory of dropped file
+			SDL_free(&droppedFileDirectory); // Free dropped_filedir memory
+			
+			break;
 
 		}
 
+		}
 	}
 
 	// No hace nada, porque no funciona el UPDATE_STOP. El código está en el main.cpp

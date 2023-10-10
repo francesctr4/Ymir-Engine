@@ -4,6 +4,7 @@
 #include "ModuleWindow.h"
 #include "ModuleCamera3D.h"
 #include "ModuleEditor.h"
+#include "ModuleInput.h"
 #include "Globals.h"
 #include "Log.h"
 
@@ -279,8 +280,8 @@ bool ModuleRenderer3D::Init()
 	//myShader.LoadShader("Source/shader.vs","Source/shader.fs");
 	//myShader.UseShader();
 
-	models.push_back(Model("Assets/BakerHouse.fbx"));
-	models.push_back(Model("Assets/warrior.fbx"));
+	//models.push_back(Model("Assets/BakerHouse.fbx"));
+	//models.push_back(Model("Assets/warrior.fbx"));
 
 	return ret;
 }
@@ -377,6 +378,17 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	// -------------------- Drawing 3D Models ---------------------
 
+	if (App->input->droppedFile) {
+
+		Model tmpModel;
+		tmpModel.LoadModel(App->input->droppedFileDirectory);
+
+		models.push_back(tmpModel);
+
+		App->input->droppedFile = false;
+
+	}
+
 	DrawModels();
 
 	// --------------------------- Drawing editor and Swaping Window -------------------------
@@ -468,11 +480,5 @@ void ModuleRenderer3D::DrawModels()
 
 void ModuleRenderer3D::ClearModels()
 {
-	/*for (auto it = models.begin(); it != models.end(); ++it) {
-
-		delete (*it);
-		(*it) = nullptr;
-	}
-
-	models.clear();*/
+	models.clear();
 }

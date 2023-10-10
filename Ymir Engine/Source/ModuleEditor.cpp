@@ -292,6 +292,8 @@ void ModuleEditor::DrawEditor()
             if (ImGui::MenuItem("Clear Scene")) {
 
                 App->renderer3D->ClearPrimitives();
+                App->renderer3D->ClearModels();
+
                 LOG("Scene cleared successfully");
 
             }
@@ -316,6 +318,12 @@ void ModuleEditor::DrawEditor()
             if (ImGui::MenuItem("Memory Leaks")) {
 
                 showMemoryLeaks = true;
+
+
+            }
+            if (ImGui::MenuItem("Hierarchy")) {
+
+                showHierarchy = true;
 
             }
 
@@ -748,6 +756,33 @@ void ModuleEditor::DrawEditor()
             // Show Memory Leaks File
 
             MemoryLeaksOutput();
+
+            ImGui::End();
+
+        }
+
+    }
+
+    if (showHierarchy) {
+
+        if (ImGui::Begin("Hierarchy", &showHierarchy), true) {
+
+            // Show scene hierarchy
+
+            for (auto& model : App->renderer3D->models) {
+
+                if (model.meshes.size() > 1) {
+
+                    ImGui::Text("%s (%d Meshes)", model.name.c_str(), model.meshes.size());
+
+                }
+                else {
+
+                    ImGui::Text("%s (%d Mesh)", model.name.c_str(), model.meshes.size());
+
+                }
+                
+            }
 
             ImGui::End();
 

@@ -93,6 +93,7 @@ public:
 	bool showApplication = false;
 	bool showConsole = false;
 	bool showMemoryLeaks = false;
+	bool showHierarchy = false;
 
 	// OpenGL settings checkbox toggle booleans
 	bool gl_DepthTesting = true;

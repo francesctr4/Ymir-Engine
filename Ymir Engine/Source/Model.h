@@ -27,10 +27,15 @@ private:
     void ProcessNode(aiNode* node, const aiScene* scene);
     Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);
 
-    // Model Data
+public:
 
     std::string name;
     std::vector<Mesh> meshes;
+
+private:
+
+    // Model Data
+
     std::string directory;
 
 };

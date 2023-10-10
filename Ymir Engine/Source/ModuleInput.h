@@ -72,4 +72,7 @@ public:
 
 	bool quit = false;
 
+	const char* droppedFileDirectory;
+	bool droppedFile = false;
+
 };
