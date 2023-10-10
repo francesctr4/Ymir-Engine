@@ -134,7 +134,9 @@ void Shader::AddShader(GLuint shaderProgram, const char* pShaderText, GLenum sha
 
 std::string Shader::ReadShaderFile(const std::string& filename) {
 
-	std::ifstream file(filename);
+	std::ifstream file;
+
+	file.open(filename);
 
 	if (!file.is_open()) {
 

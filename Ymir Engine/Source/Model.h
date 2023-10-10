@@ -14,7 +14,9 @@ class Model {
 
 public:
 
+    Model();
     Model(const std::string& path);
+
     virtual ~Model();
 
     void LoadModel(const std::string& path);
@@ -27,6 +29,7 @@ private:
 
     // Model Data
 
+    std::string name;
     std::vector<Mesh> meshes;
     std::string directory;
 

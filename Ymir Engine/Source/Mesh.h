@@ -13,10 +13,25 @@
 
 #include "Globals.h"
 
+struct Vertex {
+
+    float3 position;
+    float3 normal;
+    float2 textureCoordinates;
+};
+
+struct Texture {
+
+    uint id;
+    std::string type;
+    std::string path; // With the path we can compare with other textures to not load already loaded textures
+
+};
+
 class Mesh {
 public:
 
-    Mesh(std::vector<GLfloat>& vertices, std::vector<GLuint>& indices);
+    Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vector<Texture>& textures);
     virtual ~Mesh();
 
     void DrawMesh();
@@ -25,8 +40,9 @@ public:
 
     // Mesh Data
 
-    std::vector<GLfloat> vertices;
+    std::vector<Vertex> vertices;
     std::vector<GLuint> indices;
+    std::vector<Texture> textures;
 
 private:
 
@@ -34,6 +50,7 @@ private:
 
     GLuint VBO;
     GLuint EBO;
+    GLuint VAO;
 
     void LoadMesh();
 

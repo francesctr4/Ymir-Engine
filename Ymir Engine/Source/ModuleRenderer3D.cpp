@@ -275,9 +275,12 @@ bool ModuleRenderer3D::Init()
 	//glBindVertexArray(0);
 
 	// 3D Model Loading
-	models.push_back(new Model("Assets/BakerHouse.fbx"));
-	myShader.LoadShader("Source/shader.vs","Source/shader.fs");
-	myShader.UseShader();
+	//models.push_back(new Model("Assets/BakerHouse.fbx"));
+	//myShader.LoadShader("Source/shader.vs","Source/shader.fs");
+	//myShader.UseShader();
+
+	models.push_back(Model("Assets/BakerHouse.fbx"));
+	models.push_back(Model("Assets/warrior.fbx"));
 
 	return ret;
 }
@@ -393,7 +396,7 @@ bool ModuleRenderer3D::CleanUp()
 	// Detach Assimp Log Stream
 	//AssetImporter3D::CleanUpAssimpDebugger();
 
-	myShader.ClearShader();
+	/*myShader.ClearShader();*/
 
 	// CleanUp OpenGL Buffers
 
@@ -458,7 +461,7 @@ void ModuleRenderer3D::DrawModels()
 {
 	for (auto it = models.begin(); it != models.end(); ++it) {
 
-		(*it)->DrawModel();
+		(*it).DrawModel();
 
 	}
 }
