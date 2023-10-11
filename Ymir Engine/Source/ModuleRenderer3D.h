@@ -33,6 +33,9 @@
 
 #define MAX_LIGHTS 8
 
+#define CHECKERS_WIDTH 64
+#define CHECKERS_HEIGHT 64
+
 class ModuleRenderer3D : public Module
 {
 public:
@@ -78,5 +81,10 @@ public:
 
 	// 3D Model Loading
 	std::vector<Model> models;
+
+	// TEXTURES
+
+	GLuint textureID;
+	GLubyte checkerImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
 
 };

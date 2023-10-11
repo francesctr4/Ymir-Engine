@@ -18,6 +18,24 @@ ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Modul
 	EBO = 0;
 	VAO = 0;
 
+	textureID = 0;
+
+	// Procedural checker texture
+
+	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
+
+		for (int j = 0; j < CHECKERS_WIDTH; j++) {
+
+			int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
+
+			checkerImage[i][j][0] = (GLubyte)c;
+			checkerImage[i][j][1] = (GLubyte)c;
+			checkerImage[i][j][2] = (GLubyte)c;
+			checkerImage[i][j][3] = (GLubyte)255;
+
+		}
+	}
+
 }
 
 // Destructor
@@ -253,33 +271,49 @@ bool ModuleRenderer3D::Init()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleVertices_BufferData), TriangleVertices_BufferData, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);*/
 
-	//glGenBuffers(1, &VBO); 
-	//glBindBuffer(GL_ARRAY_BUFFER, VBO); 
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(CubeVertices_BufferData), CubeVertices_BufferData, GL_STATIC_DRAW); 
-	//glBindBuffer(GL_ARRAY_BUFFER, 0); 
+	glGenBuffers(1, &VBO); 
+	glBindBuffer(GL_ARRAY_BUFFER, VBO); 
+	glBufferData(GL_ARRAY_BUFFER, sizeof(CubeVertices_BufferData), CubeVertices_BufferData, GL_STATIC_DRAW); 
+	glBindBuffer(GL_ARRAY_BUFFER, 0); 
 
 	//	// Element Buffer Object: holds indices used for indexed rendering.
 
-	//glGenBuffers(1, &EBO);
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO); 
-	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(TriangleIndices_BufferData), TriangleIndices_BufferData, GL_STATIC_DRAW);
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glGenBuffers(1, &EBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO); 
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(TriangleIndices_BufferData), TriangleIndices_BufferData, GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	////	// Vertex Object Attributes: are used to manage the setup of vertex 
 	////	// attributes, making it easier to switch between different sets of 
 	////    // attributes when rendering different objects.
 
-	//glGenVertexArrays(1, &VAO);
-	//glBindVertexArray(VAO);
-	//glEnableVertexAttribArray(0);
-	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-	//glBindVertexArray(0);
+	glGenVertexArrays(1, &VAO);
+	glBindVertexArray(VAO);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glBindVertexArray(0);
+
+	// TEXTURES
+
+	// Loading Textures
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_2D, textureID);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, CHECKERS_WIDTH, CHECKERS_HEIGHT, 0, GL_RGBA, GL_UNSIGNED_BYTE, checkerImage);
 
 	// 3D Model Loading
 	//myShader.LoadShader("Source/shader.vs","Source/shader.fs");
 	//myShader.UseShader();
 
-	models.push_back(Model("Assets/BakerHouse.fbx"));
+	//models.push_back(Model("Assets/BakerHouse.fbx"));
 	//models.push_back(Model("Assets/warrior.fbx"));
 
 	return ret;
@@ -361,15 +395,20 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	// -------------- Drawing a cube using OpenGL Vertex Indices Mode rendering --------------
 
-	//glEnableClientState(GL_VERTEX_ARRAY);
-	//
-	//glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	//glVertexPointer(3, GL_FLOAT, 0, NULL);
+	glEnableClientState(GL_VERTEX_ARRAY);
+	
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
 
-	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
 
-	//glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_VERTEX_ARRAY);
+
+	// Drawing Textures
+
+	//glBindTexture(GL_TEXTURE_2D, 0);
+	//glBindTexture(GL_TEXTURE_2D, textureID);
 	
 	// -------------- Drawing vector of primitives -----------------
 
