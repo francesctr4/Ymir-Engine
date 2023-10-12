@@ -25,6 +25,11 @@ void Shader::LoadShader(const std::string& vertexShaderPath, const std::string& 
 	if (shaderProgram == 0) {
 
 		LOG("Error creating shader program.");
+		return;
+	}
+	else {
+
+		LOG("Shader program created successfully.");
 
 	}
 
@@ -50,6 +55,11 @@ void Shader::LoadShader(const std::string& vertexShaderPath, const std::string& 
 		LOG("Error linking shader program: '%s'\n", errorLog);
 		return;
 	}
+	else {
+
+		LOG("Shader program linked successfully.");
+
+	}
 
 	glValidateProgram(shaderProgram);
 
@@ -62,15 +72,26 @@ void Shader::LoadShader(const std::string& vertexShaderPath, const std::string& 
 		LOG("Invalid shader program: '%s\n", errorLog);
 		return;
 	}
+	else {
 
-	LOG("Successfully loaded shader");
+		LOG("Successfully loaded shader.");
+
+	}
+
 }
 
-void Shader::UseShader()
+void Shader::UseShader(bool toggle)
 {
-	glUseProgram(shaderProgram);
+	if (toggle) {
 
-	LOG("Successfully using shader");
+		glUseProgram(shaderProgram);
+
+	}
+	else {
+
+		glUseProgram(0);
+
+	}
 }
 
 void Shader::ClearShader()
@@ -81,20 +102,25 @@ void Shader::ClearShader()
 	LOG("Successfully cleared shader");
 }
 
-//void Shader::SetBool(const std::string& name, bool value) const
-//{
-//	glUniform1i(glGetUniformLocation(shaderProgram, name.c_str()), (int)value);
-//}
-//
-//void Shader::SetInt(const std::string& name, int value) const
-//{
-//	glUniform1i(glGetUniformLocation(shaderProgram, name.c_str()), value);
-//}
-//
-//void Shader::SetFloat(const std::string& name, float value) const
-//{
-//	glUniform1f(glGetUniformLocation(shaderProgram, name.c_str()), value);
-//}
+void Shader::SetBool(const std::string& name, bool value) const
+{
+	glUniform1i(glGetUniformLocation(shaderProgram, name.c_str()), (int)value);
+}
+
+void Shader::SetInt(const std::string& name, int value) const
+{
+	glUniform1i(glGetUniformLocation(shaderProgram, name.c_str()), value);
+}
+
+void Shader::SetFloat(const std::string& name, float value) const
+{
+	glUniform1f(glGetUniformLocation(shaderProgram, name.c_str()), value);
+}
+
+void Shader::SetMatrix(const std::string& name, float4x4 value) const
+{
+	glUniformMatrix4fv(glGetUniformLocation(shaderProgram, name.c_str()), 1, GL_TRUE, value.ptr());
+}
 
 void Shader::AddShader(GLuint shaderProgram, const char* pShaderText, GLenum shaderType)
 {

@@ -130,8 +130,8 @@ bool ModuleRenderer3D::Init()
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+	//SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+	//SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 	
 	// Create context
 	context = SDL_GL_CreateContext(App->window->window);
@@ -171,7 +171,7 @@ bool ModuleRenderer3D::Init()
 		// Initialize Modelview Matrix
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-
+		
 		// Check for errors
 		error = glGetError();
 		if(error != GL_NO_ERROR)
@@ -255,17 +255,17 @@ bool ModuleRenderer3D::Init()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleVertices_BufferData), TriangleVertices_BufferData, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);*/
 
-	glGenBuffers(1, &VBO); 
-	glBindBuffer(GL_ARRAY_BUFFER, VBO); 
-	glBufferData(GL_ARRAY_BUFFER, sizeof(CubeVertices_BufferData), CubeVertices_BufferData, GL_STATIC_DRAW); 
-	glBindBuffer(GL_ARRAY_BUFFER, 0); 
+	//glGenBuffers(1, &VBO); 
+	//glBindBuffer(GL_ARRAY_BUFFER, VBO); 
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(CubeVertices_BufferData), CubeVertices_BufferData, GL_STATIC_DRAW); 
+	//glBindBuffer(GL_ARRAY_BUFFER, 0); 
 
 	////	// Element Buffer Object: holds indices used for indexed rendering.
 
-	glGenBuffers(1, &EBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO); 
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(TriangleIndices_BufferData), TriangleIndices_BufferData, GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	//glGenBuffers(1, &EBO);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO); 
+	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(TriangleIndices_BufferData), TriangleIndices_BufferData, GL_STATIC_DRAW);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	//////	// Vertex Object Attributes: are used to manage the setup of vertex 
 	//////	// attributes, making it easier to switch between different sets of 
@@ -276,41 +276,55 @@ bool ModuleRenderer3D::Init()
 	//glEnableVertexAttribArray(0);
 	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	//glBindVertexArray(0);
+	
+	myShader.LoadShader(SHADER_VS, SHADER_FS);
+
+	//float4x4 modelview;
+	//glGetFloatv(GL_MODELVIEW_MATRIX, modelview.ptr());
+
+	//// To get the current projection matrix:
+	//float4x4 projection;
+	//glGetFloatv(GL_PROJECTION_MATRIX, projection.ptr());
+
+	//myShader.SetMatrix("modelview", modelview);
+	//myShader.SetMatrix("projection", projection);
 
 	// 1. Create Buffers
 
-	//glGenVertexArrays(1, &VAO);
+	glGenVertexArrays(1, &VAO);
 
-	//glGenBuffers(1, &VBO);
-	//glGenBuffers(1, &EBO);
+	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &EBO);
+
 
 	//// 2. Bind Buffers
 
-	//glBindVertexArray(VAO);
+	glBindVertexArray(VAO);
 
-	//glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+
 
 	//// 3. Set the Vertex Attribute Pointers
 
 	//	// Vertex Positions
 
-	//glEnableVertexAttribArray(0);
-	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat), (void*)0);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)0);
 
 	//// 4. Load data into Vertex Buffers
 
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(CubeVertices_BufferData), CubeVertices_BufferData, GL_STATIC_DRAW);
-	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(TriangleIndices_BufferData), TriangleVertices_BufferData,  GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(CubeVertices_BufferData), &CubeVertices_BufferData[0], GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(TriangleIndices_BufferData), &TriangleIndices_BufferData[0], GL_STATIC_DRAW);
 
 	//// 5. Unbind Buffers
 
-	//glBindVertexArray(0);
+	glBindVertexArray(0);
 
-	//glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(0);
 
-	//glBindBuffer(GL_ARRAY_BUFFER, 0);
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	// TEXTURES
 
@@ -332,8 +346,6 @@ bool ModuleRenderer3D::Init()
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, CHECKERS_WIDTH, CHECKERS_HEIGHT, 0, GL_RGBA, GL_UNSIGNED_BYTE, checkerImage);*/
 
 	// 3D Model Loading
-	//myShader.LoadShader("Source/shader.vs","Source/shader.fs");
-	//myShader.UseShader();
 
 	//models.push_back(Model("Assets/BakerHouse.fbx"));
 	//models.push_back(Model("Assets/warrior.fbx"));
@@ -394,7 +406,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		Grid.Render();
 
 	}
-	
+
 	// -------------- Drawing a cube using OpenGL Direct Mode rendering --------------
 
 	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -452,18 +464,27 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	// -------------- Drawing a cube using OpenGL Vertex Indices Mode rendering --------------
 
-	glEnableClientState(GL_VERTEX_ARRAY);
+	//glEnableClientState(GL_VERTEX_ARRAY);
 	
-	glBindTexture(GL_TEXTURE_2D, textureID);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
+	//glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	//glVertexPointer(3, GL_FLOAT, 0, NULL);
 
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
+	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
 
-	glDisableClientState(GL_VERTEX_ARRAY);
+	//glDisableClientState(GL_VERTEX_ARRAY);
 
-	// Drawing Textures
+	// -------------- Drawing a cube using OpenGL Vertex Attributes Mode rendering --------------
+
+	myShader.UseShader(true);
+
+	glBindVertexArray(VAO);
+
+	glDrawElements(GL_TRIANGLES, sizeof(TriangleIndices_BufferData) / sizeof(GLuint), GL_UNSIGNED_INT, NULL);
+
+	glBindVertexArray(0);
+
+	myShader.UseShader(false);
 	
 	// -------------- Drawing vector of primitives -----------------
 

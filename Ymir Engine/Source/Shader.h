@@ -5,11 +5,15 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 
+#include "External/MathGeoLib/include/Math/float4x4.h"
+
 #include <iostream>
 #include <string>
 #include <fstream>
 #include <sstream>
 
+#define SHADER_VS "../Source/shader.vs"
+#define SHADER_FS "../Source/shader.fs"
 
 class Shader
 {
@@ -26,16 +30,18 @@ public:
     void LoadShader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath);
 
     // Use the Shader
-    void UseShader();
+    void UseShader(bool toggle);
 
     // Clear the Shader
     void ClearShader();
 
     // Utility Uniform Functions
     
-    //void SetBool(const std::string& name, bool value) const;
-    //void SetInt(const std::string& name, int value) const;
-    //void SetFloat(const std::string& name, float value) const;
+    void SetBool(const std::string& name, bool value) const;
+    void SetInt(const std::string& name, int value) const;
+    void SetFloat(const std::string& name, float value) const;
+
+    void SetMatrix(const std::string& name, float4x4 value) const;
 
 private:
 

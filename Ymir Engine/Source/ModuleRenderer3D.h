@@ -87,4 +87,9 @@ public:
 	GLuint textureID;
 	GLubyte checkerImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
 	void CreateCheckerImage();
+
+	// Shader
+
+	Shader myShader;
+
 };
