@@ -1,10 +1,8 @@
-#version 460 core
+#version 450 core
 
-uniform vec4 color = vec4(0.0,1.0,0.0,1.0);
+out vec4 color;
 
-out vec4 outColor;
-
-void main() 
+void main(void)
 {
-    outColor = color;
+    color = vec4(0.0, 0.8, 1.0, 1.0);
 }

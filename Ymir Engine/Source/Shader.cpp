@@ -15,7 +15,7 @@ Shader::Shader(const std::string& vertexShaderPath, const std::string& fragmentS
 
 Shader::~Shader()
 {
-
+	ClearShader();
 }
 
 void Shader::LoadShader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath)
@@ -97,7 +97,13 @@ void Shader::UseShader(bool toggle)
 void Shader::ClearShader()
 {
 	glUseProgram(0);
-	glDeleteProgram(shaderProgram);
+
+	if (shaderProgram != 0) {
+
+		glDeleteProgram(shaderProgram);
+		shaderProgram = 0;
+
+	}
 
 	LOG("Successfully cleared shader");
 }

@@ -11,9 +11,13 @@
 #include "ModuleInput.h"
 
 #include "External/SDL/include/SDL_opengl.h"
+
 #include "External/ImGui/imgui.h"
 #include "External/ImGui/backends/imgui_impl_sdl2.h"
 #include "External/ImGui/backends/imgui_impl_opengl3.h"
+
+#include "External/Assimp/include/version.h"
+
 //#include "External/Parson/parson.h"
 
 // Constructor
@@ -1663,6 +1667,29 @@ void ModuleEditor::AboutModalWindowContent()
     if (ImGui::IsItemClicked()) {
 
         RequestBrowser("https://github.com/ocornut/imgui");
+
+    }
+
+    ImGui::BulletText("Assimp v%d.%d.%d ->", aiGetVersionMajor(), aiGetVersionMinor(), aiGetVersionRevision());
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(0.0f, 0.5f, 1.0f, 1.0f), "https://github.com/assimp/assimp");
+    if (ImGui::IsItemClicked()) {
+
+        RequestBrowser("https://github.com/assimp/assimp");
+
+    }
+
+    ILint ILversion = ilGetInteger(IL_VERSION_NUM);
+
+    uint ILmajor = (ILversion / 100) % 10;
+    uint ILminor = ILversion % 100;
+
+    ImGui::BulletText("DevIL v%d.%d ->", ILmajor, ILminor);
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(0.0f, 0.5f, 1.0f, 1.0f), "https://openil.sourceforge.net/download.php");
+    if (ImGui::IsItemClicked()) {
+
+        RequestBrowser("https://openil.sourceforge.net/download.php");
 
     }
 

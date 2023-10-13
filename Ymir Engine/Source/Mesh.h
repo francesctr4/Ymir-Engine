@@ -12,6 +12,7 @@
 #include "External/MathGeoLib/include/Math/float2.h"
 
 #include "Globals.h"
+#include "Texture.h"
 
 struct Vertex {
 
@@ -20,13 +21,7 @@ struct Vertex {
     float2 textureCoordinates;
 };
 
-struct Texture {
-
-    uint id;
-    std::string type;
-    std::string path; // With the path we can compare with other textures to not load already loaded textures
-
-};
+class Texture;
 
 class Mesh {
 public:

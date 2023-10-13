@@ -3,11 +3,13 @@
 #include "External/Glew/include/glew.h"
 #include "External/SDL/include/SDL_opengl.h"
 #include <gl/GL.h>
-#include <gl/GLU.h>
 
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 #pragma comment (lib, "glu32.lib") /* link Microsoft OpenGL lib   */
 #pragma comment (lib, "Source/External/Glew/libx86/glew32.lib")
+
+#include "External/DevIL/include/il.h"	
+#include "External/DevIL/include/ilu.h"	
 
 #include "External/MathGeoLib/include/Math/float3x3.h"
 #include "External/MathGeoLib/include/Math/float4x4.h"
@@ -26,6 +28,7 @@
 #include "Primitive.h"
 
 #include "Model.h"
+#include "Texture.h"
 #include "Shader.h"
 
 //todo: REMOVE this before 1st delivery!!
@@ -79,6 +82,8 @@ public:
 	GLuint EBO; // Element Buffer Object
 	GLuint VAO; // Vertex Object Attributes
 
+	GLuint TCB; // Texture Coordinates Buffer
+
 	// 3D Model Loading
 	std::vector<Model> models;
 
@@ -91,5 +96,9 @@ public:
 	// Shader
 
 	Shader myShader;
+
+	// Texture
+
+	Texture myTexture;
 
 };

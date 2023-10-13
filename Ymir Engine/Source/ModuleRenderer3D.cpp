@@ -18,6 +18,8 @@ ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Modul
 	EBO = 0;
 	VAO = 0;
 
+	TCB = 0;
+
 	textureID = 0;
 
 }
@@ -94,6 +96,20 @@ static const GLfloat CubeVertices_BufferData[] = {
 
 };
 
+static const GLfloat textureCoords[] = {
+	// Front face
+	0.0f, 0.0f,  // Vertex 0
+	1.0f, 0.0f,  // Vertex 1
+	1.0f, 1.0f,  // Vertex 2
+	0.0f, 1.0f,  // Vertex 3
+
+	// Back face
+	0.0f, 0.0f,  // Vertex 4
+	1.0f, 0.0f,  // Vertex 5
+	1.0f, 1.0f,  // Vertex 6
+	0.0f, 1.0f,  // Vertex 7
+};
+
 static const GLuint TriangleIndices_BufferData[] = {
 
 	0, 1, 2,   // Front face
@@ -141,13 +157,23 @@ bool ModuleRenderer3D::Init()
 		ret = false;
 	}
 
-	// Initializing Glew 2.1.0
+	// Initializing Glew
 	GLenum err = glewInit();
 	if (err != GLEW_OK) {
 		LOG("Error in loading Glew: %s\n", glewGetErrorString(err));
 	}
 	else {
 		LOG("Successfully using Glew %s", glewGetString(GLEW_VERSION));
+	}
+
+	// Initializing DevIL
+	ilInit();
+	ILenum ILerror = ilGetError();
+	if (ILerror != IL_NO_ERROR) {
+		LOG("Error in loading DevIL: %s\n", iluErrorString(ILerror));
+	}
+	else {
+		LOG("Successfully using DevIL %d", iluGetInteger(IL_VERSION_NUM));
 	}
 	
 	if(ret == true)
@@ -278,6 +304,8 @@ bool ModuleRenderer3D::Init()
 	//glBindVertexArray(0);
 	
 	myShader.LoadShader(SHADER_VS, SHADER_FS);
+	myTexture.LoadCheckerImage();
+	//myTexture.LoadTexture("Assets/Baker_house.png");
 
 	//float4x4 modelview;
 	//glGetFloatv(GL_MODELVIEW_MATRIX, modelview.ptr());
@@ -296,6 +324,7 @@ bool ModuleRenderer3D::Init()
 	glGenBuffers(1, &VBO);
 	glGenBuffers(1, &EBO);
 
+	glGenBuffers(1, &TCB);
 
 	//// 2. Bind Buffers
 
@@ -304,6 +333,7 @@ bool ModuleRenderer3D::Init()
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 
+	glBindBuffer(GL_TEXTURE_COORD_ARRAY, TCB);
 
 	//// 3. Set the Vertex Attribute Pointers
 
@@ -312,19 +342,26 @@ bool ModuleRenderer3D::Init()
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)0);
 
+	// Texture coordinate attribute (2 floats per vertex)
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(1);
+
 	//// 4. Load data into Vertex Buffers
 
 	glBufferData(GL_ARRAY_BUFFER, sizeof(CubeVertices_BufferData), &CubeVertices_BufferData[0], GL_STATIC_DRAW);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(TriangleIndices_BufferData), &TriangleIndices_BufferData[0], GL_STATIC_DRAW);
+	glBufferData(GL_TEXTURE_COORD_ARRAY, sizeof(textureCoords), &textureCoords[0], GL_STATIC_DRAW);
 
 	//// 5. Unbind Buffers
 
 	glBindVertexArray(0);
 
 	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_TEXTURE_COORD_ARRAY, 0);
 
 	// TEXTURES
 
@@ -350,6 +387,7 @@ bool ModuleRenderer3D::Init()
 	//models.push_back(Model("Assets/BakerHouse.fbx"));
 	//models.push_back(Model("Assets/warrior.fbx"));
 
+	//CreateCheckerImage();
 	/*glClearColor(0.0, 0.0, 0.0, 0.0);
 	glShadeModel(GL_FLAT);
 	glEnable(GL_DEPTH_TEST);
@@ -409,47 +447,77 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	// -------------- Drawing a cube using OpenGL Direct Mode rendering --------------
 
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//glEnable(GL_TEXTURE_2D);
-	//glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-	//glBindTexture(GL_TEXTURE_2D, textureID);
-	//glBegin(GL_QUADS);
-	//glTexCoord2f(0.0, 0.0); glVertex3f(-2.0, -1.0, 0.0);
-	//glTexCoord2f(0.0, 1.0); glVertex3f(-2.0, 1.0, 0.0);
-	//glTexCoord2f(1.0, 1.0); glVertex3f(0.0, 1.0, 0.0);
-	//glTexCoord2f(1.0, 0.0); glVertex3f(0.0, -1.0, 0.0);
+	//myShader.UseShader(true);
 
-	//glTexCoord2f(0.0, 0.0); glVertex3f(1.0, -1.0, 0.0);
-	//glTexCoord2f(0.0, 1.0); glVertex3f(1.0, 1.0, 0.0);
-	//glTexCoord2f(1.0, 1.0); glVertex3f(2.41421, 1.0, -1.41421);
-	//glTexCoord2f(1.0, 0.0); glVertex3f(2.41421, -1.0, -1.41421);
-	//glEnd();
-	//glFlush();
-	//glDisable(GL_TEXTURE_2D);
+	myTexture.BindTexture(true);
 
-	/*glLineWidth(2.0f);
+	glLineWidth(2.0f);
 	glBegin(GL_TRIANGLES);
 
-	glVertex3d(0, 0, 0); glVertex3d(1, 1, 0); glVertex3d(1, 0, 0);
-	glVertex3d(0, 0, 0); glVertex3d(0, 1, 0); glVertex3d(1, 1, 0);
+	glTexCoord2f(0.0, 0.0); glVertex3d(0, 0, 0); 
+	glTexCoord2f(1.0, 1.0); glVertex3d(1, 1, 0); 
+	glTexCoord2f(1.0, 0.0); glVertex3d(1, 0, 0); 
+	
+	glTexCoord2f(0.0, 0.0); glVertex3d(0, 0, 0); 
+	glTexCoord2f(0.0, 1.0); glVertex3d(0, 1, 0); 
+	glTexCoord2f(1.0, 1.0); glVertex3d(1, 1, 0); 
 
-	glVertex3d(0, 0, 1); glVertex3d(1, 0, 1); glVertex3d(1, 1, 1);
-	glVertex3d(0, 0, 1); glVertex3d(1, 1, 1); glVertex3d(0, 1, 1);
+	//
 
-	glVertex3d(0, 0, 0); glVertex3d(1, 0, 0); glVertex3d(0, 0, 1);
-	glVertex3d(1, 0, 1); glVertex3d(0, 0, 1); glVertex3d(1, 0, 0);
+	glTexCoord2f(0.0, 0.0); glVertex3d(0, 0, 1);
+	glTexCoord2f(1.0, 0.0); glVertex3d(1, 0, 1);
+	glTexCoord2f(1.0, 1.0); glVertex3d(1, 1, 1);
 
-	glVertex3d(0, 1, 0); glVertex3d(0, 1, 1); glVertex3d(1, 1, 0);
-	glVertex3d(1, 1, 1); glVertex3d(1, 1, 0); glVertex3d(0, 1, 1);
+	glTexCoord2f(0.0, 0.0); glVertex3d(0, 0, 1);
+	glTexCoord2f(1.0, 1.0); glVertex3d(1, 1, 1);
+	glTexCoord2f(0.0, 1.0); glVertex3d(0, 1, 1);
 
-	glVertex3d(0, 0, 0); glVertex3d(0, 1, 1); glVertex3d(0, 1, 0);
-	glVertex3d(0, 0, 0); glVertex3d(0, 0, 1); glVertex3d(0, 1, 1);
+	//
 
-	glVertex3d(1, 0, 0); glVertex3d(1, 1, 0); glVertex3d(1, 1, 1);
-	glVertex3d(1, 0, 0); glVertex3d(1, 1, 1); glVertex3d(1, 0, 1);
+	glTexCoord2f(0.0, 1.0); glVertex3d(0, 0, 0);
+	glTexCoord2f(1.0, 1.0); glVertex3d(1, 0, 0);
+	glTexCoord2f(0.0, 0.0); glVertex3d(0, 0, 1);
+
+	glTexCoord2f(1.0, 0.0); glVertex3d(1, 0, 1);
+	glTexCoord2f(0.0, 0.0); glVertex3d(0, 0, 1);
+	glTexCoord2f(1.0, 1.0); glVertex3d(1, 0, 0);
+
+	//
+
+	glTexCoord2f(0.0, 1.0); glVertex3d(0, 1, 0);
+	glTexCoord2f(0.0, 0.0); glVertex3d(0, 1, 1);
+	glTexCoord2f(1.0, 1.0); glVertex3d(1, 1, 0);
+
+	glTexCoord2f(1.0, 0.0); glVertex3d(1, 1, 1);
+	glTexCoord2f(1.0, 1.0); glVertex3d(1, 1, 0);
+	glTexCoord2f(0.0, 0.0); glVertex3d(0, 1, 1);
+
+	//
+
+	glTexCoord2f(1.0, 0.0); glVertex3d(0, 0, 0);
+	glTexCoord2f(0.0, 1.0); glVertex3d(0, 1, 1);
+	glTexCoord2f(1.0, 1.0); glVertex3d(0, 1, 0);
+
+	glTexCoord2f(1.0, 0.0); glVertex3d(0, 0, 0);
+	glTexCoord2f(0.0, 0.0); glVertex3d(0, 0, 1);
+	glTexCoord2f(0.0, 1.0); glVertex3d(0, 1, 1);
+
+	//
+
+	glTexCoord2f(1.0, 0.0); glVertex3d(1, 0, 0);
+	glTexCoord2f(1.0, 1.0); glVertex3d(1, 1, 0);
+	glTexCoord2f(0.0, 1.0); glVertex3d(1, 1, 1);
+
+	glTexCoord2f(1.0, 0.0); glVertex3d(1, 0, 0);
+	glTexCoord2f(0.0, 1.0); glVertex3d(1, 1, 1);
+	glTexCoord2f(0.0, 0.0); glVertex3d(1, 0, 1);
 
 	glEnd();
-	glLineWidth(1.0f);*/
+	glLineWidth(1.0f);
+
+	myTexture.BindTexture(false);
+
+	//myShader.UseShader(false);
 
 	// -------------- Drawing a cube using OpenGL Vertex Arrays Mode rendering --------------
 
@@ -476,16 +544,16 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	// -------------- Drawing a cube using OpenGL Vertex Attributes Mode rendering --------------
 
-	myShader.UseShader(true);
+	//myShader.UseShader(true);
 
-	glBindVertexArray(VAO);
+	/*glBindVertexArray(VAO);
 
 	glDrawElements(GL_TRIANGLES, sizeof(TriangleIndices_BufferData) / sizeof(GLuint), GL_UNSIGNED_INT, NULL);
 
-	glBindVertexArray(0);
+	glBindVertexArray(0);*/
 
-	myShader.UseShader(false);
-	
+	//myShader.UseShader(false);
+
 	// -------------- Drawing vector of primitives -----------------
 
 	DrawPrimitives();
