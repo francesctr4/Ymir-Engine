@@ -28,11 +28,11 @@ public:
 public:
 
     GLuint ID;
-    std::string type;
-    std::string path; // With the path we can compare with other textures to not load already loaded textures
+    //std::string type;
+    //std::string path; // With the path we can compare with other textures to not load already loaded textures
 
-    uint u;
-    uint v;
+    //uint u; 
+    //uint v; 
 
 private:
 

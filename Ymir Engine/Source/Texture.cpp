@@ -11,17 +11,11 @@
 Texture::Texture()
 {
 	ID = 0;
-
-	u = 0;
-	v = 0;
 }
 
 Texture::Texture(const std::string& path)
 {
 	ID = 0;
-
-	u = 0;
-	v = 0;
 
 	LoadTexture(path);
 }
@@ -140,6 +134,12 @@ void Texture::BindTexture(bool bind)
 
 void Texture::ClearTexture()
 {
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	if (ID != 0) {
+		glDeleteTextures(1, &ID);
+		ID = 0;
+	}
 
 	LOG("Successfully cleared texture");
 }

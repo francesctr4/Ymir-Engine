@@ -1,13 +1,17 @@
 #version 450 core
 
-// 'offset' is an input vertex attribute
+layout (location = 0) in vec3 aPos;
+layout (location = 1) in vec3 aNormal;
+layout (location = 2) in vec2 aTexCoords;
 
-layout (location = 0) in vec4 offset;
+out vec2 TexCoords;
 
-void main(void)
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
+
+void main()
 {
-	const vec4 vertices[3] = vec4[3](vec4(0.25, -0.25, 0.5, 1.0), vec4(-0.25, -0.25, 0.5, 1.0), vec4(0.25, 0.25, 0.5, 1.0));
-
-	// Add 'offset' to our hard-coded vertex position
-	gl_Position = vertices[gl_VertexID] + offset;
+    TexCoords = aTexCoords;    
+    gl_Position = projection * view * model * vec4(aPos, 1.0);
 }

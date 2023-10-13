@@ -18,10 +18,6 @@ ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Modul
 	EBO = 0;
 	VAO = 0;
 
-	TCB = 0;
-
-	textureID = 0;
-
 }
 
 // Destructor
@@ -324,16 +320,12 @@ bool ModuleRenderer3D::Init()
 	glGenBuffers(1, &VBO);
 	glGenBuffers(1, &EBO);
 
-	glGenBuffers(1, &TCB);
-
 	//// 2. Bind Buffers
 
 	glBindVertexArray(VAO);
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-
-	glBindBuffer(GL_TEXTURE_COORD_ARRAY, TCB);
 
 	//// 3. Set the Vertex Attribute Pointers
 
@@ -342,26 +334,19 @@ bool ModuleRenderer3D::Init()
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)0);
 
-	// Texture coordinate attribute (2 floats per vertex)
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
-	glEnableVertexAttribArray(1);
-
 	//// 4. Load data into Vertex Buffers
 
 	glBufferData(GL_ARRAY_BUFFER, sizeof(CubeVertices_BufferData), &CubeVertices_BufferData[0], GL_STATIC_DRAW);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(TriangleIndices_BufferData), &TriangleIndices_BufferData[0], GL_STATIC_DRAW);
-	glBufferData(GL_TEXTURE_COORD_ARRAY, sizeof(textureCoords), &textureCoords[0], GL_STATIC_DRAW);
 
 	//// 5. Unbind Buffers
 
 	glBindVertexArray(0);
 
 	glDisableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_TEXTURE_COORD_ARRAY, 0);
 
 	// TEXTURES
 
@@ -447,8 +432,6 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	// -------------- Drawing a cube using OpenGL Direct Mode rendering --------------
 
-	//myShader.UseShader(true);
-
 	myTexture.BindTexture(true);
 
 	glLineWidth(2.0f);
@@ -517,8 +500,6 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	myTexture.BindTexture(false);
 
-	//myShader.UseShader(false);
-
 	// -------------- Drawing a cube using OpenGL Vertex Arrays Mode rendering --------------
 
 	/*glEnableClientState(GL_VERTEX_ARRAY);
@@ -580,6 +561,9 @@ bool ModuleRenderer3D::CleanUp()
 
 	// Detach Assimp Log Stream
 	CleanUpAssimpDebugger();
+
+	// Shutdown DevIL
+	ilShutDown();
 
 	/*myShader.ClearShader();*/
 
@@ -680,21 +664,4 @@ void ModuleRenderer3D::EnableAssimpDebugger()
 void ModuleRenderer3D::CleanUpAssimpDebugger()
 {
 	aiDetachAllLogStreams();
-}
-
-void ModuleRenderer3D::CreateCheckerImage()
-{
-	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
-
-		for (int j = 0; j < CHECKERS_WIDTH; j++) {
-
-			int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
-
-			checkerImage[i][j][0] = (GLubyte)c;
-			checkerImage[i][j][1] = (GLubyte)c;
-			checkerImage[i][j][2] = (GLubyte)c;
-			checkerImage[i][j][3] = (GLubyte)255;
-
-		}
-	}
 }

@@ -82,23 +82,13 @@ public:
 	GLuint EBO; // Element Buffer Object
 	GLuint VAO; // Vertex Object Attributes
 
-	GLuint TCB; // Texture Coordinates Buffer
-
 	// 3D Model Loading
 	std::vector<Model> models;
 
-	// TEXTURES
-
-	GLuint textureID;
-	GLubyte checkerImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
-	void CreateCheckerImage();
-
 	// Shader
-
 	Shader myShader;
 
 	// Texture
-
 	Texture myTexture;
 
 };
