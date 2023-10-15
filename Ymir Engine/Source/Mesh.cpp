@@ -71,9 +71,18 @@ void Mesh::DrawMesh()
 
         }
 
-        glColor3f(1.0f, 1.0f, 1.0f); 
+        glColor3f(1.0f, 1.0f, 1.0f);
 
     }
+
+    /*for (size_t i = 0; i < vertices.size(); ++i) {
+
+        const Vertex& vertex = vertices[i];
+        const float2& texCoords = vertex.textureCoordinates;
+
+        glTexCoord2f(texCoords.x, texCoords.y);
+        
+    }*/
 
 }
 
