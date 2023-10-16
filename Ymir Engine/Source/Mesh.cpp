@@ -51,6 +51,16 @@ void Mesh::DrawMesh()
 
     glBindVertexArray(0);
 
+ //   glEnableClientState(GL_INDEX_ARRAY);
+	//	//glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+
+	//glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+	//glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+
+	//glDisableClientState(GL_INDEX_ARRAY);
+
     // Draw Vertex Normals (Direct Mode)
 
     if (enableNormals) {
@@ -69,11 +79,18 @@ void Mesh::DrawMesh()
 
             glEnd();
 
+
         }
 
         glColor3f(1.0f, 1.0f, 1.0f);
 
     }
+
+    // Draw Face Normals (Direct Mode) TODO
+
+
+
+    // Draw Texture Coordinates
 
     /*for (size_t i = 0; i < vertices.size(); ++i) {
 

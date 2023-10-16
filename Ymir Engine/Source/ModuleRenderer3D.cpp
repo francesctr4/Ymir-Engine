@@ -300,8 +300,8 @@ bool ModuleRenderer3D::Init()
 	//glBindVertexArray(0);
 	
 	myShader.LoadShader(SHADER_VS, SHADER_FS);
-	myTexture.LoadCheckerImage();
-	//myTexture.LoadTexture("Assets/Baker_house.png");
+	//myTexture.LoadCheckerImage();
+	myTexture.LoadTexture("Assets/Baker_house.png");
 
 	//float4x4 modelview;
 	//glGetFloatv(GL_MODELVIEW_MATRIX, modelview.ptr());
@@ -369,7 +369,7 @@ bool ModuleRenderer3D::Init()
 
 	// 3D Model Loading
 
-	//models.push_back(Model("Assets/BakerHouse.fbx"));
+	models.push_back(Model("Assets/BakerHouse.fbx"));
 	//models.push_back(Model("Assets/warrior.fbx"));
 
 	//CreateCheckerImage();
@@ -498,7 +498,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	glEnd();
 	glLineWidth(1.0f);
 
-	myTexture.BindTexture(false);
+	
 
 	// -------------- Drawing a cube using OpenGL Vertex Arrays Mode rendering --------------
 
@@ -544,6 +544,8 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	HandleModelDragDrop();
 
 	DrawModels();
+
+	myTexture.BindTexture(false);
 
 	// --------------------------- Drawing editor and Swaping Window -------------------------
 	
