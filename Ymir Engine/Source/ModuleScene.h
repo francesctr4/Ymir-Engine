@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include "Module.h"
 
 #include "External/Assimp/include/cimport.h"
@@ -29,5 +30,7 @@ public:
 public:
 
 	GameObject* mRootNode;
+
+	std::vector<GameObject*> gameObjects;
 
 };

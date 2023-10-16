@@ -5,6 +5,7 @@
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	mRootNode = new GameObject();
+	gameObjects.push_back(mRootNode);
 }
 
 ModuleScene::~ModuleScene()
