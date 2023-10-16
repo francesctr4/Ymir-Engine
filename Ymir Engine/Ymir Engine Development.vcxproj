@@ -81,7 +81,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
+    <ClInclude Include="Source\CMaterial.h" />
+    <ClInclude Include="Source\CMesh.h" />
     <ClInclude Include="Source\Color.h" />
+    <ClInclude Include="Source\Component.h" />
+    <ClInclude Include="Source\CTransform.h" />
     <ClInclude Include="Source\External\Glew\include\eglew.h" />
     <ClInclude Include="Source\External\Glew\include\glew.h" />
     <ClInclude Include="Source\External\Glew\include\glxew.h" />
@@ -181,6 +185,7 @@
     <ClInclude Include="Source\External\SDL\include\SDL_video.h" />
     <ClInclude Include="Source\External\SDL\include\SDL_vulkan.h" />
     <ClInclude Include="Source\External\stb_image\stb_image.h" />
+    <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\glmath.h" />
     <ClInclude Include="Source\Globals.h" />
     <ClInclude Include="Source\Light.h" />
@@ -252,6 +257,7 @@
     <ClInclude Include="Source\ModuleRenderer3D.h" />
     <ClInclude Include="Source\Module.h" />
     <ClInclude Include="Source\ModuleInput.h" />
+    <ClInclude Include="Source\ModuleScene.h" />
     <ClInclude Include="Source\ModuleWindow.h" />
     <ClInclude Include="Source\Primitive.h" />
     <ClInclude Include="Source\Shader.h" />
@@ -260,7 +266,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp" />
+    <ClCompile Include="Source\CMaterial.cpp" />
+    <ClCompile Include="Source\CMesh.cpp" />
     <ClCompile Include="Source\Color.cpp" />
+    <ClCompile Include="Source\Component.cpp" />
+    <ClCompile Include="Source\CTransform.cpp" />
     <ClCompile Include="Source\External\ImGui\backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="Source\External\ImGui\backends\imgui_impl_sdl2.cpp" />
     <ClCompile Include="Source\External\ImGui\backends\imgui_impl_sdlrenderer2.cpp" />
@@ -271,6 +281,7 @@
     <ClCompile Include="Source\External\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="Source\External\mmgr\mmgr.cpp" />
     <ClCompile Include="Source\External\Parson\parson.cpp" />
+    <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\glmath.cpp" />
     <ClCompile Include="Source\Light.cpp" />
     <ClCompile Include="Source\Log.cpp" />
@@ -314,6 +325,7 @@
     <ClCompile Include="Source\ModuleEditor.cpp" />
     <ClCompile Include="Source\ModuleInput.cpp" />
     <ClCompile Include="Source\ModuleRenderer3D.cpp" />
+    <ClCompile Include="Source\ModuleScene.cpp" />
     <ClCompile Include="Source\ModuleWindow.cpp" />
     <ClCompile Include="Source\Primitive.cpp" />
     <ClCompile Include="Source\Shader.cpp" />

@@ -1,0 +1,27 @@
+#pragma once
+
+#include "Module.h"
+
+class GameObject;
+
+class ModuleScene : public Module
+{
+public:
+
+	ModuleScene(Application* app, bool start_enabled = true);
+
+	virtual ~ModuleScene();
+
+	bool Start() override;
+	update_status PreUpdate(float dt) override;
+	update_status Update(float dt) override;
+	update_status PostUpdate(float dt) override;
+	bool CleanUp() override;
+
+	GameObject* CreateGameObject();
+
+public:
+
+	GameObject* mRootNode;
+
+};
