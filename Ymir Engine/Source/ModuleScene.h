@@ -2,6 +2,10 @@
 
 #include "Module.h"
 
+#include "External/Assimp/include/cimport.h"
+#include "External/Assimp/include/scene.h"
+#include "External/Assimp/include/postprocess.h"
+
 class GameObject;
 
 class ModuleScene : public Module
@@ -19,6 +23,8 @@ public:
 	bool CleanUp() override;
 
 	GameObject* CreateGameObject();
+
+	void ProcessNode(aiNode* node, const aiScene* scene);
 
 public:
 

@@ -14,8 +14,19 @@ ModuleScene::~ModuleScene()
 
 bool ModuleScene::Start()
 {
+	bool ret = true;
 
-	return false;
+	const aiScene* aiscene;
+
+	//Start from aiScene::mRootNode then go recursive from there
+	//Then loop aiNode::mNumChildren
+	//then deal with each aiNode::mChildren[n]
+
+	//mRootNode->mChildren[];
+
+	//ProcessNode(aiscene->mRootNode, aiscene);
+
+	return ret;
 }
 
 update_status ModuleScene::PreUpdate(float dt)
@@ -46,4 +57,12 @@ GameObject* ModuleScene::CreateGameObject()
 {
 
 	return nullptr;
+}
+
+void ModuleScene::ProcessNode(aiNode* node, const aiScene* scene)
+{
+	for (uint i = 0; i < node->mNumChildren; i++)
+	{
+		ProcessNode(node->mChildren[i], scene);
+	}
 }
