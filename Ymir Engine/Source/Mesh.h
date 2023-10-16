@@ -19,9 +19,8 @@ struct Vertex {
     float3 position;
     float3 normal;
     float2 textureCoordinates;
-};
 
-class Texture;
+};
 
 class Mesh {
 public:

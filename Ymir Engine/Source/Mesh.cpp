@@ -39,7 +39,7 @@ void Mesh::DrawMesh()
 {
     // ------------------- Draw Textures --------------------
 
-	    /* TODO */
+    /* TODO */
 
 	// ------------------- Draw Geometry --------------------
 
@@ -51,11 +51,10 @@ void Mesh::DrawMesh()
 
     glBindVertexArray(0);
 
- //   glEnableClientState(GL_INDEX_ARRAY);
-	//	//glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    //glEnableClientState(GL_INDEX_ARRAY);
 
-	//glVertexPointer(3, GL_FLOAT, 0, NULL);
+	//glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 
 	//glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 

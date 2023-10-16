@@ -41,7 +41,7 @@ public:
     void SetInt(const std::string& name, int value) const;
     void SetFloat(const std::string& name, float value) const;
 
-    void SetMatrix(const std::string& name, float4x4 value) const;
+    void SetMatrix4x4(const std::string& name, float4x4 value) const;
 
 private:
 

@@ -123,7 +123,7 @@ void Shader::SetFloat(const std::string& name, float value) const
 	glUniform1f(glGetUniformLocation(shaderProgram, name.c_str()), value);
 }
 
-void Shader::SetMatrix(const std::string& name, float4x4 value) const
+void Shader::SetMatrix4x4(const std::string& name, float4x4 value) const
 {
 	glUniformMatrix4fv(glGetUniformLocation(shaderProgram, name.c_str()), 1, GL_TRUE, value.ptr());
 }
