@@ -40,6 +40,10 @@ public:
 
     bool enableNormals;
 
+    std::vector<float> onlyVertexPos;
+    std::vector<float> VertexPosAndTexCoord;
+    std::vector<float> tightlyPacked;
+
 private:
 
     // Buffers Data

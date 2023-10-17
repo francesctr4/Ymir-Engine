@@ -13,6 +13,32 @@ Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vec
 
     enableNormals = false;
 
+    for (size_t i = 0; i < vertices.size(); ++i) {
+
+        onlyVertexPos.push_back(vertices[i].position.x);
+        onlyVertexPos.push_back(vertices[i].position.y);
+        onlyVertexPos.push_back(vertices[i].position.z);
+
+        VertexPosAndTexCoord.push_back(vertices[i].position.x);
+        VertexPosAndTexCoord.push_back(vertices[i].position.y);
+        VertexPosAndTexCoord.push_back(vertices[i].position.z);
+
+        VertexPosAndTexCoord.push_back(vertices[i].textureCoordinates.x);
+        VertexPosAndTexCoord.push_back(vertices[i].textureCoordinates.y);
+
+        tightlyPacked.push_back(vertices[i].position.x);
+        tightlyPacked.push_back(vertices[i].position.y);
+        tightlyPacked.push_back(vertices[i].position.z);
+
+        tightlyPacked.push_back(vertices[i].normal.x);
+        tightlyPacked.push_back(vertices[i].normal.y);
+        tightlyPacked.push_back(vertices[i].normal.z);
+
+        tightlyPacked.push_back(vertices[i].textureCoordinates.x);
+        tightlyPacked.push_back(vertices[i].textureCoordinates.y);
+
+    }
+
 	LoadMesh();
 }
 
