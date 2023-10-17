@@ -86,7 +86,7 @@ public:
 	std::vector<Model> models;
 
 	// Shader
-	Shader myShader;
+	//Shader myShader;
 
 	// Texture
 	Texture myTexture;

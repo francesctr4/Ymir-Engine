@@ -299,7 +299,7 @@ bool ModuleRenderer3D::Init()
 	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	//glBindVertexArray(0);
 	
-	myShader.LoadShader(SHADER_VS, SHADER_FS);
+	//myShader.LoadShader(SHADER_VS, SHADER_FS);
 	//myTexture.LoadCheckerImage();
 	myTexture.LoadTexture("Assets/Baker_house.png");
 

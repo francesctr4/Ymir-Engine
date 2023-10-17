@@ -19,6 +19,9 @@ Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vec
         onlyVertexPos.push_back(vertices[i].position.y);
         onlyVertexPos.push_back(vertices[i].position.z);
 
+        onlyTexCoord.push_back(vertices[i].textureCoordinates.x);
+        onlyTexCoord.push_back(vertices[i].textureCoordinates.y);
+
         VertexPosAndTexCoord.push_back(vertices[i].position.x);
         VertexPosAndTexCoord.push_back(vertices[i].position.y);
         VertexPosAndTexCoord.push_back(vertices[i].position.z);
@@ -143,7 +146,7 @@ void Mesh::LoadMesh()
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    
+
     // 3. Set the Vertex Attribute Pointers
 
         // Vertex Positions
@@ -167,6 +170,11 @@ void Mesh::LoadMesh()
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), &indices[0], GL_STATIC_DRAW);
 
     LOG("Mesh loaded with: %d vertices, %d indices", vertices.size(), indices.size());
+
+    GLenum error = glGetError();
+    if (error != GL_NO_ERROR) {
+        LOG("Error %s", gluErrorString(error));
+    }
 
     // 5. Unbind Buffers
 
