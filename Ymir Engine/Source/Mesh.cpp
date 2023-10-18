@@ -13,35 +13,6 @@ Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vec
 
     enableNormals = false;
 
-    for (size_t i = 0; i < vertices.size(); ++i) {
-
-        onlyVertexPos.push_back(vertices[i].position.x);
-        onlyVertexPos.push_back(vertices[i].position.y);
-        onlyVertexPos.push_back(vertices[i].position.z);
-
-        onlyTexCoord.push_back(vertices[i].textureCoordinates.x);
-        onlyTexCoord.push_back(vertices[i].textureCoordinates.y);
-
-        VertexPosAndTexCoord.push_back(vertices[i].position.x);
-        VertexPosAndTexCoord.push_back(vertices[i].position.y);
-        VertexPosAndTexCoord.push_back(vertices[i].position.z);
-
-        VertexPosAndTexCoord.push_back(vertices[i].textureCoordinates.x);
-        VertexPosAndTexCoord.push_back(vertices[i].textureCoordinates.y);
-
-        tightlyPacked.push_back(vertices[i].position.x);
-        tightlyPacked.push_back(vertices[i].position.y);
-        tightlyPacked.push_back(vertices[i].position.z);
-
-        tightlyPacked.push_back(vertices[i].normal.x);
-        tightlyPacked.push_back(vertices[i].normal.y);
-        tightlyPacked.push_back(vertices[i].normal.z);
-
-        tightlyPacked.push_back(vertices[i].textureCoordinates.x);
-        tightlyPacked.push_back(vertices[i].textureCoordinates.y);
-
-    }
-
 	LoadMesh();
 }
 
@@ -64,11 +35,27 @@ Mesh::~Mesh()
 
 }
 
-void Mesh::DrawMesh()
+void Mesh::DrawMesh(Shader& shader)
 {
     // ------------------- Draw Textures --------------------
 
-    /* TODO */
+    // bind appropriate textures
+    //unsigned int diffuseNr = 1;
+
+    //for (unsigned int i = 0; i < textures.size(); i++)
+    //{
+    //    glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
+    //     retrieve texture number (the N in diffuse_textureN)
+    //    std::string number;
+    //    std::string name = textures[i].type;
+    //    if (name == "texture_diffuse")
+    //        number = std::to_string(diffuseNr++);
+
+    //     now set the sampler to the correct texture unit
+    //    glUniform1i(glGetUniformLocation(shader.shaderProgram, (name + number).c_str()), i);
+    //     and finally bind the texture
+    //    glBindTexture(GL_TEXTURE_2D, textures[i].ID);
+    //}
 
 	// ------------------- Draw Geometry --------------------
 
@@ -79,15 +66,6 @@ void Mesh::DrawMesh()
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 
     glBindVertexArray(0);
-
-    //glEnableClientState(GL_INDEX_ARRAY);
-
-	//glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-
-	//glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
-
-	//glDisableClientState(GL_INDEX_ARRAY);
 
     // Draw Vertex Normals (Direct Mode)
 
@@ -117,17 +95,6 @@ void Mesh::DrawMesh()
     // Draw Face Normals (Direct Mode) TODO
 
 
-
-    // Draw Texture Coordinates
-
-    /*for (size_t i = 0; i < vertices.size(); ++i) {
-
-        const Vertex& vertex = vertices[i];
-        const float2& texCoords = vertex.textureCoordinates;
-
-        glTexCoord2f(texCoords.x, texCoords.y);
-        
-    }*/
 
 }
 
@@ -170,11 +137,6 @@ void Mesh::LoadMesh()
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), &indices[0], GL_STATIC_DRAW);
 
     LOG("Mesh loaded with: %d vertices, %d indices", vertices.size(), indices.size());
-
-    GLenum error = glGetError();
-    if (error != GL_NO_ERROR) {
-        LOG("Error %s", gluErrorString(error));
-    }
 
     // 5. Unbind Buffers
 

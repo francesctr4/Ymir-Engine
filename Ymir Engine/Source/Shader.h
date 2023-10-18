@@ -12,8 +12,8 @@
 #include <fstream>
 #include <sstream>
 
-#define SHADER_VS "../Source/shader.vs"
-#define SHADER_FS "../Source/shader.fs"
+#define SHADER_VS "../Source/VertexShader.glsl"
+#define SHADER_FS "../Source/FragmentShader.glsl"
 
 class Shader
 {
@@ -43,13 +43,15 @@ public:
 
     void SetMatrix4x4(const std::string& name, float4x4 value) const;
 
+public:
+
+    // Shader Program Identificator (ID)
+    GLuint shaderProgram;
+
 private:
 
     // Private methods to encapsulate Shader Functionality
     void AddShader(GLuint shaderProgram, const char* pShaderText, GLenum shaderType);
     std::string Shader::ReadShaderFile(const std::string& filename);
-
-    // Shader Program Identificator (ID)
-    GLuint shaderProgram;
 
 };

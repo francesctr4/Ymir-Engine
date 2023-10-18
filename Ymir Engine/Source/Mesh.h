@@ -13,6 +13,7 @@
 
 #include "Globals.h"
 #include "Texture.h"
+#include "Shader.h"
 
 struct Vertex {
 
@@ -28,7 +29,7 @@ public:
     Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vector<Texture>& textures);
     virtual ~Mesh();
 
-    void DrawMesh();
+    void DrawMesh(Shader& shader);
 
 public:
 
@@ -39,11 +40,6 @@ public:
     std::vector<Texture> textures;
 
     bool enableNormals;
-
-    std::vector<float> onlyVertexPos;
-    std::vector<float> onlyTexCoord;
-    std::vector<float> VertexPosAndTexCoord;
-    std::vector<float> tightlyPacked;
 
 private:
 

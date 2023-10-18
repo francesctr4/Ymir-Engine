@@ -21,11 +21,11 @@ Model::~Model()
 
 }
 
-void Model::DrawModel()
+void Model::DrawModel(Shader& shader)
 {
 	for (auto it = meshes.begin(); it != meshes.end(); ++it) {
 
-		(*it).DrawMesh();
+		(*it).DrawMesh(shader);
 
 	}
 }
@@ -163,7 +163,28 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 
 	// Process Textures
 
-	/* TODO */
+	/*if (mesh->mMaterialIndex >= 0)
+	{
+		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+
+		uint numTextures = material->GetTextureCount(aiTextureType_DIFFUSE);
+
+		if (numTextures > 0) {
+
+			aiString aiPath;
+			material->GetTexture(aiTextureType_DIFFUSE, 0, &aiPath);
+
+			Texture texture;
+
+			std::string path = aiPath.C_Str();
+
+			texture.LoadTexture(aiPath.C_Str());
+
+			textures.push_back(texture);
+
+		}
+		
+	}*/
 
 	return Mesh(vertices, indices, textures); // Retrieve the Mesh with all the necessary data to draw
 }

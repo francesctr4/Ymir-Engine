@@ -948,12 +948,14 @@ void ModuleEditor::Toggle_GL_TextureMapping2D(bool textureMapping2D)
     if (textureMapping2D) {
 
         glEnable(GL_TEXTURE_2D);
+        App->renderer3D->shaderEnabled = true;
         LOG("Enabled Texture Mapping 2D");
 
     }
     else {
 
         glDisable(GL_TEXTURE_2D);
+        App->renderer3D->shaderEnabled = false;
         LOG("Disabled Texture Mapping 2D");
 
     }

@@ -57,11 +57,13 @@ public:
 	void ClearPrimitives();
 
 	void HandleModelDragDrop();
-	void DrawModels();
+	void DrawModels(Shader& shader);
 	void ClearModels();
 
 	void EnableAssimpDebugger();
 	void CleanUpAssimpDebugger();
+
+	void SetShaderUniforms(Shader &shader);
 
 public:
 
@@ -86,9 +88,11 @@ public:
 	std::vector<Model> models;
 
 	// Shader
-	//Shader myShader;
+	Shader myShader;
 
 	// Texture
 	Texture myTexture;
+
+	bool shaderEnabled = true;
 
 };
