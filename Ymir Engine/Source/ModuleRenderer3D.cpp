@@ -337,7 +337,7 @@ bool ModuleRenderer3D::Init()
 	myShader.LoadShader(SHADER_VS, SHADER_FS);
 
 	//myTexture.LoadCheckerImage();
-	myTexture.LoadTexture("Assets/Baker_house.png");
+	//myTexture.LoadTexture("Assets/Baker_house.png");
 
 	// 3D Model Loading: Loads a 3D Model on launch
 
@@ -500,7 +500,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	}
 
-	HandleModelDragDrop();
+	HandleDragAndDrop();
 
 	DrawModels(myShader);
 
@@ -593,18 +593,47 @@ void ModuleRenderer3D::ClearPrimitives()
 	primitives.clear();
 }
 
-void ModuleRenderer3D::HandleModelDragDrop()
+void ModuleRenderer3D::HandleDragAndDrop()
 {
 	if (App->input->droppedFile) {
 
-		Model tmpModel;
-		tmpModel.LoadModel(App->input->droppedFileDirectory);
+		if (IsFileExtension(App->input->droppedFileDirectory, ".fbx") || IsFileExtension(App->input->droppedFileDirectory, ".FBX")) {
 
-		models.push_back(tmpModel);
+			Model tmpModel;
+			tmpModel.LoadModel(App->input->droppedFileDirectory);
 
+			models.push_back(tmpModel);
+
+		}
+		else if (IsFileExtension(App->input->droppedFileDirectory, ".png") || IsFileExtension(App->input->droppedFileDirectory, ".dds")) {
+
+			myTexture.ClearTexture();
+			myTexture.LoadTexture(App->input->droppedFileDirectory);
+
+		}
+		
 		App->input->droppedFile = false;
 
 	}
+}
+
+bool ModuleRenderer3D::IsFileExtension(const char* directory, const char* extension)
+{
+	size_t strLen = strlen(directory);
+	size_t suffixLen = strlen(extension);
+
+	if (strLen < suffixLen) {
+
+		return false;
+	}
+
+	return strncmp(directory + strLen - suffixLen, extension, suffixLen) == 0;
+}
+
+void ModuleRenderer3D::ApplyCheckerTexture()
+{
+	myTexture.ClearTexture();
+	myTexture.LoadCheckerImage();
 }
 
 void ModuleRenderer3D::DrawModels(Shader& shader)

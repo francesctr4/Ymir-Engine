@@ -56,7 +56,6 @@ public:
 	void DrawPrimitives();
 	void ClearPrimitives();
 
-	void HandleModelDragDrop();
 	void DrawModels(Shader& shader);
 	void ClearModels();
 
@@ -64,6 +63,11 @@ public:
 	void CleanUpAssimpDebugger();
 
 	void SetShaderUniforms(Shader &shader);
+
+	void HandleDragAndDrop();
+	bool IsFileExtension(const char* directory, const char* extension);
+
+	void ApplyCheckerTexture();
 
 public:
 

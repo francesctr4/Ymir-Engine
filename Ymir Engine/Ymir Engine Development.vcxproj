@@ -105,6 +105,7 @@
     <ClInclude Include="Source\External\Optick\include\optick.config.h" />
     <ClInclude Include="Source\External\Optick\include\optick.h" />
     <ClInclude Include="Source\External\Parson\parson.h" />
+    <ClInclude Include="Source\External\PhysFS\include\physfs.h" />
     <ClInclude Include="Source\External\SDL\include\begin_code.h" />
     <ClInclude Include="Source\External\SDL\include\close_code.h" />
     <ClInclude Include="Source\External\SDL\include\SDL.h" />

@@ -755,6 +755,12 @@ void ModuleEditor::DrawEditor()
 
                 }
 
+                if (ImGui::Button("Apply Checker Texture")) {
+
+                    App->renderer3D->ApplyCheckerTexture();
+
+                }
+
                 ImGui::Unindent(); // Unindent to return to the previous level of indentation
 
             }
