@@ -16,7 +16,7 @@ public:
 
 	void Update();
 
-	Component* CreateComponent(ComponentType ctype);
+	Component* AddComponent(ComponentType ctype);
 
 public:
 

@@ -4,7 +4,7 @@ GameObject::GameObject()
 {
 	mParent = nullptr;
 
-	CreateComponent(ComponentType::TRANSFORM);
+	AddComponent(ComponentType::TRANSFORM);
 }
 
 GameObject::~GameObject()
@@ -23,7 +23,7 @@ void GameObject::Update()
 
 }
 
-Component* GameObject::CreateComponent(ComponentType ctype)
+Component* GameObject::AddComponent(ComponentType ctype)
 {
 
 	return nullptr;
