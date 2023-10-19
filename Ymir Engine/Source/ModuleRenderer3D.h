@@ -56,7 +56,7 @@ public:
 	void DrawPrimitives();
 	void ClearPrimitives();
 
-	void DrawModels(Shader& shader);
+	void DrawModels();
 	void ClearModels();
 
 	void EnableAssimpDebugger();
@@ -68,6 +68,7 @@ public:
 	bool IsFileExtension(const char* directory, const char* extension);
 
 	void ApplyCheckerTexture();
+	void ClearActualTexture();
 
 public:
 
@@ -97,6 +98,6 @@ public:
 	// Texture
 	Texture myTexture;
 
-	bool shaderEnabled = true;
+	bool texturingEnabled = true;
 
 };

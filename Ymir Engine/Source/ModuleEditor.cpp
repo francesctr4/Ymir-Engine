@@ -761,6 +761,12 @@ void ModuleEditor::DrawEditor()
 
                 }
 
+                if (ImGui::Button("Clear Actual Texture")) {
+
+                    App->renderer3D->ClearActualTexture();
+
+                }
+
                 ImGui::Unindent(); // Unindent to return to the previous level of indentation
 
             }
@@ -954,14 +960,14 @@ void ModuleEditor::Toggle_GL_TextureMapping2D(bool textureMapping2D)
     if (textureMapping2D) {
 
         glEnable(GL_TEXTURE_2D);
-        App->renderer3D->shaderEnabled = true;
+        App->renderer3D->texturingEnabled = true;
         LOG("Enabled Texture Mapping 2D");
 
     }
     else {
 
         glDisable(GL_TEXTURE_2D);
-        App->renderer3D->shaderEnabled = false;
+        App->renderer3D->texturingEnabled = false;
         LOG("Disabled Texture Mapping 2D");
 
     }

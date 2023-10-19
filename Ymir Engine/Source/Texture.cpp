@@ -123,12 +123,13 @@ void Texture::BindTexture(bool bind)
 	if (bind) {
 
 		glBindTexture(GL_TEXTURE_2D, ID);
+		textureBinded = true;
 
 	}
 	else {
 
 		glBindTexture(GL_TEXTURE_2D, 0);
-
+		textureBinded = false;
 	}
 }
 
@@ -140,6 +141,9 @@ void Texture::ClearTexture()
 		glDeleteTextures(1, &ID);
 		ID = 0;
 	}
+}
 
-	LOG("Successfully cleared texture");
+bool Texture::IsLoaded()
+{
+	return ID;
 }

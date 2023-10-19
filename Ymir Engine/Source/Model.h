@@ -20,7 +20,7 @@ public:
     virtual ~Model();
 
     void LoadModel(const std::string& path);
-    void DrawModel(Shader& shader);
+    void DrawModel();
 
 private:
 
@@ -35,5 +35,9 @@ public:
 
     std::vector<Mesh> meshes;
     std::string directory;
+
+    // Vector of already loaded textures
+
+    //std::vector<Texture> loadedTextures;
 
 };

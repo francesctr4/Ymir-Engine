@@ -14,6 +14,7 @@ Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vec
     enableNormals = false;
 
 	LoadMesh();
+    
 }
 
 Mesh::~Mesh()
@@ -35,30 +36,14 @@ Mesh::~Mesh()
 
 }
 
-void Mesh::DrawMesh(Shader& shader)
+void Mesh::DrawMesh()
 {
-    // ------------------- Draw Textures --------------------
+    // ------------------- Draw Mesh Textures --------------------
 
-    // bind appropriate textures
-    //unsigned int diffuseNr = 1;
+    /* TODO */
 
-    //for (unsigned int i = 0; i < textures.size(); i++)
-    //{
-    //    glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
-    //     retrieve texture number (the N in diffuse_textureN)
-    //    std::string number;
-    //    std::string name = textures[i].type;
-    //    if (name == "texture_diffuse")
-    //        number = std::to_string(diffuseNr++);
-
-    //     now set the sampler to the correct texture unit
-    //    glUniform1i(glGetUniformLocation(shader.shaderProgram, (name + number).c_str()), i);
-    //     and finally bind the texture
-    //    glBindTexture(GL_TEXTURE_2D, textures[i].ID);
-    //}
-
-	// ------------------- Draw Geometry --------------------
-
+	// ------------------- Draw Mesh Geometry --------------------
+    
     // Draw Vertex Positions
 
     glBindVertexArray(VAO);
@@ -66,7 +51,7 @@ void Mesh::DrawMesh(Shader& shader)
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 
     glBindVertexArray(0);
-
+    
     // Draw Vertex Normals (Direct Mode)
 
     if (enableNormals) {
@@ -92,9 +77,9 @@ void Mesh::DrawMesh(Shader& shader)
 
     }
 
-    // Draw Face Normals (Direct Mode) TODO
+    // Draw Face Normals (Direct Mode) 
 
-
+    /* TODO */
 
 }
 

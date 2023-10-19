@@ -337,7 +337,7 @@ bool ModuleRenderer3D::Init()
 	myShader.LoadShader(SHADER_VS, SHADER_FS);
 
 	//myTexture.LoadCheckerImage();
-	//myTexture.LoadTexture("Assets/Baker_house.png");
+	myTexture.LoadTexture("Assets/Baker_house.png");
 
 	// 3D Model Loading: Loads a 3D Model on launch
 
@@ -490,25 +490,33 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	// -------------------- Drawing 3D Models ---------------------
 
-	if (shaderEnabled) {
+	HandleDragAndDrop();
 
-		myShader.UseShader(true);
-
-		SetShaderUniforms(myShader);
+	if (texturingEnabled) {
 
 		myTexture.BindTexture(true);
 
+		if (myTexture.IsLoaded()) {
+
+			myShader.UseShader(true);
+
+			SetShaderUniforms(myShader);
+
+		}
+
 	}
 
-	HandleDragAndDrop();
+	DrawModels();
 
-	DrawModels(myShader);
+	if (texturingEnabled) {
 
-	if (shaderEnabled) {
+		if (myTexture.IsLoaded()) {
+
+			myShader.UseShader(false);
+
+		}
 
 		myTexture.BindTexture(false);
-
-		myShader.UseShader(false);
 
 	}
 
@@ -600,8 +608,10 @@ void ModuleRenderer3D::HandleDragAndDrop()
 		if (IsFileExtension(App->input->droppedFileDirectory, ".fbx") || IsFileExtension(App->input->droppedFileDirectory, ".FBX")) {
 
 			Model tmpModel;
-			tmpModel.LoadModel(App->input->droppedFileDirectory);
 
+			tmpModel.LoadModel(App->input->droppedFileDirectory);
+			
+			myTexture.ClearTexture();
 			models.push_back(tmpModel);
 
 		}
@@ -636,11 +646,16 @@ void ModuleRenderer3D::ApplyCheckerTexture()
 	myTexture.LoadCheckerImage();
 }
 
-void ModuleRenderer3D::DrawModels(Shader& shader)
+void ModuleRenderer3D::ClearActualTexture()
+{
+	myTexture.ClearTexture();
+}
+
+void ModuleRenderer3D::DrawModels()
 {
 	for (auto it = models.begin(); it != models.end(); ++it) {
 
-		(*it).DrawModel(shader);
+		(*it).DrawModel();
 
 	}
 }

@@ -29,7 +29,7 @@ public:
     Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vector<Texture>& textures);
     virtual ~Mesh();
 
-    void DrawMesh(Shader& shader);
+    void DrawMesh();
 
 public:
 

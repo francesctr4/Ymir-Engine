@@ -21,11 +21,11 @@ Model::~Model()
 
 }
 
-void Model::DrawModel(Shader& shader)
+void Model::DrawModel()
 {
 	for (auto it = meshes.begin(); it != meshes.end(); ++it) {
 
-		(*it).DrawMesh(shader);
+		(*it).DrawMesh();
 
 	}
 }
@@ -34,7 +34,7 @@ void Model::LoadModel(const std::string& path)
 {
 	// Retrieve info about Model (directory and name)
 
-	directory = path.substr(0, path.find_last_of('/'));
+	directory = path.substr(0, path.find_last_of('/') + 1);
 
 	if (path.find("/") != std::string::npos) {
 
@@ -163,7 +163,7 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 
 	// Process Textures
 
-	/*if (mesh->mMaterialIndex >= 0)
+	if (mesh->mMaterialIndex >= 0)
 	{
 		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 
@@ -174,17 +174,18 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 			aiString aiPath;
 			material->GetTexture(aiTextureType_DIFFUSE, 0, &aiPath);
 
-			Texture texture;
+			std::string path = directory + aiPath.C_Str();
 
-			std::string path = aiPath.C_Str();
+			Texture tmpTexture;
 
-			texture.LoadTexture(aiPath.C_Str());
+			tmpTexture.path = path;
+			tmpTexture.type = TextureTypes::DIFFUSE;
 
-			textures.push_back(texture);
+			textures.push_back(tmpTexture);
 
 		}
 		
-	}*/
+	}
 
 	return Mesh(vertices, indices, textures); // Retrieve the Mesh with all the necessary data to draw
 }
