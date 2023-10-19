@@ -23,7 +23,7 @@ public:
 	update_status PostUpdate(float dt) override;
 	bool CleanUp() override;
 
-	GameObject* CreateGameObject();
+	GameObject* CreateGameObject(std::string name, GameObject* parent);
 
 	void ProcessNode(aiNode* node, const aiScene* scene);
 

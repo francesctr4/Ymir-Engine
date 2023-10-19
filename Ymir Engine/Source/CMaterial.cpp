@@ -1,6 +1,6 @@
 #include "CMaterial.h"
 
-CMaterial::CMaterial()
+CMaterial::CMaterial(GameObject* owner) : Component(owner, ComponentType::MATERIAL)
 {
 
 }
@@ -25,7 +25,7 @@ void CMaterial::Update()
 
 }
 
-void CMaterial::OnEditor()
+void CMaterial::OnInspector()
 {
 
 }

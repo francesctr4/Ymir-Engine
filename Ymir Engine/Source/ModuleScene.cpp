@@ -1,10 +1,12 @@
 #include "ModuleScene.h"
 
+#include "ModuleInput.h"
+#include "ModuleRenderer3D.h"
 #include "GameObject.h"
 
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	mRootNode = new GameObject();
+	mRootNode = CreateGameObject("Scene", nullptr);
 	gameObjects.push_back(mRootNode);
 }
 
@@ -17,15 +19,21 @@ bool ModuleScene::Start()
 {
 	bool ret = true;
 
-	const aiScene* aiscene;
+	GameObject* uno = CreateGameObject("Uno", mRootNode);
 
-	//Start from aiScene::mRootNode then go recursive from there
-	//Then loop aiNode::mNumChildren
-	//then deal with each aiNode::mChildren[n]
+	GameObject* uno_uno = CreateGameObject("Unouno", uno);
 
-	//mRootNode->mChildren[];
+	GameObject* dos = CreateGameObject("Dos", mRootNode);
 
-	//ProcessNode(aiscene->mRootNode, aiscene);
+	GameObject* tres = CreateGameObject("Tres", mRootNode);
+
+	GameObject* tres_tres = CreateGameObject("Trestres", tres);
+
+	GameObject* tres_trestres = CreateGameObject("Trestrestres", tres_tres);
+
+	GameObject* tres_trestrestres = CreateGameObject("Trestrestrestres", tres_trestres);
+
+	GameObject* cuatro = CreateGameObject("Cuatro", mRootNode);
 
 	return ret;
 }
@@ -33,31 +41,45 @@ bool ModuleScene::Start()
 update_status ModuleScene::PreUpdate(float dt)
 {
 
-	return update_status();
+	return UPDATE_CONTINUE;
 }
 
 update_status ModuleScene::Update(float dt)
 {
+	for (auto it = gameObjects.begin(); it != gameObjects.end(); ++it)
+	{
+		(*it)->Update();
+	}
 
-	return update_status();
+	return UPDATE_CONTINUE;
 }
 
 update_status ModuleScene::PostUpdate(float dt)
 {
 
-	return update_status();
+	return UPDATE_CONTINUE;
 }
 
 bool ModuleScene::CleanUp()
 {
+	bool ret = true;
 
-	return false;
+	return ret;
 }
 
-GameObject* ModuleScene::CreateGameObject()
+GameObject* ModuleScene::CreateGameObject(std::string name, GameObject* parent)
 {
+	GameObject* tempGameObject = new GameObject(name, parent);
 
-	return nullptr;
+	if (parent != nullptr) {
+
+		parent->AddChild(tempGameObject);
+
+	}
+
+	gameObjects.push_back(tempGameObject);
+
+	return tempGameObject;
 }
 
 void ModuleScene::ProcessNode(aiNode* node, const aiScene* scene)

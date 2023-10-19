@@ -1,6 +1,6 @@
 #include "CMesh.h"
 
-CMesh::CMesh()
+CMesh::CMesh(GameObject* owner) : Component(owner, ComponentType::MESH)
 {
 
 }
@@ -25,7 +25,7 @@ void CMesh::Update()
 
 }
 
-void CMesh::OnEditor()
+void CMesh::OnInspector()
 {
 
 }

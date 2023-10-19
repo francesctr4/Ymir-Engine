@@ -1,6 +1,6 @@
 #include "CTransform.h"
 
-CTransform::CTransform()
+CTransform::CTransform(GameObject* owner) : Component(owner, ComponentType::TRANSFORM)
 {
 
 }
@@ -25,7 +25,7 @@ void CTransform::Update()
 
 }
 
-void CTransform::OnEditor()
+void CTransform::OnInspector()
 {
 
 }

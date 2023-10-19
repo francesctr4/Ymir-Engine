@@ -8,6 +8,8 @@
 #include <vector>
 #include <string>
 
+class GameObject;
+
 class ModuleEditor : public Module
 {
 public:
@@ -92,6 +94,13 @@ public:
 
 	// Function to show memleaks file output on the editor
 	void AssimpLogOutput();
+
+	// Function to encapsulate GameObjects hierarchy
+	void DrawHierarchy();
+	void CreateHierarchyTree(GameObject* node);
+
+	// Function to encapsulate GameObjects inspector
+	void DrawInspector();
 
 public:
 

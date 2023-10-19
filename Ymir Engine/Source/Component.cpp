@@ -1,9 +1,12 @@
 #include "Component.h"
 #include "GameObject.h"
 
-Component::Component()
+Component::Component(GameObject* owner, ComponentType type)
 {
+	mOwner = owner;
+	ctype = type;
 
+	active = true;
 }
 
 Component::~Component()
@@ -26,7 +29,7 @@ void Component::Update()
 
 }
 
-void Component::OnEditor()
+void Component::OnInspector()
 {
 
 }

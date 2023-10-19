@@ -5,15 +5,14 @@
 class CMaterial : public Component {
 public:
 
-	CMaterial();
+	CMaterial(GameObject* owner);
 	virtual ~CMaterial();
 
 	void Enable() override;
 	void Disable() override;
 
 	void Update() override;
-	void OnEditor() override;
-
+	void OnInspector() override;
 
 public:
 

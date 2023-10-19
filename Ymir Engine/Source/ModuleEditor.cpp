@@ -9,6 +9,9 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModuleInput.h"
+#include "ModuleScene.h"
+
+#include "GameObject.h"
 
 #include "External/SDL/include/SDL_opengl.h"
 
@@ -834,20 +837,7 @@ void ModuleEditor::DrawEditor()
 
             // Show scene hierarchy
 
-            for (auto& model : App->renderer3D->models) {
-
-                if (model.meshes.size() > 1) {
-
-                    ImGui::Text("%s (%d Meshes)", model.name.c_str(), model.meshes.size());
-
-                }
-                else {
-
-                    ImGui::Text("%s (%d Mesh)", model.name.c_str(), model.meshes.size());
-
-                }
-                
-            }
+            DrawHierarchy();
 
             ImGui::End();
 
@@ -860,6 +850,8 @@ void ModuleEditor::DrawEditor()
         if (ImGui::Begin("Inspector", &showInspector), true) {
 
             // Show GameObject Inspector
+
+            DrawInspector();
 
             ImGui::End();
 
@@ -1848,4 +1840,97 @@ void ModuleEditor::MemoryLeaksOutput()
 void ModuleEditor::AssimpLogOutput()
 {
     ImGui::TextWrapped("%s", AssimpLogFileContents.c_str());
+}
+
+void ModuleEditor::DrawHierarchy()
+{
+    for (auto& model : App->renderer3D->models) {
+
+        if (model.meshes.size() > 1) {
+
+            ImGui::Text("%s (%d Meshes)", model.name.c_str(), model.meshes.size());
+
+        }
+        else {
+
+            ImGui::Text("%s (%d Mesh)", model.name.c_str(), model.meshes.size());
+
+        }
+
+    }
+
+    CreateHierarchyTree(App->scene->mRootNode);
+
+}
+
+void ModuleEditor::CreateHierarchyTree(GameObject* node)
+{
+    // Set flags to open the tree nodes
+    ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_DefaultOpen;
+
+    bool isNodeOpen = ImGui::TreeNodeEx(node->name.c_str(), flags);
+
+    if (isNodeOpen)
+    {
+        // Display the children if the node is open
+        if (node->mChildren.size())
+        {
+            for (uint i = 0; i < node->mChildren.size(); i++)
+            {
+                CreateHierarchyTree(node->mChildren[i]);
+            }
+        }
+
+        // Close the TreeNode when you're done with its children
+        ImGui::TreePop();
+    }
+
+}
+
+void ModuleEditor::DrawInspector()
+{
+    ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_DefaultOpen;
+
+    bool active;
+
+    ImGui::Checkbox(" Active   ",&active);
+    ImGui::SameLine();
+    ImGui::Text("My GameObject");
+
+    if (ImGui::CollapsingHeader("Transform", flags))
+    {
+        ImGui::Indent();
+
+        float position[] = { 0,0,0 };
+        ImGui::InputFloat3("Transform", position);
+        float rotation[] = { 1,0,0,0 };
+        ImGui::InputFloat4("Rotation", rotation);
+        float scale[] = { 1,1,1 };
+        ImGui::InputFloat3("Scale", scale);
+
+        ImGui::Unindent();
+    }
+
+    if (ImGui::CollapsingHeader("Mesh", flags))
+    {
+        ImGui::Indent();
+
+        ImGui::Text("Path: %s");
+        ImGui::Text("Index: %d");
+        ImGui::Text("Vertices: %d");
+        ImGui::Text("Normals: %d");
+        ImGui::Text("texture: %d");
+
+        ImGui::Unindent();
+    }
+
+    if (ImGui::CollapsingHeader("Material", flags))
+    {
+        ImGui::Indent();
+
+        ImGui::Text("Path: %s");
+        ImGui::Text("Id: %d");
+
+        ImGui::Unindent();
+    }
 }

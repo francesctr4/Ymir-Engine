@@ -13,14 +13,14 @@ enum ComponentType {
 class Component {
 public:
 
-	Component();
+	Component(GameObject* owner, ComponentType type);
 	virtual ~Component();
 
 	virtual void Enable(); 
 	virtual void Disable();
 
 	virtual void Update();
-	virtual void OnEditor();
+	virtual void OnInspector();
 
 public:
 

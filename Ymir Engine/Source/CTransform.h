@@ -9,14 +9,14 @@
 class CTransform : public Component {
 public:
 
-	CTransform();
+	CTransform(GameObject* owner);
 	virtual ~CTransform();
 
 	void Enable() override;
 	void Disable() override;
 
 	void Update() override;
-	void OnEditor() override;
+	void OnInspector() override;
 
 	void SetPosition();
 	void SetRotation();

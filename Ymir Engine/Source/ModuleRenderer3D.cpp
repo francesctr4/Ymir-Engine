@@ -5,6 +5,7 @@
 #include "ModuleCamera3D.h"
 #include "ModuleEditor.h"
 #include "ModuleInput.h"
+#include "ModuleScene.h"
 #include "Globals.h"
 #include "Log.h"
 
@@ -343,6 +344,18 @@ bool ModuleRenderer3D::Init()
 
 	models.push_back(Model("Assets/BakerHouse.fbx"));
 
+	/*for (auto& model : App->renderer3D->models) {
+
+		GameObject* myModel = App->scene->CreateGameObject(model.name, App->scene->mRootNode);
+
+		for (int i = 0; i < model.meshes.size(); i++) {
+
+			GameObject* a = App->scene->CreateGameObject("A mesh", myModel);
+
+		}
+
+	}*/
+
 	return ret;
 }
 
@@ -610,7 +623,15 @@ void ModuleRenderer3D::HandleDragAndDrop()
 			Model tmpModel;
 
 			tmpModel.LoadModel(App->input->droppedFileDirectory);
-			
+
+			/*GameObject* myModel = App->scene->CreateGameObject(tmpModel.name, App->scene->mRootNode);
+
+			for (int i = 0; i < tmpModel.meshes.size(); i++) {
+
+				GameObject* a = App->scene->CreateGameObject("A mesh", myModel);
+
+			}*/
+
 			myTexture.ClearTexture();
 			models.push_back(tmpModel);
 

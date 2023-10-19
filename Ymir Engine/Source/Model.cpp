@@ -1,6 +1,9 @@
 #include "Model.h"
 #include "Log.h"
 
+#include "GameObject.h"
+#include "ModuleScene.h"
+
 #define STB_IMAGE_IMPLEMENTATION
 #include "External/stb_image/stb_image.h"
 

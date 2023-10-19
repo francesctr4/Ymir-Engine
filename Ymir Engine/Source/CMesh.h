@@ -5,14 +5,14 @@
 class CMesh : public Component {
 public:
 
-	CMesh();
+	CMesh(GameObject* owner);
 	virtual ~CMesh();
 
 	void Enable() override;
 	void Disable() override;
 
 	void Update() override;
-	void OnEditor() override;
+	void OnInspector() override;
 
 
 public:
