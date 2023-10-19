@@ -25,6 +25,9 @@ public:
 	// Draws the editor on the window
 	void DrawEditor();
 
+	// Manages the docking functionality with the main window
+	void WindowDockSpaceManagement();
+
 	// OpenGL settings checkbox toggle encapsulation
 	void Toggle_GL_DepthTesting(bool depthTesting);
 	void Toggle_GL_FaceCulling(bool faceCulling);
@@ -101,6 +104,7 @@ public:
 	bool showMemoryLeaks = false;
 	bool showAssimpLog = false;
 	bool showHierarchy = false;
+	bool showInspector = false;
 
 	// OpenGL settings checkbox toggle booleans
 	bool gl_DepthTesting = true;

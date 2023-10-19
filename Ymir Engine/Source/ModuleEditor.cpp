@@ -124,6 +124,9 @@ void ModuleEditor::DrawEditor()
 
     // --------------------------------- Here starts the code for the editor ----------------------------------------
 
+    // Manages the docking functionality with the main window
+    WindowDockSpaceManagement();
+
     // MAIN MENU BAR START
 
     if (ImGui::BeginMainMenuBar()) {
@@ -338,6 +341,12 @@ void ModuleEditor::DrawEditor()
             if (ImGui::MenuItem("Hierarchy")) {
 
                 showHierarchy = true;
+
+            }
+
+            if (ImGui::MenuItem("Inspector")) {
+
+                showInspector = true;
 
             }
 
@@ -846,6 +855,18 @@ void ModuleEditor::DrawEditor()
 
     }
 
+    if (showInspector) {
+
+        if (ImGui::Begin("Inspector", &showInspector), true) {
+
+            // Show GameObject Inspector
+
+            ImGui::End();
+
+        }
+
+    }
+
     // END OF APPLICATION MENU
 
     if (showImGuiDemo) {
@@ -877,6 +898,40 @@ void ModuleEditor::DrawEditor()
 
     }
 
+}
+
+void ModuleEditor::WindowDockSpaceManagement()
+{
+    // Set DockSpace Invisible Window Flags
+    ImGuiWindowFlags window = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoTitleBar |
+                              ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | 
+                              ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+
+    // Get Window Viewport
+    ImGuiViewport* viewport = ImGui::GetWindowViewport();
+
+    // Set Window Parameters
+    ImGui::SetNextWindowPos(viewport->Pos);
+    ImGui::SetNextWindowSize(viewport->Size);
+    ImGui::SetNextWindowViewport(viewport->ID);
+    ImGui::SetNextWindowBgAlpha(0.0f);
+
+    // Set Window Style Parameters
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+
+    // Begin DockSpace Invisible Window with the flags
+    ImGui::Begin("Dockspace", (bool)0, window);
+
+    // Apply Window Style Parameters
+    ImGui::PopStyleVar(3);
+
+    // Create DockSpace on the invisible window
+    ImGui::DockSpace(ImGui::GetID("Dockspace"), ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_PassthruCentralNode);
+
+    // End DockSpace Window
+    ImGui::End();
 }
 
 void ModuleEditor::Toggle_GL_DepthTesting(bool depthTesting)
