@@ -335,14 +335,10 @@ bool ModuleRenderer3D::Init()
 	//glBindBuffer(GL_ARRAY_BUFFER, 0);
 	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-	myShader.LoadShader(SHADER_VS, SHADER_FS);
+	//myShader.LoadShader(SHADER_VS, SHADER_FS);
 
 	//myTexture.LoadCheckerImage();
-	myTexture.LoadTexture("Assets/Baker_house.png");
-
-	// 3D Model Loading: Loads a 3D Model on launch
-
-	models.push_back(Model("Assets/BakerHouse.fbx"));
+	//myTexture.LoadTexture("Assets/Baker_house.png");
 
 	/*for (auto& model : App->renderer3D->models) {
 
@@ -355,6 +351,8 @@ bool ModuleRenderer3D::Init()
 		}
 
 	}*/
+
+	models.push_back(Model("Assets/BakerHouse.fbx"));
 
 	return ret;
 }
@@ -379,7 +377,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	App->editor->AddFPS(App->GetFPS());
 	App->editor->AddDT(App->GetDT());
 	App->editor->AddMS(App->GetMS());
-
+	
 	return UPDATE_CONTINUE;
 }
 
@@ -503,9 +501,9 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	// -------------------- Drawing 3D Models ---------------------
 
-	HandleDragAndDrop();
+	
 
-	if (texturingEnabled) {
+	/*if (texturingEnabled) {
 
 		myTexture.BindTexture(true);
 
@@ -517,23 +515,20 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 		}
 
-	}
+	}*/
 
 	//myShader.UseShader(true);
 
-	//float4x4 projection;
-	//glGetFloatv(GL_PROJECTION_MATRIX, projection.ptr());
-	//myShader.SetMatrix4x4("projection", projection.Transposed()); // Note: Transpose the matrix when passing to shader
+	//myShader.SetShaderUniforms();
 
-	//float4x4 modelview;
-	//glGetFloatv(GL_MODELVIEW_MATRIX, modelview.ptr());
-	//myShader.SetMatrix4x4("modelview", modelview.Transposed()); // Note: Transpose the matrix when passing to shader
+	HandleDragAndDrop();
 
 	DrawModels(myShader);
 
-	/*myShader.UseShader(false);*/
 
-	if (texturingEnabled) {
+	//myShader.UseShader(false);
+
+	/*if (texturingEnabled) {
 
 		if (myTexture.IsLoaded()) {
 
@@ -543,7 +538,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 		myTexture.BindTexture(false);
 
-	}
+	}*/
 
 	// --------------------------- Drawing editor and Swaping Window -------------------------
 	
@@ -632,9 +627,9 @@ void ModuleRenderer3D::HandleDragAndDrop()
 
 		if (IsFileExtension(App->input->droppedFileDirectory, ".fbx") || IsFileExtension(App->input->droppedFileDirectory, ".FBX")) {
 
-			Model tmpModel;
+			//Model tmpModel;
 
-			tmpModel.LoadModel(App->input->droppedFileDirectory);
+			//tmpModel.LoadModel(App->input->droppedFileDirectory);
 
 			/*GameObject* myModel = App->scene->CreateGameObject(tmpModel.name, App->scene->mRootNode);
 
@@ -644,8 +639,8 @@ void ModuleRenderer3D::HandleDragAndDrop()
 
 			}*/
 
-			myTexture.ClearTexture();
-			models.push_back(tmpModel);
+			//myTexture.ClearTexture();
+			models.push_back(Model(App->input->droppedFileDirectory));
 
 		}
 		else if (IsFileExtension(App->input->droppedFileDirectory, ".png") || IsFileExtension(App->input->droppedFileDirectory, ".dds")) {

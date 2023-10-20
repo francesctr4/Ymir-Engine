@@ -37,7 +37,16 @@ void Model::LoadModel(const std::string& path)
 {
 	// Retrieve info about Model (directory and name)
 
-	directory = path.substr(0, path.find_last_of('/') + 1);
+	if (path.find('\\') != std::string::npos) {
+
+		directory = path.substr(0, path.find_last_of('\\') + 1);
+
+	}
+	else {
+
+		directory = path.substr(0, path.find_last_of('/') + 1);
+
+	}
 
 	if (path.find("/") != std::string::npos) {
 

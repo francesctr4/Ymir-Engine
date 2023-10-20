@@ -128,6 +128,17 @@ void Shader::SetMatrix4x4(const std::string& name, float4x4 value) const
 	glUniformMatrix4fv(glGetUniformLocation(shaderProgram, name.c_str()), 1, GL_TRUE, value.ptr());
 }
 
+void Shader::SetShaderUniforms()
+{
+	float4x4 projection;
+	glGetFloatv(GL_PROJECTION_MATRIX, projection.ptr());
+	this->SetMatrix4x4("projection", projection.Transposed()); // Note: Transpose the matrix when passing to shader
+
+	float4x4 modelview;
+	glGetFloatv(GL_MODELVIEW_MATRIX, modelview.ptr());
+	this->SetMatrix4x4("modelview", modelview.Transposed()); // Note: Transpose the matrix when passing to shader
+}
+
 void Shader::AddShader(GLuint shaderProgram, const char* pShaderText, GLenum shaderType)
 {
 	GLuint ShaderObj = glCreateShader(shaderType);

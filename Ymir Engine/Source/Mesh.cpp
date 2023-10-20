@@ -40,32 +40,44 @@ Mesh::~Mesh()
 
 void Mesh::DrawMesh(Shader& shader)
 {
-    // ------------------- Draw Mesh Textures --------------------
+    // ------------------- Load Mesh Textures --------------------
 
-    /* TODO */
-    //if (!loadTex && !textures.empty()) {
+    if (!loadTex) {
 
-    //   /* for (auto it = textures.begin(); it != textures.end(); ++it) {
+        for (auto it = textures.begin(); it != textures.end(); ++it) {
 
-    //        (*it).LoadTexture(textures[0].path);
+            (*it).LoadTexture((*it).path);
 
-    //    }*/
-    //    textures[0].LoadTexture(textures[0].path);
-    //    loadTex = true;
-    //}
-    
+        }
 
-	// ------------------- Draw Mesh Geometry --------------------
+        myShader.LoadShader(SHADER_VS, SHADER_FS);
+
+        loadTex = true;
+
+    }
+
+	// ------------------- Draw Mesh Geometry and Textures --------------------
     
     // Draw Vertex Positions
 
-    //for (auto it = textures.begin(); it != textures.end(); ++it) {
+    //if (texturingEnabled) {
 
-    //    (*it).BindTexture(true);
+        for (auto it = textures.begin(); it != textures.end(); ++it) {
+
+            (*it).BindTexture(true);
+
+            if ((*it).IsLoaded()) {
+
+                myShader.UseShader(true);
+
+                myShader.SetShaderUniforms();
+
+
+            }
+
+        }
 
     //}
-
-    //textures[0].BindTexture(true);
 
     glBindVertexArray(VAO);
 
@@ -73,15 +85,23 @@ void Mesh::DrawMesh(Shader& shader)
 
     glBindVertexArray(0);
 
-    //textures[0].BindTexture(false);
+    myShader.UseShader(false);
 
-    //for (auto it = textures.begin(); it != textures.end(); ++it) {
+    //if (texturingEnabled) {
 
-    //    (*it).BindTexture(false);
+        for (auto it = textures.begin(); it != textures.end(); ++it) {
+
+            if ((*it).IsLoaded()) {
+
+                myShader.UseShader(false);
+
+            }
+
+            (*it).BindTexture(false);
+
+        }
 
     //}
-
-    
     
     // Draw Vertex Normals (Direct Mode)
 

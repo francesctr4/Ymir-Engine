@@ -53,4 +53,6 @@ private:
 
     bool loadTex;
 
+    Shader myShader;
+
 };

@@ -43,6 +43,8 @@ public:
 
     void SetMatrix4x4(const std::string& name, float4x4 value) const;
 
+    void SetShaderUniforms();
+
 public:
 
     // Shader Program Identificator (ID)
