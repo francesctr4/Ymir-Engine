@@ -70,8 +70,9 @@ public:
 	// Editor settings checkbox toggle encapsulation
 	void ToggleLightMode(bool lightMode);
 
-	//  Meshes normal settings checkbox toggle encapsulation
-	void ToggleMeshesNormals(bool showNormals);
+	// Meshes normal settings checkbox toggle encapsulation
+	void ToggleMeshesVertexNormals(bool showVertexNormals);
+	void ToggleMeshesFaceNormals(bool showFaceNormals);
 
 	// Hardware Detection
 	void ShowPlatformInfo();
@@ -169,7 +170,8 @@ public:
 	std::string AssimpLogFileContents;
 
 	// 3D Meshes Configuration
-	bool showNormals = false;
+	bool showVertexNormals = false;
+	bool showFaceNormals = false;
 
 };
 

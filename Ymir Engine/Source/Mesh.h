@@ -39,7 +39,8 @@ public:
     std::vector<GLuint> indices;
     std::vector<Texture> textures;
 
-    bool enableNormals;
+    bool enableVertexNormals;
+    bool enableFaceNormals;
 
     bool loadedTextures;
     bool applyCheckerTexture;

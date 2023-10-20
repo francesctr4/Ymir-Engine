@@ -761,9 +761,15 @@ void ModuleEditor::DrawEditor()
 
                 ImGui::Indent(); // Indent to make the checkbox visually nested under the header
 
-                if (ImGui::Checkbox("Show Vertex Normals", &showNormals)) {
+                if (ImGui::Checkbox("Show Vertex Normals", &showVertexNormals)) {
 
-                    ToggleMeshesNormals(showNormals);
+                    ToggleMeshesVertexNormals(showVertexNormals);
+
+                }
+
+                if (ImGui::Checkbox("Show Face Normals", &showFaceNormals)) {
+
+                    ToggleMeshesFaceNormals(showFaceNormals);
 
                 }
 
@@ -1438,25 +1444,48 @@ void ModuleEditor::ToggleLightMode(bool lightMode)
     }
 }
 
-void ModuleEditor::ToggleMeshesNormals(bool showNormals)
+void ModuleEditor::ToggleMeshesVertexNormals(bool showVertexNormals)
 {
     for (auto it1 = App->renderer3D->models.begin(); it1 != App->renderer3D->models.end(); ++it1) {
      
         for (auto it2 = (*it1).meshes.begin(); it2 != (*it1).meshes.end(); ++it2) {
 
-            if (showNormals) {
+            if (showVertexNormals) {
 
-                (*it2).enableNormals = true;
+                (*it2).enableVertexNormals = true;
 
             }
             else {
 
-                (*it2).enableNormals = false;
+                (*it2).enableVertexNormals = false;
 
             }
 
         }
         
+    }
+
+}
+
+void ModuleEditor::ToggleMeshesFaceNormals(bool showFaceNormals)
+{
+    for (auto it1 = App->renderer3D->models.begin(); it1 != App->renderer3D->models.end(); ++it1) {
+
+        for (auto it2 = (*it1).meshes.begin(); it2 != (*it1).meshes.end(); ++it2) {
+
+            if (showFaceNormals) {
+
+                (*it2).enableFaceNormals = true;
+
+            }
+            else {
+
+                (*it2).enableFaceNormals = false;
+
+            }
+
+        }
+
     }
 
 }

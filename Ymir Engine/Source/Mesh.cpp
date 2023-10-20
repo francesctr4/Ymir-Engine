@@ -14,7 +14,8 @@ Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vec
 	this->indices = indices;
     this->textures = textures;
 
-    enableNormals = false;
+    enableVertexNormals = false;
+    enableFaceNormals = false;
     loadedTextures = false;
     applyCheckerTexture = false;
 
@@ -118,7 +119,7 @@ void Mesh::DrawMesh(Shader& shader)
     
     // Draw Vertex Normals (Direct Mode)
 
-    if (enableNormals) {
+    if (enableVertexNormals) {
 
         glColor3f(1.0f, 0.0f, 0.0f); // Set the color of the normals (red)
 
@@ -143,7 +144,48 @@ void Mesh::DrawMesh(Shader& shader)
 
     // Draw Face Normals (Direct Mode) 
 
-    /* TODO */
+    if (enableFaceNormals) {
+
+        glColor3f(0.0f, 0.0f, 1.0f); 
+
+        for (size_t i = 0; i < indices.size(); i += 3) {
+
+            // Get the indices of the vertices for the current face
+            size_t index1 = indices[i];
+            size_t index2 = indices[i + 1];
+            size_t index3 = indices[i + 2];
+
+            // Get the vertices for the current face
+            const Vertex& vertex1 = vertices[index1];
+            const Vertex& vertex2 = vertices[index2];
+            const Vertex& vertex3 = vertices[index3];
+
+            // Calculate the face normal (cross product of two edges)
+            float3 edge1 = vertex2.position - vertex1.position;
+            float3 edge2 = vertex3.position - vertex1.position;
+
+            float3 cross = Cross(edge1, edge2);
+
+            // Normalize the result to make the lines shorter
+            float3 faceNormal = cross.Normalized() * 0.1;
+
+            // Calculate the average position of the vertices for drawing the normal line
+            float3 normalLineStart = (vertex1.position + vertex2.position + vertex3.position) / 3.0f;
+
+            // Draw the Face normal lines
+
+            glBegin(GL_LINES);
+
+            glVertex3f(normalLineStart.x, normalLineStart.y, normalLineStart.z);
+            glVertex3f(normalLineStart.x + faceNormal.x, normalLineStart.y + faceNormal.y, normalLineStart.z + faceNormal.z);
+
+            glEnd();
+
+        }
+
+        glColor3f(1.0f, 1.0f, 1.0f);
+
+    }
 
 }
 
