@@ -24,11 +24,11 @@ Model::~Model()
 
 }
 
-void Model::DrawModel()
+void Model::DrawModel(Shader& shader)
 {
 	for (auto it = meshes.begin(); it != meshes.end(); ++it) {
 
-		(*it).DrawMesh();
+		(*it).DrawMesh(shader);
 
 	}
 }

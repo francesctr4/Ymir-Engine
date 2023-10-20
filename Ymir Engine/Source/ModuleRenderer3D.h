@@ -56,7 +56,7 @@ public:
 	void DrawPrimitives();
 	void ClearPrimitives();
 
-	void DrawModels();
+	void DrawModels(Shader& shader);
 	void ClearModels();
 
 	void EnableAssimpDebugger();

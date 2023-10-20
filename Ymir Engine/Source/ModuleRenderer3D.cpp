@@ -519,7 +519,19 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	}
 
-	DrawModels();
+	//myShader.UseShader(true);
+
+	//float4x4 projection;
+	//glGetFloatv(GL_PROJECTION_MATRIX, projection.ptr());
+	//myShader.SetMatrix4x4("projection", projection.Transposed()); // Note: Transpose the matrix when passing to shader
+
+	//float4x4 modelview;
+	//glGetFloatv(GL_MODELVIEW_MATRIX, modelview.ptr());
+	//myShader.SetMatrix4x4("modelview", modelview.Transposed()); // Note: Transpose the matrix when passing to shader
+
+	DrawModels(myShader);
+
+	/*myShader.UseShader(false);*/
 
 	if (texturingEnabled) {
 
@@ -672,11 +684,11 @@ void ModuleRenderer3D::ClearActualTexture()
 	myTexture.ClearTexture();
 }
 
-void ModuleRenderer3D::DrawModels()
+void ModuleRenderer3D::DrawModels(Shader& shader)
 {
 	for (auto it = models.begin(); it != models.end(); ++it) {
 
-		(*it).DrawModel();
+		(*it).DrawModel(shader);
 
 	}
 }

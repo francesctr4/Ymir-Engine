@@ -14,6 +14,8 @@ Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vec
     enableNormals = false;
 
 	LoadMesh();
+
+    loadTex = false;
     
 }
 
@@ -36,21 +38,50 @@ Mesh::~Mesh()
 
 }
 
-void Mesh::DrawMesh()
+void Mesh::DrawMesh(Shader& shader)
 {
     // ------------------- Draw Mesh Textures --------------------
 
     /* TODO */
+    //if (!loadTex && !textures.empty()) {
+
+    //   /* for (auto it = textures.begin(); it != textures.end(); ++it) {
+
+    //        (*it).LoadTexture(textures[0].path);
+
+    //    }*/
+    //    textures[0].LoadTexture(textures[0].path);
+    //    loadTex = true;
+    //}
+    
 
 	// ------------------- Draw Mesh Geometry --------------------
     
     // Draw Vertex Positions
+
+    //for (auto it = textures.begin(); it != textures.end(); ++it) {
+
+    //    (*it).BindTexture(true);
+
+    //}
+
+    //textures[0].BindTexture(true);
 
     glBindVertexArray(VAO);
 
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 
     glBindVertexArray(0);
+
+    //textures[0].BindTexture(false);
+
+    //for (auto it = textures.begin(); it != textures.end(); ++it) {
+
+    //    (*it).BindTexture(false);
+
+    //}
+
+    
     
     // Draw Vertex Normals (Direct Mode)
 
