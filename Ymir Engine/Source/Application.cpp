@@ -11,8 +11,12 @@
 
 #include "External/Optick/include/optick.h"
 
+extern Application* External = nullptr;
+
 Application::Application()
 {
+	External = this;
+
 	window = new ModuleWindow(this);
 	input = new ModuleInput(this);
 	renderer3D = new ModuleRenderer3D(this);

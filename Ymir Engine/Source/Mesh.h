@@ -41,6 +41,9 @@ public:
 
     bool enableNormals;
 
+    bool loadedTextures;
+    bool applyCheckerTexture;
+
 private:
 
     // Buffers Data
@@ -50,9 +53,5 @@ private:
     GLuint VAO;
 
     void LoadMesh();
-
-    bool loadTex;
-
-    Shader myShader;
 
 };

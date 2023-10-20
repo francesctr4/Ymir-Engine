@@ -335,7 +335,7 @@ bool ModuleRenderer3D::Init()
 	//glBindBuffer(GL_ARRAY_BUFFER, 0);
 	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-	//myShader.LoadShader(SHADER_VS, SHADER_FS);
+	
 
 	//myTexture.LoadCheckerImage();
 	//myTexture.LoadTexture("Assets/Baker_house.png");
@@ -352,6 +352,7 @@ bool ModuleRenderer3D::Init()
 
 	}*/
 
+	myShader.LoadShader(SHADER_VS, SHADER_FS);
 	models.push_back(Model("Assets/BakerHouse.fbx"));
 
 	return ret;
@@ -525,7 +526,6 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	DrawModels(myShader);
 
-
 	//myShader.UseShader(false);
 
 	/*if (texturingEnabled) {
@@ -627,26 +627,40 @@ void ModuleRenderer3D::HandleDragAndDrop()
 
 		if (IsFileExtension(App->input->droppedFileDirectory, ".fbx") || IsFileExtension(App->input->droppedFileDirectory, ".FBX")) {
 
-			//Model tmpModel;
-
-			//tmpModel.LoadModel(App->input->droppedFileDirectory);
-
-			/*GameObject* myModel = App->scene->CreateGameObject(tmpModel.name, App->scene->mRootNode);
-
-			for (int i = 0; i < tmpModel.meshes.size(); i++) {
-
-				GameObject* a = App->scene->CreateGameObject("A mesh", myModel);
-
-			}*/
-
-			//myTexture.ClearTexture();
 			models.push_back(Model(App->input->droppedFileDirectory));
+
+			for (auto it = models.begin(); it != models.end(); ++it) {
+
+				for (auto jt = (*it).meshes.begin(); jt != (*it).meshes.end(); ++jt) {
+
+					(*jt).loadedTextures = false;
+
+				}
+
+			}
 
 		}
 		else if (IsFileExtension(App->input->droppedFileDirectory, ".png") || IsFileExtension(App->input->droppedFileDirectory, ".dds")) {
+			
+			// TODO: Rework for selected GameObject
 
-			myTexture.ClearTexture();
-			myTexture.LoadTexture(App->input->droppedFileDirectory);
+			ClearActualTexture();
+
+			for (auto it = models.begin(); it != models.end(); ++it) {
+
+				for (auto jt = (*it).meshes.begin(); jt != (*it).meshes.end(); ++jt) {
+
+					(*jt).loadedTextures = false;
+
+					Texture tmpTexture;
+
+					tmpTexture.path = App->input->droppedFileDirectory;
+					
+					(*jt).textures.push_back(tmpTexture);
+
+				}
+
+			}
 
 		}
 		
@@ -670,13 +684,42 @@ bool ModuleRenderer3D::IsFileExtension(const char* directory, const char* extens
 
 void ModuleRenderer3D::ApplyCheckerTexture()
 {
-	myTexture.ClearTexture();
-	myTexture.LoadCheckerImage();
+	// TODO: Rework for selected GameObject
+
+	ClearActualTexture();
+
+	for (auto it = models.begin(); it != models.end(); ++it) {
+
+		for (auto jt = (*it).meshes.begin(); jt != (*it).meshes.end(); ++jt) {
+
+			(*jt).loadedTextures = false;
+
+			Texture checkerTexture;
+
+			(*jt).textures.push_back(checkerTexture);
+
+			(*jt).applyCheckerTexture = true;
+
+		}
+
+	}
+
 }
 
 void ModuleRenderer3D::ClearActualTexture()
 {
-	myTexture.ClearTexture();
+	// TODO: Rework for selected GameObject
+
+	for (auto it = models.begin(); it != models.end(); ++it) {
+
+		for (auto jt = (*it).meshes.begin(); jt != (*it).meshes.end(); ++jt) {
+
+			(*jt).textures.clear();
+
+		}
+
+	}
+
 }
 
 void ModuleRenderer3D::DrawModels(Shader& shader)

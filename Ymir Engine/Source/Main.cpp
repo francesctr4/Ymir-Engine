@@ -107,6 +107,7 @@ int main(int argc, char ** argv)
 		}
 	}
 
+	External = nullptr;
 	delete App;
 	LOG("Exiting engine '%s'...\n", TITLE);
 

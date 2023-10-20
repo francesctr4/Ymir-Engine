@@ -39,8 +39,7 @@ void Texture::LoadTexture(const std::string& path)
 	}
 	else {
 		// Error loading the image
-		ILenum error = ilGetError();
-		LOG("Error in loading image: %s\n", iluErrorString(error));
+		LOG("Error in loading image.");
 		return;
 	}
 

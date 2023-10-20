@@ -1,5 +1,8 @@
 #include "Mesh.h"
 #include "Log.h"
+#include "Application.h"
+#include "ModuleRenderer3D.h"
+#include "ModuleInput.h"
 
 Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vector<Texture>& textures)
 {
@@ -12,10 +15,10 @@ Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vec
     this->textures = textures;
 
     enableNormals = false;
+    loadedTextures = false;
+    applyCheckerTexture = false;
 
 	LoadMesh();
-
-    loadTex = false;
     
 }
 
@@ -42,17 +45,29 @@ void Mesh::DrawMesh(Shader& shader)
 {
     // ------------------- Load Mesh Textures --------------------
 
-    if (!loadTex) {
+    if (!loadedTextures) {
 
-        for (auto it = textures.begin(); it != textures.end(); ++it) {
+        if (applyCheckerTexture) {
 
-            (*it).LoadTexture((*it).path);
+            for (auto it = textures.begin(); it != textures.end(); ++it) {
+
+                (*it).LoadCheckerImage();
+
+            }
+
+        }
+        else {
+
+            for (auto it = textures.begin(); it != textures.end(); ++it) {
+
+                (*it).LoadTexture((*it).path);
+
+            }
 
         }
 
-        myShader.LoadShader(SHADER_VS, SHADER_FS);
-
-        loadTex = true;
+        loadedTextures = true;
+        applyCheckerTexture = false;
 
     }
 
@@ -60,7 +75,7 @@ void Mesh::DrawMesh(Shader& shader)
     
     // Draw Vertex Positions
 
-    //if (texturingEnabled) {
+    if (External->renderer3D->texturingEnabled) {
 
         for (auto it = textures.begin(); it != textures.end(); ++it) {
 
@@ -68,16 +83,16 @@ void Mesh::DrawMesh(Shader& shader)
 
             if ((*it).IsLoaded()) {
 
-                myShader.UseShader(true);
+                shader.UseShader(true);
 
-                myShader.SetShaderUniforms();
+                shader.SetShaderUniforms();
 
 
             }
 
         }
 
-    //}
+    }
 
     glBindVertexArray(VAO);
 
@@ -85,15 +100,13 @@ void Mesh::DrawMesh(Shader& shader)
 
     glBindVertexArray(0);
 
-    myShader.UseShader(false);
-
-    //if (texturingEnabled) {
+    if (External->renderer3D->texturingEnabled) {
 
         for (auto it = textures.begin(); it != textures.end(); ++it) {
 
             if ((*it).IsLoaded()) {
 
-                myShader.UseShader(false);
+                shader.UseShader(false);
 
             }
 
@@ -101,7 +114,7 @@ void Mesh::DrawMesh(Shader& shader)
 
         }
 
-    //}
+    }
     
     // Draw Vertex Normals (Direct Mode)
 
