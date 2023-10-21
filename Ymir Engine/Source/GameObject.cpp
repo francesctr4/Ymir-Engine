@@ -99,4 +99,5 @@ void GameObject::DestroyGameObject()
 		delete (*it);
 		(*it) = nullptr;
 	}
+
 }

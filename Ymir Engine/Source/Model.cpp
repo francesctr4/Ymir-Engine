@@ -48,16 +48,18 @@ void Model::LoadModel(const std::string& path)
 
 	}
 
+	size_t lastDot = path.find_last_of('.');
+
 	if (path.find("/") != std::string::npos) {
 
 		size_t lastSlash = path.find_last_of('/') + 1;
-		name = path.substr(lastSlash);
+		name = path.substr(lastSlash, lastDot - lastSlash);
 
 	}
 	else {
 
 		size_t lastSlash = path.find_last_of('\\') + 1;
-		name = path.substr(lastSlash);
+		name = path.substr(lastSlash, lastDot - lastSlash);
 
 	}
 
@@ -67,7 +69,7 @@ void Model::LoadModel(const std::string& path)
 
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		ProcessNode(scene->mRootNode, scene);
+		ProcessNode(scene->mRootNode, scene, nullptr);
 
 		LOG("Model created: %s", name.c_str());
 
@@ -80,8 +82,20 @@ void Model::LoadModel(const std::string& path)
 
 }
 
-void Model::ProcessNode(aiNode* node, const aiScene* scene)
+void Model::ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO)
 {
+	GameObject* currentNodeGO;
+
+	if (parentGO == nullptr) {
+		// If the current node is the root node, create here the model GameObject, parented to scene GameObject
+		currentNodeGO = External->scene->CreateGameObject(name, External->scene->mRootNode);
+		modelGO = currentNodeGO;
+	}
+	else {
+		// Create a GameObject for the current node and set it as a child of the parent GameObject
+		currentNodeGO = External->scene->CreateGameObject(node->mName.C_Str(), parentGO);
+	}
+
 	// Process all the node's meshes (if any)
 
 	for (uint i = 0; i < node->mNumMeshes; i++)
@@ -95,7 +109,7 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene)
 
 	for (uint i = 0; i < node->mNumChildren; i++)
 	{
-		ProcessNode(node->mChildren[i], scene);
+		ProcessNode(node->mChildren[i], scene, currentNodeGO);
 	}
 	
 }

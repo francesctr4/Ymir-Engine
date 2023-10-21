@@ -1,13 +1,14 @@
 #include "ModuleScene.h"
 
 #include "ModuleInput.h"
+#include "ModuleEditor.h"
 #include "ModuleRenderer3D.h"
 #include "GameObject.h"
+#include "Log.h"
 
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	mRootNode = CreateGameObject("Scene", nullptr);
-	gameObjects.push_back(mRootNode);
 }
 
 ModuleScene::~ModuleScene()
@@ -18,22 +19,6 @@ ModuleScene::~ModuleScene()
 bool ModuleScene::Start()
 {
 	bool ret = true;
-
-	GameObject* uno = CreateGameObject("Uno", mRootNode);
-
-	GameObject* uno_uno = CreateGameObject("Unouno", uno);
-
-	GameObject* dos = CreateGameObject("Dos", mRootNode);
-
-	GameObject* tres = CreateGameObject("Tres", mRootNode);
-
-	GameObject* tres_tres = CreateGameObject("Trestres", tres);
-
-	GameObject* tres_trestres = CreateGameObject("Trestrestres", tres_tres);
-
-	GameObject* tres_trestrestres = CreateGameObject("Trestrestrestres", tres_trestres);
-
-	GameObject* cuatro = CreateGameObject("Cuatro", mRootNode);
 
 	return ret;
 }
@@ -49,6 +34,12 @@ update_status ModuleScene::Update(float dt)
 	for (auto it = gameObjects.begin(); it != gameObjects.end(); ++it)
 	{
 		(*it)->Update();
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
+
+		DestroyGameObject(mRootNode);
+
 	}
 
 	return UPDATE_CONTINUE;
@@ -82,10 +73,7 @@ GameObject* ModuleScene::CreateGameObject(std::string name, GameObject* parent)
 	return tempGameObject;
 }
 
-void ModuleScene::ProcessNode(aiNode* node, const aiScene* scene)
+void ModuleScene::DestroyGameObject(GameObject* toDestroy)
 {
-	for (uint i = 0; i < node->mNumChildren; i++)
-	{
-		ProcessNode(node->mChildren[i], scene);
-	}
+	toDestroy->DestroyGameObject();
 }

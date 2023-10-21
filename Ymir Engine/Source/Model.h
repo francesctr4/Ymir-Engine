@@ -10,6 +10,8 @@
 
 #pragma comment (lib, "Source/External/Assimp/libx86/assimp.lib")
 
+class GameObject;
+
 class Model {
 
 public:
@@ -24,7 +26,7 @@ public:
 
 private:
 
-    void ProcessNode(aiNode* node, const aiScene* scene);
+    void ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO);
     Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);
 
 public:
@@ -35,6 +37,8 @@ public:
 
     std::vector<Mesh> meshes;
     std::string directory;
+
+    GameObject* modelGO;
 
     // Vector of already loaded textures
 

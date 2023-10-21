@@ -24,8 +24,7 @@ public:
 	bool CleanUp() override;
 
 	GameObject* CreateGameObject(std::string name, GameObject* parent);
-
-	void ProcessNode(aiNode* node, const aiScene* scene);
+	void DestroyGameObject(GameObject* toDestroy);
 
 public:
 
