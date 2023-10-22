@@ -38,7 +38,7 @@ update_status ModuleScene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
 
-		DestroyGameObject(mRootNode);
+		gameObjects.clear();
 
 	}
 
