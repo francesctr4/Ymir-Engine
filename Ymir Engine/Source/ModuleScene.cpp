@@ -36,11 +36,11 @@ update_status ModuleScene::Update(float dt)
 		(*it)->Update();
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
+	//if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
 
-		gameObjects.clear();
+	//	gameObjects.clear();
 
-	}
+	//}
 
 	return UPDATE_CONTINUE;
 }

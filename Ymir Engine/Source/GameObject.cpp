@@ -5,7 +5,10 @@ GameObject::GameObject(std::string name, GameObject* parent)
 	this->name = name;
 	mParent = parent;
 
-	AddComponent(ComponentType::TRANSFORM);
+	active = true;
+	selected = false;
+
+	AddComponent(new CTransform(this));
 }
 
 GameObject::~GameObject()
@@ -32,11 +35,6 @@ void GameObject::Disable()
 	}
 }
 
-void GameObject::Select()
-{
-	selected = true;
-}
-
 void GameObject::SetParent(GameObject* newParent)
 {
 	mParent = newParent;
@@ -47,32 +45,9 @@ void GameObject::AddChild(GameObject* child)
 	mChildren.push_back(child);
 }
 
-Component* GameObject::AddComponent(ComponentType ctype)
+void GameObject::AddComponent(Component* component)
 {
-	Component* tempComponent;
-
-	switch (ctype)
-	{
-		case TRANSFORM:
-
-			tempComponent = new CTransform(this);
-			break;
-
-		case MESH:
-
-			tempComponent = new CMesh(this);
-			break;
-
-		case MATERIAL:
-
-			tempComponent = new CMaterial(this);
-			break;
-
-	}
-
-	mComponents.push_back(tempComponent);
-
-	return tempComponent;
+	mComponents.push_back(component);
 }
 
 Component* GameObject::GetComponent(ComponentType ctype)

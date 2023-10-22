@@ -230,7 +230,7 @@ void ModuleEditor::DrawEditor()
 
             if (ImGui::MenuItem("Empty")) {
 
-
+                App->scene->CreateGameObject("Empty", App->scene->mRootNode);
 
             }
 
@@ -1895,9 +1895,39 @@ void ModuleEditor::DrawHierarchy()
 void ModuleEditor::CreateHierarchyTree(GameObject* node)
 {
     // Set flags to open the tree nodes
-    ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_DefaultOpen;
+    ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_DefaultOpen | (node->selected ? ImGuiTreeNodeFlags_Selected : 0);
+
+    if (!node->active) ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 1.0f, 1.0f, 0.4f));
 
     bool isNodeOpen = ImGui::TreeNodeEx(node->name.c_str(), flags);
+
+    if (!node->active) ImGui::PopStyleColor();
+
+    if (ImGui::IsItemClicked()) {
+
+        node->selected = true; // Toggle the selected state when clicked
+
+        for (auto it = App->scene->gameObjects.begin(); it != App->scene->gameObjects.end(); ++it) {
+
+            if ((*it) != node) {
+
+                (*it)->selected = false;
+
+            }
+
+        }
+
+    }
+
+    if (ImGui::IsItemClicked(1)) {
+
+        for (auto it = App->scene->gameObjects.begin(); it != App->scene->gameObjects.end(); ++it) {
+
+            (*it)->selected = false;
+
+        }
+
+    }
 
     if (isNodeOpen)
     {
@@ -1918,48 +1948,47 @@ void ModuleEditor::CreateHierarchyTree(GameObject* node)
 
 void ModuleEditor::DrawInspector()
 {
-    ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_DefaultOpen;
+    for (auto it = App->scene->gameObjects.begin(); it != App->scene->gameObjects.end(); ++it) {
 
-    bool active;
+        if ((*it)->selected) {
 
-    ImGui::Checkbox(" Active   ",&active);
-    ImGui::SameLine();
-    ImGui::Text("My GameObject");
+            ImGui::Checkbox(" Active   ", &(*it)->active);
+            ImGui::SameLine();
+            char nameBuffer[256]; // You can adjust the buffer size as needed
 
-    if (ImGui::CollapsingHeader("Transform", flags))
-    {
-        ImGui::Indent();
+            // Copy the current name to the buffer
+            strcpy(nameBuffer, (*it)->name.c_str());
 
-        float position[] = { 0,0,0 };
-        ImGui::InputFloat3("Transform", position);
-        float rotation[] = { 1,0,0,0 };
-        ImGui::InputFloat4("Rotation", rotation);
-        float scale[] = { 1,1,1 };
-        ImGui::InputFloat3("Scale", scale);
+            // Create an input text field in your ImGui window
+            if (ImGui::InputText(" ", nameBuffer, sizeof(nameBuffer)))
+            {
+                // The input text has changed, update the name
+                (*it)->name = nameBuffer;
+            }
 
-        ImGui::Unindent();
+            //ImGui::Text("%s", (*it)->name.c_str());
+
+            ImGui::Spacing();
+
+            Component* transform = (*it)->GetComponent(ComponentType::TRANSFORM);
+            Component* mesh = (*it)->GetComponent(ComponentType::MESH);
+            Component* material = (*it)->GetComponent(ComponentType::MATERIAL);
+
+            if (transform != nullptr) transform->OnInspector(); ImGui::Spacing();
+            if (mesh != nullptr) mesh->OnInspector(); ImGui::Spacing();
+            if (material != nullptr) material->OnInspector(); ImGui::Spacing();
+
+            float buttonWidth = 120.0f;  // Adjust the width as needed
+            float windowWidth = ImGui::GetWindowWidth();
+            float xPos = (windowWidth - buttonWidth) * 0.5f;
+
+            // Set the cursor position to center the button within the menu
+            ImGui::SetCursorPosX(xPos);
+
+            ImGui::Button("Add Component");
+
+        }
+
     }
 
-    if (ImGui::CollapsingHeader("Mesh", flags))
-    {
-        ImGui::Indent();
-
-        ImGui::Text("Path: %s");
-        ImGui::Text("Index: %d");
-        ImGui::Text("Vertices: %d");
-        ImGui::Text("Normals: %d");
-        ImGui::Text("texture: %d");
-
-        ImGui::Unindent();
-    }
-
-    if (ImGui::CollapsingHeader("Material", flags))
-    {
-        ImGui::Indent();
-
-        ImGui::Text("Path: %s");
-        ImGui::Text("Id: %d");
-
-        ImGui::Unindent();
-    }
 }

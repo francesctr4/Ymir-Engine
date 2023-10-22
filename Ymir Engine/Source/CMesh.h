@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Component.h"
+#include "Globals.h"
 
 class CMesh : public Component {
 public:
@@ -16,5 +17,8 @@ public:
 
 
 public:
+
+	uint nVertices;
+	uint nIndices;
 
 };

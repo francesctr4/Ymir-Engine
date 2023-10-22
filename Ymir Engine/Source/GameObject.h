@@ -22,12 +22,10 @@ public:
 	void Enable();
 	void Disable();
 
-	void Select();
-
 	void SetParent(GameObject* newParent);
 	void AddChild(GameObject* child);
 
-	Component* AddComponent(ComponentType ctype);
+	void AddComponent(Component* component);
 	Component* GetComponent(ComponentType ctype);
 
 	void DestroyGameObject();

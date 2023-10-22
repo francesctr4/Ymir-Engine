@@ -2,6 +2,11 @@
 
 #include "Component.h"
 
+#include "Globals.h"
+#include <string>
+
+class GameObject;
+
 class CMaterial : public Component {
 public:
 
@@ -15,5 +20,10 @@ public:
 	void OnInspector() override;
 
 public:
+
+	GameObject* owner;
+
+	uint ID;
+	std::string path;
 
 };

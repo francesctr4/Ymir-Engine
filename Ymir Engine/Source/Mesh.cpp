@@ -3,8 +3,9 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleInput.h"
+#include "GameObject.h"
 
-Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vector<Texture>& textures)
+Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vector<Texture>& textures, GameObject* linkGO)
 {
 	VBO = 0;
 	EBO = 0;
@@ -14,10 +15,13 @@ Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vec
 	this->indices = indices;
     this->textures = textures;
 
+    meshGO = linkGO;
+
     enableVertexNormals = false;
     enableFaceNormals = false;
     loadedTextures = false;
     applyCheckerTexture = false;
+    addedMaterialComponent = false;
 
 	LoadMesh();
     
@@ -54,6 +58,17 @@ void Mesh::DrawMesh(Shader& shader)
 
                 (*it).LoadCheckerImage();
 
+                if ((*it).IsLoaded() && !addedMaterialComponent) {
+
+                    CMaterial* cmaterial = new CMaterial(meshGO);
+                    cmaterial->path = (*it).path;
+                    cmaterial->ID = (*it).ID;
+                    meshGO->AddComponent(cmaterial);
+
+                    addedMaterialComponent = true;
+
+                }
+
             }
 
         }
@@ -62,6 +77,17 @@ void Mesh::DrawMesh(Shader& shader)
             for (auto it = textures.begin(); it != textures.end(); ++it) {
 
                 (*it).LoadTexture((*it).path);
+
+                if ((*it).IsLoaded() && !addedMaterialComponent) {
+
+                    CMaterial* cmaterial = new CMaterial(meshGO);
+                    cmaterial->path = (*it).path;
+                    cmaterial->ID = (*it).ID;
+                    meshGO->AddComponent(cmaterial);
+
+                    addedMaterialComponent = true;
+
+                }
 
             }
 

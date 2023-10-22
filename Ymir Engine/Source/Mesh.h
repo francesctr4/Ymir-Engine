@@ -15,6 +15,8 @@
 #include "Texture.h"
 #include "Shader.h"
 
+class GameObject;
+
 struct Vertex {
 
     float3 position;
@@ -26,7 +28,7 @@ struct Vertex {
 class Mesh {
 public:
 
-    Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vector<Texture>& textures);
+    Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vector<Texture>& textures, GameObject* linkGO);
     virtual ~Mesh();
 
     void DrawMesh(Shader& shader);
@@ -39,11 +41,15 @@ public:
     std::vector<GLuint> indices;
     std::vector<Texture> textures;
 
+    GameObject* meshGO;
+
     bool enableVertexNormals;
     bool enableFaceNormals;
 
     bool loadedTextures;
     bool applyCheckerTexture;
+
+    bool addedMaterialComponent;
 
 private:
 

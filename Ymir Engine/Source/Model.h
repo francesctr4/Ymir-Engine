@@ -27,7 +27,7 @@ public:
 private:
 
     void ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO);
-    Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);
+    Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene, GameObject* linkGO);
 
 public:
 

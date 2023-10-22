@@ -94,6 +94,7 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO
 	else {
 		// Create a GameObject for the current node and set it as a child of the parent GameObject
 		currentNodeGO = External->scene->CreateGameObject(node->mName.C_Str(), parentGO);
+		
 	}
 
 	// Process all the node's meshes (if any)
@@ -102,7 +103,7 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO
 	{
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 
-		meshes.push_back(ProcessMesh(mesh, scene));
+		meshes.push_back(ProcessMesh(mesh, scene, currentNodeGO));
 	}
 
 	// Then do the same for each of its children
@@ -114,7 +115,7 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO
 	
 }
 
-Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
+Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene, GameObject* linkGO)
 {
 	std::vector<Vertex> vertices;
 	std::vector<GLuint> indices;
@@ -213,5 +214,12 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 		
 	}
 
-	return Mesh(vertices, indices, textures); // Retrieve the Mesh with all the necessary data to draw
+	CMesh* cmesh = new CMesh(linkGO);
+
+	cmesh->nVertices = vertices.size();
+	cmesh->nIndices = indices.size();
+
+	linkGO->AddComponent(cmesh);
+
+	return Mesh(vertices, indices, textures, linkGO); // Retrieve the Mesh with all the necessary data to draw
 }
