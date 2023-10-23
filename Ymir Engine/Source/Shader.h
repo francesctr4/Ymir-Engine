@@ -45,12 +45,20 @@ public:
 
     void SetMatrix4x4(const std::string& name, float4x4 value) const;
 
+    void Translate(float3 translation);
+    void Rotate(float3 rotation);
+    void Scale(float3 scale);
+
     void SetShaderUniforms();
 
 public:
 
     // Shader Program Identificator (ID)
     GLuint shaderProgram;
+
+    float3 translation = { 0, 0, 0 };
+    float3 rotation = { 0,0,0 };
+    float3 scale = { 1,1,1 };
 
 private:
 
@@ -59,7 +67,17 @@ private:
     std::string Shader::ReadShaderFile(const std::string& filename);
 
     float4x4 CreateTranslationMatrix(float3 translation);
-    float4x4 CreateRotationMatrix(Quat rotation);
+    float4x4 CreateRotationMatrix(float3 rotation);
     float4x4 CreateScaleMatrix(float3 scale);
+
+private:
+
+    float4x4 projection;
+    float4x4 view;
+    float4x4 model;
+
+    float4x4 translationMatrix;
+    float4x4 rotationMatrix;
+    float4x4 scaleMatrix;
 
 };

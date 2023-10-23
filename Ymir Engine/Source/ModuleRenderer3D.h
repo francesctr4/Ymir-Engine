@@ -39,6 +39,8 @@
 #define CHECKERS_WIDTH 64
 #define CHECKERS_HEIGHT 64
 
+class GameObject;
+
 class ModuleRenderer3D : public Module
 {
 public:

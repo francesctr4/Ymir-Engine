@@ -129,50 +129,41 @@ void Shader::SetMatrix4x4(const std::string& name, float4x4 value) const
 	glUniformMatrix4fv(glGetUniformLocation(shaderProgram, name.c_str()), 1, GL_TRUE, value.ptr());
 }
 
+void Shader::Translate(float3 translation)
+{
+	this->translation = translation;
+}
+
+void Shader::Rotate(float3 rotation)
+{
+	this->rotation = rotation;
+}
+
+void Shader::Scale(float3 scale)
+{
+	this->scale = scale;
+}
+
 void Shader::SetShaderUniforms()
 {
 	float4x4 projection;
 	glGetFloatv(GL_PROJECTION_MATRIX, projection.ptr());
 	this->SetMatrix4x4("projection", projection.Transposed()); // Note: Transpose the matrix when passing to shader
+	this->projection = projection;
 
 	float4x4 view;
 	glGetFloatv(GL_MODELVIEW_MATRIX, view.ptr());
 	this->SetMatrix4x4("view", view.Transposed()); // Note: Transpose the matrix when passing to shader
+	this->view = view;
 
-	float3 translate(0,0,0);
-
-	float4x4 translationMatrix = {
-
-		1, 0, 0, translate.x,
-		0, 1, 0, translate.y,
-		0, 0, 1, translate.z,
-		0, 0, 0, 1
-
-	};
-
-	float3 Xaxis(1, 0, 0);
-	float3 Yaxis(0, 1, 0);
-	float3 Zaxis(0, 0, 1);
-	
-	float angle = PI / 2.0f;
-
-	Quat q(Xaxis,angle);
-	float4x4 rotationMatrix = q.ToFloat4x4();
-
-	float3 scale(1,1,1);
-
-	float4x4 scaleMatrix = {
-
-		scale.x, 0, 0, 0,
-		0, scale.y, 0, 0,
-		0, 0, scale.z, 0,
-		0, 0, 0, 1
-
-	};
+	translationMatrix = CreateTranslationMatrix(translation);
+	rotationMatrix = CreateRotationMatrix(rotation);
+	scaleMatrix = CreateScaleMatrix(scale);
 
 	float4x4 model = float4x4::identity;
 	model = model * translationMatrix * rotationMatrix * scaleMatrix;
 	this->SetMatrix4x4("model", model);
+	this->model = model;
 
 }
 
@@ -245,18 +236,27 @@ float4x4 Shader::CreateTranslationMatrix(float3 translation)
 	return translationMatrix;
 }
 
-float4x4 Shader::CreateRotationMatrix(Quat rotation)
+float4x4 Shader::CreateRotationMatrix(float3 rotation)
 {
+	Quat rotationQuaternion = Quat::FromEulerXYZ(DEGTORAD * rotation.x, DEGTORAD * rotation.y, DEGTORAD * rotation.z);
 
+	rotationQuaternion.Normalize();
 
+	float4x4 rotationMatrix = rotationQuaternion.ToFloat4x4();
 
-	return float4x4();
+	return rotationMatrix;
 }
 
 float4x4 Shader::CreateScaleMatrix(float3 scale)
 {
+	float4x4 scaleMatrix = {
 
+		scale.x, 0, 0, 0,
+		0, scale.y, 0, 0,
+		0, 0, scale.z, 0,
+		0, 0, 0, 1
 
+	};
 
-	return float4x4();
+	return scaleMatrix;
 }

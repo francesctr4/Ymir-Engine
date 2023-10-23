@@ -24,9 +24,9 @@ public:
 
 public:
 
-	float3 position;
+	float3 translation;
+	float3 rotation;
 	float3 scale;
-	Quat rotation;
 
 	float4x4 mGlobalMatrix;
 	float4x4 mLocalMatrix;

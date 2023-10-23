@@ -8,6 +8,7 @@
 #include "ModuleScene.h"
 #include "Globals.h"
 #include "Log.h"
+#include "GameObject.h"
 
 #include "External/Optick/include/optick.h"
 
@@ -641,8 +642,6 @@ void ModuleRenderer3D::HandleDragAndDrop()
 
 		}
 		else if (IsFileExtension(App->input->droppedFileDirectory, ".png") || IsFileExtension(App->input->droppedFileDirectory, ".dds")) {
-			
-			// TODO: Rework for selected GameObject
 
 			ClearActualTexture();
 
@@ -650,13 +649,17 @@ void ModuleRenderer3D::HandleDragAndDrop()
 
 				for (auto jt = (*it).meshes.begin(); jt != (*it).meshes.end(); ++jt) {
 
-					(*jt).loadedTextures = false;
+					if ((*jt).meshGO->selected || (*it).modelGO->selected) {
 
-					Texture tmpTexture;
+						(*jt).loadedTextures = false;
 
-					tmpTexture.path = App->input->droppedFileDirectory;
-					
-					(*jt).textures.push_back(tmpTexture);
+						Texture tmpTexture;
+
+						tmpTexture.path = App->input->droppedFileDirectory;
+
+						(*jt).textures.push_back(tmpTexture);
+
+					}
 
 				}
 
@@ -692,13 +695,17 @@ void ModuleRenderer3D::ApplyCheckerTexture()
 
 		for (auto jt = (*it).meshes.begin(); jt != (*it).meshes.end(); ++jt) {
 
-			(*jt).loadedTextures = false;
+			if ((*jt).meshGO->selected || (*it).modelGO->selected) {
 
-			Texture checkerTexture;
+				(*jt).loadedTextures = false;
 
-			(*jt).textures.push_back(checkerTexture);
+				Texture checkerTexture;
 
-			(*jt).applyCheckerTexture = true;
+				(*jt).textures.push_back(checkerTexture);
+
+				(*jt).applyCheckerTexture = true;
+
+			}
 
 		}
 
@@ -708,14 +715,16 @@ void ModuleRenderer3D::ApplyCheckerTexture()
 
 void ModuleRenderer3D::ClearActualTexture()
 {
-	// TODO: Rework for selected GameObject
-
 	for (auto it = models.begin(); it != models.end(); ++it) {
 
 		for (auto jt = (*it).meshes.begin(); jt != (*it).meshes.end(); ++jt) {
 
-			(*jt).textures.clear();
+			if ((*jt).meshGO->selected || (*it).modelGO->selected) {
 
+				(*jt).textures.clear();
+
+			}
+			
 		}
 
 	}

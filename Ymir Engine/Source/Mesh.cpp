@@ -93,6 +93,8 @@ void Mesh::DrawMesh(Shader& shader)
 
         }
 
+        meshShader.LoadShader(SHADER_VS,SHADER_FS);
+
         loadedTextures = true;
         applyCheckerTexture = false;
 
@@ -110,10 +112,9 @@ void Mesh::DrawMesh(Shader& shader)
 
             if ((*it).IsLoaded()) {
 
-                shader.UseShader(true);
+                meshShader.UseShader(true);
 
-                shader.SetShaderUniforms();
-
+                meshShader.SetShaderUniforms();
 
             }
 
@@ -133,7 +134,7 @@ void Mesh::DrawMesh(Shader& shader)
 
             if ((*it).IsLoaded()) {
 
-                shader.UseShader(false);
+                meshShader.UseShader(false);
 
             }
 
