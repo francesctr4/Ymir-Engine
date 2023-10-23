@@ -46,7 +46,7 @@ Mesh::~Mesh()
 
 }
 
-void Mesh::DrawMesh(Shader& shader)
+void Mesh::DrawMesh()
 {
     // ------------------- Load Mesh Textures --------------------
 

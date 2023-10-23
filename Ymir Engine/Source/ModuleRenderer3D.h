@@ -36,9 +36,6 @@
 
 #define MAX_LIGHTS 8
 
-#define CHECKERS_WIDTH 64
-#define CHECKERS_HEIGHT 64
-
 class GameObject;
 
 class ModuleRenderer3D : public Module
@@ -58,13 +55,11 @@ public:
 	void DrawPrimitives();
 	void ClearPrimitives();
 
-	void DrawModels(Shader& shader);
+	void DrawModels();
 	void ClearModels();
 
 	void EnableAssimpDebugger();
 	void CleanUpAssimpDebugger();
-
-	void SetShaderUniforms(Shader &shader);
 
 	void HandleDragAndDrop();
 	bool IsFileExtension(const char* directory, const char* extension);
@@ -93,12 +88,6 @@ public:
 
 	// 3D Model Loading
 	std::vector<Model> models;
-
-	// Shader
-	Shader myShader;
-
-	// Texture
-	Texture myTexture;
 
 	bool texturingEnabled = true;
 

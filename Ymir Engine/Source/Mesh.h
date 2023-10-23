@@ -31,7 +31,7 @@ public:
     Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vector<Texture>& textures, GameObject* linkGO);
     virtual ~Mesh();
 
-    void DrawMesh(Shader& shader);
+    void DrawMesh();
 
 public:
 

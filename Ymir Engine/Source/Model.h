@@ -22,7 +22,7 @@ public:
     virtual ~Model();
 
     void LoadModel(const std::string& path);
-    void DrawModel(Shader &shader);
+    void DrawModel();
 
 private:
 

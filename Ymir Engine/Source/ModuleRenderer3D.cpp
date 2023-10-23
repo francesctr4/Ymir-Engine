@@ -353,7 +353,6 @@ bool ModuleRenderer3D::Init()
 
 	}*/
 
-	myShader.LoadShader(SHADER_VS, SHADER_FS);
 	models.push_back(Model("Assets/BakerHouse.fbx"));
 
 	return ret;
@@ -525,7 +524,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	HandleDragAndDrop();
 
-	DrawModels(myShader);
+	DrawModels();
 
 	//myShader.UseShader(false);
 
@@ -560,8 +559,6 @@ bool ModuleRenderer3D::CleanUp()
 
 	// Shutdown DevIL
 	ilShutDown();
-
-	myShader.ClearShader();
 
 	// CleanUp OpenGL Buffers
 
@@ -731,11 +728,11 @@ void ModuleRenderer3D::ClearActualTexture()
 
 }
 
-void ModuleRenderer3D::DrawModels(Shader& shader)
+void ModuleRenderer3D::DrawModels()
 {
 	for (auto it = models.begin(); it != models.end(); ++it) {
 
-		(*it).DrawModel(shader);
+		(*it).DrawModel();
 
 	}
 }
@@ -755,15 +752,4 @@ void ModuleRenderer3D::EnableAssimpDebugger()
 void ModuleRenderer3D::CleanUpAssimpDebugger()
 {
 	aiDetachAllLogStreams();
-}
-
-void ModuleRenderer3D::SetShaderUniforms(Shader& shader)
-{
-	float4x4 projection;
-	glGetFloatv(GL_PROJECTION_MATRIX, projection.ptr());
-	shader.SetMatrix4x4("projection", projection.Transposed()); // Note: Transpose the matrix when passing to shader
-
-	float4x4 modelview;
-	glGetFloatv(GL_MODELVIEW_MATRIX, modelview.ptr());
-	shader.SetMatrix4x4("modelview", modelview.Transposed()); // Note: Transpose the matrix when passing to shader
 }
