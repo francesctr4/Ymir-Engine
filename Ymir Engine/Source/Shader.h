@@ -5,7 +5,9 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 
+#include "External/MathGeoLib/include/Math/float3.h"
 #include "External/MathGeoLib/include/Math/float4x4.h"
+#include "External/MathGeoLib/include/Math/Quat.h"
 
 #include <iostream>
 #include <string>
@@ -55,5 +57,9 @@ private:
     // Private methods to encapsulate Shader Functionality
     void AddShader(GLuint shaderProgram, const char* pShaderText, GLenum shaderType);
     std::string Shader::ReadShaderFile(const std::string& filename);
+
+    float4x4 CreateTranslationMatrix(float3 translation);
+    float4x4 CreateRotationMatrix(Quat rotation);
+    float4x4 CreateScaleMatrix(float3 scale);
 
 };

@@ -97,6 +97,15 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO
 		
 	}
 
+	/*aiVector3D translation, scaling;
+	aiQuaternion rotation;
+
+	node->mTransformation.Decompose(scaling, rotation, translation);
+
+	float3 pos(translation.x, translation.y, translation.z);
+	float3 scale(scaling.x, scaling.y, scaling.z);
+	Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);*/
+
 	// Process all the node's meshes (if any)
 
 	for (uint i = 0; i < node->mNumMeshes; i++)

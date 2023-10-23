@@ -1,5 +1,6 @@
 #include "Shader.h"
 #include "Log.h"
+#include "Globals.h"
 
 Shader::Shader()
 {
@@ -134,9 +135,45 @@ void Shader::SetShaderUniforms()
 	glGetFloatv(GL_PROJECTION_MATRIX, projection.ptr());
 	this->SetMatrix4x4("projection", projection.Transposed()); // Note: Transpose the matrix when passing to shader
 
-	float4x4 modelview;
-	glGetFloatv(GL_MODELVIEW_MATRIX, modelview.ptr());
-	this->SetMatrix4x4("modelview", modelview.Transposed()); // Note: Transpose the matrix when passing to shader
+	float4x4 view;
+	glGetFloatv(GL_MODELVIEW_MATRIX, view.ptr());
+	this->SetMatrix4x4("view", view.Transposed()); // Note: Transpose the matrix when passing to shader
+
+	float3 translate(0,0,0);
+
+	float4x4 translationMatrix = {
+
+		1, 0, 0, translate.x,
+		0, 1, 0, translate.y,
+		0, 0, 1, translate.z,
+		0, 0, 0, 1
+
+	};
+
+	float3 Xaxis(1, 0, 0);
+	float3 Yaxis(0, 1, 0);
+	float3 Zaxis(0, 0, 1);
+	
+	float angle = PI / 2.0f;
+
+	Quat q(Xaxis,angle);
+	float4x4 rotationMatrix = q.ToFloat4x4();
+
+	float3 scale(1,1,1);
+
+	float4x4 scaleMatrix = {
+
+		scale.x, 0, 0, 0,
+		0, scale.y, 0, 0,
+		0, 0, scale.z, 0,
+		0, 0, 0, 1
+
+	};
+
+	float4x4 model = float4x4::identity;
+	model = model * translationMatrix * rotationMatrix * scaleMatrix;
+	this->SetMatrix4x4("model", model);
+
 }
 
 void Shader::AddShader(GLuint shaderProgram, const char* pShaderText, GLenum shaderType)
@@ -192,4 +229,34 @@ std::string Shader::ReadShaderFile(const std::string& filename) {
 	file.close();
 
 	return fileContents;
+}
+
+float4x4 Shader::CreateTranslationMatrix(float3 translation)
+{
+	float4x4 translationMatrix = {
+
+		1, 0, 0, translation.x,
+		0, 1, 0, translation.y,
+		0, 0, 1, translation.z,
+		0, 0, 0, 1
+
+	};
+
+	return translationMatrix;
+}
+
+float4x4 Shader::CreateRotationMatrix(Quat rotation)
+{
+
+
+
+	return float4x4();
+}
+
+float4x4 Shader::CreateScaleMatrix(float3 scale)
+{
+
+
+
+	return float4x4();
 }
