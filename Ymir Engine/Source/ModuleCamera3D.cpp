@@ -124,34 +124,24 @@ update_status ModuleCamera3D::Update(float dt)
 
 		}
 
-		// Orbital camera FPS when we aren't pressing Left Alt
-
-		if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_IDLE) {
-
-			Position = Reference;
-
-		}
-		else {
-
-			// Orbital camera FPS when we aren't pressing Left Alt
-			Position = Reference + Z * Position.Length();
-
-		}
+		Position = Reference + Z * Position.Length();
 		
 	}
 
 	Position += newPos;
 	Reference += newPos;
 
-	// Center camera to 0,0,0 when pressing Left Alt
-
 	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_IDLE) {
+
+		// Center camera to 0,0,0 when pressing Left Alt
 
 		Reference = float3(0.0f, 0.0f, 0.0f);
 		LookAt(Reference);
 
 	}
 	else {
+
+		// Orbital camera FPS when we aren't pressing Left Alt
 
 		Reference = Position;
 
