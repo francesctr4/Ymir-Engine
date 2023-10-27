@@ -76,7 +76,7 @@
     <Filter Include="Externals\PhysFS">
       <UniqueIdentifier>{62de2f8d-3991-4ac8-891c-2025824b9bb2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Icon">
+    <Filter Include="Externals\Icon">
       <UniqueIdentifier>{9bcc6b70-7504-40e5-bfe4-67a625af9fe9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -634,7 +634,7 @@
       <Filter>Externals\PhysFS</Filter>
     </ClInclude>
     <ClInclude Include="Source\Icon.h">
-      <Filter>Sources\Icon</Filter>
+      <Filter>Externals\Icon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -865,12 +865,12 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\Icon.rc">
-      <Filter>Sources\Icon</Filter>
+      <Filter>Externals\Icon</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Game\Assets\Icon\YmirEngineIcon.ico">
-      <Filter>Sources\Icon</Filter>
+      <Filter>Externals\Icon</Filter>
     </Image>
   </ItemGroup>
 </Project>
