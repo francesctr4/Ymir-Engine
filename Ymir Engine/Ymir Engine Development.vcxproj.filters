@@ -856,10 +856,10 @@
     <None Include="Source\External\MathGeoLib\include\Math\Matrix.inl">
       <Filter>Externals\MathGeoLib\Math</Filter>
     </None>
-    <None Include="Source\FragmentShader.glsl">
+    <None Include="Game\Assets\Shaders\FragmentShader.glsl">
       <Filter>Sources\Tools\Shaders\GLSL</Filter>
     </None>
-    <None Include="Source\VertexShader.glsl">
+    <None Include="Game\Assets\Shaders\VertexShader.glsl">
       <Filter>Sources\Tools\Shaders\GLSL</Filter>
     </None>
   </ItemGroup>

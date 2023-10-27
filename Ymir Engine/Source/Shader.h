@@ -14,8 +14,8 @@
 #include <fstream>
 #include <sstream>
 
-#define SHADER_VS "../Source/VertexShader.glsl"
-#define SHADER_FS "../Source/FragmentShader.glsl"
+#define SHADER_VS "Assets/Shaders/VertexShader.glsl"
+#define SHADER_FS "Assets/Shaders/FragmentShader.glsl"
 
 class Shader
 {

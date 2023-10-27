@@ -335,14 +335,14 @@
     <ClCompile Include="Source\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Game\Assets\Shaders\FragmentShader.glsl" />
+    <None Include="Game\Assets\Shaders\VertexShader.glsl" />
     <None Include="Source\External\MathGeoLib\include\Geometry\KDTree.inl" />
     <None Include="Source\External\MathGeoLib\include\Geometry\QuadTree.inl" />
     <None Include="Source\External\MathGeoLib\include\Geometry\TriangleMesh_IntersectRay_AVX.inl" />
     <None Include="Source\External\MathGeoLib\include\Geometry\TriangleMesh_IntersectRay_CPP.inl" />
     <None Include="Source\External\MathGeoLib\include\Geometry\TriangleMesh_IntersectRay_SSE.inl" />
     <None Include="Source\External\MathGeoLib\include\Math\Matrix.inl" />
-    <None Include="Source\FragmentShader.glsl" />
-    <None Include="Source\VertexShader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\Icon.rc" />
