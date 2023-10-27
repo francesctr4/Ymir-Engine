@@ -80,6 +80,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Icon.h" />
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\CMaterial.h" />
     <ClInclude Include="Source\CMesh.h" />
@@ -342,6 +343,12 @@
     <None Include="Source\External\MathGeoLib\include\Math\Matrix.inl" />
     <None Include="Source\FragmentShader.glsl" />
     <None Include="Source\VertexShader.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Source\Icon.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Game\Assets\Icon\YmirEngineIcon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

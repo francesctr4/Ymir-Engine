@@ -76,6 +76,9 @@
     <Filter Include="Externals\PhysFS">
       <UniqueIdentifier>{62de2f8d-3991-4ac8-891c-2025824b9bb2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Icon">
+      <UniqueIdentifier>{9bcc6b70-7504-40e5-bfe4-67a625af9fe9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Module.h">
@@ -630,6 +633,9 @@
     <ClInclude Include="Source\External\PhysFS\include\physfs.h">
       <Filter>Externals\PhysFS</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Icon.h">
+      <Filter>Sources\Icon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -856,5 +862,15 @@
     <None Include="Source\VertexShader.glsl">
       <Filter>Sources\Tools\Shaders\GLSL</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Source\Icon.rc">
+      <Filter>Sources\Icon</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Game\Assets\Icon\YmirEngineIcon.ico">
+      <Filter>Sources\Icon</Filter>
+    </Image>
   </ItemGroup>
 </Project>
