@@ -21,6 +21,8 @@
 
 #include "External/Assimp/include/version.h"
 
+#include "External/Optick/include/optick.h"
+
 //#include "External/Parson/parson.h"
 
 // Constructor
@@ -35,6 +37,8 @@ ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app,st
     memleaksFileContents = ReadFile("memleaks.log");
     AssimpLogFileContents = ReadFile("AssimpLog.txt");
 
+    LOG("Creating ModuleEditor");
+
 }
 
 // Destructor
@@ -45,6 +49,8 @@ ModuleEditor::~ModuleEditor()
 
 bool ModuleEditor::Init()
 {
+    LOG("Initializing editor...");
+
     bool ret = true;
 
     // Retrieving data from window initial status
@@ -119,6 +125,8 @@ bool ModuleEditor::Init()
 
 void ModuleEditor::DrawEditor()
 {
+    OPTICK_EVENT();
+
     // Start the Dear ImGui frame
 
     ImGui_ImplOpenGL3_NewFrame();
@@ -1271,6 +1279,8 @@ void ModuleEditor::Toggle_GL_WireframeMode(bool wireframe)
 bool ModuleEditor::CleanUp()
 {
     bool ret = true;
+
+    LOG("Deleting editor...");
 
     // ImGui CleanUp
 

@@ -104,9 +104,10 @@ void Shader::ClearShader()
 		glDeleteProgram(shaderProgram);
 		shaderProgram = 0;
 
+		LOG("Successfully cleared shader");
+
 	}
 
-	LOG("Successfully cleared shader");
 }
 
 void Shader::SetBool(const std::string& name, bool value) const

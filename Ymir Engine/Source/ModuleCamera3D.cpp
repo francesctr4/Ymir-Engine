@@ -18,6 +18,9 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 	ViewMatrix = IdentityMatrix;
 
 	CalculateViewMatrix();
+
+	LOG("Creating ModuleCamera3D");
+
 }
 
 ModuleCamera3D::~ModuleCamera3D()

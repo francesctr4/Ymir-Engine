@@ -20,6 +20,8 @@ ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Modul
 	EBO = 0;
 	VAO = 0;
 
+	LOG("Creating ModuleRenderer3D");
+
 }
 
 // Destructor
@@ -154,6 +156,10 @@ bool ModuleRenderer3D::Init()
 		LOG("OpenGL context could not be created! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
+	else 
+	{
+		LOG("OpenGL context created sucessfully!");
+	}
 
 	// Initializing Glew
 	GLenum err = glewInit();
@@ -267,6 +273,8 @@ bool ModuleRenderer3D::Init()
 
 	// Projection matrix for
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	LOG("OpenGL initialized successfully.");
 
 	Grid.axis = true;
 

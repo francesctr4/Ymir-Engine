@@ -7,6 +7,12 @@ ModuleWindow::ModuleWindow(Application* app, bool start_enabled) : Module(app, s
 {
 	window = NULL;
 	screen_surface = NULL;
+
+	width = 0;
+	height = 0;
+
+	LOG("Creating ModuleWindow");
+
 }
 
 // Destructor
@@ -67,6 +73,9 @@ bool ModuleWindow::Init()
 		{
 			//Get window surface
 			screen_surface = SDL_GetWindowSurface(window);
+
+			LOG("Window created successfully!");
+
 		}
 	}
 

@@ -4,6 +4,8 @@
 #include "External/ImGui/backends/imgui_impl_sdl2.h"
 #include "External/ImGui/backends/imgui_impl_opengl3.h"
 
+#include "GameObject.h"
+
 CMesh::CMesh(GameObject* owner) : Component(owner, ComponentType::MESH)
 {
 
