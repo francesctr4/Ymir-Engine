@@ -26,11 +26,20 @@ Model::~Model()
 
 void Model::DrawModel()
 {
-	for (auto it = meshes.begin(); it != meshes.end(); ++it) {
+	if (modelGO->active && External->scene->mRootNode->active) {
 
-		(*it).DrawMesh();
+		for (auto it = meshes.begin(); it != meshes.end(); ++it) {
+
+			if ((*it).meshGO->active) {
+
+				(*it).DrawMesh();
+
+			}
+			
+		}
 
 	}
+	
 }
 
 void Model::LoadModel(const std::string& path)
