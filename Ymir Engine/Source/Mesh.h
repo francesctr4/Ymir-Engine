@@ -15,6 +15,7 @@
 #include "Texture.h"
 #include "Shader.h"
 
+struct NodeTransform;
 class GameObject;
 
 struct Vertex {
@@ -28,7 +29,7 @@ struct Vertex {
 class Mesh {
 public:
 
-    Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vector<Texture>& textures, GameObject* linkGO);
+    Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vector<Texture>& textures, GameObject* linkGO, NodeTransform* transform);
     virtual ~Mesh();
 
     void DrawMesh();

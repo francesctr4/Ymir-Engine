@@ -4,8 +4,9 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleInput.h"
 #include "GameObject.h"
+#include "Model.h"
 
-Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vector<Texture>& textures, GameObject* linkGO)
+Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vector<Texture>& textures, GameObject* linkGO, NodeTransform* transform)
 {
 	VBO = 0;
 	EBO = 0;
@@ -24,6 +25,12 @@ Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vec
     addedMaterialComponent = false;
 
 	LoadMesh();
+
+    // This is commented to avoid scale problems (1:100) and weird imported rotations, but works.
+
+    /*this->meshShader.translation = transform->translation;
+    this->meshShader.rotation = transform->rotation;
+    this->meshShader.scale = transform->scale;*/
     
 }
 

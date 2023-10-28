@@ -12,6 +12,14 @@
 
 class GameObject;
 
+struct NodeTransform {
+
+    float3 translation;
+    float3 rotation;
+    float3 scale;
+
+};
+
 class Model {
 
 public:
@@ -27,7 +35,7 @@ public:
 private:
 
     void ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO);
-    Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene, GameObject* linkGO);
+    Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene, GameObject* linkGO, NodeTransform* transform);
 
 public:
 

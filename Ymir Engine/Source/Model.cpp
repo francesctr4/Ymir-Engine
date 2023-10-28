@@ -106,22 +106,27 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO
 		
 	}
 
-	/*aiVector3D translation, scaling;
+	aiVector3D translation, scaling;
 	aiQuaternion rotation;
 
 	node->mTransformation.Decompose(scaling, rotation, translation);
 
-	float3 pos(translation.x, translation.y, translation.z);
-	float3 scale(scaling.x, scaling.y, scaling.z);
-	Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);*/
+	NodeTransform tmpNodeTransform;
+
+	tmpNodeTransform.translation = { translation.x, translation.y, translation.z };
+
+	Quat rotQ(rotation.x, rotation.y, rotation.z, rotation.w);
+	tmpNodeTransform.rotation = { rotQ.ToEulerXYZ() };
+
+	tmpNodeTransform.scale = { scaling.x, scaling.y, scaling.z};
 
 	// Process all the node's meshes (if any)
 
 	for (uint i = 0; i < node->mNumMeshes; i++)
 	{
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-
-		meshes.push_back(ProcessMesh(mesh, scene, currentNodeGO));
+		
+		meshes.push_back(ProcessMesh(mesh, scene, currentNodeGO, &tmpNodeTransform));
 	}
 
 	// Then do the same for each of its children
@@ -133,7 +138,7 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO
 	
 }
 
-Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene, GameObject* linkGO)
+Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene, GameObject* linkGO, NodeTransform* transform)
 {
 	std::vector<Vertex> vertices;
 	std::vector<GLuint> indices;
@@ -239,5 +244,5 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene, GameObject* linkGO)
 
 	linkGO->AddComponent(cmesh);
 
-	return Mesh(vertices, indices, textures, linkGO); // Retrieve the Mesh with all the necessary data to draw
+	return Mesh(vertices, indices, textures, linkGO, transform); // Retrieve the Mesh with all the necessary data to draw
 }
