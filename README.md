@@ -28,6 +28,37 @@ _**Joel Romero Botella**_
 ## Instructions
 
 - How to use the engine, detailing the controls and any specific action
+- Camera
+- Editor Windows
+- 
+
+## Features
+
+### v0.1 - Geometry Viewer
+
+- Baker House automatically loaded at the start.
+- Two models provided in FBX format with one channel diffuse texture.
+- Drag&Drop of FBX files from anywhere in the Hard Drive.
+- Drag&Drop of DDS/PNG files (apply the texture to the selected GameObject).
+- GameObject structure, one for each loaded mesh.
+- Three components available for the GameObjects: Transform, Mesh and Material.
+- Unity-like camera controls.
+- Editor Windows:
+  - Console: the window should LOG the geometry loading process from ASSIMP and the external libraries initialization process.
+○ Configuration:
+- A graph for the frames per second.
+- Configuration for all variables on each module (renderer, window, input, textures).
+
+- Information output of memory consumption, hardware detection and software
+versions (SDL, OpenGL, DevIL).
+
+○ Hierarchy: you should display a list with all GameObjects in this window. The user should be
+able to select a GameObject through this window.
+- Inspector displays information about the components of the selected GameObject.
+
+○ There must be a general menu with an option to quit, visit the github page and get info about
+the engine (“About”). It should also be able to turn on/off editor windows.
+○ There must be a menu to load your own basic shapes.
 
 ## Additional functionality (Cool features!!!)
 
