@@ -11,7 +11,9 @@
 Ymir Engine is part of the Game Engines subject, on the third year of the Videogame Design and Development degree, 
 taught at CITM UPC (Terrassa) and supervised by [Miquel Suau](https://github.com/MayKoder).
 
-The engine has been made from scratch in C++ using SDL and OpenGL to manage graphics.
+The engine has been made from scratch in C++ using SDL and OpenGL to manage graphics. The main target of the project is to
+be able to integrate complex systems such as graphics management and game engine architecture in a simple and understandable way
+for educational purposes.
 
 <img src="https://github.com/francesctr4/Ymir-Engine/assets/99948892/4d6551ca-fa42-44fe-b81a-9cf5f62783ef" alt="YmirEngineLogo" width="400" height="400"/>
 
@@ -44,21 +46,17 @@ _**Joel Romero Botella**_
 - Three components available for the GameObjects: Transform, Mesh and Material.
 - Unity-like camera controls.
 - Editor Windows:
-  - Console: the window should LOG the geometry loading process from ASSIMP and the external libraries initialization process.
-○ Configuration:
-- A graph for the frames per second.
-- Configuration for all variables on each module (renderer, window, input, textures).
-
-- Information output of memory consumption, hardware detection and software
-versions (SDL, OpenGL, DevIL).
-
-○ Hierarchy: you should display a list with all GameObjects in this window. The user should be
-able to select a GameObject through this window.
-- Inspector displays information about the components of the selected GameObject.
-
-○ There must be a general menu with an option to quit, visit the github page and get info about
-the engine (“About”). It should also be able to turn on/off editor windows.
-○ There must be a menu to load your own basic shapes.
+  - Console: Show LOGs.
+  - Configuration:
+    - A graph for the frames per second.
+    - Configuration for variables on each module (renderer, window, input, textures).
+    - Information output of memory consumption and hardware detection.
+    - OpenGL configuration.
+    - ...and more!
+  - Hierarchy: list with all GameObjects with tree structure. The user is able to select a GameObject through this window.
+  - Inspector: displays information about the components of the selected GameObject.
+- About Modal Window to get info about the engine.
+- Menu to load basic shapes.
 
 ## Additional functionality (Cool features!!!)
 
