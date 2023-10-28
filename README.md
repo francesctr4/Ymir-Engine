@@ -4,7 +4,12 @@
 
 ### Current release version: None
 
-- Short description of the engine and link to the github.com page of the project
+### GitHub page: (In Progress)
+
+Ymir Engine is part of the Game Engines subject, on the third year of the Videogame Design and Development degree, 
+taught at CITM UPC (Terrassa) and supervised by [Miquel Suau](https://github.com/MayKoder).
+
+The engine has been made from scratch in C++ using SDL and OpenGL to manage graphics.
 
 <img src="https://github.com/francesctr4/Ymir-Engine/assets/99948892/4d6551ca-fa42-44fe-b81a-9cf5f62783ef" alt="YmirEngineLogo" width="400" height="400"/>
 
