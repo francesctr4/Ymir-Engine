@@ -33,6 +33,8 @@ _**Joel Romero Botella**_
 - Camera
 - Editor Windows
 - ...etc
+- The shader is currently responsible for the transformations on the gameobjects, so if you upload a model without a texture,
+the shader won't be enabled and the transformations won't be applied.
 
 ## Features
 
