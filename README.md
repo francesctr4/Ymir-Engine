@@ -32,7 +32,7 @@ _**Joel Romero Botella**_
 - How to use the engine, detailing the controls and any specific action
 - Camera
 - Editor Windows
-- 
+- ...etc
 
 ## Features
 
