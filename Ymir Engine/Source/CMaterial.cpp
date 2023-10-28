@@ -42,8 +42,10 @@ void CMaterial::OnInspector()
         ImGui::Indent();
 
         ImGui::Image(reinterpret_cast<void*>(static_cast<intptr_t>(ID)), ImVec2(200,200));
+        ImGui::Spacing();
 
         ImGui::Text("Path: %s", path.c_str());
+        ImGui::Spacing();
 
         if (ImGui::Button("Apply Checker Texture")) {
 
@@ -51,11 +53,15 @@ void CMaterial::OnInspector()
 
         }
 
+        ImGui::Spacing();
+
         if (ImGui::Button("Clear Actual Texture")) {
 
             External->renderer3D->ClearActualTexture();
 
         }
+
+        ImGui::Spacing();
 
         ImGui::Unindent();
     }

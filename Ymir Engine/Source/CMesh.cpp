@@ -43,7 +43,10 @@ void CMesh::OnInspector()
         ImGui::Indent();
 
         ImGui::Text("Vertices: %d", nVertices);
+        ImGui::Spacing();
+
         ImGui::Text("Indices: %d", nIndices);
+        ImGui::Spacing();
 
         for (auto it = External->renderer3D->models.begin(); it != External->renderer3D->models.end(); ++it) {
 
@@ -52,7 +55,10 @@ void CMesh::OnInspector()
                 if ((*jt).meshGO->selected || (*it).modelGO->selected) {
 
                     ImGui::Checkbox("Show Vertex Normals", &(*jt).enableVertexNormals);
+                    ImGui::Spacing();
+
                     ImGui::Checkbox("Show Face Normals", &(*jt).enableFaceNormals);
+                    ImGui::Spacing();
 
                 }
 
