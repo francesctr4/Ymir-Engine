@@ -6,6 +6,8 @@
 
 ### GitHub page: (In Progress)
 
+## Description
+
 Ymir Engine is part of the Game Engines subject, on the third year of the Videogame Design and Development degree, 
 taught at CITM UPC (Terrassa) and supervised by [Miquel Suau](https://github.com/MayKoder).
 
