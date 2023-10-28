@@ -38,6 +38,8 @@ _**Joel Romero Botella**_
 
 ### v0.1 - Geometry Viewer
 
+![Geometry Viewer](https://github.com/francesctr4/Ymir-Engine/assets/99948892/bd5ef5bb-8a37-4440-8227-1682d66a6780)
+
 - Baker House automatically loaded at the start.
 - Two models provided in FBX format with one channel diffuse texture.
 - Drag&Drop of FBX files from anywhere in the Hard Drive.
