@@ -40,7 +40,7 @@ the shader won't be enabled and the transformations won't be applied.
 
 ### v0.1 - Geometry Viewer
 
-![Geometry Viewer](https://github.com/francesctr4/Ymir-Engine/assets/99948892/bd5ef5bb-8a37-4440-8227-1682d66a6780)
+![Geometry Viewer](https://github.com/francesctr4/Ymir-Engine/assets/99948892/c8c38732-7e81-4c16-bd9e-e5d04c50272b)
 
 - Baker House automatically loaded at the start.
 - Two models provided in FBX format with one channel diffuse texture.
@@ -63,6 +63,8 @@ the shader won't be enabled and the transformations won't be applied.
 - Menu to load basic shapes.
 
 ## Additional functionality (Cool features!)
+
+![Transformations GIF](https://github.com/francesctr4/Ymir-Engine/assets/99948892/f3373cbd-b132-4d8a-b73e-017c2ca833f5)
 
 - Early Shader Implementation for Rendering Geometry with VAO (Vertex Shader and Fragment Shader).
 - Apply Transformations to Geometry with the Transform Component (Translation, Rotation and Scale).
