@@ -45,14 +45,11 @@ update_status ModuleScene::Update(float dt)
 		(*it)->Update();
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
+	//if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
 
-		for (auto it = gameObjects.begin(); it != gameObjects.end(); ++it)
-		{
-			(*it)->DestroyGameObject();
-		}
+	//	App->editor->DestroyHierarchyTree(gameObjects[1]);
 
-	}
+	//}
 
 	return UPDATE_CONTINUE;
 }

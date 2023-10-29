@@ -99,6 +99,7 @@ public:
 	// Function to encapsulate GameObjects hierarchy
 	void DrawHierarchy();
 	void CreateHierarchyTree(GameObject* node);
+	void DestroyHierarchyTree(GameObject* node);
 
 	// Function to encapsulate GameObjects inspector
 	void DrawInspector();

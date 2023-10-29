@@ -1956,6 +1956,24 @@ void ModuleEditor::CreateHierarchyTree(GameObject* node)
 
 }
 
+void ModuleEditor::DestroyHierarchyTree(GameObject* node)
+{
+    if (node == nullptr) {
+        return;
+    }
+
+    for (auto& child : node->mChildren) {
+        DestroyHierarchyTree(child); // Recursively destroy children nodes
+    }
+
+    // Perform any necessary cleanup for the current node
+    // For example, if 'node' is a dynamically allocated memory, delete it.
+    auto it = std::find(App->scene->gameObjects.begin(), App->scene->gameObjects.end(), node);
+    //App->scene->gameObjects.erase(it);
+    App->scene->DestroyGameObject(node);
+    //node = nullptr; // Ensure the pointer is set to null after deletion if it's necessary
+}
+
 void ModuleEditor::DrawInspector()
 {
     for (auto it = App->scene->gameObjects.begin(); it != App->scene->gameObjects.end(); ++it) {
@@ -1975,8 +1993,6 @@ void ModuleEditor::DrawInspector()
                 // The input text has changed, update the name
                 (*it)->name = nameBuffer;
             }
-
-            //ImGui::Text("%s", (*it)->name.c_str());
 
             ImGui::Spacing();
 
