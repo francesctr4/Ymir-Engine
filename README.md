@@ -62,7 +62,7 @@ the shader won't be enabled and the transformations won't be applied.
 - About Modal Window to get info about the engine.
 - Menu to load basic shapes.
 
-## Additional functionality (Cool features!!!)
+## Additional functionality (Cool features!)
 
 - Early Shader Implementation for Rendering Geometry with VAO (Vertex Shader and Fragment Shader).
 - Apply Transformations to Geometry with the Transform Component (Translation, Rotation and Scale).
