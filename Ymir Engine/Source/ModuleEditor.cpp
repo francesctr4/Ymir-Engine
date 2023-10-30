@@ -18,6 +18,7 @@
 #include "External/ImGui/imgui.h"
 #include "External/ImGui/backends/imgui_impl_sdl2.h"
 #include "External/ImGui/backends/imgui_impl_opengl3.h"
+#include "External/ImGuizmo/include/ImGuizmo.h"
 
 #include "External/Assimp/include/version.h"
 
@@ -132,6 +133,8 @@ void ModuleEditor::DrawEditor()
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
+
+    //ImGuizmo::BeginFrame();
 
     // --------------------------------- Here starts the code for the editor ----------------------------------------
 
@@ -1898,8 +1901,10 @@ void ModuleEditor::DrawHierarchy()
 
     //}
 
-    CreateHierarchyTree(App->scene->mRootNode);
-
+    if (App->scene->mRootNode)
+    {
+        CreateHierarchyTree(App->scene->mRootNode);
+    }
 }
 
 void ModuleEditor::CreateHierarchyTree(GameObject* node)
@@ -1962,16 +1967,8 @@ void ModuleEditor::DestroyHierarchyTree(GameObject* node)
         return;
     }
 
-    for (auto& child : node->mChildren) {
-        DestroyHierarchyTree(child); // Recursively destroy children nodes
-    }
-
-    // Perform any necessary cleanup for the current node
-    // For example, if 'node' is a dynamically allocated memory, delete it.
-    auto it = std::find(App->scene->gameObjects.begin(), App->scene->gameObjects.end(), node);
-    //App->scene->gameObjects.erase(it);
     App->scene->DestroyGameObject(node);
-    //node = nullptr; // Ensure the pointer is set to null after deletion if it's necessary
+
 }
 
 void ModuleEditor::DrawInspector()
@@ -2018,3 +2015,8 @@ void ModuleEditor::DrawInspector()
     }
 
 }
+
+//void ModuleEditor::DrawGizmo(const float* viewMatrix, const float* projectionMatrix, float* modelMatrix)
+//{
+//    ImGuizmo::Manipulate(viewMatrix, projectionMatrix, ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::MODE::LOCAL, modelMatrix);
+//}

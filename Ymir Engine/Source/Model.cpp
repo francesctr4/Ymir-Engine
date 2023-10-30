@@ -26,7 +26,7 @@ Model::~Model()
 
 void Model::DrawModel()
 {
-	if (modelGO->active && External->scene->mRootNode->active) {
+	if (modelGO->active && External->scene->mRootNode && External->scene->mRootNode->active) {
 
 		for (auto it = meshes.begin(); it != meshes.end(); ++it) {
 

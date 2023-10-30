@@ -104,6 +104,8 @@ public:
 	// Function to encapsulate GameObjects inspector
 	void DrawInspector();
 
+	//void DrawGizmo(const float* viewMatrix, const float* projectionMatrix, float* modelMatrix);
+
 public:
 
 	// Enables ImGui to render additional data

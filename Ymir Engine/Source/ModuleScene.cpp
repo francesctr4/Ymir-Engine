@@ -45,11 +45,15 @@ update_status ModuleScene::Update(float dt)
 		(*it)->Update();
 	}
 
-	//if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
 
-	//	App->editor->DestroyHierarchyTree(gameObjects[1]);
-
-	//}
+		App->editor->DestroyHierarchyTree(mRootNode);
+		delete mRootNode;
+		mRootNode = nullptr;
+		gameObjects.clear();
+		App->renderer3D->models.clear();
+		mRootNode = CreateGameObject("Scene", nullptr); // Recreate scene
+	}
 
 	return UPDATE_CONTINUE;
 }
