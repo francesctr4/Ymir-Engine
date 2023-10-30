@@ -55,6 +55,28 @@ update_status ModuleScene::Update(float dt)
 		mRootNode = CreateGameObject("Scene", nullptr); // Recreate scene
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
+
+		for (auto it = gameObjects.begin(); it != gameObjects.end(); ++it)
+		{
+			if ((*it)->selected) {
+
+				/*DestroyGameObject((*it));*/
+
+				/*delete (*it);
+				(*it) = nullptr;*/
+				//gameObjects.erase(it);
+				//delete (*it);
+				//(*it) = nullptr;
+				
+				//App->renderer3D->models.erase(it);
+
+			}
+
+		}
+
+	}
+
 	return UPDATE_CONTINUE;
 }
 

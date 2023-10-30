@@ -69,8 +69,6 @@ public:
 
 public:
 
-	std::vector<Primitive*> primitives;
-
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;
 
@@ -80,11 +78,8 @@ public:
 	// You won't need this after using Frustum
 	mat4x4 ProjectionMatrix;
 
-	// OpenGL buffers
-
-	GLuint VBO; // Vertex Buffer Object
-	GLuint EBO; // Element Buffer Object
-	GLuint VAO; // Vertex Object Attributes
+	// Primitive Vector
+	std::vector<Primitive*> primitives;
 
 	// 3D Model Loading
 	std::vector<Model> models;

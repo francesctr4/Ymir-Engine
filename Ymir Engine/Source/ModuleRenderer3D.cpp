@@ -16,10 +16,6 @@ ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Modul
 {
 	context = nullptr;
 
-	VBO = 0;
-	EBO = 0;
-	VAO = 0;
-
 	LOG("Creating ModuleRenderer3D");
 
 }
@@ -344,23 +340,6 @@ bool ModuleRenderer3D::Init()
 	//glBindBuffer(GL_ARRAY_BUFFER, 0);
 	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-	
-
-	//myTexture.LoadCheckerImage();
-	//myTexture.LoadTexture("Assets/Baker_house.png");
-
-	/*for (auto& model : App->renderer3D->models) {
-
-		GameObject* myModel = App->scene->CreateGameObject(model.name, App->scene->mRootNode);
-
-		for (int i = 0; i < model.meshes.size(); i++) {
-
-			GameObject* a = App->scene->CreateGameObject("A mesh", myModel);
-
-		}
-
-	}*/
-
 	models.push_back(Model("Assets/BakerHouse.fbx"));
 
 	return ret;
@@ -567,23 +546,6 @@ bool ModuleRenderer3D::CleanUp()
 
 	// Shutdown DevIL
 	ilShutDown();
-
-	// CleanUp OpenGL Buffers
-
-	/*if (VBO != 0) {
-		glDeleteBuffers(1, &VBO); 
-		VBO = 0;
-	}
-
-	if (EBO != 0) {
-		glDeleteBuffers(1, &EBO);
-		EBO = 0;
-	}
-
-	if (VAO != 0) {
-		glDeleteVertexArrays(1, &VAO);
-		VAO = 0;
-	}*/
 	
 	// Delete OpenGL context
 	SDL_GL_DeleteContext(context);
@@ -692,8 +654,6 @@ bool ModuleRenderer3D::IsFileExtension(const char* directory, const char* extens
 
 void ModuleRenderer3D::ApplyCheckerTexture()
 {
-	// TODO: Rework for selected GameObject
-
 	ClearActualTexture();
 
 	for (auto it = models.begin(); it != models.end(); ++it) {
