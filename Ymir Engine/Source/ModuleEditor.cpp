@@ -245,68 +245,139 @@ void ModuleEditor::DrawEditor()
 
             }
 
-            ImGui::SeparatorText("3D Primitive");
+            if (ImGui::BeginMenu("3D Primitives")) {
 
-            if (ImGui::MenuItem("Point")) {
+                if (ImGui::MenuItem("Plane")) {
 
-                App->renderer3D->primitives.emplace_back(new CPoint());
-                LOG("Point created successfully");
+                    App->renderer3D->models.push_back(Model("Assets/Primitives/Plane.fbx"));
 
-            }
+                    App->renderer3D->ReloadTextures();
 
-            if (ImGui::MenuItem("Line")) {
+                    LOG("Plane created successfully");
 
-                App->renderer3D->primitives.emplace_back(new CLine());
-                LOG("Line created successfully");
+                }
 
-            }
+                if (ImGui::MenuItem("Cube")) {
 
-            if (ImGui::MenuItem("Plane")) {
+                    App->renderer3D->models.push_back(Model("Assets/Primitives/Cube.fbx"));
 
-                App->renderer3D->primitives.emplace_back(new CPlane());
-                LOG("Plane created successfully");
+                    App->renderer3D->ReloadTextures();
 
-            }
+                    LOG("Cube created successfully");
 
-            if (ImGui::MenuItem("Cube")) {
+                }
 
-                App->renderer3D->primitives.emplace_back(new CCube());
-                LOG("Cube created successfully");
+                if (ImGui::MenuItem("Pyramid")) {
 
-            }
+                    App->renderer3D->models.push_back(Model("Assets/Primitives/Pyramid.fbx"));
 
-            if (ImGui::MenuItem("Pyramid")) {
+                    App->renderer3D->ReloadTextures();
 
-                App->renderer3D->primitives.emplace_back(new CPyramid());
-                LOG("Pyramid created successfully");
+                    LOG("Pyramid created successfully");
 
-            }
+                }
 
-            if (ImGui::MenuItem("Cylinder")) {
+                if (ImGui::MenuItem("Cylinder")) {
 
-                App->renderer3D->primitives.emplace_back(new CCylinder());
-                LOG("Cylinder created successfully");
+                    App->renderer3D->models.push_back(Model("Assets/Primitives/Cylinder.fbx"));
 
-            }
+                    App->renderer3D->ReloadTextures();
 
-            if (ImGui::MenuItem("Cone")) {
+                    LOG("Cylinder created successfully");
 
-                App->renderer3D->primitives.emplace_back(new CCone());
-                LOG("Cone created successfully");
+                }
 
-            }
+                if (ImGui::MenuItem("Cone")) {
 
-            if (ImGui::MenuItem("Sphere")) {
+                    App->renderer3D->models.push_back(Model("Assets/Primitives/Cone.fbx"));
 
-                App->renderer3D->primitives.emplace_back(new CSphere());
-                LOG("Sphere created successfully");
+                    App->renderer3D->ReloadTextures();
 
-            }
+                    LOG("Cone created successfully");
 
-            if (ImGui::MenuItem("Torus")) {
+                }
 
-                App->renderer3D->primitives.emplace_back(new CTorus());
-                LOG("Torus created successfully");
+                if (ImGui::MenuItem("Sphere")) {
+
+                    App->renderer3D->models.push_back(Model("Assets/Primitives/Sphere.fbx"));
+
+                    App->renderer3D->ReloadTextures();
+
+                    LOG("Sphere created successfully");
+
+                }
+
+                if (ImGui::MenuItem("Torus")) {
+
+                    App->renderer3D->models.push_back(Model("Assets/Primitives/Torus.fbx"));
+
+                    App->renderer3D->ReloadTextures();
+
+                    LOG("Torus created successfully");
+
+                }
+
+                if (ImGui::MenuItem("Capsule")) {
+
+                    App->renderer3D->models.push_back(Model("Assets/Primitives/Capsule.fbx"));
+
+                    App->renderer3D->ReloadTextures();
+
+                    LOG("Capsule created successfully");
+
+                }
+
+                if (ImGui::MenuItem("Disc")) {
+
+                    App->renderer3D->models.push_back(Model("Assets/Primitives/Disc.fbx"));
+
+                    App->renderer3D->ReloadTextures();
+
+                    LOG("Disc created successfully");
+
+                }
+
+                if (ImGui::MenuItem("Platonic Solid")) {
+
+                    App->renderer3D->models.push_back(Model("Assets/Primitives/PlatonicSolid.fbx"));
+
+                    App->renderer3D->ReloadTextures();
+
+                    LOG("Platonic Solid created successfully");
+
+                }
+
+                if (ImGui::MenuItem("Prism")) {
+
+                    App->renderer3D->models.push_back(Model("Assets/Primitives/Prism.fbx"));
+
+                    App->renderer3D->ReloadTextures();
+
+                    LOG("Prism created successfully");
+
+                }
+
+                if (ImGui::MenuItem("Pipe")) {
+
+                    App->renderer3D->models.push_back(Model("Assets/Primitives/Pipe.fbx"));
+
+                    App->renderer3D->ReloadTextures();
+
+                    LOG("Pipe created successfully");
+
+                }
+
+                if (ImGui::MenuItem("Helix")) {
+
+                    App->renderer3D->models.push_back(Model("Assets/Primitives/Helix.fbx"));
+
+                    App->renderer3D->ReloadTextures();
+
+                    LOG("Helix created successfully");
+
+                }
+
+                ImGui::EndMenu();
 
             }
 
@@ -314,8 +385,7 @@ void ModuleEditor::DrawEditor()
 
             if (ImGui::MenuItem("Clear Scene")) {
 
-                App->renderer3D->ClearPrimitives();
-                App->renderer3D->ClearModels();
+                App->scene->ClearScene();
 
                 LOG("Scene cleared successfully");
 

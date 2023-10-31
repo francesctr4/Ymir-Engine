@@ -52,9 +52,6 @@ public:
 
 	void OnResize(int width, int height);
 
-	void DrawPrimitives();
-	void ClearPrimitives();
-
 	void DrawModels();
 	void ClearModels();
 
@@ -67,6 +64,8 @@ public:
 	void ApplyCheckerTexture();
 	void ClearActualTexture();
 
+	void ReloadTextures();
+
 public:
 
 	Light lights[MAX_LIGHTS];
@@ -78,10 +77,7 @@ public:
 	// You won't need this after using Frustum
 	mat4x4 ProjectionMatrix;
 
-	// Primitive Vector
-	std::vector<Primitive*> primitives;
-
-	// 3D Model Loading
+	// 3D Models
 	std::vector<Model> models;
 
 	bool texturingEnabled = true;

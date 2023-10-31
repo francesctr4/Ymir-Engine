@@ -237,12 +237,17 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene, GameObject* linkGO, 
 		
 	}
 
+	// Create the mesh
+
+	Mesh tmpMesh(vertices, indices, textures, linkGO, transform);
+
 	CMesh* cmesh = new CMesh(linkGO);
 
+	cmesh->meshReference = &tmpMesh;
 	cmesh->nVertices = vertices.size();
 	cmesh->nIndices = indices.size();
 
 	linkGO->AddComponent(cmesh);
 
-	return Mesh(vertices, indices, textures, linkGO, transform); // Retrieve the Mesh with all the necessary data to draw
+	return tmpMesh; // Retrieve the Mesh with all the necessary data to draw
 }

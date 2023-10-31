@@ -17,7 +17,7 @@ public:
 
 	virtual ~ModuleScene();
 
-	bool Start() override;
+	bool Init() override;
 	update_status PreUpdate(float dt) override;
 	update_status Update(float dt) override;
 	update_status PostUpdate(float dt) override;
@@ -25,6 +25,8 @@ public:
 
 	GameObject* CreateGameObject(std::string name, GameObject* parent);
 	void DestroyGameObject(GameObject* toDestroy);
+
+	void ClearScene();
 
 public:
 

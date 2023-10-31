@@ -11,7 +11,7 @@
 
 CMesh::CMesh(GameObject* owner) : Component(owner, ComponentType::MESH)
 {
-
+    meshReference = nullptr;
 }
 
 CMesh::~CMesh()
