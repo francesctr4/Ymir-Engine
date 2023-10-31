@@ -1901,62 +1901,77 @@ void ModuleEditor::DrawHierarchy()
 
     //}
 
-    if (App->scene->mRootNode)
-    {
-        CreateHierarchyTree(App->scene->mRootNode);
-    }
+   
+    CreateHierarchyTree(App->scene->mRootNode);
 }
 
 void ModuleEditor::CreateHierarchyTree(GameObject* node)
 {
-    // Set flags to open the tree nodes
-    ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_DefaultOpen | (node->selected ? ImGuiTreeNodeFlags_Selected : 0);
+    if (node) {
 
-    if (!node->active) ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 1.0f, 1.0f, 0.4f));
+        // Set flags to open the tree nodes
+        ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_DefaultOpen | (node->selected ? ImGuiTreeNodeFlags_Selected : 0);
 
-    bool isNodeOpen = ImGui::TreeNodeEx(node->name.c_str(), flags);
+        if (!node->active) ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 1.0f, 1.0f, 0.4f));
 
-    if (!node->active) ImGui::PopStyleColor();
+        bool isNodeOpen = ImGui::TreeNodeEx(node->name.c_str(), flags);
 
-    if (ImGui::IsItemClicked()) {
+        if (!node->active) ImGui::PopStyleColor();
 
-        node->selected = true; // Toggle the selected state when clicked
+        if (ImGui::IsItemClicked()) {
 
-        for (auto it = App->scene->gameObjects.begin(); it != App->scene->gameObjects.end(); ++it) {
+            node->selected = true; // Toggle the selected state when clicked
 
-            if ((*it) != node) {
+            for (auto it = App->scene->gameObjects.begin(); it != App->scene->gameObjects.end(); ++it) {
+
+                if ((*it) != node) {
+
+                    (*it)->selected = false;
+
+                }
+
+            }
+
+        }
+
+        if (ImGui::IsItemClicked(1)) {
+
+            ImGui::OpenPopup("DeleteGameObject");
+
+            /*for (auto it = App->scene->gameObjects.begin(); it != App->scene->gameObjects.end(); ++it) {
 
                 (*it)->selected = false;
 
+            }*/
+
+        }
+
+        if (ImGui::BeginPopupContextItem()) {
+
+            if (ImGui::MenuItem("Delete")) {
+
+                DestroyHierarchyTree(node);
+
             }
 
+            ImGui::EndPopup();
         }
 
-    }
-
-    if (ImGui::IsItemClicked(1)) {
-
-        for (auto it = App->scene->gameObjects.begin(); it != App->scene->gameObjects.end(); ++it) {
-
-            (*it)->selected = false;
-
-        }
-
-    }
-
-    if (isNodeOpen)
-    {
-        // Display the children if the node is open
-        if (node->mChildren.size())
+        if (isNodeOpen)
         {
-            for (uint i = 0; i < node->mChildren.size(); i++)
+            // Display the children if the node is open
+            if (node->mChildren.size())
             {
-                CreateHierarchyTree(node->mChildren[i]);
+                for (uint i = 0; i < node->mChildren.size(); i++)
+                {
+                    CreateHierarchyTree(node->mChildren[i]);
+                }
             }
+
+            // Close the TreeNode when you're done with its children
+            ImGui::TreePop();
         }
 
-        // Close the TreeNode when you're done with its children
-        ImGui::TreePop();
     }
 
 }

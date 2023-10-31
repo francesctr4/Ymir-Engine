@@ -85,7 +85,7 @@ public:
 	void AboutModalWindowContent();
 
 	// Function to encapsulate Reading files
-	std::string ModuleEditor::ReadFile(const std::string& filename);
+	std::string ReadFile(const std::string& filename);
 
 	// Function to show log output on the editor
 	void RedirectLogOutput();
