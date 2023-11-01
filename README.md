@@ -47,14 +47,16 @@ _**Joel Romero Botella**_
 #### SCENE
 
     - "C" Clears the scene.
-    - ...
-    - ...
+    - Hierarchy: Left click to select GameObject and Right click to delete selected GameObject.
+    - Inspector: Drag Transform values to modify the mesh (only with shader enabled).
+    - Drag and Drop: Drag .fbx or .png/.dds (to selected GameObject) directly to scene to load them.
 
 #### EDITOR
 
-    - ...
-    - ...
-    - ...
+    - File menu: Exit button to shut the engine.
+    - GameObject menu: Create Empty and Primitives GameObjects and Clear Scene.
+    - Windows menu: Application menu with general configurations of the engine and several editor windows with utilities.
+    - Help menu: About Modal Window with info of the engine and Repository link.
 
 ### Additional Instructions
 
