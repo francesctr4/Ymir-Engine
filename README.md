@@ -27,6 +27,10 @@ _**Francesc Teruel Rodríguez**_
 _**Joel Romero Botella**_
 * **GitHub:** [Joeltecke25](https://github.com/Joeltecke25)
 
+## Disclaimer
+
+- The Release build may weigh a little (1.3 KB) because of the .fbx stored in the Assets folder (Debug build weighs 4.8 KB).
+
 ## Instructions
 
 - How to use the engine, detailing the controls and any specific action
@@ -34,7 +38,8 @@ _**Joel Romero Botella**_
 - Editor Windows
 - ...etc
 - The shader is currently responsible for the transformations on the gameobjects, so if you upload a model without a texture,
-the shader won't be enabled and the transformations won't be applied.
+the shader won't be enabled and the transformations won't be applied. To solve this apply the checker texture to the gameObject or
+drag a texture to enable the shader.
 
 ## Features
 
@@ -71,3 +76,10 @@ the shader won't be enabled and the transformations won't be applied.
 
 ![Transformations GIF](https://github.com/francesctr4/Ymir-Engine/assets/99948892/f3373cbd-b132-4d8a-b73e-017c2ca833f5)
 ![Primitive Library](https://github.com/francesctr4/Ymir-Engine/assets/99948892/09808392-234b-4ed6-82f2-c7fe84f4aa7c)
+
+## Known bugs (Work in progress)
+
+- There's some visual errors on the material component of the GameObjects in the inspector. When you upload a new model, the texture displayed from the older loaded meshes turns pitch black.
+- There's also some visual errors on the transform component of the GameObjects in the inspector. When a model has several meshes and you select the model itself, there is n transform components
+according to n meshes the model has and the Reset Transform button doesn't work properly in this situation. Regardless of the visual error, if you manipulate the first transform you will have the
+same effect as having the parent transform matrix and the children will transform too.
