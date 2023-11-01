@@ -1961,22 +1961,6 @@ void ModuleEditor::AssimpLogOutput()
 
 void ModuleEditor::DrawHierarchy()
 {
-    //for (auto& model : App->renderer3D->models) {
-
-    //    if (model.meshes.size() > 1) {
-
-    //        ImGui::Text("%s (%d Meshes)", model.name.c_str(), model.meshes.size());
-
-    //    }
-    //    else {
-
-    //        ImGui::Text("%s (%d Mesh)", model.name.c_str(), model.meshes.size());
-
-    //    }
-
-    //}
-
-   
     CreateHierarchyTree(App->scene->mRootNode);
 }
 
