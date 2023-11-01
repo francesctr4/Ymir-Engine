@@ -13,7 +13,7 @@ GameObject::GameObject(std::string name, GameObject* parent)
 
 GameObject::~GameObject()
 {
-	DestroyGameObject();
+	
 }
 
 void GameObject::Update()

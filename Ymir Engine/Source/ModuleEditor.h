@@ -113,11 +113,11 @@ public:
 
 	// Booleans to Open/Close Editor windows
 	bool showApplication = false;
-	bool showConsole = false;
+	bool showConsole = true;
 	bool showMemoryLeaks = false;
 	bool showAssimpLog = false;
-	bool showHierarchy = false;
-	bool showInspector = false;
+	bool showHierarchy = true;
+	bool showInspector = true;
 
 	// OpenGL settings checkbox toggle booleans
 	bool gl_DepthTesting = true;

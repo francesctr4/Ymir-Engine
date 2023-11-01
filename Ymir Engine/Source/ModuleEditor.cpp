@@ -1966,7 +1966,7 @@ void ModuleEditor::DrawHierarchy()
 
 void ModuleEditor::CreateHierarchyTree(GameObject* node)
 {
-    if (node) {
+    if (node != nullptr) {
 
         // Set flags to open the tree nodes
         ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_DefaultOpen | (node->selected ? ImGuiTreeNodeFlags_Selected : 0);
@@ -2003,6 +2003,8 @@ void ModuleEditor::CreateHierarchyTree(GameObject* node)
 
             if (ImGui::MenuItem("Delete")) {
 
+                // This should be reworked for the next delivery (A2)
+
                 App->editor->DestroyHierarchyTree(node);
 
                 App->renderer3D->models.erase(
@@ -2015,7 +2017,9 @@ void ModuleEditor::CreateHierarchyTree(GameObject* node)
                 for (auto it = App->renderer3D->models.begin(); it != App->renderer3D->models.end(); ++it) {
                     // Check if the entire model is selected
                     if ((*it).modelGO->selected) {
-                        //it = App->renderer3D->models.erase(it); // Remove the entire model
+
+                        it = App->renderer3D->models.erase(it); // Remove the entire model
+
                     }
                     else {
                         // If the model is not selected, check its meshes
@@ -2030,12 +2034,19 @@ void ModuleEditor::CreateHierarchyTree(GameObject* node)
                     }
                 }
 
+                App->scene->gameObjects.erase(
+                    std::remove_if(App->scene->gameObjects.begin(), App->scene->gameObjects.end(),
+                        [](const GameObject* obj) { return obj->selected; }
+                    ),
+                    App->scene->gameObjects.end()
+                );
+
                 for (auto it = App->scene->gameObjects.begin(); it != App->scene->gameObjects.end(); ++it) {
 
                     (*it)->selected = false;
 
                 }
-
+                
             }
 
             ImGui::EndPopup();
@@ -2044,12 +2055,17 @@ void ModuleEditor::CreateHierarchyTree(GameObject* node)
         if (isNodeOpen)
         {
             // Display the children if the node is open
-            if (node->mChildren.size())
-            {
-                for (uint i = 0; i < node->mChildren.size(); i++)
+
+            if (node != nullptr) {
+
+                if (node->mChildren.size())
                 {
-                    CreateHierarchyTree(node->mChildren[i]);
+                    for (uint i = 0; i < node->mChildren.size(); i++)
+                    {
+                        CreateHierarchyTree(node->mChildren[i]);
+                    }
                 }
+
             }
 
             // Close the TreeNode when you're done with its children
