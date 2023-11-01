@@ -37,9 +37,9 @@ _**Joel Romero Botella**_
 
 #### CAMERA
 
-    - While Left Clicking, “WASD” FPS-like movement and free look around.
+    - While Right Clicking, “WASD” FPS-like movement and free look around.
     - Mouse wheel zoom in and out.
-    - "Alt" + Left Click (Press + Drag) orbits around the object.
+    - "Alt" + Right Click (Press + Drag) orbits around the object.
     - Pressing “F” (or "Alt") focus the camera around the world (0,0,0).
     - Mouse Wheel Button + Drag pans around the viewport.
     - Holding SHIFT while moving the camera duplicates movement speed.
@@ -47,7 +47,7 @@ _**Joel Romero Botella**_
 #### SCENE
 
     - "C" Clears the scene.
-    - Hierarchy: Left click to select GameObject and Right click to delete selected GameObject.
+    - Hierarchy: Right click to select GameObject and Right click to delete selected GameObject.
     - Inspector: Drag Transform values to modify the mesh (only with shader enabled).
     - Drag and Drop: Drag .fbx or .png/.dds (to selected GameObject) directly to scene to load them.
 
