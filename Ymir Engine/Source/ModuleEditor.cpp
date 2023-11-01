@@ -2013,19 +2013,44 @@ void ModuleEditor::CreateHierarchyTree(GameObject* node)
 
             ImGui::OpenPopup("DeleteGameObject");
 
-            /*for (auto it = App->scene->gameObjects.begin(); it != App->scene->gameObjects.end(); ++it) {
-
-                (*it)->selected = false;
-
-            }*/
-
         }
 
         if (ImGui::BeginPopupContextItem()) {
 
             if (ImGui::MenuItem("Delete")) {
 
-                DestroyHierarchyTree(node);
+                App->editor->DestroyHierarchyTree(node);
+
+                App->renderer3D->models.erase(
+                    std::remove_if(App->renderer3D->models.begin(), App->renderer3D->models.end(),
+                        [](const Model& model) { return model.modelGO->selected; }
+                    ),
+                    App->renderer3D->models.end()
+                );
+
+                for (auto it = App->renderer3D->models.begin(); it != App->renderer3D->models.end(); ++it) {
+                    // Check if the entire model is selected
+                    if ((*it).modelGO->selected) {
+                        //it = App->renderer3D->models.erase(it); // Remove the entire model
+                    }
+                    else {
+                        // If the model is not selected, check its meshes
+                        auto& meshes = it->meshes; // Assuming 'meshes' is the vector of meshes inside the 'Model'
+
+                        meshes.erase(
+                            std::remove_if(meshes.begin(), meshes.end(),
+                                [](const Mesh& mesh) { return mesh.meshGO->selected; }
+                            ),
+                            meshes.end()
+                        );
+                    }
+                }
+
+                for (auto it = App->scene->gameObjects.begin(); it != App->scene->gameObjects.end(); ++it) {
+
+                    (*it)->selected = false;
+
+                }
 
             }
 
@@ -2065,40 +2090,44 @@ void ModuleEditor::DrawInspector()
 {
     for (auto it = App->scene->gameObjects.begin(); it != App->scene->gameObjects.end(); ++it) {
 
-        if ((*it)->selected) {
+        if ((*it) != nullptr) {
 
-            ImGui::Checkbox(" Active   ", &(*it)->active);
-            ImGui::SameLine();
-            char nameBuffer[256]; // You can adjust the buffer size as needed
+            if ((*it)->selected) {
 
-            // Copy the current name to the buffer
-            strcpy(nameBuffer, (*it)->name.c_str());
+                ImGui::Checkbox(" Active   ", &(*it)->active);
+                ImGui::SameLine();
+                char nameBuffer[256]; // You can adjust the buffer size as needed
 
-            // Create an input text field in your ImGui window
-            if (ImGui::InputText(" ", nameBuffer, sizeof(nameBuffer)))
-            {
-                // The input text has changed, update the name
-                (*it)->name = nameBuffer;
+                // Copy the current name to the buffer
+                strcpy(nameBuffer, (*it)->name.c_str());
+
+                // Create an input text field in your ImGui window
+                if (ImGui::InputText(" ", nameBuffer, sizeof(nameBuffer)))
+                {
+                    // The input text has changed, update the name
+                    (*it)->name = nameBuffer;
+                }
+
+                ImGui::Spacing();
+
+                Component* transform = (*it)->GetComponent(ComponentType::TRANSFORM);
+                Component* mesh = (*it)->GetComponent(ComponentType::MESH);
+                Component* material = (*it)->GetComponent(ComponentType::MATERIAL);
+
+                if (transform != nullptr) transform->OnInspector(); ImGui::Spacing();
+                if (mesh != nullptr) mesh->OnInspector(); ImGui::Spacing();
+                if (material != nullptr) material->OnInspector(); ImGui::Spacing();
+
+                float buttonWidth = 120.0f;  // Adjust the width as needed
+                float windowWidth = ImGui::GetWindowWidth();
+                float xPos = (windowWidth - buttonWidth) * 0.5f;
+
+                // Set the cursor position to center the button within the menu
+                ImGui::SetCursorPosX(xPos);
+
+                ImGui::Button("Add Component");
+
             }
-
-            ImGui::Spacing();
-
-            Component* transform = (*it)->GetComponent(ComponentType::TRANSFORM);
-            Component* mesh = (*it)->GetComponent(ComponentType::MESH);
-            Component* material = (*it)->GetComponent(ComponentType::MATERIAL);
-
-            if (transform != nullptr) transform->OnInspector(); ImGui::Spacing();
-            if (mesh != nullptr) mesh->OnInspector(); ImGui::Spacing();
-            if (material != nullptr) material->OnInspector(); ImGui::Spacing();
-
-            float buttonWidth = 120.0f;  // Adjust the width as needed
-            float windowWidth = ImGui::GetWindowWidth();
-            float xPos = (windowWidth - buttonWidth) * 0.5f;
-
-            // Set the cursor position to center the button within the menu
-            ImGui::SetCursorPosX(xPos);
-
-            ImGui::Button("Add Component");
 
         }
 

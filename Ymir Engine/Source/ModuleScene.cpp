@@ -45,27 +45,33 @@ update_status ModuleScene::Update(float dt)
 		(*it)->Update();
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN) {
 
-		for (auto it = gameObjects.begin(); it != gameObjects.end(); ++it)
-		{
-			if ((*it)->selected) {
-
-				/*DestroyGameObject((*it));*/
-
-				/*delete (*it);
-				(*it) = nullptr;*/
-				//gameObjects.erase(it);
-				//delete (*it);
-				//(*it) = nullptr;
-				
-				//App->renderer3D->models.erase(it);
-
-			}
-
-		}
+		ClearScene();
 
 	}
+
+	//if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
+
+	//	for (auto it = gameObjects.begin(); it != gameObjects.end(); ++it)
+	//	{
+	//		if ((*it)->selected) {
+
+	//			/*DestroyGameObject((*it));*/
+
+	//			/*delete (*it);
+	//			(*it) = nullptr;*/
+	//			//gameObjects.erase(it);
+	//			//delete (*it);
+	//			//(*it) = nullptr;
+	//			
+	//			//App->renderer3D->models.erase(it);
+
+	//		}
+
+	//	}
+
+	//}
 
 	return UPDATE_CONTINUE;
 }
@@ -103,7 +109,12 @@ GameObject* ModuleScene::CreateGameObject(std::string name, GameObject* parent)
 
 void ModuleScene::DestroyGameObject(GameObject* toDestroy)
 {
-	toDestroy->DestroyGameObject();
+	if (toDestroy) {
+
+		toDestroy->DestroyGameObject();
+
+	}
+
 }
 
 void ModuleScene::ClearScene()
@@ -111,7 +122,9 @@ void ModuleScene::ClearScene()
 	App->editor->DestroyHierarchyTree(mRootNode);
 	delete mRootNode;
 	mRootNode = nullptr;
+
 	gameObjects.clear();
+
 	App->renderer3D->models.clear();
 	mRootNode = CreateGameObject("Scene", nullptr); // Recreate scene
 }
