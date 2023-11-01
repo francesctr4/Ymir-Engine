@@ -65,6 +65,9 @@ _**Joel Romero Botella**_
 the shader won't be enabled and the transformations won't be applied. To solve this apply the checker texture to the gameObject or
 drag a texture to enable the shader.
 
+- Moreover, the vertex normals and the face normals do not follow the GameObject transformations and they will be displayed as if
+the geometry was in default state (because the normals aren't managed inside the shaders).
+
 ## Features
 
 ### v0.1 - Geometry Viewer
