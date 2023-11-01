@@ -29,7 +29,7 @@ _**Joel Romero Botella**_
 
 ## Disclaimer
 
-- The Release build may weigh a little (1.3 KB) because of the .fbx stored in the Assets folder (Debug build weighs 4.8 KB).
+- The Release build may weigh a little (1.300 KB) because of the .fbx stored in the Assets folder (Debug build weighs 4.800 KB).
 
 ## Instructions
 
