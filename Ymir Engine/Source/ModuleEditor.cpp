@@ -1771,11 +1771,16 @@ void ModuleEditor::ShowDiskInfo()
 
 void ModuleEditor::AboutModalWindowContent()
 {
-    ImGui::Text("Ymir Engine v0.0");
+    ImGui::Text("Ymir Engine v0.1");
 
     ImGui::NewLine();
 
-    ImGui::Text("(Description)");
+    ImGui::SeparatorText("DESCRIPTION");
+    ImGui::NewLine();
+
+    const char* engineInfo = "Ymir Engine is part of the Game Engines subject, on the third year of the\nVideogame Design and Development degree, taught at CITM UPC (Terrassa)\nand supervised by Miquel Suau.\n\nThe engine has been made from scratch in C++ using SDL and OpenGL to manage\ngraphics. The main target of the project is to be able to integrate complex\nsystems such as graphics management and game engine architecture in a simple\nand understandable way for educational purposes.";
+
+    ImGui::Text("%s", engineInfo);
 
     ImGui::NewLine();
 
