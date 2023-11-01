@@ -33,10 +33,31 @@ _**Joel Romero Botella**_
 
 ## Instructions
 
-- How to use the engine, detailing the controls and any specific action
-- Camera
-- Editor Windows
-- ...etc
+### Controls
+
+#### CAMERA
+
+    - While Left Clicking, “WASD” FPS-like movement and free look around.
+    - Mouse wheel zoom in and out.
+    - "Alt" + Left Click (Press + Drag) orbits around the object.
+    - Pressing “F” (or "Alt") focus the camera around the world (0,0,0).
+    - Mouse Wheel Button + Drag pans around the viewport.
+    - Holding SHIFT while moving the camera duplicates movement speed.
+
+#### SCENE
+
+    - "C" Clears the scene.
+    - ...
+    - ...
+
+#### EDITOR
+
+    - ...
+    - ...
+    - ...
+
+### Additional Instructions
+
 - The shader is currently responsible for the transformations on the gameobjects, so if you upload a model without a texture,
 the shader won't be enabled and the transformations won't be applied. To solve this apply the checker texture to the gameObject or
 drag a texture to enable the shader.
