@@ -64,8 +64,10 @@ the shader won't be enabled and the transformations won't be applied.
 
 ## Additional functionality (Cool features!)
 
-![Transformations GIF](https://github.com/francesctr4/Ymir-Engine/assets/99948892/f3373cbd-b132-4d8a-b73e-017c2ca833f5)
-
 - Early Shader Implementation for Rendering Geometry with VAO (Vertex Shader and Fragment Shader).
 - Apply Transformations to Geometry with the Transform Component (Translation, Rotation and Scale).
 - Custom Icon Uploaded to the Engine Executable.
+- Extensive primitive library inside the engine on GameObjects menu.
+
+![Transformations GIF](https://github.com/francesctr4/Ymir-Engine/assets/99948892/f3373cbd-b132-4d8a-b73e-017c2ca833f5)
+![Primitive Library](https://github.com/francesctr4/Ymir-Engine/assets/99948892/09808392-234b-4ed6-82f2-c7fe84f4aa7c)
