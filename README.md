@@ -2,7 +2,7 @@
 
 ### Repository Link: [Ymir Engine](https://github.com/francesctr4/Ymir-Engine)
 
-### Current release version: None
+### Current release version: v0.1
 
 ### GitHub page: (In Progress)
 
