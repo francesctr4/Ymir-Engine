@@ -15,7 +15,7 @@ The engine has been made from scratch in C++ using SDL and OpenGL to manage grap
 be able to integrate complex systems such as graphics management and game engine architecture in a simple and understandable way
 for educational purposes.
 
-<img src="https://github.com/francesctr4/Ymir-Engine/assets/99948892/4d6551ca-fa42-44fe-b81a-9cf5f62783ef" alt="YmirEngineLogo" width="400" height="400"/>
+<img src="https://github.com/francesctr4/Ymir-Engine/assets/99948892/d686ac0f-9cc2-43b1-b6dd-1682679b1617" alt="YmirEngineLogo" width="400" height="400"/>
 
 _Ymir Engine Logo_
 
@@ -72,7 +72,7 @@ the geometry was in default state (because the normals aren't managed inside the
 
 ### v0.1 - Geometry Viewer
 
-![Geometry Viewer](https://github.com/francesctr4/Ymir-Engine/assets/99948892/c8c38732-7e81-4c16-bd9e-e5d04c50272b)
+![Geometry Viewer](https://github.com/francesctr4/Ymir-Engine/assets/99948892/4f386158-7507-4f23-83f4-87af180ec91e)
 
 - Baker House automatically loaded at the start.
 - Two models provided in FBX format with one channel diffuse texture.
@@ -101,8 +101,8 @@ the geometry was in default state (because the normals aren't managed inside the
 - Custom Icon Uploaded to the Engine Executable.
 - Extensive primitive library inside the engine on GameObject menu.
 
-![Transformations GIF](https://github.com/francesctr4/Ymir-Engine/assets/99948892/f3373cbd-b132-4d8a-b73e-017c2ca833f5)
-![Primitive Library](https://github.com/francesctr4/Ymir-Engine/assets/99948892/09808392-234b-4ed6-82f2-c7fe84f4aa7c)
+![Transformations GIF](https://github.com/francesctr4/Ymir-Engine/assets/99948892/8f27c2e9-ec37-41fc-b808-504c774a44e0)
+![Primitive Library](https://github.com/francesctr4/Ymir-Engine/assets/99948892/830ed6e5-4216-4052-99ee-d4b58d29000e)
 
 ## Known bugs (Work in progress)
 
