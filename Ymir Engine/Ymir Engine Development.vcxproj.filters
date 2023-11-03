@@ -654,6 +654,15 @@
     <ClInclude Include="Source\External\ImGuizmo\include\ImZoomSlider.h">
       <Filter>Externals\ImGuizmo</Filter>
     </ClInclude>
+    <ClInclude Include="Source\CCamera.h">
+      <Filter>Sources\Tools\GameObjects &amp; Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\TimeManager.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\JsonEncapsule.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -865,6 +874,15 @@
     </ClCompile>
     <ClCompile Include="Source\External\ImGuizmo\include\ImSequencer.cpp">
       <Filter>Externals\ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CCamera.cpp">
+      <Filter>Sources\Tools\GameObjects &amp; Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TimeManager.cpp">
+      <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\JsonEncapsule.cpp">
+      <Filter>Sources\Tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

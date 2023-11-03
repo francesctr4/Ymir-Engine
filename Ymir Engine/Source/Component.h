@@ -6,7 +6,8 @@ enum ComponentType {
 
 	TRANSFORM,
 	MESH,
-	MATERIAL
+	MATERIAL,
+	CAMERA
 
 };
 

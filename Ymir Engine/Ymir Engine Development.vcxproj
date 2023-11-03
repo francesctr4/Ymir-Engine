@@ -80,6 +80,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Source\CCamera.h" />
     <ClInclude Include="Source\External\ImGuizmo\include\ImCurveEdit.h" />
     <ClInclude Include="Source\External\ImGuizmo\include\ImGradient.h" />
     <ClInclude Include="Source\External\ImGuizmo\include\ImGuizmo.h" />
@@ -195,6 +196,7 @@
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\glmath.h" />
     <ClInclude Include="Source\Globals.h" />
+    <ClInclude Include="Source\JsonEncapsule.h" />
     <ClInclude Include="Source\Light.h" />
     <ClInclude Include="Source\External\MathGeoLib\include\Algorithm\Random\LCG.h" />
     <ClInclude Include="Source\External\MathGeoLib\include\Geometry\AABB.h" />
@@ -269,10 +271,12 @@
     <ClInclude Include="Source\Primitive.h" />
     <ClInclude Include="Source\Shader.h" />
     <ClInclude Include="Source\Texture.h" />
+    <ClInclude Include="Source\TimeManager.h" />
     <ClInclude Include="Source\Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp" />
+    <ClCompile Include="Source\CCamera.cpp" />
     <ClCompile Include="Source\CMaterial.cpp" />
     <ClCompile Include="Source\CMesh.cpp" />
     <ClCompile Include="Source\Color.cpp" />
@@ -294,6 +298,7 @@
     <ClCompile Include="Source\External\Parson\parson.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\glmath.cpp" />
+    <ClCompile Include="Source\JsonEncapsule.cpp" />
     <ClCompile Include="Source\Light.cpp" />
     <ClCompile Include="Source\Log.cpp" />
     <ClCompile Include="Source\Main.cpp" />
@@ -341,6 +346,7 @@
     <ClCompile Include="Source\Primitive.cpp" />
     <ClCompile Include="Source\Shader.cpp" />
     <ClCompile Include="Source\Texture.cpp" />
+    <ClCompile Include="Source\TimeManager.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
