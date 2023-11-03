@@ -134,7 +134,7 @@ void ModuleEditor::DrawEditor()
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
 
-    //ImGuizmo::BeginFrame();
+    ImGuizmo::BeginFrame();
 
     // --------------------------------- Here starts the code for the editor ----------------------------------------
 
@@ -2003,7 +2003,7 @@ void ModuleEditor::CreateHierarchyTree(GameObject* node)
 
             if (ImGui::MenuItem("Delete")) {
 
-                if (node != App->scene->mRootNode) {
+                if (node != App->scene->mRootNode && node->selected) {
 
                     // This should be reworked for the next delivery (A2)
 
@@ -2053,7 +2053,7 @@ void ModuleEditor::CreateHierarchyTree(GameObject* node)
                     node = nullptr;
 
                 }
-                else {
+                else if (node == App->scene->mRootNode && node->selected) {
 
                     App->scene->ClearScene();
 
@@ -2147,7 +2147,7 @@ void ModuleEditor::DrawInspector()
 
 }
 
-//void ModuleEditor::DrawGizmo(const float* viewMatrix, const float* projectionMatrix, float* modelMatrix)
-//{
-//    ImGuizmo::Manipulate(viewMatrix, projectionMatrix, ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::MODE::LOCAL, modelMatrix);
-//}
+void ModuleEditor::DrawGizmo(const float* viewMatrix, const float* projectionMatrix, float* modelMatrix)
+{
+    ImGuizmo::Manipulate(viewMatrix, projectionMatrix, ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::MODE::WORLD, modelMatrix);
+}

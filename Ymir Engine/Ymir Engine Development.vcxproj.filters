@@ -79,6 +79,9 @@
     <Filter Include="Externals\Icon">
       <UniqueIdentifier>{9bcc6b70-7504-40e5-bfe4-67a625af9fe9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Externals\ImGuizmo">
+      <UniqueIdentifier>{2aeea0e7-6ca8-499e-85e8-17679d936cc5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Module.h">
@@ -636,6 +639,21 @@
     <ClInclude Include="Source\Icon.h">
       <Filter>Externals\Icon</Filter>
     </ClInclude>
+    <ClInclude Include="Source\External\ImGuizmo\include\ImCurveEdit.h">
+      <Filter>Externals\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\External\ImGuizmo\include\ImGradient.h">
+      <Filter>Externals\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\External\ImGuizmo\include\ImGuizmo.h">
+      <Filter>Externals\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\External\ImGuizmo\include\ImSequencer.h">
+      <Filter>Externals\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\External\ImGuizmo\include\ImZoomSlider.h">
+      <Filter>Externals\ImGuizmo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -835,6 +853,18 @@
     </ClCompile>
     <ClCompile Include="Source\GameObject.cpp">
       <Filter>Sources\Tools\GameObjects &amp; Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\External\ImGuizmo\include\ImCurveEdit.cpp">
+      <Filter>Externals\ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\External\ImGuizmo\include\ImGradient.cpp">
+      <Filter>Externals\ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\External\ImGuizmo\include\ImGuizmo.cpp">
+      <Filter>Externals\ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\External\ImGuizmo\include\ImSequencer.cpp">
+      <Filter>Externals\ImGuizmo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -80,6 +80,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Source\External\ImGuizmo\include\ImCurveEdit.h" />
+    <ClInclude Include="Source\External\ImGuizmo\include\ImGradient.h" />
+    <ClInclude Include="Source\External\ImGuizmo\include\ImGuizmo.h" />
+    <ClInclude Include="Source\External\ImGuizmo\include\ImSequencer.h" />
+    <ClInclude Include="Source\External\ImGuizmo\include\ImZoomSlider.h" />
     <ClInclude Include="Source\Icon.h" />
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\CMaterial.h" />
@@ -273,6 +278,10 @@
     <ClCompile Include="Source\Color.cpp" />
     <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\CTransform.cpp" />
+    <ClCompile Include="Source\External\ImGuizmo\include\ImCurveEdit.cpp" />
+    <ClCompile Include="Source\External\ImGuizmo\include\ImGradient.cpp" />
+    <ClCompile Include="Source\External\ImGuizmo\include\ImGuizmo.cpp" />
+    <ClCompile Include="Source\External\ImGuizmo\include\ImSequencer.cpp" />
     <ClCompile Include="Source\External\ImGui\backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="Source\External\ImGui\backends\imgui_impl_sdl2.cpp" />
     <ClCompile Include="Source\External\ImGui\backends\imgui_impl_sdlrenderer2.cpp" />

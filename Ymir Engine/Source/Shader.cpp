@@ -2,6 +2,9 @@
 #include "Log.h"
 #include "Globals.h"
 
+#include "Application.h"
+#include "ModuleEditor.h"
+
 Shader::Shader()
 {
 	shaderProgram = 0;
@@ -165,6 +168,8 @@ void Shader::SetShaderUniforms()
 	model = model * translationMatrix * rotationMatrix * scaleMatrix;
 	this->SetMatrix4x4("model", model);
 	this->model = model;
+
+	//External->editor->DrawGizmo(view.ptr(), projection.ptr(), model.ptr());
 
 }
 

@@ -104,7 +104,7 @@ public:
 	// Function to encapsulate GameObjects inspector
 	void DrawInspector();
 
-	//void DrawGizmo(const float* viewMatrix, const float* projectionMatrix, float* modelMatrix);
+	void DrawGizmo(const float* viewMatrix, const float* projectionMatrix, float* modelMatrix);
 
 public:
 
