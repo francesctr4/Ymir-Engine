@@ -2003,50 +2003,62 @@ void ModuleEditor::CreateHierarchyTree(GameObject* node)
 
             if (ImGui::MenuItem("Delete")) {
 
-                // This should be reworked for the next delivery (A2)
+                if (node != App->scene->mRootNode) {
 
-                App->editor->DestroyHierarchyTree(node);
+                    // This should be reworked for the next delivery (A2)
 
-                App->renderer3D->models.erase(
-                    std::remove_if(App->renderer3D->models.begin(), App->renderer3D->models.end(),
-                        [](const Model& model) { return model.modelGO->selected; }
-                    ),
-                    App->renderer3D->models.end()
-                );
+                    App->editor->DestroyHierarchyTree(node);
 
-                for (auto it = App->renderer3D->models.begin(); it != App->renderer3D->models.end(); ++it) {
-                    // Check if the entire model is selected
-                    if ((*it).modelGO->selected) {
+                    App->renderer3D->models.erase(
+                        std::remove_if(App->renderer3D->models.begin(), App->renderer3D->models.end(),
+                            [](const Model& model) { return model.modelGO->selected; }
+                        ),
+                        App->renderer3D->models.end()
+                    );
 
-                        it = App->renderer3D->models.erase(it); // Remove the entire model
+                    for (auto it = App->renderer3D->models.begin(); it != App->renderer3D->models.end(); ++it) {
+                        // Check if the entire model is selected
+                        if ((*it).modelGO->selected) {
+
+                            it = App->renderer3D->models.erase(it); // Remove the entire model
+
+                        }
+                        else {
+                            // If the model is not selected, check its meshes
+                            auto& meshes = it->meshes; // Assuming 'meshes' is the vector of meshes inside the 'Model'
+
+                            meshes.erase(
+                                std::remove_if(meshes.begin(), meshes.end(),
+                                    [](const Mesh& mesh) { return mesh.meshGO->selected; }
+                                ),
+                                meshes.end()
+                            );
+                        }
+                    }
+
+                    App->scene->gameObjects.erase(
+                        std::remove_if(App->scene->gameObjects.begin(), App->scene->gameObjects.end(),
+                            [](const GameObject* obj) { return obj->selected; }
+                        ),
+                        App->scene->gameObjects.end()
+                    );
+
+                    for (auto it = App->scene->gameObjects.begin(); it != App->scene->gameObjects.end(); ++it) {
+
+                        (*it)->selected = false;
 
                     }
-                    else {
-                        // If the model is not selected, check its meshes
-                        auto& meshes = it->meshes; // Assuming 'meshes' is the vector of meshes inside the 'Model'
 
-                        meshes.erase(
-                            std::remove_if(meshes.begin(), meshes.end(),
-                                [](const Mesh& mesh) { return mesh.meshGO->selected; }
-                            ),
-                            meshes.end()
-                        );
-                    }
-                }
-
-                App->scene->gameObjects.erase(
-                    std::remove_if(App->scene->gameObjects.begin(), App->scene->gameObjects.end(),
-                        [](const GameObject* obj) { return obj->selected; }
-                    ),
-                    App->scene->gameObjects.end()
-                );
-
-                for (auto it = App->scene->gameObjects.begin(); it != App->scene->gameObjects.end(); ++it) {
-
-                    (*it)->selected = false;
+                    delete node;
+                    node = nullptr;
 
                 }
-                
+                else {
+
+                    App->scene->ClearScene();
+
+                }
+
             }
 
             ImGui::EndPopup();

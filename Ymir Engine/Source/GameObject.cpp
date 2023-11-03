@@ -69,6 +69,15 @@ void GameObject::DestroyGameObject()
 {
 	mTransform = nullptr;
 
+	if (this->mParent)
+	{
+		auto it = std::find(this->mParent->mChildren.begin(), this->mParent->mChildren.end(), this);
+		if (it != this->mParent->mChildren.end())
+		{
+			this->mParent->mChildren.erase(it);
+		}
+	}
+
 	for (std::vector<GameObject*>::reverse_iterator it = mChildren.rbegin(); it != mChildren.rend(); ++it)
 	{
 		delete (*it);
