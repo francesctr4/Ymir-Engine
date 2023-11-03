@@ -86,6 +86,7 @@
     <ClInclude Include="Source\External\ImGuizmo\include\ImGuizmo.h" />
     <ClInclude Include="Source\External\ImGuizmo\include\ImSequencer.h" />
     <ClInclude Include="Source\External\ImGuizmo\include\ImZoomSlider.h" />
+    <ClInclude Include="Source\FrameBuffer.h" />
     <ClInclude Include="Source\Icon.h" />
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\CMaterial.h" />
@@ -296,6 +297,7 @@
     <ClCompile Include="Source\External\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="Source\External\mmgr\mmgr.cpp" />
     <ClCompile Include="Source\External\Parson\parson.cpp" />
+    <ClCompile Include="Source\FrameBuffer.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\glmath.cpp" />
     <ClCompile Include="Source\JsonEncapsule.cpp" />
