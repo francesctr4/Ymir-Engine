@@ -23,6 +23,7 @@ Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vec
     loadedTextures = false;
     applyCheckerTexture = false;
     addedMaterialComponent = false;
+    showNormalMap = false;
 
 	LoadMesh();
 
@@ -106,6 +107,8 @@ void Mesh::DrawMesh()
         applyCheckerTexture = false;
 
     }
+
+    meshShader.normalMap = showNormalMap;
 
 	// ------------------- Draw Mesh Geometry and Textures --------------------
     

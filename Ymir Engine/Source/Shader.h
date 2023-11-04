@@ -51,6 +51,8 @@ public:
 
     void SetShaderUniforms();
 
+    void ToggleNormalMap(bool value);
+
 public:
 
     // Shader Program Identificator (ID)
@@ -59,6 +61,8 @@ public:
     float3 translation = { 0, 0, 0 };
     float3 rotation = { 0,0,0 };
     float3 scale = { 1,1,1 };
+
+    bool normalMap;
 
 private:
 

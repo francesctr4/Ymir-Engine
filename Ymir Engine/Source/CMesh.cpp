@@ -60,6 +60,9 @@ void CMesh::OnInspector()
                     ImGui::Checkbox("Show Face Normals", &(*jt).enableFaceNormals);
                     ImGui::Spacing();
 
+                    ImGui::Checkbox("Show Normal Map", &(*jt).showNormalMap);
+                    ImGui::Spacing();
+
                 }
 
             }

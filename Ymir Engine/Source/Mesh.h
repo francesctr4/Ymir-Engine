@@ -54,6 +54,8 @@ public:
 
     bool addedMaterialComponent;
 
+    bool showNormalMap;
+
 private:
 
     // Buffers Data

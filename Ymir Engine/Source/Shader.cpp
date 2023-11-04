@@ -8,6 +8,7 @@
 Shader::Shader()
 {
 	shaderProgram = 0;
+	normalMap = false;
 }
 
 Shader::Shader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath)
@@ -169,8 +170,15 @@ void Shader::SetShaderUniforms()
 	this->SetMatrix4x4("model", model);
 	this->model = model;
 
+	ToggleNormalMap(normalMap);
+
 	//External->editor->DrawGizmo(view.ptr(), projection.ptr(), model.ptr());
 
+}
+
+void Shader::ToggleNormalMap(bool value)
+{
+	this->SetBool("displayNormalMap", value);
 }
 
 void Shader::AddShader(GLuint shaderProgram, const char* pShaderText, GLenum shaderType)
