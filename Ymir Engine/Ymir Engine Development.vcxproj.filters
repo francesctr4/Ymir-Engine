@@ -666,6 +666,9 @@
     <ClInclude Include="Source\FrameBuffer.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Random.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -888,6 +891,9 @@
       <Filter>Sources\Tools</Filter>
     </ClCompile>
     <ClCompile Include="Source\FrameBuffer.cpp">
+      <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Random.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
   </ItemGroup>

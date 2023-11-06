@@ -9,6 +9,9 @@ GameObject::GameObject(std::string name, GameObject* parent)
 	selected = false;
 
 	AddComponent(new CTransform(this));
+	RandomNumber randomNum;
+
+	UID = randomNum.generate();
 }
 
 GameObject::~GameObject()

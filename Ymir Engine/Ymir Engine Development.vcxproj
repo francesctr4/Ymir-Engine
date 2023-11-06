@@ -270,6 +270,7 @@
     <ClInclude Include="Source\ModuleScene.h" />
     <ClInclude Include="Source\ModuleWindow.h" />
     <ClInclude Include="Source\Primitive.h" />
+    <ClInclude Include="Source\Random.h" />
     <ClInclude Include="Source\Shader.h" />
     <ClInclude Include="Source\Texture.h" />
     <ClInclude Include="Source\TimeManager.h" />
@@ -346,6 +347,7 @@
     <ClCompile Include="Source\ModuleScene.cpp" />
     <ClCompile Include="Source\ModuleWindow.cpp" />
     <ClCompile Include="Source\Primitive.cpp" />
+    <ClCompile Include="Source\Random.cpp" />
     <ClCompile Include="Source\Shader.cpp" />
     <ClCompile Include="Source\Texture.cpp" />
     <ClCompile Include="Source\TimeManager.cpp" />

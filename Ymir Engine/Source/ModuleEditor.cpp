@@ -2132,6 +2132,10 @@ void ModuleEditor::DrawInspector()
 
                 ImGui::Spacing();
 
+                ImGui::Text("UID: %d", &(*it)->UID);
+
+                ImGui::Spacing();
+
                 Component* transform = (*it)->GetComponent(ComponentType::TRANSFORM);
                 Component* mesh = (*it)->GetComponent(ComponentType::MESH);
                 Component* material = (*it)->GetComponent(ComponentType::MATERIAL);
