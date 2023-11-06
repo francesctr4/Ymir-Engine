@@ -11,10 +11,12 @@ GameObject::GameObject(std::string name, GameObject* parent)
 	active = true;
 	selected = false;
 
-	AddComponent(new CTransform(this));
-
 	UID = Random::Generate();
 
+	aabb.SetNegativeInfinity();
+	obb.SetNegativeInfinity();
+
+	AddComponent(new CTransform(this));
 }
 
 GameObject::~GameObject()
