@@ -82,4 +82,8 @@ public:
 
 	bool texturingEnabled = true;
 
+	GLuint framebuffer = 0;
+
+	GLuint textureColorbuffer = 0;
+
 };

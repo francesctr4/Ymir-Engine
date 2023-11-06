@@ -174,6 +174,25 @@ bool ModuleRenderer3D::Init()
 
 	models.push_back(Model("Assets/BakerHouse.fbx"));
 
+	//// Config Framebuffer
+	//glGenFramebuffers(1, &framebuffer);
+	//glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+
+	//// Texture Framebuffer
+	//glGenTextures(1, &textureColorbuffer);
+	//glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
+	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SCREEN_WIDTH, SCREEN_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	//glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorbuffer, 0);
+
+	//// Verify Framebuffer
+	//if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+	//	std::cerr << "Framebuffer is not complete" << std::endl;
+	//}
+
+	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
 	return ret;
 }
 
@@ -224,6 +243,17 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	
 	App->editor->DrawEditor();
 
+	//// Framebuffer Render
+
+	//glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+	//glViewport(300, - 300, SCREEN_WIDTH - 300, SCREEN_HEIGHT + 300);
+	//glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	//glClear(GL_COLOR_BUFFER_BIT);
+
+	//// Framebuffer Code
+
+	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
 	SDL_GL_SwapWindow(App->window->window);
 
 	return UPDATE_CONTINUE;
@@ -233,6 +263,10 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 bool ModuleRenderer3D::CleanUp()
 {
 	LOG("Destroying 3D Renderer");
+
+	// Clean Framebuffer
+	glDeleteFramebuffers(1, &framebuffer);
+	glDeleteTextures(1, &textureColorbuffer);
 
 	// Detach Assimp Log Stream
 	CleanUpAssimpDebugger();
