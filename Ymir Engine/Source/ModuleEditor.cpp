@@ -2132,7 +2132,7 @@ void ModuleEditor::DrawInspector()
 
                 ImGui::Spacing();
 
-                ImGui::Text("UID: %d", &(*it)->UID);
+                ImGui::Text("UID: %d", (*it)->UID);
 
                 ImGui::Spacing();
 

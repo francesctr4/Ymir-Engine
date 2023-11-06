@@ -13,7 +13,7 @@
 class GameObject;
 
 struct NodeTransform {
-
+  
     float3 translation;
     float3 rotation;
     float3 scale;

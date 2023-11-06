@@ -23,4 +23,6 @@ public:
 
 	GameObject* owner;
 
+	// TODO: FRUSTRUM
+
 };

@@ -2,13 +2,10 @@
 
 #include <iostream>
 #include <random>
+#include <limits>
 
-class RandomNumber {
-public:
-    RandomNumber() : m_randomEngine(std::random_device{}()) {}
+namespace Random {
 
-    int generate();
+    unsigned int Generate();
 
-private:
-    std::mt19937 m_randomEngine;
-};
+}

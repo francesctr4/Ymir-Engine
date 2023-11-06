@@ -1,5 +1,8 @@
 #include "GameObject.h"
 
+#include "Application.h"
+#include "ModuleScene.h"
+
 GameObject::GameObject(std::string name, GameObject* parent)
 {
 	this->name = name;
@@ -9,9 +12,9 @@ GameObject::GameObject(std::string name, GameObject* parent)
 	selected = false;
 
 	AddComponent(new CTransform(this));
-	RandomNumber randomNum;
 
-	UID = randomNum.generate();
+	UID = Random::Generate();
+
 }
 
 GameObject::~GameObject()
@@ -21,6 +24,16 @@ GameObject::~GameObject()
 
 void GameObject::Update()
 {
+	// Check if any of the UIDs is repeated (it's not gonna happen)
+	for (auto it = External->scene->gameObjects.begin(); it != External->scene->gameObjects.end(); ++it) {
+
+		if ((*it)->UID == this->UID && (*it) != this) { // If it is repeated, regenerate
+
+			this->UID = Random::Generate();
+
+		}
+
+	}
 
 }
 
