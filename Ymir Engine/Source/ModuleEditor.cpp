@@ -954,6 +954,16 @@ void ModuleEditor::DrawEditor()
 
     }
 
+    /*float4x4 projection;
+    glGetFloatv(GL_PROJECTION_MATRIX, projection.ptr());
+
+    float4x4 view;
+    glGetFloatv(GL_MODELVIEW_MATRIX, view.ptr());
+
+    float4x4 model = float4x4::identity;
+
+    ManipulateGizmo(view.ptr(), projection.ptr(), GizmoOperation::TRANSLATE, GizmoMode::LOCAL, model.ptr());*/
+
     // --------------------------------- Here finishes the code for the editor ----------------------------------------
     
     // Rendering
@@ -2149,7 +2159,7 @@ void ModuleEditor::DrawInspector()
 
 }
 
-void ModuleEditor::DrawGizmo(const float* viewMatrix, const float* projectionMatrix, float* modelMatrix)
+void ModuleEditor::ManipulateGizmo(const float* viewMatrix, const float* projectionMatrix, GizmoOperation operation, GizmoMode mode, float* modelMatrix, float* deltaMatrix, float* snap)
 {
     ImGuizmo::Manipulate(viewMatrix, projectionMatrix, ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::MODE::WORLD, modelMatrix);
 }

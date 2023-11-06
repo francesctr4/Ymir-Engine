@@ -172,7 +172,7 @@ void Shader::SetShaderUniforms()
 
 	ToggleNormalMap(normalMap);
 
-	//External->editor->DrawGizmo(view.ptr(), projection.ptr(), model.ptr());
+	//External->editor->ManipulateGizmo(view.ptr(), projection.ptr(), GizmoOperation::TRANSLATE, GizmoMode::LOCAL, model.ptr());
 
 }
 

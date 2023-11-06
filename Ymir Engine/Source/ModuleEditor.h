@@ -10,6 +10,19 @@
 
 class GameObject;
 
+enum GizmoOperation
+{
+	TRANSLATE,
+	ROTATE,
+	SCALE
+};
+
+enum GizmoMode
+{
+	LOCAL,
+	WORLD
+};
+
 class ModuleEditor : public Module
 {
 public:
@@ -104,7 +117,8 @@ public:
 	// Function to encapsulate GameObjects inspector
 	void DrawInspector();
 
-	void DrawGizmo(const float* viewMatrix, const float* projectionMatrix, float* modelMatrix);
+	// Function to manage Gizmo
+	void ManipulateGizmo(const float* viewMatrix, const float* projectionMatrix, GizmoOperation operation, GizmoMode mode, float* modelMatrix, float* deltaMatrix = 0, float* snap = 0);
 
 public:
 
