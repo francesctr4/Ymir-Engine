@@ -954,6 +954,21 @@ void ModuleEditor::DrawEditor()
 
     }
 
+    if (ImGui::Begin(" ", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse)) {
+
+        float windowWidth = ImGui::GetWindowWidth();
+        float buttonWidth = 50.0f; // Adjust the button width as needed
+        float posX = (windowWidth - (3 * buttonWidth + 2 * ImGui::GetStyle().ItemSpacing.x)) * 0.5f;
+        ImGui::SetCursorPosX(posX);
+        ImGui::Button("Play");
+        ImGui::SameLine();
+        ImGui::Button("Pause");
+        ImGui::SameLine();
+        ImGui::Button("Frame");
+        ImGui::End();
+    }
+    
+
     /*float4x4 projection;
     glGetFloatv(GL_PROJECTION_MATRIX, projection.ptr());
 
