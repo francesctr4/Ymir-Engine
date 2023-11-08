@@ -81,6 +81,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Source\CCamera.h" />
+    <ClInclude Include="Source\Delegate.h" />
+    <ClInclude Include="Source\EventSystem.h" />
     <ClInclude Include="Source\External\ImGuizmo\include\ImCurveEdit.h" />
     <ClInclude Include="Source\External\ImGuizmo\include\ImGradient.h" />
     <ClInclude Include="Source\External\ImGuizmo\include\ImGuizmo.h" />
@@ -272,6 +274,7 @@
     <ClInclude Include="Source\Primitive.h" />
     <ClInclude Include="Source\Random.h" />
     <ClInclude Include="Source\Shader.h" />
+    <ClInclude Include="Source\Singleton.h" />
     <ClInclude Include="Source\Texture.h" />
     <ClInclude Include="Source\TimeManager.h" />
     <ClInclude Include="Source\Timer.h" />
@@ -284,6 +287,7 @@
     <ClCompile Include="Source\Color.cpp" />
     <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\CTransform.cpp" />
+    <ClCompile Include="Source\Delegate.cpp" />
     <ClCompile Include="Source\External\ImGuizmo\include\ImCurveEdit.cpp" />
     <ClCompile Include="Source\External\ImGuizmo\include\ImGradient.cpp" />
     <ClCompile Include="Source\External\ImGuizmo\include\ImGuizmo.cpp" />
@@ -349,6 +353,7 @@
     <ClCompile Include="Source\Primitive.cpp" />
     <ClCompile Include="Source\Random.cpp" />
     <ClCompile Include="Source\Shader.cpp" />
+    <ClCompile Include="Source\Singleton.cpp" />
     <ClCompile Include="Source\Texture.cpp" />
     <ClCompile Include="Source\TimeManager.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
