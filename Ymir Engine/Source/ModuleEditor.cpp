@@ -954,7 +954,7 @@ void ModuleEditor::DrawEditor()
 
     }
 
-    if (ImGui::Begin(" ", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse)) {
+    if (ImGui::Begin(" ", NULL, ImGuiWindowFlags_NoNav | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse)) {
 
         float windowWidth = ImGui::GetWindowWidth();
         float buttonWidth = 50.0f; // Adjust the button width as needed
@@ -967,7 +967,24 @@ void ModuleEditor::DrawEditor()
         ImGui::Button("Frame");
         ImGui::End();
     }
-    
+
+    if (ImGui::Begin("Assets"), true) {
+
+
+        ImGui::End();
+    }
+
+    if (ImGui::Begin("File Explorer"), true) {
+
+
+        ImGui::End();
+    }
+
+    if (ImGui::Begin("Resources"), true) {
+
+
+        ImGui::End();
+    }
 
     /*float4x4 projection;
     glGetFloatv(GL_PROJECTION_MATRIX, projection.ptr());

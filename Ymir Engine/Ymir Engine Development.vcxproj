@@ -269,10 +269,12 @@
     <ClInclude Include="Source\ModuleRenderer3D.h" />
     <ClInclude Include="Source\Module.h" />
     <ClInclude Include="Source\ModuleInput.h" />
+    <ClInclude Include="Source\ModuleResourceManager.h" />
     <ClInclude Include="Source\ModuleScene.h" />
     <ClInclude Include="Source\ModuleWindow.h" />
     <ClInclude Include="Source\Primitive.h" />
     <ClInclude Include="Source\Random.h" />
+    <ClInclude Include="Source\ResourceTexture.h" />
     <ClInclude Include="Source\Shader.h" />
     <ClInclude Include="Source\Singleton.h" />
     <ClInclude Include="Source\Texture.h" />
@@ -348,10 +350,12 @@
     <ClCompile Include="Source\ModuleEditor.cpp" />
     <ClCompile Include="Source\ModuleInput.cpp" />
     <ClCompile Include="Source\ModuleRenderer3D.cpp" />
+    <ClCompile Include="Source\ModuleResourceManager.cpp" />
     <ClCompile Include="Source\ModuleScene.cpp" />
     <ClCompile Include="Source\ModuleWindow.cpp" />
     <ClCompile Include="Source\Primitive.cpp" />
     <ClCompile Include="Source\Random.cpp" />
+    <ClCompile Include="Source\ResourceTexture.cpp" />
     <ClCompile Include="Source\Shader.cpp" />
     <ClCompile Include="Source\Singleton.cpp" />
     <ClCompile Include="Source\Texture.cpp" />

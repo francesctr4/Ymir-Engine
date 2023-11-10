@@ -12,6 +12,7 @@ class ModuleRenderer3D;
 class ModuleCamera3D;
 class ModuleEditor;
 class ModuleScene;
+class ModuleResourceManager;
 
 class Application
 {
@@ -23,6 +24,7 @@ public:
 	ModuleCamera3D* camera;
 	ModuleEditor* editor;
 	ModuleScene* scene;
+	ModuleResourceManager* resourceManager;
 
 private:
 

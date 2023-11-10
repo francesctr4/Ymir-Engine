@@ -7,6 +7,7 @@
 #include "ModuleScene.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
+#include "ModuleResourceManager.h"
 #include "Log.h"
 
 #include "External/Optick/include/optick.h"
@@ -23,6 +24,7 @@ Application::Application()
 	camera = new ModuleCamera3D(this);
 	editor = new ModuleEditor(this);
 	scene = new ModuleScene(this);
+	resourceManager = new ModuleResourceManager(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -33,6 +35,8 @@ Application::Application()
 	AddModule(camera);
 	AddModule(input);
 
+	// Utility Modules
+	AddModule(resourceManager);
 	AddModule(scene);
 
 	// Renderer last, and then editor!

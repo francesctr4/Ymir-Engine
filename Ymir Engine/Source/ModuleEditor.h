@@ -126,7 +126,8 @@ public:
 	bool UpdateAndRenderAdditionalPlatformWindows = false;
 
 	// Booleans to Open/Close Editor windows
-	bool showApplication = false;
+	
+	bool showApplication = true;
 	bool showConsole = true;
 	bool showMemoryLeaks = false;
 	bool showAssimpLog = false;
