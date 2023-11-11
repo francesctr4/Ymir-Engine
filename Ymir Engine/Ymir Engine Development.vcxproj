@@ -274,6 +274,11 @@
     <ClInclude Include="Source\ModuleWindow.h" />
     <ClInclude Include="Source\Primitive.h" />
     <ClInclude Include="Source\Random.h" />
+    <ClInclude Include="Source\ResourceMesh.h" />
+    <ClInclude Include="Source\ResourceModel.h" />
+    <ClInclude Include="Source\Resources.h" />
+    <ClInclude Include="Source\ResourceScene.h" />
+    <ClInclude Include="Source\ResourceShader.h" />
     <ClInclude Include="Source\ResourceTexture.h" />
     <ClInclude Include="Source\Shader.h" />
     <ClInclude Include="Source\Singleton.h" />
@@ -355,6 +360,11 @@
     <ClCompile Include="Source\ModuleWindow.cpp" />
     <ClCompile Include="Source\Primitive.cpp" />
     <ClCompile Include="Source\Random.cpp" />
+    <ClCompile Include="Source\Resources.cpp" />
+    <ClCompile Include="Source\ResourceMesh.cpp" />
+    <ClCompile Include="Source\ResourceModel.cpp" />
+    <ClCompile Include="Source\ResourceScene.cpp" />
+    <ClCompile Include="Source\ResourceShader.cpp" />
     <ClCompile Include="Source\ResourceTexture.cpp" />
     <ClCompile Include="Source\Shader.cpp" />
     <ClCompile Include="Source\Singleton.cpp" />

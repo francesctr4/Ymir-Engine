@@ -82,7 +82,7 @@
     <Filter Include="Externals\ImGuizmo">
       <UniqueIdentifier>{2aeea0e7-6ca8-499e-85e8-17679d936cc5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Tools\Resources">
+    <Filter Include="Sources\Tools\Resource Management">
       <UniqueIdentifier>{b4f119f8-9a79-470b-8b5e-942d9c7ccef4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -685,7 +685,22 @@
       <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="Source\ResourceTexture.h">
-      <Filter>Sources\Tools\Resources</Filter>
+      <Filter>Sources\Tools\Resource Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ResourceMesh.h">
+      <Filter>Sources\Tools\Resource Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ResourceScene.h">
+      <Filter>Sources\Tools\Resource Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ResourceModel.h">
+      <Filter>Sources\Tools\Resource Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ResourceShader.h">
+      <Filter>Sources\Tools\Resource Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Resources.h">
+      <Filter>Sources\Tools\Resource Management</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -924,7 +939,22 @@
       <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="Source\ResourceTexture.cpp">
-      <Filter>Sources\Tools\Resources</Filter>
+      <Filter>Sources\Tools\Resource Management</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ResourceMesh.cpp">
+      <Filter>Sources\Tools\Resource Management</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ResourceScene.cpp">
+      <Filter>Sources\Tools\Resource Management</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ResourceModel.cpp">
+      <Filter>Sources\Tools\Resource Management</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ResourceShader.cpp">
+      <Filter>Sources\Tools\Resource Management</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Resources.cpp">
+      <Filter>Sources\Tools\Resource Management</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
