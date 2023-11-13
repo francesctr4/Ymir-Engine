@@ -262,6 +262,7 @@
     <ClInclude Include="Source\External\MathGeoLib\include\Math\TransformOps.h" />
     <ClInclude Include="Source\External\MathGeoLib\include\Time\Clock.h" />
     <ClInclude Include="Source\Log.h" />
+    <ClInclude Include="Source\Material.h" />
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\Model.h" />
     <ClInclude Include="Source\ModuleCamera3D.h" />
@@ -348,6 +349,7 @@
     <ClCompile Include="Source\External\MathGeoLib\include\Math\SSEMath.cpp" />
     <ClCompile Include="Source\External\MathGeoLib\include\Math\TransformOps.cpp" />
     <ClCompile Include="Source\External\MathGeoLib\include\Time\Clock.cpp" />
+    <ClCompile Include="Source\Material.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\Model.cpp" />
     <ClCompile Include="Source\Module.cpp" />

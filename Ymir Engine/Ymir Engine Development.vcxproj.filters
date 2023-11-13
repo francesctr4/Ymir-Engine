@@ -61,12 +61,6 @@
     <Filter Include="Externals\stb_image">
       <UniqueIdentifier>{10c8953e-0188-45c6-b3c5-2db04cedcf82}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Tools\Shaders">
-      <UniqueIdentifier>{10b8c814-36c8-4f12-93e9-d72c057a2bb3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\Tools\Shaders\GLSL">
-      <UniqueIdentifier>{0cdf3689-43eb-48d1-ad72-4aa2394dac16}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sources\Tools\3D Model Loading">
       <UniqueIdentifier>{7f8869f3-1fcd-42aa-a7ed-613b81468a58}</UniqueIdentifier>
     </Filter>
@@ -84,6 +78,12 @@
     </Filter>
     <Filter Include="Sources\Tools\Resource Management">
       <UniqueIdentifier>{b4f119f8-9a79-470b-8b5e-942d9c7ccef4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Tools\Shader Pipeline">
+      <UniqueIdentifier>{10b8c814-36c8-4f12-93e9-d72c057a2bb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Tools\Shader Pipeline\GLSL">
+      <UniqueIdentifier>{0cdf3689-43eb-48d1-ad72-4aa2394dac16}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -607,7 +607,7 @@
       <Filter>Externals\stb_image</Filter>
     </ClInclude>
     <ClInclude Include="Source\Shader.h">
-      <Filter>Sources\Tools\Shaders</Filter>
+      <Filter>Sources\Tools\Shader Pipeline</Filter>
     </ClInclude>
     <ClInclude Include="Source\ModuleScene.h">
       <Filter>Sources\Modules</Filter>
@@ -701,6 +701,9 @@
     </ClInclude>
     <ClInclude Include="Source\Resources.h">
       <Filter>Sources\Tools\Resource Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Material.h">
+      <Filter>Sources\Tools\Shader Pipeline</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -873,7 +876,7 @@
       <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="Source\Shader.cpp">
-      <Filter>Sources\Tools\Shaders</Filter>
+      <Filter>Sources\Tools\Shader Pipeline</Filter>
     </ClCompile>
     <ClCompile Include="Source\ModuleScene.cpp">
       <Filter>Sources\Modules</Filter>
@@ -956,6 +959,9 @@
     <ClCompile Include="Source\Resources.cpp">
       <Filter>Sources\Tools\Resource Management</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Material.cpp">
+      <Filter>Sources\Tools\Shader Pipeline</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\External\MathGeoLib\include\Geometry\KDTree.inl">
@@ -977,10 +983,10 @@
       <Filter>Externals\MathGeoLib\Math</Filter>
     </None>
     <None Include="Game\Assets\Shaders\FragmentShader.glsl">
-      <Filter>Sources\Tools\Shaders\GLSL</Filter>
+      <Filter>Sources\Tools\Shader Pipeline\GLSL</Filter>
     </None>
     <None Include="Game\Assets\Shaders\VertexShader.glsl">
-      <Filter>Sources\Tools\Shaders\GLSL</Filter>
+      <Filter>Sources\Tools\Shader Pipeline\GLSL</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
