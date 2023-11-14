@@ -3,6 +3,7 @@
 #include "Log.h"
 #include "External/Optick/include/optick.h"
 
+#include "PhysfsEncapsule.h"
 #include "JsonEncapsule.h"
 
 ModuleFileSystem::ModuleFileSystem(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -19,9 +20,35 @@ bool ModuleFileSystem::Init()
 {
 	bool ret = true;
 
-	LOG("Loading scene");
+	LOG("Loading File System");
 
-	JsonEncapsule::Example();
+	std::string workingDirectory = "./";
+	std::string libraryPath = "./Library/";
+	std::string fileName = "output.json";
+
+	PhysfsEncapsule::InitializePhysFS();
+
+	PhysfsEncapsule::CreateFolder(workingDirectory, "Library");
+
+	PhysfsEncapsule::CreateFolder(libraryPath, "Scenes"); // JSON
+
+	PhysfsEncapsule::CreateFolder(libraryPath, "Models"); // Custom File Format
+
+	PhysfsEncapsule::CreateFolder(libraryPath, "Meshes"); // Custom File Format
+
+	PhysfsEncapsule::CreateFolder(libraryPath, "Materials"); // JSON
+
+	PhysfsEncapsule::CreateFolder(libraryPath, "Shaders"); // GLSL
+
+	PhysfsEncapsule::CreateFolder(libraryPath, "Textures"); // DDS 
+
+	//if (PhysfsEncapsule::FolderExists(libraryPath)) {
+
+		JsonEncapsule::CreateJSON(libraryPath, fileName);
+
+	//}
+
+	PhysfsEncapsule::DeinitializePhysFS();
 
 	return ret;
 }

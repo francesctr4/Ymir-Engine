@@ -17,7 +17,7 @@ bool ModuleResourceManager::Init()
 {
 	bool ret = true;
 
-	LOG("Loading scene");
+	LOG("Loading Resource Manager");
 
 	return ret;
 }
