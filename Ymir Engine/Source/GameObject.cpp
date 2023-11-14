@@ -2,6 +2,8 @@
 
 #include "Application.h"
 #include "ModuleScene.h"
+#include "ModuleFileSystem.h"
+#include "PhysfsEncapsule.h"
 
 GameObject::GameObject(std::string name, GameObject* parent)
 {

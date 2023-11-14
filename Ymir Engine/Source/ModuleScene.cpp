@@ -6,6 +6,10 @@
 #include "GameObject.h"
 #include "Log.h"
 
+#include "ModuleFileSystem.h"
+#include "JsonEncapsule.h"
+#include "PhysfsEncapsule.h"
+
 #include "External/Optick/include/optick.h"
 
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -26,6 +30,8 @@ bool ModuleScene::Init()
 
 	LOG("Loading scene");
 
+	JsonEncapsule::CreateJSON(External->fileSystem->libraryScenesPath, std::to_string(mRootNode->UID) + ".yscene");
+
 	return ret;
 }
 
@@ -43,6 +49,7 @@ update_status ModuleScene::Update(float dt)
 	for (auto it = gameObjects.begin(); it != gameObjects.end(); ++it)
 	{
 		(*it)->Update();
+
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN) {

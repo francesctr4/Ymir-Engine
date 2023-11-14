@@ -29,13 +29,11 @@ bool ModuleFileSystem::Init()
 
 	CreateLibraryFolder();
 
-	//if (PhysfsEncapsule::FolderExists(libraryPath)) {
+	if (PhysfsEncapsule::FolderExists(libraryPath)) {
 
 		JsonEncapsule::CreateJSON(libraryPath, "output.json");
 
-	//}
-
-	PhysfsEncapsule::DeinitializePhysFS();
+	}
 
 	return ret;
 }
@@ -67,6 +65,8 @@ bool ModuleFileSystem::CleanUp()
 
 	LOG("Deleting File System");
 
+	PhysfsEncapsule::DeinitializePhysFS();
+
 	return ret;
 }
 
@@ -74,10 +74,21 @@ void ModuleFileSystem::CreateLibraryFolder()
 {
 	PhysfsEncapsule::CreateFolder(workingDirectory, "Library");
 
-	PhysfsEncapsule::CreateFolder(libraryPath, "Scenes"); // JSON
-	PhysfsEncapsule::CreateFolder(libraryPath, "Models"); // Custom File Format
+	PhysfsEncapsule::CreateFolder(libraryPath, "Scenes"); // Custom File Format (JSON)
+	libraryScenesPath = libraryPath + "Scenes/";
+
+	PhysfsEncapsule::CreateFolder(libraryPath, "Models"); // Custom File Format (JSON)
+	libraryModelsPath = libraryPath + "Models/";
+
 	PhysfsEncapsule::CreateFolder(libraryPath, "Meshes"); // Custom File Format
-	PhysfsEncapsule::CreateFolder(libraryPath, "Materials"); // JSON
+	libraryMeshesPath = libraryPath + "Meshes/";
+
+	PhysfsEncapsule::CreateFolder(libraryPath, "Materials"); // Custom File Format (JSON)
+	libraryMaterialsPath = libraryPath + "Materials/";
+
 	PhysfsEncapsule::CreateFolder(libraryPath, "Shaders"); // GLSL
+	libraryShadersPath = libraryPath + "Shaders/";
+
 	PhysfsEncapsule::CreateFolder(libraryPath, "Textures"); // DDS 
+	libraryTexturesPath = libraryPath + "Textures/";
 }

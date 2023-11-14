@@ -25,4 +25,11 @@ public:
 	std::string workingDirectory;
 	std::string libraryPath;
 
+	std::string libraryScenesPath;
+	std::string libraryModelsPath;
+	std::string libraryMeshesPath;
+	std::string libraryMaterialsPath;
+	std::string libraryShadersPath;
+	std::string libraryTexturesPath;
+
 };

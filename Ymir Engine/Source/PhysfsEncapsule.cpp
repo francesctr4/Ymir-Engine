@@ -9,7 +9,7 @@ void PhysfsEncapsule::InitializePhysFS()
 
 bool PhysfsEncapsule::FolderExists(std::string route)
 {
-    return PHYSFS_isDirectory(route.c_str()) != 0;
+    return std::filesystem::exists(route);
 }
 
 void PhysfsEncapsule::CreateFolder(std::string route, std::string folderName)
@@ -27,6 +27,40 @@ void PhysfsEncapsule::CreateFolder(std::string route, std::string folderName)
         // You may want to check if the folder already exists before attempting to create it.
         
     }
+}
+
+void PhysfsEncapsule::DeleteFolder(std::string route)
+{
+    // Iterate over the directory and delete files
+    for (const auto& entry : std::filesystem::directory_iterator(route)) {
+
+        if (std::filesystem::is_directory(entry.path())) {
+            // Recursively delete subdirectories
+            DeleteFolder(entry.path().string());
+        }
+        else {
+            // Delete files
+            if (PHYSFS_delete(entry.path().string().c_str()) == 0) {
+            }
+        }
+    }
+
+    // Delete the empty directory
+    if (PHYSFS_delete(route.c_str()) == 0) {
+
+
+
+    }
+
+    //// Check if the file exists using std::filesystem
+    //if (std::filesystem::exists(route)) {
+    //    // Use PhysFS to delete the file
+    //    if (PHYSFS_delete(route.c_str()) == 0) {
+    //        
+    //    }
+    //  
+    //}
+  
 }
 
 bool PhysfsEncapsule::CopyFileFromSource(std::string source, std::string destination)

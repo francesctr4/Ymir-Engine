@@ -4,6 +4,9 @@
 #include "GameObject.h"
 #include "ModuleScene.h"
 
+#include "ModuleFileSystem.h"
+#include "JsonEncapsule.h"
+
 #define STB_IMAGE_IMPLEMENTATION
 #include "External/stb_image/stb_image.h"
 
@@ -99,6 +102,9 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO
 		// If the current node is the root node, create here the model GameObject, parented to scene GameObject
 		currentNodeGO = External->scene->CreateGameObject(name, External->scene->mRootNode);
 		modelGO = currentNodeGO;
+
+		JsonEncapsule::CreateJSON(External->fileSystem->libraryModelsPath, std::to_string(modelGO->UID) + ".ymodel");
+
 	}
 	else {
 		// Create a GameObject for the current node and set it as a child of the parent GameObject
@@ -248,6 +254,8 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene, GameObject* linkGO, 
 	cmesh->nIndices = indices.size();
 
 	linkGO->AddComponent(cmesh);
+
+	JsonEncapsule::CreateJSON(External->fileSystem->libraryMeshesPath, std::to_string(linkGO->UID) + ".ymesh");
 
 	return tmpMesh; // Retrieve the Mesh with all the necessary data to draw
 }
