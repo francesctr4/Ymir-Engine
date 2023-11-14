@@ -15,9 +15,6 @@ GameObject::GameObject(std::string name, GameObject* parent)
 
 	UID = Random::Generate();
 
-	aabb.SetNegativeInfinity();
-	obb.SetNegativeInfinity();
-
 	AddComponent(new CTransform(this));
 }
 
@@ -38,6 +35,8 @@ void GameObject::Update()
 		}
 
 	}
+
+	//aabb.SetFromCenterAndSize(ctransform->GetPosition(), float3::one);
 
 }
 

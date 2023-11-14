@@ -14,7 +14,25 @@
 
 Model::Model()
 {
+	if (modelGO->active && External->scene->mRootNode && External->scene->mRootNode->active) {
 
+		for (auto it = meshes.begin(); it != meshes.end(); ++it) {
+
+			if ((*it).meshGO->active) {
+
+				(*it).DrawMesh();
+
+				(*it).obb = (*it).aabb;
+				(*it).obb.Transform((*it).meshShader.model.Transposed());
+				(*it).Global_AABB_box.SetNegativeInfinity();
+				(*it).Global_AABB_box.Enclose((*it).obb);
+
+
+			}
+
+		}
+
+	}
 }
 
 Model::Model(const std::string& path)
@@ -36,7 +54,7 @@ void Model::DrawModel()
 			if ((*it).meshGO->active) {
 
 				(*it).DrawMesh();
-
+			
 			}
 			
 		}
@@ -246,6 +264,8 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene, GameObject* linkGO, 
 	// Create the mesh
 
 	Mesh tmpMesh(vertices, indices, textures, linkGO, transform);
+
+	tmpMesh.InitAABB();
 
 	CMesh* cmesh = new CMesh(linkGO);
 

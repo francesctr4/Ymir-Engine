@@ -100,7 +100,7 @@ void Mesh::DrawMesh()
             }
 
         }
-
+        
         meshShader.LoadShader(SHADER_VS,SHADER_FS);
 
         loadedTextures = true;
@@ -224,6 +224,37 @@ void Mesh::DrawMesh()
 
     }
 
+    UpdateAABB();
+
+    RenderAABB();
+
+}
+
+void Mesh::InitAABB()
+{
+    aabb.SetFrom(&vertices[0].position, vertices.size());
+}
+
+void Mesh::UpdateAABB()
+{
+    obb = aabb;
+    obb.Transform(meshShader.model);
+    Global_AABB_box.SetNegativeInfinity();
+    Global_AABB_box.Enclose(obb);
+}
+
+void Mesh::RenderAABB()
+{
+    float3 corners1[8];
+
+    obb.GetCornerPoints(corners1);
+
+    External->renderer3D->DrawBoundingBox(corners1, float3(255, 0, 0));
+
+    float3 corners2[8];
+    Global_AABB_box.GetCornerPoints(corners2);
+
+    External->renderer3D->DrawBoundingBox(corners2, float3(0, 0, 255));
 }
 
 void Mesh::LoadMesh()

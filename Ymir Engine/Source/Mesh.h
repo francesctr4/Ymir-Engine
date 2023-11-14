@@ -15,6 +15,9 @@
 #include "Texture.h"
 #include "Shader.h"
 
+#include "External/MathGeoLib/include/Geometry/AABB.h"
+#include "External/MathGeoLib/include/Geometry/OBB.h"
+
 struct NodeTransform;
 class GameObject;
 
@@ -55,6 +58,16 @@ public:
     bool addedMaterialComponent;
 
     bool showNormalMap;
+
+    AABB aabb;
+    OBB obb;
+    AABB Global_AABB_box;
+
+    void InitAABB();
+
+    void UpdateAABB();
+
+    void RenderAABB();
 
 private:
 

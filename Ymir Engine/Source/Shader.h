@@ -64,6 +64,10 @@ public:
 
     bool normalMap;
 
+    float4x4 projection;
+    float4x4 view;
+    float4x4 model;
+
 private:
 
     // Private methods to encapsulate Shader Functionality
@@ -75,10 +79,6 @@ private:
     float4x4 CreateScaleMatrix(float3 scale);
 
 private:
-
-    float4x4 projection;
-    float4x4 view;
-    float4x4 model;
 
     float4x4 translationMatrix;
     float4x4 rotationMatrix;

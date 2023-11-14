@@ -66,6 +66,8 @@ public:
 
 	void ReloadTextures();
 
+	void DrawBoundingBox(float3* corners, float3 color);
+
 public:
 
 	Light lights[MAX_LIGHTS];

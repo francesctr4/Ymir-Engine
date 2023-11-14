@@ -5,9 +5,6 @@
 
 #include "Globals.h"
 
-#include "External/MathGeoLib/include/Geometry/AABB.h"
-#include "External/MathGeoLib/include/Geometry/OBB.h"
-
 #include "Model.h"
 #include "Component.h"
 #include "CTransform.h"
@@ -48,8 +45,5 @@ public:
 
 	bool active;
 	bool selected;
-
-	AABB aabb;
-	OBB obb;
 
 };
