@@ -25,7 +25,11 @@ Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vec
     addedMaterialComponent = false;
     showNormalMap = false;
 
+    previousModelMatrix = meshShader.model;
+
 	LoadMesh();
+
+    InitBoundingBoxes();
 
     // This is commented to avoid scale problems (1:100) and weird imported rotations, but works.
 
@@ -162,11 +166,13 @@ void Mesh::DrawMesh()
 
         for (size_t i = 0; i < vertices.size(); ++i) {
 
-            const Vertex& vertex = vertices[i];
-            const float3& normal = vertex.normal * 0.1;
+            Vertex& vertex = vertices[i];
+            float3& normal = vertex.normal * 0.1;
+
+            if (!previousModelMatrix.Equals(meshShader.model)) ApplyTransformation(vertex);
 
             glBegin(GL_LINES);
-
+            
             glVertex3f(vertex.position.x, vertex.position.y, vertex.position.z);
             glVertex3f(vertex.position.x + normal.x, vertex.position.y + normal.y, vertex.position.z + normal.z);
 
@@ -224,37 +230,63 @@ void Mesh::DrawMesh()
 
     }
 
-    UpdateAABB();
+    UpdateBoundingBoxes();
 
-    RenderAABB();
+    RenderBoundingBoxes();
+
+    previousModelMatrix = meshShader.model;
 
 }
 
-void Mesh::InitAABB()
+void Mesh::ApplyTransformation(Vertex& vertex)
 {
-    aabb.SetFrom(&vertices[0].position, vertices.size());
+    float4 homogeneousVertex(vertex.position.x, vertex.position.y, vertex.position.z, 1.0f);
+
+    // Multiply by the transformation matrix
+    homogeneousVertex = meshShader.model.Transform(homogeneousVertex);
+
+    // Update the vertex coordinates
+    vertex.position.x = homogeneousVertex.x;
+    vertex.position.y = homogeneousVertex.y;
+    vertex.position.z = homogeneousVertex.z;
 }
 
-void Mesh::UpdateAABB()
+void Mesh::InitBoundingBoxes()
+{
+    obb.SetNegativeInfinity();
+    globalAABB.SetNegativeInfinity();
+
+    std::vector<float3> floatArray;
+
+    floatArray.reserve(vertices.size());
+
+    for (const auto& vertex : vertices) {
+
+        floatArray.push_back(vertex.position);
+
+    }
+
+    aabb.SetFrom(&floatArray[0], floatArray.size());
+}
+
+void Mesh::UpdateBoundingBoxes()
 {
     obb = aabb;
     obb.Transform(meshShader.model);
-    Global_AABB_box.SetNegativeInfinity();
-    Global_AABB_box.Enclose(obb);
+
+    globalAABB.SetNegativeInfinity();
+    globalAABB.Enclose(obb);
 }
 
-void Mesh::RenderAABB()
+void Mesh::RenderBoundingBoxes()
 {
-    float3 corners1[8];
+    float3 verticesOBB[8];
+    obb.GetCornerPoints(verticesOBB);
+    External->renderer3D->DrawBoundingBox(verticesOBB, float3(255, 0, 0));
 
-    obb.GetCornerPoints(corners1);
-
-    External->renderer3D->DrawBoundingBox(corners1, float3(255, 0, 0));
-
-    float3 corners2[8];
-    Global_AABB_box.GetCornerPoints(corners2);
-
-    External->renderer3D->DrawBoundingBox(corners2, float3(0, 0, 255));
+    float3 verticesAABB[8];
+    globalAABB.GetCornerPoints(verticesAABB);
+    External->renderer3D->DrawBoundingBox(verticesAABB, float3(0, 0, 255));
 }
 
 void Mesh::LoadMesh()

@@ -8,8 +8,10 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 
+#include "External/MathGeoLib/include/Math/float4.h"
 #include "External/MathGeoLib/include/Math/float3.h"
 #include "External/MathGeoLib/include/Math/float2.h"
+#include "External/MathGeoLib/include/Math/float4x4.h"
 
 #include "Globals.h"
 #include "Texture.h"
@@ -37,6 +39,8 @@ public:
 
     void DrawMesh();
 
+    void ApplyTransformation(Vertex& vertex);
+
 public:
 
     // Mesh Data
@@ -59,15 +63,7 @@ public:
 
     bool showNormalMap;
 
-    AABB aabb;
-    OBB obb;
-    AABB Global_AABB_box;
-
-    void InitAABB();
-
-    void UpdateAABB();
-
-    void RenderAABB();
+    float4x4 previousModelMatrix;
 
 private:
 
@@ -78,5 +74,18 @@ private:
     GLuint VAO;
 
     void LoadMesh();
+
+    // Bounding Boxes Handling
+
+    AABB globalAABB;
+
+    AABB aabb;
+    OBB obb;
+
+    void InitBoundingBoxes();
+
+    void UpdateBoundingBoxes();
+
+    void RenderBoundingBoxes();
 
 };

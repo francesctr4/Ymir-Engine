@@ -66,7 +66,7 @@ public:
 
 	void ReloadTextures();
 
-	void DrawBoundingBox(float3* corners, float3 color);
+	void DrawBoundingBox(float3* vertices, float3 color);
 
 public:
 

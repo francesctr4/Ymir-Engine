@@ -22,12 +22,6 @@ Model::Model()
 
 				(*it).DrawMesh();
 
-				(*it).obb = (*it).aabb;
-				(*it).obb.Transform((*it).meshShader.model.Transposed());
-				(*it).Global_AABB_box.SetNegativeInfinity();
-				(*it).Global_AABB_box.Enclose((*it).obb);
-
-
 			}
 
 		}
@@ -264,8 +258,6 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene, GameObject* linkGO, 
 	// Create the mesh
 
 	Mesh tmpMesh(vertices, indices, textures, linkGO, transform);
-
-	tmpMesh.InitAABB();
 
 	CMesh* cmesh = new CMesh(linkGO);
 
