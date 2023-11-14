@@ -8,6 +8,9 @@
 
 ModuleFileSystem::ModuleFileSystem(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
+	workingDirectory = "./";
+	libraryPath = workingDirectory + "Library/";
+
 	LOG("Creating ModuleFileSystem");
 }
 
@@ -22,29 +25,13 @@ bool ModuleFileSystem::Init()
 
 	LOG("Loading File System");
 
-	std::string workingDirectory = "./";
-	std::string libraryPath = "./Library/";
-	std::string fileName = "output.json";
-
 	PhysfsEncapsule::InitializePhysFS();
 
-	PhysfsEncapsule::CreateFolder(workingDirectory, "Library");
-
-	PhysfsEncapsule::CreateFolder(libraryPath, "Scenes"); // JSON
-
-	PhysfsEncapsule::CreateFolder(libraryPath, "Models"); // Custom File Format
-
-	PhysfsEncapsule::CreateFolder(libraryPath, "Meshes"); // Custom File Format
-
-	PhysfsEncapsule::CreateFolder(libraryPath, "Materials"); // JSON
-
-	PhysfsEncapsule::CreateFolder(libraryPath, "Shaders"); // GLSL
-
-	PhysfsEncapsule::CreateFolder(libraryPath, "Textures"); // DDS 
+	CreateLibraryFolder();
 
 	//if (PhysfsEncapsule::FolderExists(libraryPath)) {
 
-		JsonEncapsule::CreateJSON(libraryPath, fileName);
+		JsonEncapsule::CreateJSON(libraryPath, "output.json");
 
 	//}
 
@@ -81,4 +68,16 @@ bool ModuleFileSystem::CleanUp()
 	LOG("Deleting File System");
 
 	return ret;
+}
+
+void ModuleFileSystem::CreateLibraryFolder()
+{
+	PhysfsEncapsule::CreateFolder(workingDirectory, "Library");
+
+	PhysfsEncapsule::CreateFolder(libraryPath, "Scenes"); // JSON
+	PhysfsEncapsule::CreateFolder(libraryPath, "Models"); // Custom File Format
+	PhysfsEncapsule::CreateFolder(libraryPath, "Meshes"); // Custom File Format
+	PhysfsEncapsule::CreateFolder(libraryPath, "Materials"); // JSON
+	PhysfsEncapsule::CreateFolder(libraryPath, "Shaders"); // GLSL
+	PhysfsEncapsule::CreateFolder(libraryPath, "Textures"); // DDS 
 }

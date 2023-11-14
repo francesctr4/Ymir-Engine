@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 #include "Module.h"
 
 class ModuleFileSystem : public Module
@@ -16,8 +18,11 @@ public:
 	update_status PostUpdate(float dt) override;
 	bool CleanUp() override;
 
+	void CreateLibraryFolder();
+
 public:
 
-
+	std::string workingDirectory;
+	std::string libraryPath;
 
 };
