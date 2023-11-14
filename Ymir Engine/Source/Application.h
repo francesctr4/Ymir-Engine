@@ -13,6 +13,7 @@ class ModuleCamera3D;
 class ModuleEditor;
 class ModuleScene;
 class ModuleResourceManager;
+class ModuleFileSystem;
 
 class Application
 {
@@ -25,6 +26,7 @@ public:
 	ModuleEditor* editor;
 	ModuleScene* scene;
 	ModuleResourceManager* resourceManager;
+	ModuleFileSystem* fileSystem;
 
 private:
 

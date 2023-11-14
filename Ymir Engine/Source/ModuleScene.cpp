@@ -8,8 +8,6 @@
 
 #include "External/Optick/include/optick.h"
 
-#include "JsonEncapsule.h"
-
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	mRootNode = CreateGameObject("Scene", nullptr);
@@ -27,8 +25,6 @@ bool ModuleScene::Init()
 	bool ret = true;
 
 	LOG("Loading scene");
-
-	JsonEncapsule::Example();
 
 	return ret;
 }

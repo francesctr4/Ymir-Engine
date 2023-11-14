@@ -705,6 +705,12 @@
     <ClInclude Include="Source\Material.h">
       <Filter>Sources\Tools\Shader Pipeline</Filter>
     </ClInclude>
+    <ClInclude Include="Source\PhysfsEncapsule.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ModuleFileSystem.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -961,6 +967,12 @@
     </ClCompile>
     <ClCompile Include="Source\Material.cpp">
       <Filter>Sources\Tools\Shader Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PhysfsEncapsule.cpp">
+      <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ModuleFileSystem.cpp">
+      <Filter>Sources\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
