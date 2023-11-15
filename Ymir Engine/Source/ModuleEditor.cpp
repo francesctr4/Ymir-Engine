@@ -409,6 +409,36 @@ void ModuleEditor::DrawEditor()
 
             }
 
+            if (ImGui::MenuItem("Scene")) {
+
+                showScene = true;
+
+            }
+
+            if (ImGui::MenuItem("Game")) {
+
+                showGame = true;
+
+            }
+
+            if (ImGui::MenuItem("Resources")) {
+
+                showResources = true;
+
+            }
+
+            if (ImGui::MenuItem("File Explorer")) {
+
+                showFileExplorer = true;
+
+            }
+
+            if (ImGui::MenuItem("Assets")) {
+
+                showAssets = true;
+
+            }
+
             ImGui::EndMenu();
         }
 
@@ -943,40 +973,60 @@ void ModuleEditor::DrawEditor()
         ImGui::End();
     }
 
-    if (ImGui::Begin("Assets"), true) {
+    if (showAssets) {
+
+        if (ImGui::Begin("Assets", &showAssets), true) {
 
 
-        ImGui::End();
+            ImGui::End();
+        }
+
     }
 
-    if (ImGui::Begin("File Explorer"), true) {
+    if (showFileExplorer) {
+
+        if (ImGui::Begin("File Explorer", &showFileExplorer), true) {
 
 
-        ImGui::End();
+            ImGui::End();
+        }
+
     }
 
-    if (ImGui::Begin("Resources"), true) {
+    if (showResources) {
+
+        if (ImGui::Begin("Resources", &showResources), true) {
 
 
-        ImGui::End();
+            ImGui::End();
+        }
+
+    }
+    
+    if (showGame) {
+
+        if (ImGui::Begin("Game", &showGame), true) {
+
+            // Display the contents of the framebuffer texture
+            ImVec2 size = ImGui::GetContentRegionAvail();
+            ImGui::Image((ImTextureID)App->renderer3D->framebuffer.TCB, size, ImVec2(0, 1), ImVec2(1, 0));
+
+            ImGui::End();
+        }
+
     }
 
-    if (ImGui::Begin("Game"), true) {
+    if (showScene) {
 
-        // Display the contents of the framebuffer texture
-        ImVec2 size = ImGui::GetContentRegionAvail();
-        ImGui::Image((ImTextureID)App->renderer3D->framebuffer.TCB, size, ImVec2(0, 1), ImVec2(1, 0));
+        if (ImGui::Begin("Scene", &showScene), true) {
 
-        ImGui::End();
-    }
+            // Display the contents of the framebuffer texture
+            ImVec2 size = ImGui::GetContentRegionAvail();
+            ImGui::Image((ImTextureID)App->renderer3D->framebuffer.TCB, size, ImVec2(0, 1), ImVec2(1, 0));
 
-    if (ImGui::Begin("Scene"), true) {
+            ImGui::End();
+        }
 
-        // Display the contents of the framebuffer texture
-        ImVec2 size = ImGui::GetContentRegionAvail();
-        ImGui::Image((ImTextureID)App->renderer3D->framebuffer.TCB, size, ImVec2(0, 1), ImVec2(1, 0));
-
-        ImGui::End();
     }
 
     /*float4x4 projection;

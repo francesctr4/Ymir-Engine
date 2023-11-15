@@ -134,6 +134,12 @@ public:
 	bool showHierarchy = true;
 	bool showInspector = true;
 
+	bool showScene = true;
+	bool showGame = true;
+	bool showResources = true;
+	bool showFileExplorer = true;
+	bool showAssets = true;
+
 	// OpenGL settings checkbox toggle booleans
 	bool gl_DepthTesting = true;
 	bool gl_FaceCulling = true;
