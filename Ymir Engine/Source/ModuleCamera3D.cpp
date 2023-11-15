@@ -24,6 +24,7 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 
 	editorCamera = new CCamera(nullptr);
 	editorCamera->SetPos(0.0f, 2.0f, 8.0f);
+	editorCamera->LookAt(float3(0.f, 0.f, 0.f));
 
 	LOG("Creating ModuleCamera3D");
 
@@ -159,9 +160,7 @@ update_status ModuleCamera3D::Update(float dt)
 	// Recalculate matrix -------------
 	CalculateViewMatrix();
 
-	Plane planes[6];
-	editorCamera->GetFrustumPlanes(planes);
-	editorCamera->DrawFrustumPlanes(planes);
+	editorCamera->DrawFrustumBox();
 
 	return UPDATE_CONTINUE;
 }

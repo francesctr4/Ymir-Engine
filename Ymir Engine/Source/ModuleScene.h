@@ -32,6 +32,8 @@ public:
 
 	GameObject* mRootNode;
 
+	GameObject* gameCamera;
+
 	std::vector<GameObject*> gameObjects;
 
 };

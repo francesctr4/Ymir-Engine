@@ -69,9 +69,7 @@ public:
 
 	void ReloadTextures();
 
-	void DrawBoundingBox(float3* vertices, float3 color);
-
-	void DrawFrustumPlane(Plane plane);
+	void DrawBox(float3* vertices, float3 color);
 
 public:
 

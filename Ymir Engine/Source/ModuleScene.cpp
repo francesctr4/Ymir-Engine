@@ -5,6 +5,7 @@
 #include "ModuleRenderer3D.h"
 #include "GameObject.h"
 #include "Log.h"
+#include "CCamera.h"
 
 #include "ModuleFileSystem.h"
 #include "JsonEncapsule.h"
@@ -15,6 +16,11 @@
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	mRootNode = CreateGameObject("Scene", nullptr);
+
+	gameCamera = CreateGameObject("Main Camera", mRootNode);
+
+	CCamera* ccamera = new CCamera(gameCamera);
+	gameCamera->AddComponent(ccamera);
 
 	LOG("Creating ModuleScene");
 }

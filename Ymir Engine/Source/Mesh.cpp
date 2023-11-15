@@ -282,11 +282,11 @@ void Mesh::RenderBoundingBoxes()
 {
     float3 verticesOBB[8];
     obb.GetCornerPoints(verticesOBB);
-    External->renderer3D->DrawBoundingBox(verticesOBB, float3(255, 0, 0));
+    External->renderer3D->DrawBox(verticesOBB, float3(255, 0, 0));
 
     float3 verticesAABB[8];
     globalAABB.GetCornerPoints(verticesAABB);
-    External->renderer3D->DrawBoundingBox(verticesAABB, float3(0, 0, 255));
+    External->renderer3D->DrawBox(verticesAABB, float3(0, 0, 255));
 }
 
 void Mesh::LoadMesh()

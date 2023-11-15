@@ -10,7 +10,6 @@
 
 #include "External/MathGeoLib/include/MathGeoLib.h"
 #include "External/MathGeoLib/include/Geometry/Frustum.h"
-#include "External/MathGeoLib/include/Geometry/Plane.h"
 
 class GameObject;
 
@@ -34,17 +33,16 @@ public:
 	void SetFOV(float hfov, float vfov);
 
 	float GetAspectRatio() const;
+	void SetAspectRatio(float aspectRatio);
 
-	void GetFrustumPlanes(Plane* planes) const;
-
-	void DrawFrustumPlanes(Plane* planes) const;
+	void DrawFrustumBox() const;
 
 	float4x4 GetProjectionMatrix() const;
 	float4x4 GetViewMatrix() const;
 
-public:
+	void LookAt(const float3& Spot);
 
-	GameObject* owner;
+public:
 
 	Frustum frustum;
 
