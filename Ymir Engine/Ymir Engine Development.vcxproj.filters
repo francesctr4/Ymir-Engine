@@ -7,14 +7,8 @@
     <Filter Include="Sources\Modules">
       <UniqueIdentifier>{7b418be2-1631-4a31-9ef2-8a8b234a7339}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Containers">
-      <UniqueIdentifier>{afc36133-f401-499a-aa33-0da1e500fb52}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sources\Tools">
       <UniqueIdentifier>{7e4dfaf7-022c-4f7d-92aa-f3b3fa9d6248}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\Helpers">
-      <UniqueIdentifier>{121f8e6b-df36-4ab0-be0d-601ddfc9e503}</UniqueIdentifier>
     </Filter>
     <Filter Include="Externals">
       <UniqueIdentifier>{4f29327d-0e21-4956-9f87-dabefda99222}</UniqueIdentifier>
@@ -85,6 +79,18 @@
     <Filter Include="Sources\Tools\Shader Pipeline\GLSL">
       <UniqueIdentifier>{0cdf3689-43eb-48d1-ad72-4aa2394dac16}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Tools\Custom File Format">
+      <UniqueIdentifier>{857ec5e5-537e-43c0-a7d1-d842fb281670}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Tools\Serialization">
+      <UniqueIdentifier>{eaffc93c-04eb-4657-b040-f3995906d7e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Tools\Time Management">
+      <UniqueIdentifier>{dbfef42a-354c-419a-a82d-2a455b35f03d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Utility">
+      <UniqueIdentifier>{121f8e6b-df36-4ab0-be0d-601ddfc9e503}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Module.h">
@@ -109,16 +115,10 @@
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="Source\Primitive.h">
-      <Filter>Sources\Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Color.h">
-      <Filter>Sources\Containers</Filter>
+      <Filter>Sources\Utility</Filter>
     </ClInclude>
     <ClInclude Include="Source\Light.h">
-      <Filter>Sources\Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Timer.h">
-      <Filter>Sources\Tools</Filter>
+      <Filter>Sources\Utility</Filter>
     </ClInclude>
     <ClInclude Include="Source\External\MathGeoLib\include\MathBuildConfig.h">
       <Filter>Externals\MathGeoLib</Filter>
@@ -600,9 +600,6 @@
     <ClInclude Include="Source\External\SDL\include\SDL_vulkan.h">
       <Filter>Externals\SDL</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Log.h">
-      <Filter>Sources\Tools</Filter>
-    </ClInclude>
     <ClInclude Include="Source\External\stb_image\stb_image.h">
       <Filter>Externals\stb_image</Filter>
     </ClInclude>
@@ -660,27 +657,6 @@
     <ClInclude Include="Source\CCamera.h">
       <Filter>Sources\Tools\GameObjects &amp; Components</Filter>
     </ClInclude>
-    <ClInclude Include="Source\TimeManager.h">
-      <Filter>Sources\Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\JsonEncapsule.h">
-      <Filter>Sources\Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\FrameBuffer.h">
-      <Filter>Sources\Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Random.h">
-      <Filter>Sources\Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Delegate.h">
-      <Filter>Sources\Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\EventSystem.h">
-      <Filter>Sources\Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Singleton.h">
-      <Filter>Sources\Tools</Filter>
-    </ClInclude>
     <ClInclude Include="Source\ModuleResourceManager.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
@@ -702,14 +678,71 @@
     <ClInclude Include="Source\Resources.h">
       <Filter>Sources\Tools\Resource Management</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Material.h">
-      <Filter>Sources\Tools\Shader Pipeline</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\PhysfsEncapsule.h">
-      <Filter>Sources\Tools</Filter>
-    </ClInclude>
     <ClInclude Include="Source\ModuleFileSystem.h">
       <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ImporterMesh.h">
+      <Filter>Sources\Tools\Custom File Format</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ImporterModel.h">
+      <Filter>Sources\Tools\Custom File Format</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ImporterTexture.h">
+      <Filter>Sources\Tools\Custom File Format</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ImporterScene.h">
+      <Filter>Sources\Tools\Custom File Format</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ImporterMaterial.h">
+      <Filter>Sources\Tools\Custom File Format</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ImporterShader.h">
+      <Filter>Sources\Tools\Custom File Format</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ResourceMaterial.h">
+      <Filter>Sources\Tools\Resource Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Importer.h">
+      <Filter>Sources\Tools\Custom File Format</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ImporterSettings.h">
+      <Filter>Sources\Tools\Custom File Format</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Material.h">
+      <Filter>Sources\Tools\3D Model Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\JsonEncapsule.h">
+      <Filter>Sources\Tools\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PhysfsEncapsule.h">
+      <Filter>Sources\Tools\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\TimeManager.h">
+      <Filter>Sources\Tools\Time Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Timer.h">
+      <Filter>Sources\Tools\Time Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Color.h">
+      <Filter>Sources\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Delegate.h">
+      <Filter>Sources\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EventSystem.h">
+      <Filter>Sources\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FrameBuffer.h">
+      <Filter>Sources\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Log.h">
+      <Filter>Sources\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Random.h">
+      <Filter>Sources\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Singleton.h">
+      <Filter>Sources\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -725,12 +758,6 @@
     <ClCompile Include="Source\ModuleWindow.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Log.cpp">
-      <Filter>Sources\Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Timer.cpp">
-      <Filter>Sources\Tools</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Application.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
@@ -738,13 +765,10 @@
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Source\Primitive.cpp">
-      <Filter>Sources\Helpers</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Color.cpp">
-      <Filter>Sources\Containers</Filter>
+      <Filter>Sources\Utility</Filter>
     </ClCompile>
     <ClCompile Include="Source\Light.cpp">
-      <Filter>Sources\Helpers</Filter>
+      <Filter>Sources\Utility</Filter>
     </ClCompile>
     <ClCompile Include="Source\External\MathGeoLib\include\Geometry\AABB.cpp">
       <Filter>Externals\MathGeoLib\Geometry</Filter>
@@ -926,24 +950,6 @@
     <ClCompile Include="Source\CCamera.cpp">
       <Filter>Sources\Tools\GameObjects &amp; Components</Filter>
     </ClCompile>
-    <ClCompile Include="Source\TimeManager.cpp">
-      <Filter>Sources\Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\JsonEncapsule.cpp">
-      <Filter>Sources\Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\FrameBuffer.cpp">
-      <Filter>Sources\Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Random.cpp">
-      <Filter>Sources\Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Delegate.cpp">
-      <Filter>Sources\Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Singleton.cpp">
-      <Filter>Sources\Tools</Filter>
-    </ClCompile>
     <ClCompile Include="Source\ModuleResourceManager.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
@@ -965,14 +971,68 @@
     <ClCompile Include="Source\Resources.cpp">
       <Filter>Sources\Tools\Resource Management</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Material.cpp">
-      <Filter>Sources\Tools\Shader Pipeline</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\PhysfsEncapsule.cpp">
-      <Filter>Sources\Tools</Filter>
-    </ClCompile>
     <ClCompile Include="Source\ModuleFileSystem.cpp">
       <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ImporterMesh.cpp">
+      <Filter>Sources\Tools\Custom File Format</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ResourceMaterial.cpp">
+      <Filter>Sources\Tools\Resource Management</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Importer.cpp">
+      <Filter>Sources\Tools\Custom File Format</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ImporterMaterial.cpp">
+      <Filter>Sources\Tools\Custom File Format</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ImporterModel.cpp">
+      <Filter>Sources\Tools\Custom File Format</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ImporterShader.cpp">
+      <Filter>Sources\Tools\Custom File Format</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ImporterTexture.cpp">
+      <Filter>Sources\Tools\Custom File Format</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ImporterScene.cpp">
+      <Filter>Sources\Tools\Custom File Format</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ImporterSettings.cpp">
+      <Filter>Sources\Tools\Custom File Format</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Material.cpp">
+      <Filter>Sources\Tools\3D Model Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\JsonEncapsule.cpp">
+      <Filter>Sources\Tools\Serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PhysfsEncapsule.cpp">
+      <Filter>Sources\Tools\Serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TimeManager.cpp">
+      <Filter>Sources\Tools\Time Management</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Timer.cpp">
+      <Filter>Sources\Tools\Time Management</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Color.cpp">
+      <Filter>Sources\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Delegate.cpp">
+      <Filter>Sources\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FrameBuffer.cpp">
+      <Filter>Sources\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Log.cpp">
+      <Filter>Sources\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Random.cpp">
+      <Filter>Sources\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Singleton.cpp">
+      <Filter>Sources\Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

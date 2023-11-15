@@ -31,5 +31,6 @@ public:
 	std::string libraryMaterialsPath;
 	std::string libraryShadersPath;
 	std::string libraryTexturesPath;
+	std::string librarySettingsPath;
 
 };

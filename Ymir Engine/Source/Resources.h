@@ -10,6 +10,7 @@ enum class ResourceType {
 	MODEL,
 	SCENE,
 	SHADER,
+	MATERIAL,
 
 };
 

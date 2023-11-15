@@ -201,6 +201,14 @@
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\glmath.h" />
     <ClInclude Include="Source\Globals.h" />
+    <ClInclude Include="Source\Importer.h" />
+    <ClInclude Include="Source\ImporterMaterial.h" />
+    <ClInclude Include="Source\ImporterMesh.h" />
+    <ClInclude Include="Source\ImporterModel.h" />
+    <ClInclude Include="Source\ImporterScene.h" />
+    <ClInclude Include="Source\ImporterSettings.h" />
+    <ClInclude Include="Source\ImporterShader.h" />
+    <ClInclude Include="Source\ImporterTexture.h" />
     <ClInclude Include="Source\JsonEncapsule.h" />
     <ClInclude Include="Source\Light.h" />
     <ClInclude Include="Source\External\MathGeoLib\include\Algorithm\Random\LCG.h" />
@@ -279,6 +287,7 @@
     <ClInclude Include="Source\PhysfsEncapsule.h" />
     <ClInclude Include="Source\Primitive.h" />
     <ClInclude Include="Source\Random.h" />
+    <ClInclude Include="Source\ResourceMaterial.h" />
     <ClInclude Include="Source\ResourceMesh.h" />
     <ClInclude Include="Source\ResourceModel.h" />
     <ClInclude Include="Source\Resources.h" />
@@ -317,6 +326,14 @@
     <ClCompile Include="Source\FrameBuffer.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\glmath.cpp" />
+    <ClCompile Include="Source\Importer.cpp" />
+    <ClCompile Include="Source\ImporterMaterial.cpp" />
+    <ClCompile Include="Source\ImporterMesh.cpp" />
+    <ClCompile Include="Source\ImporterModel.cpp" />
+    <ClCompile Include="Source\ImporterScene.cpp" />
+    <ClCompile Include="Source\ImporterSettings.cpp" />
+    <ClCompile Include="Source\ImporterShader.cpp" />
+    <ClCompile Include="Source\ImporterTexture.cpp" />
     <ClCompile Include="Source\JsonEncapsule.cpp" />
     <ClCompile Include="Source\Light.cpp" />
     <ClCompile Include="Source\Log.cpp" />
@@ -368,6 +385,7 @@
     <ClCompile Include="Source\PhysfsEncapsule.cpp" />
     <ClCompile Include="Source\Primitive.cpp" />
     <ClCompile Include="Source\Random.cpp" />
+    <ClCompile Include="Source\ResourceMaterial.cpp" />
     <ClCompile Include="Source\Resources.cpp" />
     <ClCompile Include="Source\ResourceMesh.cpp" />
     <ClCompile Include="Source\ResourceModel.cpp" />

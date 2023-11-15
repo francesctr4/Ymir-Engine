@@ -91,4 +91,7 @@ void ModuleFileSystem::CreateLibraryFolder()
 
 	PhysfsEncapsule::CreateFolder(libraryPath, "Textures"); // DDS 
 	libraryTexturesPath = libraryPath + "Textures/";
+
+	PhysfsEncapsule::CreateFolder(libraryPath, "Settings"); // Custom File Format (JSON)
+	librarySettingsPath = libraryPath + "Settings/";
 }
