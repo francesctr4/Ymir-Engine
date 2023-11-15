@@ -16,6 +16,10 @@ ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Modul
 {
 	context = nullptr;
 
+	FBO = 0;
+	TCB = 0;
+	RBO = 0;
+
 	LOG("Creating ModuleRenderer3D");
 
 }
@@ -174,24 +178,39 @@ bool ModuleRenderer3D::Init()
 
 	models.push_back(Model("Assets/BakerHouse.fbx"));
 
-	//// Config Framebuffer
-	//glGenFramebuffers(1, &framebuffer);
-	//glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+	// Generate a Framebuffer Object (FBO)
 
-	//// Texture Framebuffer
-	//glGenTextures(1, &textureColorbuffer);
-	//glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
-	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SCREEN_WIDTH, SCREEN_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	//glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorbuffer, 0);
+	glGenFramebuffers(1, &FBO);
+	glBindFramebuffer(GL_FRAMEBUFFER, FBO);
 
-	//// Verify Framebuffer
-	//if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-	//	std::cerr << "Framebuffer is not complete" << std::endl;
-	//}
+	// Create a Texture Attachment (Texture Color Buffer [TCB])
 
-	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glGenTextures(1, &TCB);
+	glBindTexture(GL_TEXTURE_2D, TCB);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SCREEN_WIDTH, SCREEN_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, TCB, 0);
+
+	// Create a Renderbuffer Attachment
+
+	glGenRenderbuffers(1, &RBO);
+	glBindRenderbuffer(GL_RENDERBUFFER, RBO);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, RBO);
+
+	// Check Framebuffer Completeness
+	
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+
+		LOG("Framebuffer is not complete");
+
+	}
+
+	// Bind the Default Framebuffer
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	return ret;
 }
@@ -225,6 +244,11 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	OPTICK_EVENT();
 
+	// Your rendering code here
+	glBindFramebuffer(GL_FRAMEBUFFER, FBO);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
 	// Render Grid
 	
 	if (showGrid) {
@@ -241,21 +265,23 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	// --------------------------- Drawing editor and Swaping Window -------------------------
 
-	App->editor->DrawEditor();
+	// Framebuffer Render
 
-	//// Framebuffer Render
-
-	//glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
-	//glViewport(300, - 300, SCREEN_WIDTH - 300, SCREEN_HEIGHT + 300);
+	
+	//glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT); // Set the viewport size to match the framebuffer size
 	//glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-	//glClear(GL_COLOR_BUFFER_BIT);
+	//glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear color and depth buffers
 
-	//// Framebuffer Code
+	// Your additional rendering code for the framebuffer goes here
+	
+	glBindFramebuffer(GL_FRAMEBUFFER, 0); // Switch back to the default framebuffer
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
+	App->editor->DrawEditor();
 	SDL_GL_SwapWindow(App->window->window);
-
+	
 	return UPDATE_CONTINUE;
 }
 
@@ -265,8 +291,8 @@ bool ModuleRenderer3D::CleanUp()
 	LOG("Destroying 3D Renderer");
 
 	// Clean Framebuffer
-	glDeleteFramebuffers(1, &framebuffer);
-	glDeleteTextures(1, &textureColorbuffer);
+	glDeleteFramebuffers(1, &FBO);
+	glDeleteTextures(1, &TCB);
 
 	// Detach Assimp Log Stream
 	CleanUpAssimpDebugger();

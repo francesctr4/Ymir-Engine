@@ -84,8 +84,10 @@ public:
 
 	bool texturingEnabled = true;
 
-	GLuint framebuffer = 0;
+	// Framebuffers
 
-	GLuint textureColorbuffer = 0;
+	GLuint FBO; // Frame Buffer Object
+	GLuint TCB; // Texture Color Buffer
+	GLuint RBO; // Render Buffer Object
 
 };
