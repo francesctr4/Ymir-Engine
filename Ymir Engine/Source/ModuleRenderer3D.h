@@ -32,6 +32,8 @@
 #include "Texture.h"
 #include "Shader.h"
 
+#include "FrameBuffer.h"
+
 //todo: REMOVE this before 1st delivery!!
 #include "glmath.h"
 
@@ -87,10 +89,8 @@ public:
 
 	bool texturingEnabled = true;
 
-	// Framebuffers
+	// Framebuffer
 
-	GLuint FBO; // Frame Buffer Object
-	GLuint TCB; // Texture Color Buffer
-	GLuint RBO; // Render Buffer Object
+	FrameBuffer framebuffer;
 
 };
