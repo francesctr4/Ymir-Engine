@@ -13,6 +13,7 @@
 
 #include "External/MathGeoLib/include/Math/float3x3.h"
 #include "External/MathGeoLib/include/Math/float4x4.h"
+#include "External/MathGeoLib/include/Geometry/Plane.h"
 
 #ifdef _DEBUG
 #pragma comment (lib, "Source/External/MathGeoLib/libx86/lib_Debug/MathGeoLib.lib") /* link Microsoft OpenGL lib   */
@@ -67,6 +68,8 @@ public:
 	void ReloadTextures();
 
 	void DrawBoundingBox(float3* vertices, float3 color);
+
+	void DrawFrustumPlane(Plane plane);
 
 public:
 

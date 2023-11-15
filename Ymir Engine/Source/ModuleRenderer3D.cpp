@@ -462,6 +462,11 @@ void ModuleRenderer3D::DrawBoundingBox(float3* vertices, float3 color)
 	glEnd();
 }
 
+void ModuleRenderer3D::DrawFrustumPlane(Plane plane)
+{
+	
+}
+
 void ModuleRenderer3D::DrawModels()
 {
 	for (auto it = models.begin(); it != models.end(); ++it) {
