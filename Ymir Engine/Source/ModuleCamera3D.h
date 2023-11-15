@@ -7,6 +7,7 @@
 
 // TODO: REMOVE this before 1st delivery!!
 #include "glmath.h"
+#include "CCamera.h"
 
 class ModuleCamera3D : public Module
 {
@@ -39,6 +40,6 @@ private:
 
 	mat4x4 ViewMatrix;
 
-	Frustum mMainCamera; // To use later
+	CCamera* editorCamera;
 
 };

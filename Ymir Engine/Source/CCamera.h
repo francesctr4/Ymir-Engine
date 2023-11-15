@@ -26,6 +26,8 @@ public:
 	void Update() override;
 	void OnInspector() override;
 
+	void SetPos(float x, float y, float z);
+
 	float GetHorizontalFOV() const;
 	float GetVerticalFOV() const;
 
@@ -43,8 +45,6 @@ public:
 public:
 
 	GameObject* owner;
-
-	// TODO: FRUSTRUM
 
 	Frustum frustum;
 

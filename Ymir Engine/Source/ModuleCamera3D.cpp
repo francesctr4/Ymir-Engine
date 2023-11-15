@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleCamera3D.h"
 #include "ModuleInput.h"
+#include "ModuleScene.h"
 #include "Log.h"
 #include "External/MathGeoLib/include/Math/Quat.h"
 
@@ -18,6 +19,11 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 	ViewMatrix = IdentityMatrix;
 
 	CalculateViewMatrix();
+
+	// Frustrum
+
+	editorCamera = new CCamera(nullptr);
+	editorCamera->SetPos(0.0f, 2.0f, 8.0f);
 
 	LOG("Creating ModuleCamera3D");
 
@@ -152,6 +158,10 @@ update_status ModuleCamera3D::Update(float dt)
 
 	// Recalculate matrix -------------
 	CalculateViewMatrix();
+
+	Plane planes[6];
+	editorCamera->GetFrustumPlanes(planes);
+	editorCamera->DrawFrustumPlanes(planes);
 
 	return UPDATE_CONTINUE;
 }

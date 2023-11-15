@@ -43,6 +43,11 @@ void CCamera::OnInspector()
 
 }
 
+void CCamera::SetPos(float x, float y, float z)
+{
+	frustum.pos = float3(x, y, z);
+}
+
 float CCamera::GetHorizontalFOV() const
 {
 	return frustum.horizontalFov;

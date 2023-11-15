@@ -464,7 +464,45 @@ void ModuleRenderer3D::DrawBoundingBox(float3* vertices, float3 color)
 
 void ModuleRenderer3D::DrawFrustumPlane(Plane plane)
 {
-	
+	// Assume that the plane is defined by Ax + By + Cz + D = 0
+	// (A, B, C) is the normal vector to the plane, and D is the distance from the origin
+
+	// Define a small quad to represent the plane
+	float quadSize = 10.0f;
+
+	// Get the normal vector from the plane
+	float3 normal = plane.normal;
+
+	// Calculate two vectors perpendicular to the normal vector
+	float3 v1 = float3(1.0f, 0.0f, -normal.x / normal.z);
+	float3 v2 = float3(0.0f, 1.0f, -normal.y / normal.z);
+
+	// Normalize the vectors
+	v1.Normalize();
+	v2.Normalize();
+
+	// Calculate the four vertices of the quad
+	float3 p1 = plane.normal * plane.d + v1 * quadSize + v2 * quadSize;
+	float3 p2 = plane.normal * plane.d - v1 * quadSize + v2 * quadSize;
+	float3 p3 = plane.normal * plane.d - v1 * quadSize - v2 * quadSize;
+	float3 p4 = plane.normal * plane.d + v1 * quadSize - v2 * quadSize;
+
+	GLfloat color1[] = { 1.0f, 0.0f, 0.0f, 1.0f };  // Red
+	glLineWidth(2.0f);
+
+	glColor4fv(color1);
+
+	// Render the quad
+	glBegin(GL_QUADS);
+
+	glVertex3f(p1.x, p1.y, p1.z);
+	glVertex3f(p2.x, p2.y, p2.z);
+	glVertex3f(p3.x, p3.y, p3.z);
+	glVertex3f(p4.x, p4.y, p4.z);
+
+	glColor3f(255.f, 255.f, 255.f);
+
+	glEnd();
 }
 
 void ModuleRenderer3D::DrawModels()
