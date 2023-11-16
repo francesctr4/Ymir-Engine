@@ -31,6 +31,7 @@ public:
 public:
 
 	GameObject* mRootNode;
+	GameObject* editorCamera;
 
 	GameObject* gameCamera;
 

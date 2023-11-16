@@ -47,6 +47,8 @@ void CCamera::Update()
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf((GLfloat*)GetViewMatrix().v);
+
+	DrawFrustumBox();
 }
 
 void CCamera::OnInspector()
@@ -57,10 +59,33 @@ void CCamera::OnInspector()
 	{
 		ImGui::Indent();
 
-		
+		// Set Horizontal FOV
+
+		float hfov = GetHorizontalFOV();
+
+		if (ImGui::SliderFloat("Horizontal FOV", &hfov, 30, 120, "%0.2f", ImGuiSliderFlags_None)) { 
+
+			SetHorizontalFOV(hfov); 
+
+		}
+
+		// Set Vertical FOV
+
+		float vfov = GetVerticalFOV();
+
+		if (ImGui::SliderFloat("Vertical FOV", &vfov, 30, 120, "%0.2f", ImGuiSliderFlags_None)) {
+
+			SetVerticalFOV(vfov);
+
+		}
 
 		ImGui::Unindent();
 	}
+}
+
+void CCamera::SetPos(float3 xyz)
+{
+	frustum.pos = xyz;
 }
 
 void CCamera::SetPos(float x, float y, float z)
@@ -68,19 +93,38 @@ void CCamera::SetPos(float x, float y, float z)
 	frustum.pos = float3(x, y, z);
 }
 
+float3 CCamera::GetPos() const
+{
+	return frustum.pos;
+}
+
+void CCamera::SetFront(float3 front)
+{
+	frustum.front = front;
+}
+
+void CCamera::SetUp(float3 up)
+{
+	frustum.up = up;
+}
+
 float CCamera::GetHorizontalFOV() const
 {
-	return frustum.horizontalFov;
+	return frustum.horizontalFov * RADTODEG;
 }
 
 float CCamera::GetVerticalFOV() const
 {
-	return frustum.verticalFov;
+	return frustum.verticalFov * RADTODEG;
 }
 
-void CCamera::SetFOV(float hfov, float vfov)
+void CCamera::SetHorizontalFOV(float hfov)
 {
 	frustum.horizontalFov = hfov * DEGTORAD;
+}
+
+void CCamera::SetVerticalFOV(float vfov)
+{
 	frustum.verticalFov = vfov * DEGTORAD;
 }
 

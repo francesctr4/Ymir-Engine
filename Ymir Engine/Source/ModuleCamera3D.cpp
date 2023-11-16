@@ -4,6 +4,7 @@
 #include "ModuleInput.h"
 #include "ModuleScene.h"
 #include "Log.h"
+
 #include "External/MathGeoLib/include/Math/Quat.h"
 
 #include "External/Optick/include/optick.h"
@@ -59,10 +60,10 @@ update_status ModuleCamera3D::Update(float dt)
 	// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
 
-	float3 newPos(0,0,0);
+	float3 newPos(0, 0, 0);
 	float speed = 20.0f * dt;
 
-	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed *= 2;
 
 	// Mouse wheel Zoom In and Zoom Out handling
@@ -89,7 +90,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 	// Mouse motion ----------------
 
-	if(App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_IDLE)
+	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_IDLE)
 	{
 		//if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
 		//if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
@@ -107,7 +108,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 		Position -= Reference;
 
-		if(dx != 0)
+		if (dx != 0)
 		{
 			float DeltaX = (float)dx * Sensitivity;
 
@@ -118,7 +119,7 @@ update_status ModuleCamera3D::Update(float dt)
 			Y = rotationQuat * Y;
 			Z = rotationQuat * Z;
 		}
-		if(dy != 0)
+		if (dy != 0)
 		{
 			float DeltaY = (float)dy * Sensitivity;
 
@@ -127,7 +128,7 @@ update_status ModuleCamera3D::Update(float dt)
 			Y = rotationQuat * Y;
 			Z = rotationQuat * Z;
 
-			if(Y.y < 0.0f)
+			if (Y.y < 0.0f)
 			{
 				Z = float3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
 				Y = Z.Cross(X);
@@ -136,7 +137,7 @@ update_status ModuleCamera3D::Update(float dt)
 		}
 
 		Position = Reference + Z * Position.Length();
-		
+
 	}
 
 	Position += newPos;
@@ -165,6 +166,120 @@ update_status ModuleCamera3D::Update(float dt)
 
 	return UPDATE_CONTINUE;
 }
+
+// Update Camera with Frustrum (In Progress)
+
+/*
+update_status ModuleCamera3D::Update(float dt)
+{
+	OPTICK_EVENT();
+
+	// Implement a debug camera with keys and mouse
+	// Now we can make this movement frame rate independent!
+
+	float3 newPos(0, 0, 0);
+	float speed = 20.0f * dt;
+
+	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
+		speed *= 2;
+
+	// Mouse wheel Zoom In and Zoom Out handling
+
+	if (App->input->GetMouseZ() > 0) newPos -= editorCamera->frustum.front * speed;
+	if (App->input->GetMouseZ() < 0) newPos += editorCamera->frustum.front * speed;
+
+	// Mouse wheel pressed while dragging movement handling
+
+	if (App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_REPEAT) {
+
+		int dx = -App->input->GetMouseXMotion();
+		int dy = -App->input->GetMouseYMotion();
+
+		float sensitivity = 1.6f * dt;
+
+		float delta_x = (float)dx * sensitivity;
+		float delta_y = (float)dy * sensitivity;
+
+		newPos -= editorCamera->frustum.up * speed * delta_y;
+		newPos += editorCamera->frustum.WorldRight() * speed * delta_x;
+
+	}
+
+	// Mouse motion ----------------
+
+	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_IDLE)
+	{
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= editorCamera->frustum.front * speed;
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += editorCamera->frustum.front * speed;
+
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= editorCamera->frustum.WorldRight() * speed;
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += editorCamera->frustum.WorldRight() * speed;
+
+		int dx = -App->input->GetMouseXMotion();
+		int dy = -App->input->GetMouseYMotion();
+
+		float sensitivity = 0.35f * dt;
+
+		Position -= Reference;
+
+		if (dx != 0)
+		{
+			float delta_x = (float)dx * sensitivity;
+
+			float3 rotationAxis(0.0f, 1.0f, 0.0f);
+			Quat rotationQuat = Quat::RotateAxisAngle(rotationAxis, delta_x);
+
+			editorCamera->SetPos(editorCamera->GetPos() + newPos);
+			editorCamera->SetFront(rotationQuat * editorCamera->frustum.front);
+			editorCamera->SetUp(rotationQuat * editorCamera->frustum.up);
+		}
+		if (dy != 0)
+		{
+			float delta_y = (float)dy * sensitivity;
+
+			Quat rotationQuat = Quat::RotateAxisAngle(editorCamera->frustum.WorldRight(), delta_y);
+
+			editorCamera->SetFront(rotationQuat * editorCamera->frustum.front);
+			editorCamera->SetUp(rotationQuat * editorCamera->frustum.up);
+
+			if (editorCamera->frustum.up.y < 0.0f)
+			{
+				editorCamera->SetUp(editorCamera->frustum.WorldRight().Cross(editorCamera->frustum.front));
+			}
+
+		}
+
+		editorCamera->SetPos(Reference + editorCamera->frustum.front);
+
+	}
+
+	Position += newPos;
+	Reference += newPos;
+
+	if ((App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT) && App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_IDLE) {
+
+		// Center camera to 0,0,0 when pressing Left Alt
+
+		Reference = float3(0.0f, 0.0f, 0.0f);
+		LookAt(Reference);
+
+	}
+	else {
+
+		// Orbital camera FPS when we aren't pressing Left Alt
+
+		Reference = editorCamera->frustum.pos;
+
+	}
+
+	// Recalculate matrix -------------
+	CalculateViewMatrix();
+
+	editorCamera->Update();
+
+	return UPDATE_CONTINUE;
+}
+*/
 
 // -----------------------------------------------------------------
 void ModuleCamera3D::Look(const float3&Position, const float3&Reference, bool RotateAroundReference)

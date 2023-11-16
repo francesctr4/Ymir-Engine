@@ -3,6 +3,8 @@
 #include "ModuleInput.h"
 #include "ModuleEditor.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleCamera3D.h"
+
 #include "GameObject.h"
 #include "Log.h"
 #include "CCamera.h"
@@ -17,10 +19,7 @@ ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, sta
 {
 	mRootNode = CreateGameObject("Scene", nullptr);
 
-	gameCamera = CreateGameObject("Main Camera", mRootNode);
-
-	CCamera* ccamera = new CCamera(gameCamera);
-	gameCamera->AddComponent(ccamera);
+	editorCamera = CreateGameObject("Editor Camera", mRootNode);
 
 	LOG("Creating ModuleScene");
 }
@@ -37,6 +36,8 @@ bool ModuleScene::Init()
 	LOG("Loading scene");
 
 	JsonEncapsule::CreateJSON(External->fileSystem->libraryScenesPath, std::to_string(mRootNode->UID) + ".yscene");
+
+	//gameCamera->AddComponent(App->camera->editorCamera);
 
 	return ret;
 }
@@ -55,6 +56,12 @@ update_status ModuleScene::Update(float dt)
 	for (auto it = gameObjects.begin(); it != gameObjects.end(); ++it)
 	{
 		(*it)->Update();
+
+		for (auto jt = (*it)->mComponents.begin(); jt != (*it)->mComponents.end(); ++jt)
+		{
+			(*jt)->Update();
+
+		}
 
 	}
 

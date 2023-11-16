@@ -91,6 +91,9 @@
     <Filter Include="Sources\Utility">
       <UniqueIdentifier>{121f8e6b-df36-4ab0-be0d-601ddfc9e503}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Core">
+      <UniqueIdentifier>{a9d86c36-8dd3-4457-a653-ae69bdbdf08a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Module.h">
@@ -107,12 +110,6 @@
     </ClInclude>
     <ClInclude Include="Source\ModuleWindow.h">
       <Filter>Sources\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Application.h">
-      <Filter>Sources</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Globals.h">
-      <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="Source\Primitive.h">
       <Filter>Sources\Utility</Filter>
@@ -741,6 +738,12 @@
     <ClInclude Include="Source\Singleton.h">
       <Filter>Sources\Utility</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Application.h">
+      <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Globals.h">
+      <Filter>Sources\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -754,12 +757,6 @@
     </ClCompile>
     <ClCompile Include="Source\ModuleWindow.cpp">
       <Filter>Sources\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Application.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main.cpp">
-      <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Source\Primitive.cpp">
       <Filter>Sources\Utility</Filter>
@@ -1027,6 +1024,12 @@
     </ClCompile>
     <ClCompile Include="Source\Singleton.cpp">
       <Filter>Sources\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Application.cpp">
+      <Filter>Sources\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Main.cpp">
+      <Filter>Sources\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

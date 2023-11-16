@@ -25,12 +25,18 @@ public:
 	void Update() override;
 	void OnInspector() override;
 
+	void SetPos(float3 xyz);
 	void SetPos(float x, float y, float z);
+	float3 GetPos() const;
+
+	void SetFront(float3 front);
+	void SetUp(float3 up);
 
 	float GetHorizontalFOV() const;
 	float GetVerticalFOV() const;
 
-	void SetFOV(float hfov, float vfov);
+	void SetHorizontalFOV(float hfov);
+	void SetVerticalFOV(float vfov);
 
 	float GetAspectRatio() const;
 	void SetAspectRatio(float aspectRatio);
