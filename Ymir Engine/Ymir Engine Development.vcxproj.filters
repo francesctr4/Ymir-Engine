@@ -702,9 +702,6 @@
     <ClInclude Include="Source\ResourceMaterial.h">
       <Filter>Sources\Tools\Resource Management</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Importer.h">
-      <Filter>Sources\Tools\Custom File Format</Filter>
-    </ClInclude>
     <ClInclude Include="Source\ImporterSettings.h">
       <Filter>Sources\Tools\Custom File Format</Filter>
     </ClInclude>
@@ -979,9 +976,6 @@
     </ClCompile>
     <ClCompile Include="Source\ResourceMaterial.cpp">
       <Filter>Sources\Tools\Resource Management</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Importer.cpp">
-      <Filter>Sources\Tools\Custom File Format</Filter>
     </ClCompile>
     <ClCompile Include="Source\ImporterMaterial.cpp">
       <Filter>Sources\Tools\Custom File Format</Filter>
