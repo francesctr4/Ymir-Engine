@@ -297,9 +297,6 @@
     <ClInclude Include="Source\External\MathGeoLib\include\Time\Clock.h">
       <Filter>Externals\MathGeoLib\Time</Filter>
     </ClInclude>
-    <ClInclude Include="Source\glmath.h">
-      <Filter>Externals</Filter>
-    </ClInclude>
     <ClInclude Include="Source\ModuleEditor.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
@@ -859,9 +856,6 @@
     </ClCompile>
     <ClCompile Include="Source\External\MathGeoLib\include\Time\Clock.cpp">
       <Filter>Externals\MathGeoLib\Time</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\glmath.cpp">
-      <Filter>Externals</Filter>
     </ClCompile>
     <ClCompile Include="Source\ModuleEditor.cpp">
       <Filter>Sources\Modules</Filter>

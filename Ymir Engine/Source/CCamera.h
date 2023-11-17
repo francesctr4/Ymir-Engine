@@ -45,6 +45,7 @@ public:
 
 	void SetHorizontalFOV(float hfov);
 	void SetVerticalFOV(float vfov);
+	void SetBothFOV(float fov);
 
 	float GetAspectRatio() const;
 	void SetAspectRatio(float aspectRatio);

@@ -726,16 +726,15 @@ void ModuleEditor::DrawEditor()
 
                 // Camera Options
 
-                ImGui::SeparatorText("POSITION & REFERENCE");
+                ImGui::SeparatorText("POSITION");
 
-                ImGui::BulletText("Camera Position: (%.2f, %.2f, %.2f)", App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
-                ImGui::BulletText("Camera Reference: (%.2f, %.2f, %.2f)", App->camera->Reference.x, App->camera->Reference.y, App->camera->Reference.z);
+                ImGui::BulletText("Camera Position: (%.2f, %.2f, %.2f)", App->camera->editorCamera->GetPos().x, App->camera->editorCamera->GetPos().y, App->camera->editorCamera->GetPos().z);
 
                 ImGui::SeparatorText("ORIENTATION");
 
-                ImGui::BulletText("Camera X: (%.2f, %.2f, %.2f)", App->camera->X.x, App->camera->X.y, App->camera->X.z);
-                ImGui::BulletText("Camera Y: (%.2f, %.2f, %.2f)", App->camera->Y.x, App->camera->Y.y, App->camera->Y.z);
-                ImGui::BulletText("Camera Z: (%.2f, %.2f, %.2f)", App->camera->Z.x, App->camera->Z.y, App->camera->Z.z);
+                ImGui::BulletText("Camera X: (%.2f, %.2f, %.2f)", App->camera->editorCamera->GetRight().x, App->camera->editorCamera->GetRight().y, App->camera->editorCamera->GetRight().z);
+                ImGui::BulletText("Camera Y: (%.2f, %.2f, %.2f)", App->camera->editorCamera->GetUp().x, App->camera->editorCamera->GetUp().y, App->camera->editorCamera->GetUp().z);
+                ImGui::BulletText("Camera Z: (%.2f, %.2f, %.2f)", App->camera->editorCamera->GetFront().x, App->camera->editorCamera->GetFront().y, App->camera->editorCamera->GetFront().z);
 
             }
 

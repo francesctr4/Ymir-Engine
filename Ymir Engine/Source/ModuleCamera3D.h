@@ -6,8 +6,6 @@
 #include "External/MathGeoLib/include/Geometry/Frustum.h"
 
 #include "CCamera.h"
-// TODO: REMOVE this before 1st delivery!!
-#include "glmath.h"
 
 class ModuleCamera3D : public Module
 {
@@ -22,10 +20,6 @@ public:
 	bool CleanUp() override;
 
 public:
-	
-	//You won't need this after using Frustum
-
-	float3 X, Y, Z, Position, Reference;
 
 	CCamera* editorCamera;
 

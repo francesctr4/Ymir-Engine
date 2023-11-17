@@ -34,9 +34,6 @@
 
 #include "FrameBuffer.h"
 
-//todo: REMOVE this before 1st delivery!!
-#include "glmath.h"
-
 #define MAX_LIGHTS 8
 
 class GameObject;
@@ -78,9 +75,6 @@ public:
 
 	CPlane Grid;
 	bool showGrid = true;
-	
-	// You won't need this after using Frustum
-	mat4x4 ProjectionMatrix;
 
 	// 3D Models
 	std::vector<Model> models;

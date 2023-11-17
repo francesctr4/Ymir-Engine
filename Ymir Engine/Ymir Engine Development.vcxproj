@@ -199,7 +199,6 @@
     <ClInclude Include="Source\External\SDL\include\SDL_vulkan.h" />
     <ClInclude Include="Source\External\stb_image\stb_image.h" />
     <ClInclude Include="Source\GameObject.h" />
-    <ClInclude Include="Source\glmath.h" />
     <ClInclude Include="Source\Globals.h" />
     <ClInclude Include="Source\ImporterMaterial.h" />
     <ClInclude Include="Source\ImporterMesh.h" />
@@ -324,7 +323,6 @@
     <ClCompile Include="Source\External\Parson\parson.cpp" />
     <ClCompile Include="Source\FrameBuffer.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
-    <ClCompile Include="Source\glmath.cpp" />
     <ClCompile Include="Source\ImporterMaterial.cpp" />
     <ClCompile Include="Source\ImporterMesh.cpp" />
     <ClCompile Include="Source\ImporterModel.cpp" />

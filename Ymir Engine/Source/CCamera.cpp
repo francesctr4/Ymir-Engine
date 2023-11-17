@@ -79,6 +79,16 @@ void CCamera::OnInspector()
 
 		}
 
+		// Set Both FOV
+
+		float fov = GetHorizontalFOV();
+
+		if (ImGui::SliderFloat("Both FOV", &fov, 30, 120, "%0.2f", ImGuiSliderFlags_None)) {
+
+			SetBothFOV(fov);
+
+		}
+
 		ImGui::Unindent();
 	}
 }
@@ -146,6 +156,12 @@ void CCamera::SetHorizontalFOV(float hfov)
 void CCamera::SetVerticalFOV(float vfov)
 {
 	frustum.verticalFov = vfov * DEGTORAD;
+}
+
+void CCamera::SetBothFOV(float fov)
+{
+	frustum.horizontalFov = fov * DEGTORAD;
+	frustum.verticalFov = fov * DEGTORAD;
 }
 
 float CCamera::GetAspectRatio() const
@@ -254,4 +270,5 @@ void CCamera::LookAt(float3& Spot)
 
 	float3 Y = GetFront().Cross(X);
 	SetUp(Y);
+
 }
