@@ -17,9 +17,6 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 
 	Position = float3(0.0f, 2.0f, 8.0f);
 	Reference = float3(0.0f, 0.0f, 0.0f);
-	ViewMatrix = IdentityMatrix;
-
-	CalculateViewMatrix();
 
 	// Frustrum
 
@@ -53,6 +50,7 @@ bool ModuleCamera3D::CleanUp()
 }
 
 // -----------------------------------------------------------------
+/*
 update_status ModuleCamera3D::Update(float dt)
 {
 	OPTICK_EVENT();
@@ -168,169 +166,52 @@ update_status ModuleCamera3D::Update(float dt)
 }
 
 // Update Camera with Frustrum (In Progress)
-
-/*
+*/
 update_status ModuleCamera3D::Update(float dt)
 {
 	OPTICK_EVENT();
 
-	// Implement a debug camera with keys and mouse
-	// Now we can make this movement frame rate independent!
-
 	float3 newPos(0, 0, 0);
+
 	float speed = 20.0f * dt;
 
-	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
-		speed *= 2;
+	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) speed *= 2;
 
 	// Mouse wheel Zoom In and Zoom Out handling
 
-	if (App->input->GetMouseZ() > 0) newPos -= editorCamera->frustum.front * speed;
-	if (App->input->GetMouseZ() < 0) newPos += editorCamera->frustum.front * speed;
-
-	// Mouse wheel pressed while dragging movement handling
+	editorCamera->ZoomHandling(newPos, speed);
 
 	if (App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_REPEAT) {
 
-		int dx = -App->input->GetMouseXMotion();
-		int dy = -App->input->GetMouseYMotion();
+		// Mouse wheel pressed while dragging movement handling
 
-		float sensitivity = 1.6f * dt;
-
-		float delta_x = (float)dx * sensitivity;
-		float delta_y = (float)dy * sensitivity;
-
-		newPos -= editorCamera->frustum.up * speed * delta_y;
-		newPos += editorCamera->frustum.WorldRight() * speed * delta_x;
+		editorCamera->PanHandling(newPos, speed, dt);
 
 	}
 
-	// Mouse motion ----------------
+	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_IDLE) {
 
-	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_IDLE)
-	{
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= editorCamera->frustum.front * speed;
-		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += editorCamera->frustum.front * speed;
+		// WASD Camera Movement Handling
 
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= editorCamera->frustum.WorldRight() * speed;
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += editorCamera->frustum.WorldRight() * speed;
+		editorCamera->MovementHandling(newPos, speed);
 
-		int dx = -App->input->GetMouseXMotion();
-		int dy = -App->input->GetMouseYMotion();
+		// Camera Rotation Handling
 
-		float sensitivity = 0.35f * dt;
+		editorCamera->RotationHandling(speed, dt);
 
-		Position -= Reference;
-
-		if (dx != 0)
-		{
-			float delta_x = (float)dx * sensitivity;
-
-			float3 rotationAxis(0.0f, 1.0f, 0.0f);
-			Quat rotationQuat = Quat::RotateAxisAngle(rotationAxis, delta_x);
-
-			editorCamera->SetPos(editorCamera->GetPos() + newPos);
-			editorCamera->SetFront(rotationQuat * editorCamera->frustum.front);
-			editorCamera->SetUp(rotationQuat * editorCamera->frustum.up);
-		}
-		if (dy != 0)
-		{
-			float delta_y = (float)dy * sensitivity;
-
-			Quat rotationQuat = Quat::RotateAxisAngle(editorCamera->frustum.WorldRight(), delta_y);
-
-			editorCamera->SetFront(rotationQuat * editorCamera->frustum.front);
-			editorCamera->SetUp(rotationQuat * editorCamera->frustum.up);
-
-			if (editorCamera->frustum.up.y < 0.0f)
-			{
-				editorCamera->SetUp(editorCamera->frustum.WorldRight().Cross(editorCamera->frustum.front));
-			}
-
-		}
-
-		editorCamera->SetPos(Reference + editorCamera->frustum.front);
+		
 
 	}
-
-	Position += newPos;
-	Reference += newPos;
+	
+	editorCamera->UpdatePos(newPos);
 
 	if ((App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT) && App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_IDLE) {
 
 		// Center camera to 0,0,0 when pressing Left Alt
 
-		Reference = float3(0.0f, 0.0f, 0.0f);
-		LookAt(Reference);
+		editorCamera->LookAt(float3(0.0f, 0.0f, 0.0f));
 
 	}
-	else {
-
-		// Orbital camera FPS when we aren't pressing Left Alt
-
-		Reference = editorCamera->frustum.pos;
-
-	}
-
-	// Recalculate matrix -------------
-	CalculateViewMatrix();
-
-	editorCamera->Update();
 
 	return UPDATE_CONTINUE;
-}
-*/
-
-// -----------------------------------------------------------------
-void ModuleCamera3D::Look(const float3&Position, const float3&Reference, bool RotateAroundReference)
-{
-	this->Position = Position;
-	this->Reference = Reference;
-
-	Z = (Position - Reference).Normalized();
-	X = (float3(0.0f, 1.0f, 0.0f).Cross(Z)).Normalized();
-	Y = Z.Cross(X);
-
-	if(!RotateAroundReference)
-	{
-		this->Reference = this->Position;
-		this->Position += Z * 0.05f;
-	}
-
-	CalculateViewMatrix();
-}
-
-// -----------------------------------------------------------------
-void ModuleCamera3D::LookAt( const float3&Spot)
-{
-	Reference = Spot;
-
-	Z = (Position - Reference).Normalized();
-	X = (float3(0.0f, 1.0f, 0.0f).Cross(Z)).Normalized();
-	Y = Z.Cross(X);
-
-	CalculateViewMatrix();
-}
-
-
-// -----------------------------------------------------------------
-void ModuleCamera3D::Move(const float3&Movement)
-{
-	Position += Movement;
-	Reference += Movement;
-
-	CalculateViewMatrix();
-}
-
-// -----------------------------------------------------------------
-float* ModuleCamera3D::GetViewMatrix()
-{
-	return ViewMatrix.M;
-}
-
-// -----------------------------------------------------------------
-void ModuleCamera3D::CalculateViewMatrix()
-{
-	//todo: USE MATHGEOLIB here BEFORE 1st delivery! (TIP: Use MathGeoLib/Geometry/Frustum.h, view and projection matrices are managed internally.)
-	ViewMatrix = mat4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -(X.Dot(Position)), -(Y.Dot(Position)), -(Z.Dot(Position)), 1.0f);
 }

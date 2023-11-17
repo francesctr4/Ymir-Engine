@@ -93,6 +93,11 @@ void CCamera::SetPos(float x, float y, float z)
 	frustum.pos = float3(x, y, z);
 }
 
+void CCamera::UpdatePos(float3 newPos)
+{
+	frustum.pos += newPos;
+}
+
 float3 CCamera::GetPos() const
 {
 	return frustum.pos;
@@ -106,6 +111,21 @@ void CCamera::SetFront(float3 front)
 void CCamera::SetUp(float3 up)
 {
 	frustum.up = up;
+}
+
+float3 CCamera::GetFront()
+{
+	return frustum.front;
+}
+
+float3 CCamera::GetUp()
+{
+	return frustum.up;
+}
+
+float3 CCamera::GetRight()
+{
+	return frustum.WorldRight();
 }
 
 float CCamera::GetHorizontalFOV() const
@@ -157,9 +177,81 @@ float4x4 CCamera::GetViewMatrix() const
 	return tempMat4x4.Transposed();
 }
 
-void CCamera::LookAt(const float3& Spot)
+void CCamera::MovementHandling(float3& newPos, float speed)
 {
-	frustum.front = (Spot - frustum.pos).Normalized();
-	float3 X = float3(0, 1, 0).Cross(frustum.front).Normalized();
-	frustum.up = frustum.front.Cross(X);
+	if (External->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos += GetFront() * speed;
+	if (External->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos -= GetFront() * speed;
+
+	if (External->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= GetRight() * speed;
+	if (External->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += GetRight() * speed;
+
+	//if (External->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos += GetUp() * speed;
+	//if (External->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos -= GetUp() * speed;
+}
+
+void CCamera::RotationHandling(float speed, float dt)
+{
+	int dx = -External->input->GetMouseXMotion();
+	int dy = -External->input->GetMouseYMotion();
+
+	float Sensitivity = 0.35f * dt;
+
+	if (dx != 0)
+	{
+		float DeltaX = (float)dx * Sensitivity;
+
+		float3 rotationAxis(0.0f, 1.0f, 0.0f);
+		Quat rotationQuat = Quat::RotateAxisAngle(rotationAxis, DeltaX);
+
+		SetUp(rotationQuat * GetUp());
+		SetFront(rotationQuat * GetFront());
+	}
+	if (dy != 0)
+	{
+		float DeltaY = (float)dy * Sensitivity;
+
+		Quat rotationQuat = Quat::RotateAxisAngle(GetRight(), DeltaY);
+
+		SetUp(rotationQuat * GetUp());
+		SetFront(rotationQuat * GetFront());
+
+		if (GetUp().y < 0.0f)
+		{
+			SetFront(float3(0.0f, GetFront().y > 0.0f ? 1.0f : -1.0f, 0.0f));
+
+			SetUp(GetFront().Cross(GetRight()));
+		}
+
+	}
+}
+
+void CCamera::ZoomHandling(float3& newPos, float speed)
+{
+	if (External->input->GetMouseZ() > 0) newPos += GetFront() * speed;
+	if (External->input->GetMouseZ() < 0) newPos -= GetFront() * speed;
+}
+
+void CCamera::PanHandling(float3& newPos, float speed, float dt)
+{
+	int dx = -External->input->GetMouseXMotion();
+	int dy = -External->input->GetMouseYMotion();
+
+	float Sensitivity = 1.6f * dt;
+
+	float DeltaX = (float)dx * Sensitivity;
+	float DeltaY = (float)dy * Sensitivity;
+
+	newPos -= GetUp() * speed * DeltaY;
+	newPos += GetRight() * speed * DeltaX;
+}
+
+void CCamera::LookAt(float3& Spot)
+{
+	float3 Z = (Spot - GetPos()).Normalized();
+	SetFront(Z);
+
+	float3 X = float3(0, 1, 0).Cross(GetFront()).Normalized();
+
+	float3 Y = GetFront().Cross(X);
+	SetUp(Y);
 }

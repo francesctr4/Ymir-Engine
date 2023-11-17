@@ -4,6 +4,7 @@
 
 #include "Application.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleInput.h"
 
 #include "Globals.h"
 #include <string>
@@ -27,10 +28,17 @@ public:
 
 	void SetPos(float3 xyz);
 	void SetPos(float x, float y, float z);
+
+	void UpdatePos(float3 newPos);
+
 	float3 GetPos() const;
 
 	void SetFront(float3 front);
 	void SetUp(float3 up);
+
+	float3 GetFront();
+	float3 GetUp();
+	float3 GetRight();
 
 	float GetHorizontalFOV() const;
 	float GetVerticalFOV() const;
@@ -41,12 +49,19 @@ public:
 	float GetAspectRatio() const;
 	void SetAspectRatio(float aspectRatio);
 
-	void DrawFrustumBox() const;
-
 	float4x4 GetProjectionMatrix() const;
 	float4x4 GetViewMatrix() const;
 
-	void LookAt(const float3& Spot);
+	// --------------------------------------------------
+
+	void MovementHandling(float3& newPos, float speed);
+	void RotationHandling(float speed, float dt);
+	void ZoomHandling(float3& newPos, float speed);
+	void PanHandling(float3& newPos, float speed, float dt);
+
+	void LookAt(float3& Spot);
+
+	void DrawFrustumBox() const;
 
 public:
 

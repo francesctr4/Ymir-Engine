@@ -37,7 +37,7 @@ bool ModuleScene::Init()
 
 	JsonEncapsule::CreateJSON(External->fileSystem->libraryScenesPath, std::to_string(mRootNode->UID) + ".yscene");
 
-	//gameCamera->AddComponent(App->camera->editorCamera);
+	editorCamera->AddComponent(App->camera->editorCamera);
 
 	return ret;
 }
