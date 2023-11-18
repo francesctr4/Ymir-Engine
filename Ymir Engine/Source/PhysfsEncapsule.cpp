@@ -1,4 +1,5 @@
 #include "PhysfsEncapsule.h"
+#include "Log.h"
 
 void PhysfsEncapsule::InitializePhysFS()
 {
@@ -27,6 +28,26 @@ void PhysfsEncapsule::CreateFolder(std::string route, std::string folderName)
         // You may want to check if the folder already exists before attempting to create it.
         
     }
+}
+
+void PhysfsEncapsule::ReadFolder(std::string route)
+{
+ /*   PHYSFS_Stat stat;
+    char** files = PHYSFS_enumerateFiles(route.c_str());
+    char** i;
+
+    for (i = files; *i != NULL; i++) {
+        if (PHYSFS_stat(*i, &stat) != 0) {
+            if (stat.filetype == PHYSFS_FILETYPE_REGULAR) {
+                LOG("File: %s", *i);
+            }
+            else if (stat.filetype == PHYSFS_FILETYPE_DIRECTORY) {
+                LOG("Directory: %s", *i);
+            }
+        }
+    }
+
+    PHYSFS_freeList(files);*/
 }
 
 void PhysfsEncapsule::DeleteFolder(std::string route)
