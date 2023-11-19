@@ -32,7 +32,7 @@ void PhysfsEncapsule::CreateFolder(std::string route, std::string folderName)
 
 void PhysfsEncapsule::ReadFolder(std::string route)
 {
- /*   PHYSFS_Stat stat;
+ /* PHYSFS_Stat stat;
     char** files = PHYSFS_enumerateFiles(route.c_str());
     char** i;
 

@@ -292,6 +292,8 @@
     <ClInclude Include="Source\ResourceScene.h" />
     <ClInclude Include="Source\ResourceShader.h" />
     <ClInclude Include="Source\ResourceTexture.h" />
+    <ClInclude Include="Source\Scene.h" />
+    <ClInclude Include="Source\Settings.h" />
     <ClInclude Include="Source\Shader.h" />
     <ClInclude Include="Source\Singleton.h" />
     <ClInclude Include="Source\Texture.h" />
@@ -388,6 +390,8 @@
     <ClCompile Include="Source\ResourceScene.cpp" />
     <ClCompile Include="Source\ResourceShader.cpp" />
     <ClCompile Include="Source\ResourceTexture.cpp" />
+    <ClCompile Include="Source\Scene.cpp" />
+    <ClCompile Include="Source\Settings.cpp" />
     <ClCompile Include="Source\Shader.cpp" />
     <ClCompile Include="Source\Singleton.cpp" />
     <ClCompile Include="Source\Texture.cpp" />

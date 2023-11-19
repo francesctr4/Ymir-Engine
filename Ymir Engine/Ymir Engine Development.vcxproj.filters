@@ -741,6 +741,12 @@
     <ClInclude Include="Source\Globals.h">
       <Filter>Sources\Core</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Scene.h">
+      <Filter>Sources\Tools\GameObjects &amp; Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Settings.h">
+      <Filter>Sources\Tools\Serialization</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -1024,6 +1030,12 @@
     </ClCompile>
     <ClCompile Include="Source\Main.cpp">
       <Filter>Sources\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene.cpp">
+      <Filter>Sources\Tools\GameObjects &amp; Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Settings.cpp">
+      <Filter>Sources\Tools\Serialization</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

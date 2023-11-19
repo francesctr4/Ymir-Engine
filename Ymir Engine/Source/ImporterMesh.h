@@ -1,7 +1,14 @@
 #pragma once
 
+#include "Globals.h"
+
+#include "Mesh.h"
+#include "External/Assimp/include/mesh.h"
+
 namespace ImporterMesh {
 
-	void SomeFunction();
+	void Import(const aiMesh* mesh, Mesh* ourMesh); // Import Mesh from Assimp
+	uint Save(const Mesh* ourMesh, char** fileBuffer); // Save Mesh as .ymesh on Library
+	void Load(const char* fileBuffer, Mesh* ourMesh); // Load Mesh from Library
 
 }

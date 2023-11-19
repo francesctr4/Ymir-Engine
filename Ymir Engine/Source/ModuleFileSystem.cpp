@@ -86,7 +86,7 @@ void ModuleFileSystem::CreateLibraryFolder()
 	PhysfsEncapsule::CreateFolder(libraryPath, "Materials"); // Custom File Format (JSON)
 	libraryMaterialsPath = libraryPath + "Materials/";
 
-	PhysfsEncapsule::CreateFolder(libraryPath, "Shaders"); // GLSL
+	PhysfsEncapsule::CreateFolder(libraryPath, "Shaders"); // SPIR-V
 	libraryShadersPath = libraryPath + "Shaders/";
 
 	PhysfsEncapsule::CreateFolder(libraryPath, "Textures"); // DDS 
