@@ -52,6 +52,11 @@ bool ModuleWindow::Init()
 			flags |= SDL_WINDOW_RESIZABLE;
 		}
 
+		if (WIN_MAXIMIZED == true)
+		{
+			flags |= SDL_WINDOW_MAXIMIZED;
+		}
+
 		if(WIN_BORDERLESS == true)
 		{
 			flags |= SDL_WINDOW_BORDERLESS;

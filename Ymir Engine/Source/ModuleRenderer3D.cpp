@@ -163,8 +163,7 @@ bool ModuleRenderer3D::Init()
 
 	}
 
-	// Projection matrix for
-	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
+	SDL_MaximizeWindow(App->window->window);
 
 	LOG("OpenGL initialized successfully.");
 
@@ -262,15 +261,7 @@ bool ModuleRenderer3D::CleanUp()
 
 void ModuleRenderer3D::OnResize(int width, int height)
 {
-	glViewport(0, 0, width, height);
-
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-
-	glLoadMatrixf(App->camera->editorCamera->GetProjectionMatrix().ptr());
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	App->camera->editorCamera->SetAspectRatio((float)width / (float)height);
 }
 
 void ModuleRenderer3D::HandleDragAndDrop()
