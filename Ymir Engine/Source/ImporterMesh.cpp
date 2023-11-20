@@ -33,6 +33,7 @@ uint ImporterMesh::Save(const Mesh* ourMesh, char** fileBuffer)
 
     //// Return size of buffer
     //return bufferSize;
+    return uint();
 }
 
 void ImporterMesh::Load(const char* fileBuffer, Mesh* ourMesh)

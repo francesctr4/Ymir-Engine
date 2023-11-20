@@ -21,6 +21,8 @@ ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, sta
 
 	editorCamera = CreateGameObject("Editor Camera", mRootNode);
 
+	gameCamera = CreateGameObject("Game Camera", mRootNode);
+
 	LOG("Creating ModuleScene");
 }
 
@@ -38,6 +40,14 @@ bool ModuleScene::Init()
 	JsonEncapsule::CreateJSON(External->fileSystem->libraryScenesPath, std::to_string(mRootNode->UID) + ".yscene");
 
 	editorCamera->AddComponent(App->camera->editorCamera);
+
+	CCamera* gCCam = new CCamera(gameCamera);
+
+	gCCam->SetPos(0.0f, 2.0f, 20.0f);
+	gCCam->LookAt(float3(0.f, 0.f, 0.f));
+	gCCam->SetAspectRatio(SCREEN_WIDTH / SCREEN_HEIGHT);
+
+	//gameCamera->AddComponent(gCCam);
 
 	return ret;
 }
