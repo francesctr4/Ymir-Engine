@@ -31,6 +31,12 @@ bool ModuleFileSystem::Init()
 
 	if (PhysfsEncapsule::FolderExists(libraryPath)) {
 
+		outputFile.SetBoolean("Json Support Working", true);
+
+		float4x4 identityMatrix = float4x4::identity;
+
+		outputFile.SetMatrix4x4("myMatrix", identityMatrix);
+
 		outputFile.CreateJSON(libraryPath, "output.json");
 
 	}

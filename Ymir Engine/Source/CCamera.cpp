@@ -59,33 +59,13 @@ void CCamera::OnInspector()
 	{
 		ImGui::Indent();
 
-		// Set Horizontal FOV
-
-		float hfov = GetHorizontalFOV();
-
-		if (ImGui::SliderFloat("Horizontal FOV", &hfov, 30, 120, "%0.2f", ImGuiSliderFlags_None)) { 
-
-			SetHorizontalFOV(hfov); 
-
-		}
-
 		// Set Vertical FOV
 
 		float vfov = GetVerticalFOV();
 
-		if (ImGui::SliderFloat("Vertical FOV", &vfov, 30, 120, "%0.2f", ImGuiSliderFlags_None)) {
+		if (ImGui::SliderFloat("FOV", &vfov, 30, 120, "%0.2f", ImGuiSliderFlags_None)) {
 
 			SetVerticalFOV(vfov);
-
-		}
-
-		// Set Both FOV
-
-		float fov = GetHorizontalFOV();
-
-		if (ImGui::SliderFloat("Both FOV", &fov, 30, 120, "%0.2f", ImGuiSliderFlags_None)) {
-
-			SetBothFOV(fov);
 
 		}
 
