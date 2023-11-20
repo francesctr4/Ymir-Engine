@@ -5,6 +5,7 @@
 
 #include "PhysfsEncapsule.h"
 #include "JsonEncapsule.h"
+#include "ImporterMesh.h"
 
 ModuleFileSystem::ModuleFileSystem(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -94,4 +95,31 @@ void ModuleFileSystem::CreateLibraryFolder()
 
 	PhysfsEncapsule::CreateFolder(libraryPath, "Settings"); // Custom File Format (JSON)
 	librarySettingsPath = libraryPath + "Settings/";
+}
+
+bool ModuleFileSystem::SaveMeshToFile(const Mesh* ourMesh, const std::string& filename) {
+
+	char* fileBuffer;
+
+	uint bufferSize = ImporterMesh::Save(ourMesh, &fileBuffer);
+
+	std::ofstream outFile(filename, std::ios::binary);
+
+	if (!outFile.is_open()) {
+
+		LOG("Error: Unable to open the file for writing: %s", filename);
+
+		return false;
+	}
+
+	// Write the buffer to the file
+	outFile.write(fileBuffer, bufferSize);
+
+	// Close the file
+	outFile.close();
+
+	// Free the allocated memory for the buffer
+	delete[] fileBuffer;
+
+	return true;
 }

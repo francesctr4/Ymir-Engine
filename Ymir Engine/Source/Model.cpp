@@ -269,5 +269,7 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene, GameObject* linkGO, 
 
 	JsonEncapsule::CreateJSON(External->fileSystem->libraryMeshesPath, std::to_string(linkGO->UID) + ".ymesh");
 
+	External->fileSystem->SaveMeshToFile(&tmpMesh, External->fileSystem->libraryMeshesPath + std::to_string(linkGO->UID) + ".ymesh");
+
 	return tmpMesh; // Retrieve the Mesh with all the necessary data to draw
 }

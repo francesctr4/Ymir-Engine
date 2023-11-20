@@ -3,6 +3,7 @@
 #include <string>
 
 #include "Module.h"
+#include "Mesh.h"
 
 class ModuleFileSystem : public Module
 {
@@ -19,6 +20,8 @@ public:
 	bool CleanUp() override;
 
 	void CreateLibraryFolder();
+
+	bool SaveMeshToFile(const Mesh* ourMesh, const std::string& filename);
 
 public:
 
