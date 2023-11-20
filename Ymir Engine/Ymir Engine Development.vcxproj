@@ -207,7 +207,7 @@
     <ClInclude Include="Source\ImporterSettings.h" />
     <ClInclude Include="Source\ImporterShader.h" />
     <ClInclude Include="Source\ImporterTexture.h" />
-    <ClInclude Include="Source\JsonEncapsule.h" />
+    <ClInclude Include="Source\JsonFile.h" />
     <ClInclude Include="Source\Light.h" />
     <ClInclude Include="Source\External\MathGeoLib\include\Algorithm\Random\LCG.h" />
     <ClInclude Include="Source\External\MathGeoLib\include\Geometry\AABB.h" />
@@ -332,7 +332,7 @@
     <ClCompile Include="Source\ImporterSettings.cpp" />
     <ClCompile Include="Source\ImporterShader.cpp" />
     <ClCompile Include="Source\ImporterTexture.cpp" />
-    <ClCompile Include="Source\JsonEncapsule.cpp" />
+    <ClCompile Include="Source\JsonFile.cpp" />
     <ClCompile Include="Source\Light.cpp" />
     <ClCompile Include="Source\Log.cpp" />
     <ClCompile Include="Source\Main.cpp" />

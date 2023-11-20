@@ -4,7 +4,6 @@
 #include "External/Optick/include/optick.h"
 
 #include "PhysfsEncapsule.h"
-#include "JsonEncapsule.h"
 #include "ImporterMesh.h"
 
 ModuleFileSystem::ModuleFileSystem(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -32,7 +31,7 @@ bool ModuleFileSystem::Init()
 
 	if (PhysfsEncapsule::FolderExists(libraryPath)) {
 
-		JsonEncapsule::CreateJSON(libraryPath, "output.json");
+		outputFile.CreateJSON(libraryPath, "output.json");
 
 	}
 

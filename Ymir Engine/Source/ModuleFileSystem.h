@@ -5,6 +5,8 @@
 #include "Module.h"
 #include "Mesh.h"
 
+#include "JsonFile.h"
+
 class ModuleFileSystem : public Module
 {
 public:
@@ -35,5 +37,7 @@ public:
 	std::string libraryShadersPath;
 	std::string libraryTexturesPath;
 	std::string librarySettingsPath;
+
+	JsonFile outputFile;
 
 };

@@ -7,6 +7,8 @@
 #include "External/Assimp/include/scene.h"
 #include "External/Assimp/include/postprocess.h"
 
+#include "JsonFile.h"
+
 class GameObject;
 
 class ModuleScene : public Module
@@ -36,5 +38,7 @@ public:
 	GameObject* gameCamera;
 
 	std::vector<GameObject*> gameObjects;
+
+	JsonFile ysceneFile;
 
 };

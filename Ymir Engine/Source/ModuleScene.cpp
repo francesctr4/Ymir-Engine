@@ -10,7 +10,6 @@
 #include "CCamera.h"
 
 #include "ModuleFileSystem.h"
-#include "JsonEncapsule.h"
 #include "PhysfsEncapsule.h"
 
 #include "External/Optick/include/optick.h"
@@ -37,7 +36,7 @@ bool ModuleScene::Init()
 
 	LOG("Loading scene");
 
-	JsonEncapsule::CreateJSON(External->fileSystem->libraryScenesPath, std::to_string(mRootNode->UID) + ".yscene");
+	ysceneFile.CreateJSON(External->fileSystem->libraryScenesPath, std::to_string(mRootNode->UID) + ".yscene");
 
 	editorCamera->AddComponent(App->camera->editorCamera);
 

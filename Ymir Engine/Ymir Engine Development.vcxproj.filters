@@ -702,7 +702,7 @@
     <ClInclude Include="Source\Material.h">
       <Filter>Sources\Tools\3D Model Loading</Filter>
     </ClInclude>
-    <ClInclude Include="Source\JsonEncapsule.h">
+    <ClInclude Include="Source\JsonFile.h">
       <Filter>Sources\Tools\Serialization</Filter>
     </ClInclude>
     <ClInclude Include="Source\PhysfsEncapsule.h">
@@ -995,7 +995,7 @@
     <ClCompile Include="Source\Material.cpp">
       <Filter>Sources\Tools\3D Model Loading</Filter>
     </ClCompile>
-    <ClCompile Include="Source\JsonEncapsule.cpp">
+    <ClCompile Include="Source\JsonFile.cpp">
       <Filter>Sources\Tools\Serialization</Filter>
     </ClCompile>
     <ClCompile Include="Source\PhysfsEncapsule.cpp">

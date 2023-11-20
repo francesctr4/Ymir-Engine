@@ -5,7 +5,7 @@
 #include "ModuleScene.h"
 
 #include "ModuleFileSystem.h"
-#include "JsonEncapsule.h"
+#include "JsonFile.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "External/stb_image/stb_image.h"
@@ -115,7 +115,7 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO
 		currentNodeGO = External->scene->CreateGameObject(name, External->scene->mRootNode);
 		modelGO = currentNodeGO;
 
-		JsonEncapsule::CreateJSON(External->fileSystem->libraryModelsPath, std::to_string(modelGO->UID) + ".ymodel");
+		JsonFile ymodelFile(External->fileSystem->libraryModelsPath, std::to_string(modelGO->UID) + ".ymodel");
 
 	}
 	else {
@@ -267,7 +267,7 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene, GameObject* linkGO, 
 
 	linkGO->AddComponent(cmesh);
 
-	JsonEncapsule::CreateJSON(External->fileSystem->libraryMeshesPath, std::to_string(linkGO->UID) + ".ymesh");
+	JsonFile ymeshFile(External->fileSystem->libraryMeshesPath, std::to_string(linkGO->UID) + ".ymesh");
 
 	External->fileSystem->SaveMeshToFile(&tmpMesh, External->fileSystem->libraryMeshesPath + std::to_string(linkGO->UID) + ".ymesh");
 
