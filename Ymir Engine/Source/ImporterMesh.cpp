@@ -7,34 +7,56 @@ void ImporterMesh::Import(const aiMesh* mesh, Mesh* ourMesh)
 
 uint ImporterMesh::Save(const Mesh* ourMesh, char** fileBuffer)
 {
-    //uint bufferSize = sizeof(uint) * 5 + sizeof(uint) * ourMesh->num_indices + sizeof(Vertex) * ourMesh->num_vertices;
+    //uint bufferSize = sizeof(uint) * 5 + sizeof(uint) * ourMesh->num_index + sizeof(Vertex) * ourMesh->num_vertex;
 
-    //// Asignar dinámicamente el búfer de archivos
+    //// Dynamically allocate file buffer
     //*fileBuffer = new char[bufferSize];
 
-    //// Utilizar un puntero para rastrear la posición actual en el búfer de archivos
+    ////Use a pointer to track the current position in the file buffer
     //char* cursor = *fileBuffer;
+    //uint bytes;
 
-    //// Guardar la cantidad de índices, vértices y otros datos en ranges
-    //uint ranges[5] = { ourMesh->num_indices, ourMesh->num_vertices, 0, 0, 0 }; // Asumiendo que las otras propiedades son cero por ahora
+    ////Save the number of indexes, vertices and other data in ranges
+    //uint ranges[5] = { ourMesh->num_index, ourMesh->num_vertex, 0, 0, 0 };
     //bytes = sizeof(ranges);
     //memcpy(cursor, ranges, bytes);
     //cursor += bytes;
 
-    //// Guardar los índices en el búfer
-    //bytes = sizeof(uint) * ourMesh->num_indices;
-    //memcpy(cursor, ourMesh->indices, bytes);
+    //// Save index on buffer
+    //bytes = sizeof(uint) * ourMesh->num_index;
+    //memcpy(cursor, ourMesh->index, bytes);
     //cursor += bytes;
 
-    //// Guardar los vértices en el búfer
-    //bytes = sizeof(Vertex) * ourMesh->num_vertices;
-    //memcpy(cursor, ourMesh->vertices, bytes);
+    //// Save vertex on buffer
+    //bytes = sizeof(Vertex) * ourMesh->num_vertex;
+    //memcpy(cursor, ourMesh->vertex, bytes);
 
-    //// Devolver el tamaño del búfer
+    //// Return size of buffer
     //return bufferSize;
 }
 
 void ImporterMesh::Load(const char* fileBuffer, Mesh* ourMesh)
 {
+    //const char* cursor = fileBuffer;
+    //uint bytes;
 
+    //uint ranges[5];
+    //uint bytes = sizeof(ranges);
+    //memcpy(ranges, cursor, bytes);
+    //cursor += bytes;
+
+    //// OurMesh with index vertex plus normals texture etc
+    //ourMesh->num_index = ranges[0];
+    //ourMesh->num_vertex = ranges[1];
+
+    //// Load index on mesh
+    //bytes = sizeof(uint) * ourMesh->num_index;
+    //ourMesh->index = new uint[ourMesh->num_index];
+    //memcpy(ourMesh->index, cursor, bytes);
+    //cursor += bytes;
+
+    //// Load vertex on mesh
+    //bytes = sizeof(Vertex) * ourMesh->num_vertex;
+    //ourMesh->vertex = new Vertex[ourMesh->num_vertex];
+    //memcpy(ourMesh->vertex, cursor, bytes);
 }
