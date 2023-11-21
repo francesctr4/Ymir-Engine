@@ -173,6 +173,10 @@ bool ModuleRenderer3D::Init()
 
 	models.push_back(Model("Assets/BakerHouse.fbx"));
 
+	// Skybox
+
+	models.push_back(Model("Assets/Skybox/Skybox.fbx"));
+
 	// Framebuffer
 
 	framebuffer.Load();
@@ -268,14 +272,14 @@ void ModuleRenderer3D::HandleDragAndDrop()
 {
 	if (App->input->droppedFile) {
 
-		if (IsFileExtension(App->input->droppedFileDirectory, ".fbx") || IsFileExtension(App->input->droppedFileDirectory, ".FBX")) {
+		if (IsFileExtension(App->input->droppedFileDirectory, ".fbx") || IsFileExtension(App->input->droppedFileDirectory, ".FBX") || IsFileExtension(App->input->droppedFileDirectory, ".DAE")) {
 
 			models.push_back(Model(App->input->droppedFileDirectory));
 
 			ReloadTextures();
 
 		}
-		else if (IsFileExtension(App->input->droppedFileDirectory, ".png") || IsFileExtension(App->input->droppedFileDirectory, ".dds")) {
+		else if (IsFileExtension(App->input->droppedFileDirectory, ".png") || IsFileExtension(App->input->droppedFileDirectory, ".dds") || IsFileExtension(App->input->droppedFileDirectory, ".tga")) {
 
 			ClearActualTexture();
 
