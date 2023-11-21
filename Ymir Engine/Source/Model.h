@@ -8,6 +8,8 @@
 #include "External/Assimp/include/scene.h"
 #include "External/Assimp/include/postprocess.h"
 
+#include "JsonFile.h"
+
 #pragma comment (lib, "Source/External/Assimp/libx86/assimp.lib")
 
 class GameObject;
@@ -42,6 +44,7 @@ public:
     // Model Data
 
     std::string name;
+    std::string path;
 
     std::vector<Mesh> meshes;
     std::string directory;
@@ -51,5 +54,7 @@ public:
     // Vector of already loaded textures
 
     //std::vector<Texture> loadedTextures;
+
+    std::vector<int> embeddedMeshesUID;
 
 };

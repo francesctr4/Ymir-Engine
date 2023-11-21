@@ -76,6 +76,26 @@ bool ModuleFileSystem::CleanUp()
 	return ret;
 }
 
+void ModuleFileSystem::CreateMetaFileFromAsset(std::string assetPath, JsonFile& jsonFile)
+{
+	std::string fileName;
+
+	if (assetPath.find("/") != std::string::npos) {
+
+		size_t lastSlash = assetPath.find_last_of('/') + 1;
+		fileName = assetPath.substr(lastSlash);
+
+	}
+	else {
+
+		size_t lastSlash = assetPath.find_last_of('\\') + 1;
+		fileName = assetPath.substr(lastSlash);
+
+	}
+
+	jsonFile.CreateJSON("Assets/", fileName + ".meta");
+}
+
 void ModuleFileSystem::CreateLibraryFolder()
 {
 	PhysfsEncapsule::CreateFolder(workingDirectory, "Library");

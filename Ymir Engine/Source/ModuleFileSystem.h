@@ -21,6 +21,7 @@ public:
 	update_status PostUpdate(float dt) override;
 	bool CleanUp() override;
 
+	void CreateMetaFileFromAsset(std::string assetPath, JsonFile& jsonFile);
 	void CreateLibraryFolder();
 
 	bool SaveMeshToFile(const Mesh* ourMesh, const std::string& filename);

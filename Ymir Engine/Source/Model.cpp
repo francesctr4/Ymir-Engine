@@ -5,7 +5,6 @@
 #include "ModuleScene.h"
 
 #include "ModuleFileSystem.h"
-#include "JsonFile.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "External/stb_image/stb_image.h"
@@ -59,6 +58,8 @@ void Model::DrawModel()
 
 void Model::LoadModel(const std::string& path)
 {
+	this->path = path;
+
 	// Retrieve info about Model (directory and name)
 
 	if (path.find('\\') != std::string::npos) {
@@ -110,18 +111,35 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO
 {
 	GameObject* currentNodeGO;
 
+	JsonFile modelMetaFile;
+	
 	if (parentGO == nullptr) {
+
 		// If the current node is the root node, create here the model GameObject, parented to scene GameObject
 		currentNodeGO = External->scene->CreateGameObject(name, External->scene->mRootNode);
 		modelGO = currentNodeGO;
+
+		// Model Library File Creation
 
 		JsonFile ymodelFile(External->fileSystem->libraryModelsPath, std::to_string(modelGO->UID) + ".ymodel");
 
 	}
 	else {
+
 		// Create a GameObject for the current node and set it as a child of the parent GameObject
 		currentNodeGO = External->scene->CreateGameObject(node->mName.C_Str(), parentGO);
-		
+
+		// Model Meta File Creation
+
+		embeddedMeshesUID.push_back(currentNodeGO->UID);
+
+		modelMetaFile.SetString("Assets Path", path.c_str());
+		modelMetaFile.SetString("Library Path", (External->fileSystem->libraryModelsPath + std::to_string(modelGO->UID) + ".ymodel").c_str());
+		modelMetaFile.SetInt("UID", modelGO->UID);
+		modelMetaFile.SetString("Type", "Model");
+		modelMetaFile.SetIntArray("Meshes Embedded UID", embeddedMeshesUID.data(), embeddedMeshesUID.size());
+
+		External->fileSystem->CreateMetaFileFromAsset(path, modelMetaFile);
 	}
 
 	aiVector3D translation, scaling;
