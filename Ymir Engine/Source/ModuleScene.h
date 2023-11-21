@@ -10,6 +10,7 @@
 #include "JsonFile.h"
 
 class GameObject;
+class CCamera;
 
 class ModuleScene : public Module
 {
@@ -33,11 +34,15 @@ public:
 public:
 
 	GameObject* mRootNode;
-	GameObject* editorCamera;
 
-	GameObject* gameCamera;
+	GameObject* editorCameraObject;
+	GameObject* gameCameraObject;
+	CCamera* gameCameraComponent;
+
+	CCamera* currentCamera;
 
 	std::vector<GameObject*> gameObjects;
+	std::vector<CCamera*> cameras;
 
 	JsonFile ysceneFile;
 

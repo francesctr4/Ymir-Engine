@@ -18,9 +18,9 @@ ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, sta
 {
 	mRootNode = CreateGameObject("Scene", nullptr);
 
-	editorCamera = CreateGameObject("Editor Camera", mRootNode);
+	editorCameraObject = CreateGameObject("Editor Camera", mRootNode);
 
-	gameCamera = CreateGameObject("Game Camera", mRootNode);
+	gameCameraObject = CreateGameObject("Game Camera", mRootNode);
 
 	LOG("Creating ModuleScene");
 }
@@ -38,15 +38,19 @@ bool ModuleScene::Init()
 
 	ysceneFile.CreateJSON(External->fileSystem->libraryScenesPath, std::to_string(mRootNode->UID) + ".yscene");
 
-	editorCamera->AddComponent(App->camera->editorCamera);
+	editorCameraObject->AddComponent(App->camera->editorCamera);
+	cameras.push_back(App->camera->editorCamera);
 
-	CCamera* gCCam = new CCamera(gameCamera);
+	gameCameraComponent = new CCamera(gameCameraObject);
 
-	gCCam->SetPos(0.0f, 2.0f, 20.0f);
-	gCCam->LookAt(float3(0.f, 0.f, 0.f));
-	gCCam->SetAspectRatio(SCREEN_WIDTH / SCREEN_HEIGHT);
+	gameCameraComponent->SetPos(0.0f, 2.0f, 20.0f);
+	gameCameraComponent->LookAt(float3(0.f, 0.f, 0.f));
+	gameCameraComponent->SetAspectRatio(SCREEN_WIDTH / SCREEN_HEIGHT);
 
-	//gameCamera->AddComponent(gCCam);
+	gameCameraObject->AddComponent(gameCameraComponent);
+	cameras.push_back(gameCameraComponent);
+
+	currentCamera = App->camera->editorCamera;
 
 	return ret;
 }
@@ -66,12 +70,6 @@ update_status ModuleScene::Update(float dt)
 	{
 		(*it)->Update();
 
-		for (auto jt = (*it)->mComponents.begin(); jt != (*it)->mComponents.end(); ++jt)
-		{
-			(*jt)->Update();
-
-		}
-
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN) {
@@ -80,12 +78,32 @@ update_status ModuleScene::Update(float dt)
 
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
+
+		currentCamera = App->camera->editorCamera;
+
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
+
+		currentCamera = gameCameraComponent;
+
+	}
+
+	currentCamera->Update();
+
 	return UPDATE_CONTINUE;
 }
 
 update_status ModuleScene::PostUpdate(float dt)
 {
 	OPTICK_EVENT();
+
+	for (auto& it = cameras.begin(); it != cameras.end(); ++it) {
+
+		(*it)->DrawFrustumBox();
+
+	}
 
 	return UPDATE_CONTINUE;
 }

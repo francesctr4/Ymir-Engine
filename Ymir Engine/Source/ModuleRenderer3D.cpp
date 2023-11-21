@@ -265,7 +265,12 @@ bool ModuleRenderer3D::CleanUp()
 
 void ModuleRenderer3D::OnResize(int width, int height)
 {
-	App->camera->editorCamera->SetAspectRatio((float)width / (float)height);
+	for (auto& it = App->scene->cameras.begin(); it != App->scene->cameras.end(); ++it) {
+
+		(*it)->SetAspectRatio((float)width / (float)height);
+
+	}
+
 }
 
 void ModuleRenderer3D::HandleDragAndDrop()
@@ -395,6 +400,7 @@ void ModuleRenderer3D::DrawBox(float3* vertices, float3 color)
 
 	};
 
+	glLineWidth(2.f);
 	glBegin(GL_LINES);
 	glColor3fv(color.ptr());
 
@@ -406,6 +412,7 @@ void ModuleRenderer3D::DrawBox(float3* vertices, float3 color)
 
 	glColor3f(255.f, 255.f, 255.f);
 	glEnd();
+	glLineWidth(1.f);
 }
 
 void ModuleRenderer3D::DrawModels()
