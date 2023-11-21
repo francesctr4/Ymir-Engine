@@ -78,22 +78,27 @@ bool ModuleFileSystem::CleanUp()
 
 void ModuleFileSystem::CreateMetaFileFromAsset(std::string assetPath, JsonFile& jsonFile)
 {
+	std::string directory;
 	std::string fileName;
 
 	if (assetPath.find("/") != std::string::npos) {
 
 		size_t lastSlash = assetPath.find_last_of('/') + 1;
+
+		directory = assetPath.substr(0, lastSlash);
 		fileName = assetPath.substr(lastSlash);
 
 	}
 	else {
 
 		size_t lastSlash = assetPath.find_last_of('\\') + 1;
+
+		directory = assetPath.substr(0, lastSlash);
 		fileName = assetPath.substr(lastSlash);
 
 	}
 
-	jsonFile.CreateJSON("Assets/", fileName + ".meta");
+	jsonFile.CreateJSON(directory, fileName + ".meta");
 }
 
 void ModuleFileSystem::CreateLibraryFolder()
