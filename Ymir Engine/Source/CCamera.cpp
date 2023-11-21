@@ -248,7 +248,6 @@ void CCamera::LookAt(float3& Spot)
 
 	float3 X = float3(0, 1, 0).Cross(GetFront()).Normalized();
 
-	float3 Y = GetFront().Cross(X);
+	float3 Y = GetFront().Cross(X).Normalized();
 	SetUp(Y);
-
 }
