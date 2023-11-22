@@ -4,6 +4,7 @@
 
 #include "Module.h"
 #include "Mesh.h"
+#include "Texture.h"
 
 #include "JsonFile.h"
 
@@ -25,6 +26,7 @@ public:
 	void CreateLibraryFolder();
 
 	bool SaveMeshToFile(const Mesh* ourMesh, const std::string& filename);
+	bool SaveTextureToFile(const Texture* ourTexture, const std::string& filename);
 
 public:
 

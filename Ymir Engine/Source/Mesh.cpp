@@ -3,6 +3,7 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleInput.h"
+#include "ModuleFileSystem.h"
 #include "GameObject.h"
 #include "Model.h"
 
@@ -89,6 +90,15 @@ void Mesh::DrawMesh()
             for (auto it = textures.begin(); it != textures.end(); ++it) {
 
                 (*it).LoadTexture((*it).path);
+
+                JsonFile textureMetaFile;
+
+                textureMetaFile.SetString("Assets Path", (*it).path.c_str());
+                textureMetaFile.SetString("Library Path", (External->fileSystem->libraryTexturesPath + std::to_string((*it).UID) + ".dds").c_str());
+                textureMetaFile.SetInt("UID", (*it).UID);
+                textureMetaFile.SetString("Type", "Texture");
+
+                External->fileSystem->CreateMetaFileFromAsset((*it).path, textureMetaFile);
 
                 if ((*it).IsLoaded() && !addedMaterialComponent) {
 

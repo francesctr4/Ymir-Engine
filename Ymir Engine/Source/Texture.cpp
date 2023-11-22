@@ -1,21 +1,22 @@
 #include "Texture.h"
 #include "Log.h"
 
-#include "External/DevIL/include/ilu.h"
-#include "External/DevIL/include/ilut.h"
+#include "ImporterTexture.h"
+#include "Random.h"
 
-#pragma comment( lib, "Source/External/DevIL/libx86/DevIL.lib" )
-#pragma comment( lib, "Source/External/DevIL/libx86/ILU.lib" )
-#pragma comment( lib, "Source/External/DevIL/libx86/ILUT.lib" )
+#include "Application.h"
+#include "ModuleFileSystem.h"
 
 Texture::Texture()
 {
 	ID = 0;
+	UID = Random::Generate();
 }
 
 Texture::Texture(const std::string& path)
 {
 	ID = 0;
+	UID = Random::Generate();
 
 	LoadTexture(path);
 }
@@ -81,7 +82,11 @@ void Texture::LoadTexture(const std::string& path)
 
 	glGenerateMipmap(GL_TEXTURE_2D);
 
-	// 6. Clean Up
+	// 6. Save texture on Library as .dds
+
+	External->fileSystem->SaveTextureToFile(this, External->fileSystem->libraryTexturesPath + std::to_string(UID) + ".dds");
+
+	// 7. Clean Up
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 	ilDeleteImages(1, &imageID);

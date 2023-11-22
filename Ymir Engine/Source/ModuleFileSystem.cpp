@@ -5,6 +5,7 @@
 
 #include "PhysfsEncapsule.h"
 #include "ImporterMesh.h"
+#include "ImporterTexture.h"
 
 ModuleFileSystem::ModuleFileSystem(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -152,4 +153,26 @@ bool ModuleFileSystem::SaveMeshToFile(const Mesh* ourMesh, const std::string& fi
 	delete[] fileBuffer;
 
 	return true;
+}
+
+bool ModuleFileSystem::SaveTextureToFile(const Texture* ourTexture, const std::string& filename)
+{
+	ILuint size;
+	ILubyte* data;
+
+	ilSetInteger(IL_DXTC_FORMAT, IL_DXT5); // Set the desired compression format
+	size = ilSaveL(IL_DDS, nullptr, 0); // Get the size of the data buffer
+
+	if (size > 0) {
+		data = new ILubyte[size]; // Allocate data buffer
+		if (ilSaveL(IL_DDS, data, size) > 0) { // Save to buffer with the ilSaveIL function
+			std::ofstream file(filename, std::ios::binary); // Open the file
+			file.write(reinterpret_cast<const char*>(data), size); // Write data to the file
+			file.close(); // Close the file
+			delete[] data; // Free the allocated data buffer
+			return true; // Return true indicating successful save
+		}
+	}
+
+	return false; // Return false if saving failed or if size was 0
 }
