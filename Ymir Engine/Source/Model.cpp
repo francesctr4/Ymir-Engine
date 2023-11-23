@@ -110,38 +110,7 @@ void Model::LoadModel(const std::string& path)
 
 void Model::ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO)
 {
-	GameObject* currentNodeGO;
-
-	JsonFile modelMetaFile;
-	
-	if (parentGO == nullptr) {
-
-		// If the current node is the root node, create here the model GameObject, parented to scene GameObject
-		currentNodeGO = External->scene->CreateGameObject(name, External->scene->mRootNode);
-		modelGO = currentNodeGO;
-
-		// Model Library File Creation
-
-		JsonFile ymodelFile(External->fileSystem->libraryModelsPath, std::to_string(modelGO->UID) + ".ymodel");
-
-	}
-	else {
-
-		// Create a GameObject for the current node and set it as a child of the parent GameObject
-		currentNodeGO = External->scene->CreateGameObject(node->mName.C_Str(), parentGO);
-
-		// Model Meta File Creation
-
-		embeddedMeshesUID.push_back(currentNodeGO->UID);
-
-		modelMetaFile.SetString("Assets Path", path.c_str());
-		modelMetaFile.SetString("Library Path", (External->fileSystem->libraryModelsPath + std::to_string(modelGO->UID) + ".ymodel").c_str());
-		modelMetaFile.SetInt("UID", modelGO->UID);
-		modelMetaFile.SetString("Type", "Model");
-		modelMetaFile.SetIntArray("Meshes Embedded UID", embeddedMeshesUID.data(), embeddedMeshesUID.size());
-
-		External->fileSystem->CreateMetaFileFromAsset(path, modelMetaFile);
-	}
+	// Retrieve transformation from Assimp
 
 	aiVector3D translation, scaling;
 	aiQuaternion rotation;
@@ -155,7 +124,33 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO
 	Quat rotQ(rotation.x, rotation.y, rotation.z, rotation.w);
 	tmpNodeTransform.rotation = { rotQ.ToEulerXYZ() };
 
-	tmpNodeTransform.scale = { scaling.x, scaling.y, scaling.z};
+	tmpNodeTransform.scale = { scaling.x, scaling.y, scaling.z };
+
+	// Link Assimp to GameObjects Hierarchy
+
+	GameObject* currentNodeGO;
+
+	if (parentGO == nullptr) {
+
+		// If the current node is the root node, create here the model GameObject, parented to scene GameObject
+		currentNodeGO = External->scene->CreateGameObject(name, External->scene->mRootNode);
+		modelGO = currentNodeGO;
+
+	}
+	else {
+
+		// Create a GameObject for the current node and set it as a child of the parent GameObject
+		currentNodeGO = External->scene->CreateGameObject(node->mName.C_Str(), parentGO);
+
+		// Model Meta File and Library File Creation
+
+		embeddedMeshesUID.push_back(currentNodeGO->UID);
+
+		GenerateModelMetaFile();
+
+		GenerateYmodelFile(tmpNodeTransform.translation, tmpNodeTransform.rotation, tmpNodeTransform.scale);
+
+	}
 
 	// Process all the node's meshes (if any)
 
@@ -291,4 +286,34 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene, GameObject* linkGO, 
 	External->fileSystem->SaveMeshToFile(&tmpMesh, External->fileSystem->libraryMeshesPath + std::to_string(linkGO->UID) + ".ymesh");
 
 	return tmpMesh; // Retrieve the Mesh with all the necessary data to draw
+}
+
+void Model::GenerateModelMetaFile()
+{
+	JsonFile modelMetaFile;
+
+	modelMetaFile.SetString("Assets Path", path.c_str());
+	modelMetaFile.SetString("Library Path", (External->fileSystem->libraryModelsPath + std::to_string(modelGO->UID) + ".ymodel").c_str());
+	modelMetaFile.SetInt("UID", modelGO->UID);
+	modelMetaFile.SetString("Type", "Model");
+	modelMetaFile.SetIntArray("Meshes Embedded UID", embeddedMeshesUID.data(), embeddedMeshesUID.size());
+
+	External->fileSystem->CreateMetaFileFromAsset(path, modelMetaFile);
+}
+
+void Model::GenerateYmodelFile(const float3& translation, const float3& rotation, const float3& scale)
+{
+	JsonFile ymodelFile;
+
+	ymodelFile.SetString("Name", name.c_str());
+	ymodelFile.SetFloat3("Position", translation);
+	ymodelFile.SetFloat3("Rotation", rotation);
+	ymodelFile.SetFloat3("Scale", scale);
+	ymodelFile.SetInt("UID", modelGO->UID);
+	ymodelFile.SetInt("Parent UID", modelGO->mParent->UID);
+	ymodelFile.SetIntArray("Children UID", embeddedMeshesUID.data(), embeddedMeshesUID.size());
+
+	// Save Components Info (TODO)
+
+	ymodelFile.CreateJSON(External->fileSystem->libraryModelsPath, std::to_string(modelGO->UID) + ".ymodel");
 }

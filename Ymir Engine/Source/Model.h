@@ -39,6 +39,9 @@ private:
     void ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO);
     Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene, GameObject* linkGO, NodeTransform* transform);
 
+    void GenerateModelMetaFile();
+    void GenerateYmodelFile(const float3& translation, const float3& rotation, const float3& scale);
+
 public:
 
     // Model Data

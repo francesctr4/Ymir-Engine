@@ -23,6 +23,8 @@ public:
     virtual ~JsonFile();
 
     void CreateJSON(std::string route, std::string fileName);
+    void ModifyJSON(std::string route, std::string fileName);
+    void DeleteJSON(std::string route, std::string fileName);
 
     // -------------------------- Support functions --------------------------------
 

@@ -63,6 +63,16 @@ void JsonFile::CreateJSON(std::string route, std::string fileName)
 
 }
 
+void JsonFile::ModifyJSON(std::string route, std::string fileName)
+{
+
+}
+
+void JsonFile::DeleteJSON(std::string route, std::string fileName)
+{
+
+}
+
 // -------------------------- Support functions --------------------------------
 
 void JsonFile::SetInt(const char* key, int value) {
