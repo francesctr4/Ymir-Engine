@@ -57,13 +57,103 @@ void CCamera::OnInspector()
 	{
 		ImGui::Indent();
 
+		// Position (Needs to be reworked into Transform)
+
+		ImGui::SeparatorText("POSITION & ROTATION");
+
+		ImGui::Spacing();
+
+		float* cameraPosition = frustum.pos.ptr();
+
+		ImGui::DragFloat3("Position", cameraPosition, 0.1f);
+
+		ImGui::Spacing();
+
+		// Rotation (Needs to be reworked into Transform)
+
+		float3 rotation = { 0, 0, 0 };
+
+		float* cameraRotation = rotation.ptr();
+
+		ImGui::DragFloat3("Rotation", cameraRotation, 0.1f);
+
+		Quat rotationQuaternion = Quat::FromEulerXYZ(DEGTORAD * rotation.x, DEGTORAD * rotation.y, DEGTORAD * rotation.z);
+
+		rotationQuaternion.Normalize();
+
+		float4x4 rotationMatrix = rotationQuaternion.ToFloat4x4();
+
+		frustum.Transform(rotationMatrix);
+
+		ImGui::Spacing();
+
+		ImGui::SeparatorText("VECTORS (Read only)");
+
+		// Right
+
+		ImGui::Spacing();
+
+		float* cameraRight = frustum.WorldRight().ptr();
+
+		ImGui::InputFloat3("Right", cameraRight, "%.3f", ImGuiInputTextFlags_ReadOnly);
+
+		ImGui::Spacing();
+
+		// Up
+
+		ImGui::Spacing();
+
+		float* cameraUp = frustum.up.ptr();
+
+		ImGui::InputFloat3("Up", cameraUp, "%.3f", ImGuiInputTextFlags_ReadOnly);
+
+		ImGui::Spacing();
+
+		// Front
+
+		ImGui::Spacing();
+
+		float* cameraFront = frustum.front.ptr();
+
+		ImGui::InputFloat3("Front", cameraFront, "%.3f", ImGuiInputTextFlags_ReadOnly);
+
+		ImGui::Spacing();
+
+		ImGui::SeparatorText("CONFIGURATION");
+
 		// Set FOV
+
+		ImGui::Spacing();
 
 		float vfov = GetVerticalFOV();
 
 		if (ImGui::SliderFloat("FOV", &vfov, 30, 120, "%0.2f", ImGuiSliderFlags_None)) {
 
 			SetVerticalFOV(vfov);
+
+		}
+
+		ImGui::Spacing();
+
+		// Set Near Plane
+
+		float nearPlane = GetNearPlane();
+
+		if (ImGui::SliderFloat("Near Plane", &nearPlane, 0.1f, 100.0f, "%0.2f", ImGuiSliderFlags_None)) {
+
+			SetNearPlane(nearPlane); 
+
+		}
+
+		ImGui::Spacing();
+
+		// Set Far Plane
+
+		float farPlane = GetFarPlane();
+
+		if (ImGui::SliderFloat("Far Plane", &farPlane, 1.0f, 1000.0f, "%0.2f", ImGuiSliderFlags_None)) {
+
+			SetFarPlane(farPlane); 
 
 		}
 
@@ -103,6 +193,26 @@ void CCamera::UpdatePos(float3 newPos)
 float3 CCamera::GetPos() const
 {
 	return frustum.pos;
+}
+
+void CCamera::SetNearPlane(float distance)
+{
+	frustum.nearPlaneDistance = distance;
+}
+
+float CCamera::GetNearPlane()
+{
+	return frustum.nearPlaneDistance;
+}
+
+void CCamera::SetFarPlane(float distance)
+{
+	frustum.farPlaneDistance = distance;
+}
+
+float CCamera::GetFarPlane()
+{
+	return frustum.farPlaneDistance;
 }
 
 void CCamera::SetFront(float3 front)

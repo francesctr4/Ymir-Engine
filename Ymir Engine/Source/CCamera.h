@@ -34,6 +34,12 @@ public:
 
 	float3 GetPos() const;
 
+	void SetNearPlane(float distance);
+	float GetNearPlane();
+
+	void SetFarPlane(float distance);
+	float GetFarPlane();
+
 	void SetFront(float3 front);
 	void SetUp(float3 up);
 
@@ -68,10 +74,9 @@ public:
 public:
 
 	Frustum frustum;
+	FrameBuffer framebuffer;
 
 	bool drawBoundingBoxes;
 	bool enableFrustumCulling;
-
-	FrameBuffer framebuffer;
 
 };

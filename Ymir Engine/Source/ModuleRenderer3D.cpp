@@ -232,7 +232,11 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	// Render Frustum Box
 
-	App->scene->gameCameraComponent->DrawFrustumBox();
+	if (App->scene->gameCameraObject->active) {
+
+		App->scene->gameCameraComponent->DrawFrustumBox();
+
+	}
 
 	HandleDragAndDrop();
 
@@ -250,11 +254,15 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	App->scene->gameCameraComponent->Update();
 
-	DrawModels();
+	if (App->scene->gameCameraObject->active) {
 
-	if (External->scene->gameCameraComponent->drawBoundingBoxes) {
+		DrawModels();
 
-		DrawBoundingBoxes();
+		if (External->scene->gameCameraComponent->drawBoundingBoxes) {
+
+			DrawBoundingBoxes();
+
+		}
 
 	}
 

@@ -79,26 +79,6 @@ update_status ModuleScene::Update(float dt)
 
 	}
 
-	// Hardcoded game camera movement to test Frustum Culling
-
-	float3 newPos(0, 0, 0);
-
-	float speed = 20.0f * dt;
-
-	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT) {
-
-		newPos -= gameCameraComponent->GetRight() * speed;
-
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_REPEAT) {
-
-		newPos += gameCameraComponent->GetRight() * speed;
-
-	}
-
-	gameCameraComponent->UpdatePos(newPos);
-
 	return UPDATE_CONTINUE;
 }
 

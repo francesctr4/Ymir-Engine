@@ -19,8 +19,11 @@ public:
 	update_status Update(float dt) override;
 	bool CleanUp() override;
 
+	void CreateMousePickingRay();
+
 public:
 
 	CCamera* editorCamera;
+	LineSegment mousePickingRay;
 
 };

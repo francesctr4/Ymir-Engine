@@ -4,6 +4,7 @@
 #include "ModuleInput.h"
 #include "ModuleScene.h"
 #include "Log.h"
+#include "GameObject.h"
 
 #include "External/MathGeoLib/include/Math/Quat.h"
 
@@ -86,5 +87,33 @@ update_status ModuleCamera3D::Update(float dt)
 
 	}
 
+	CreateMousePickingRay();
+
 	return UPDATE_CONTINUE;
+}
+
+void ModuleCamera3D::CreateMousePickingRay()
+{
+	float2 origin = float2(App->input->GetMouseX(), App->input->GetMouseY());
+
+	origin.Normalize();
+
+	mousePickingRay = editorCamera->frustum.UnProjectLineSegment(origin.x, origin.y);
+
+	bool hit;
+
+	for (auto it = App->renderer3D->models.begin(); it != App->renderer3D->models.end(); ++it) {
+
+		for (auto jt = (*it).meshes.begin(); jt != (*it).meshes.end(); ++jt) {
+
+			hit = mousePickingRay.Intersects((*jt).globalAABB); // Ray vs. AABB
+
+			// (*jt).meshGO->selected = hit;
+
+		}
+
+	}
+
+	// bool hit = ray_local_space.Intersects(tri, &distance, &hit_point); // ray vs. triangle
+
 }
