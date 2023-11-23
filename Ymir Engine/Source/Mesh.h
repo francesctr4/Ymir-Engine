@@ -39,6 +39,12 @@ public:
 
     void DrawMesh();
 
+    void InitBoundingBoxes();
+
+    void UpdateBoundingBoxes();
+
+    void RenderBoundingBoxes();
+
     void ApplyTransformation(Vertex& vertex);
 
 public:
@@ -65,6 +71,13 @@ public:
 
     float4x4 previousModelMatrix;
 
+    // Bounding Boxes Handling
+
+    AABB globalAABB;
+
+    AABB aabb;
+    OBB obb;
+
 private:
 
     // Buffers Data
@@ -74,18 +87,5 @@ private:
     GLuint VAO;
 
     void LoadMesh();
-
-    // Bounding Boxes Handling
-
-    AABB globalAABB;
-
-    AABB aabb;
-    OBB obb;
-
-    void InitBoundingBoxes();
-
-    void UpdateBoundingBoxes();
-
-    void RenderBoundingBoxes();
 
 };

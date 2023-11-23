@@ -18,9 +18,7 @@ ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, sta
 {
 	mRootNode = CreateGameObject("Scene", nullptr);
 
-	editorCameraObject = CreateGameObject("Editor Camera", mRootNode);
-
-	gameCameraObject = CreateGameObject("Game Camera", mRootNode);
+	gameCameraObject = CreateGameObject("Main Camera", mRootNode);
 
 	LOG("Creating ModuleScene");
 }
@@ -38,7 +36,6 @@ bool ModuleScene::Init()
 
 	ysceneFile.CreateJSON(External->fileSystem->libraryScenesPath, std::to_string(mRootNode->UID) + ".yscene");
 
-	editorCameraObject->AddComponent(App->camera->editorCamera);
 	cameras.push_back(App->camera->editorCamera);
 
 	gameCameraComponent = new CCamera(gameCameraObject);
@@ -49,8 +46,6 @@ bool ModuleScene::Init()
 
 	gameCameraObject->AddComponent(gameCameraComponent);
 	cameras.push_back(gameCameraComponent);
-
-	currentCamera = App->camera->editorCamera;
 
 	return ret;
 }
@@ -70,6 +65,12 @@ update_status ModuleScene::Update(float dt)
 	{
 		(*it)->Update();
 
+		for (auto jt = (*it)->mComponents.begin(); jt != (*it)->mComponents.end(); ++jt) {
+
+			(*jt)->Update();
+
+		}
+
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN) {
@@ -78,19 +79,25 @@ update_status ModuleScene::Update(float dt)
 
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
+	// Hardcoded game camera movement to test Frustum Culling
 
-		currentCamera = App->camera->editorCamera;
+	float3 newPos(0, 0, 0);
+
+	float speed = 20.0f * dt;
+
+	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT) {
+
+		newPos -= gameCameraComponent->GetRight() * speed;
 
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_REPEAT) {
 
-		currentCamera = gameCameraComponent;
+		newPos += gameCameraComponent->GetRight() * speed;
 
 	}
 
-	currentCamera->Update();
+	gameCameraComponent->UpdatePos(newPos);
 
 	return UPDATE_CONTINUE;
 }
@@ -98,12 +105,6 @@ update_status ModuleScene::Update(float dt)
 update_status ModuleScene::PostUpdate(float dt)
 {
 	OPTICK_EVENT();
-
-	for (auto& it = cameras.begin(); it != cameras.end(); ++it) {
-
-		(*it)->DrawFrustumBox();
-
-	}
 
 	return UPDATE_CONTINUE;
 }

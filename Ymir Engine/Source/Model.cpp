@@ -3,6 +3,7 @@
 
 #include "GameObject.h"
 #include "ModuleScene.h"
+#include "ModuleRenderer3D.h"
 
 #include "ModuleFileSystem.h"
 
@@ -44,10 +45,10 @@ void Model::DrawModel()
 
 		for (auto it = meshes.begin(); it != meshes.end(); ++it) {
 
-			if ((*it).meshGO->active) {
+			if ((*it).meshGO->active && External->renderer3D->IsInsideFrustum(External->scene->gameCameraComponent, (*it).globalAABB)) {
 
 				(*it).DrawMesh();
-			
+
 			}
 			
 		}

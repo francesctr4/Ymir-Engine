@@ -19,9 +19,9 @@ CCamera::CCamera(GameObject* owner) : Component(owner, ComponentType::CAMERA)
 	frustum.verticalFov = 60.0f * DEGTORAD;
 	frustum.horizontalFov = 2.0f * atanf(tanf(frustum.verticalFov / 2.0f) * 1.3f);
 
-	drawBoundingBoxes = true;
-	frustumCulling = true;
-	active = true;
+	drawBoundingBoxes = false;
+	enableFrustumCulling = true;
+
 }
 
 CCamera::~CCamera()
@@ -47,8 +47,6 @@ void CCamera::Update()
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf((GLfloat*)GetViewMatrix().v);
-
-	DrawFrustumBox();
 }
 
 void CCamera::OnInspector()
@@ -59,7 +57,7 @@ void CCamera::OnInspector()
 	{
 		ImGui::Indent();
 
-		// Set Vertical FOV
+		// Set FOV
 
 		float vfov = GetVerticalFOV();
 
@@ -68,6 +66,20 @@ void CCamera::OnInspector()
 			SetVerticalFOV(vfov);
 
 		}
+
+		ImGui::Spacing();
+
+		// Enable/Disable Frustum Culling
+
+		ImGui::Checkbox("Frustum Culling", &enableFrustumCulling);
+
+		ImGui::Spacing();
+
+		// Enable/Disable Bounding Boxes
+
+		ImGui::Checkbox("Draw Bounding Boxes", &drawBoundingBoxes);
+
+		ImGui::Spacing();
 
 		ImGui::Unindent();
 	}

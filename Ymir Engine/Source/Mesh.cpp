@@ -240,10 +240,6 @@ void Mesh::DrawMesh()
 
     }
 
-    UpdateBoundingBoxes();
-
-    RenderBoundingBoxes();
-
     previousModelMatrix = meshShader.model;
 
 }

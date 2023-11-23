@@ -5,6 +5,7 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleInput.h"
+#include "FrameBuffer.h"
 
 #include "Globals.h"
 #include <string>
@@ -69,7 +70,8 @@ public:
 	Frustum frustum;
 
 	bool drawBoundingBoxes;
-	bool frustumCulling;
-	bool active;
+	bool enableFrustumCulling;
+
+	FrameBuffer framebuffer;
 
 };

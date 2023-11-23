@@ -177,9 +177,10 @@ bool ModuleRenderer3D::Init()
 
 	models.push_back(Model("Assets/Skybox/Skybox.fbx"));
 
-	// Framebuffer
+	// Load Editor and Game FrameBuffers
 
-	framebuffer.Load();
+	App->camera->editorCamera->framebuffer.Load();
+	App->scene->gameCameraComponent->framebuffer.Load();
 
 	return ret;
 }
@@ -215,8 +216,12 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	// Your rendering code here
 
-	framebuffer.Render(true);
-	
+	// --------------------------- Editor Camera FrameBuffer -----------------------------------
+
+	App->camera->editorCamera->framebuffer.Render(true);
+
+	App->camera->editorCamera->Update();
+
 	// Render Grid
 	
 	if (showGrid) {
@@ -225,15 +230,37 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	}
 
-	// -------------------- Drawing 3D Models ----------------------
+	// Render Frustum Box
+
+	App->scene->gameCameraComponent->DrawFrustumBox();
 
 	HandleDragAndDrop();
 
 	DrawModels();
 
-	// --------------------------- Drawing editor and Swaping Window -------------------------
+	// Render Bounding Boxes
+
+	DrawBoundingBoxes();
 	
-	framebuffer.Render(false);
+	App->camera->editorCamera->framebuffer.Render(false);
+
+	// --------------------------- Game Camera FrameBuffer -----------------------------------
+
+	App->scene->gameCameraComponent->framebuffer.Render(true);
+
+	App->scene->gameCameraComponent->Update();
+
+	DrawModels();
+
+	if (External->scene->gameCameraComponent->drawBoundingBoxes) {
+
+		DrawBoundingBoxes();
+
+	}
+
+	App->scene->gameCameraComponent->framebuffer.Render(false);
+
+	// --------------------------- Drawing editor and Swaping Window -------------------------
 
 	App->editor->DrawEditor();
 
@@ -247,8 +274,9 @@ bool ModuleRenderer3D::CleanUp()
 {
 	LOG("Destroying 3D Renderer");
 
-	// Clean Framebuffer
-	framebuffer.Delete();
+	// Clean Framebuffers
+	App->camera->editorCamera->framebuffer.Delete();
+	App->scene->gameCameraComponent->framebuffer.Delete();
 
 	// Detach Assimp Log Stream
 	CleanUpAssimpDebugger();
@@ -413,6 +441,68 @@ void ModuleRenderer3D::DrawBox(float3* vertices, float3 color)
 	glColor3f(255.f, 255.f, 255.f);
 	glEnd();
 	glLineWidth(1.f);
+}
+
+void ModuleRenderer3D::DrawBoundingBoxes()
+{
+	for (auto it = models.begin(); it != models.end(); ++it) {
+
+		for (auto jt = (*it).meshes.begin(); jt != (*it).meshes.end(); ++jt) {
+
+			if (External->renderer3D->IsInsideFrustum(External->scene->gameCameraComponent, (*jt).globalAABB)) {
+
+				(*jt).UpdateBoundingBoxes();
+				(*jt).RenderBoundingBoxes();
+
+			}
+
+		}
+
+	}
+}
+
+bool ModuleRenderer3D::IsInsideFrustum(const CCamera* camera, const AABB& aabb)
+{
+	// Check if frustum culling is enabled for the camera.
+	if (camera->enableFrustumCulling) {
+
+		// Get the planes of the camera frustum.
+		Plane frustumPlanes[6];
+		camera->frustum.GetPlanes(frustumPlanes);
+
+		// Get the corner points of the AABB.
+		float3 cornerPoints[8];
+		aabb.GetCornerPoints(cornerPoints);
+		
+		// Loop through each plane of the frustum.
+		for (int i = 0; i < 6; ++i) {
+
+			// Counter for points inside the frustum plane.
+			uint pointsInside = 8;
+
+			// Loop through each corner point of the AABB.
+			for (int j = 0; j < 8; ++j)
+			{
+				// Check if the corner point is on the positive side of the frustum plane.
+				if (frustumPlanes[i].IsOnPositiveSide(cornerPoints[j]))
+				{
+					// Decrement the counter if the point is on the positive side.
+					--pointsInside;
+				}
+			}
+
+			// If all corner points are outside the frustum plane, the AABB is outside the frustum.
+			if (pointsInside == 0)
+			{
+				return false;
+			}
+
+		}
+
+	}
+	
+	// If frustum culling is not enabled or the AABB is inside the frustum, return true.
+	return true;
 }
 
 void ModuleRenderer3D::DrawModels()

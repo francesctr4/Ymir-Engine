@@ -35,14 +35,13 @@ public:
 
 	GameObject* mRootNode;
 
-	GameObject* editorCameraObject;
 	GameObject* gameCameraObject;
 	CCamera* gameCameraComponent;
 
-	CCamera* currentCamera;
+	//CCamera* currentCamera;
+	std::vector<CCamera*> cameras;
 
 	std::vector<GameObject*> gameObjects;
-	std::vector<CCamera*> cameras;
 
 	JsonFile ysceneFile;
 
