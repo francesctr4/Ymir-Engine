@@ -1,11 +1,15 @@
 #pragma once
 
 #include <vector>
+#include <map>
+
 #include "Module.h"
 
 #include "External/Assimp/include/cimport.h"
 #include "External/Assimp/include/scene.h"
 #include "External/Assimp/include/postprocess.h"
+
+#include "External/MathGeoLib/include/Geometry/LineSegment.h"
 
 #include "JsonFile.h"
 
@@ -30,6 +34,8 @@ public:
 	void DestroyGameObject(GameObject* toDestroy);
 
 	void ClearScene();
+
+	void HandleGameObjectSelection(const LineSegment& ray);
 
 public:
 

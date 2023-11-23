@@ -3,6 +3,7 @@
 #include "ModuleCamera3D.h"
 #include "ModuleInput.h"
 #include "ModuleScene.h"
+#include "ModuleWindow.h"
 #include "Log.h"
 #include "GameObject.h"
 
@@ -87,33 +88,24 @@ update_status ModuleCamera3D::Update(float dt)
 
 	}
 
-	CreateMousePickingRay();
+	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
+	{
+		CreateMousePickingRay(App->input->GetMouseX(), App->window->height - App->input->GetMouseY());
+	}
 
 	return UPDATE_CONTINUE;
 }
 
-void ModuleCamera3D::CreateMousePickingRay()
+void ModuleCamera3D::CreateMousePickingRay(float mousePosX, float mousePosY)
 {
-	float2 origin = float2(App->input->GetMouseX(), App->input->GetMouseY());
+	float mousePosX_normalized = mousePosX / (float)App->window->width;
+	float mousePosY_normalized = mousePosY / (float)App->window->height;
 
-	origin.Normalize();
+	mousePosX_normalized = (mousePosX_normalized - 0.5) / 0.5;
+	mousePosY_normalized = (mousePosY_normalized - 0.5) / 0.5;
 
-	mousePickingRay = editorCamera->frustum.UnProjectLineSegment(origin.x, origin.y);
+	mousePickingRay = editorCamera->frustum.UnProjectLineSegment(mousePosX_normalized, mousePosY_normalized);
 
-	bool hit;
-
-	for (auto it = App->renderer3D->models.begin(); it != App->renderer3D->models.end(); ++it) {
-
-		for (auto jt = (*it).meshes.begin(); jt != (*it).meshes.end(); ++jt) {
-
-			hit = mousePickingRay.Intersects((*jt).globalAABB); // Ray vs. AABB
-
-			// (*jt).meshGO->selected = hit;
-
-		}
-
-	}
-
-	// bool hit = ray_local_space.Intersects(tri, &distance, &hit_point); // ray vs. triangle
+	App->scene->HandleGameObjectSelection(mousePickingRay);
 
 }

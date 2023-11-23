@@ -1063,6 +1063,9 @@
     <None Include="Game\Assets\Shaders\VertexShader.glsl">
       <Filter>Sources\Tools\Shader Pipeline\GLSL</Filter>
     </None>
+    <None Include="Game\Assets\Shaders\OutlineShader.glsl">
+      <Filter>Sources\Tools\Shader Pipeline\GLSL</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\Icon.rc">
