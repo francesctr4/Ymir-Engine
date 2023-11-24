@@ -16,9 +16,13 @@
 
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
+	// UID regenerated = duplication (This will be fixed with scene serialization)
+
 	mRootNode = CreateGameObject("Scene", nullptr);
+	mRootNode->UID = Random::Generate();
 
 	gameCameraObject = CreateGameObject("Main Camera", mRootNode);
+	gameCameraObject->UID = Random::Generate();
 
 	LOG("Creating ModuleScene");
 }

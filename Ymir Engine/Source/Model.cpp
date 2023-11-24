@@ -6,6 +6,7 @@
 #include "ModuleRenderer3D.h"
 
 #include "ModuleFileSystem.h"
+#include "PhysfsEncapsule.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "External/stb_image/stb_image.h"
@@ -136,6 +137,23 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO
 		currentNodeGO = External->scene->CreateGameObject(name, External->scene->mRootNode);
 		modelGO = currentNodeGO;
 
+		JsonFile* tmpMetaFile = JsonFile::GetJSON(path + ".meta");
+
+		if (tmpMetaFile) {
+
+			// The meta file exists; it's not the first time we load the texture.
+			modelGO->UID = tmpMetaFile->GetInt("UID");
+
+			delete tmpMetaFile;
+
+		}
+		else {
+
+			// The meta file doesn't exists; first time loading the texture.
+			modelGO->UID = Random::Generate();
+
+		}
+
 	}
 	else {
 
@@ -157,7 +175,7 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO
 	for (uint i = 0; i < node->mNumMeshes; i++)
 	{
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-		
+
 		meshes.push_back(ProcessMesh(mesh, scene, currentNodeGO, &tmpNodeTransform));
 	}
 
@@ -167,7 +185,7 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO
 	{
 		ProcessNode(node->mChildren[i], scene, currentNodeGO);
 	}
-	
+
 }
 
 Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene, GameObject* linkGO, NodeTransform* transform)
@@ -210,7 +228,7 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene, GameObject* linkGO, 
 		if (mesh->HasTextureCoords(0))
 		{
 			float2 vTextureCoords;
-			
+
 			vTextureCoords.x = mesh->mTextureCoords[0][i].x;
 			vTextureCoords.y = mesh->mTextureCoords[0][i].y;
 
@@ -266,7 +284,7 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene, GameObject* linkGO, 
 			textures.push_back(tmpTexture);
 
 		}
-		
+
 	}
 
 	// Create the mesh

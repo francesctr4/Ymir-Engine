@@ -13,8 +13,6 @@ GameObject::GameObject(std::string name, GameObject* parent)
 	active = true;
 	selected = false;
 
-	UID = Random::Generate();
-
 	AddComponent(new CTransform(this));
 }
 
