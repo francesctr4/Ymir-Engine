@@ -2438,7 +2438,9 @@ void ModuleEditor::DrawAssetsWindow(const std::string& assetsFolder) {
 
             if (entryName != "." && entryName != "..") {
 
-                if ((entryName.find(".meta") != std::string::npos) || (entryName.find(".glsl") != std::string::npos)) {
+                if ((entryName.find(".meta") != std::string::npos) || 
+                    (entryName.find(".glsl") != std::string::npos) ||
+                    (entryName.find(".json") != std::string::npos)) {
 
                     ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.2f, 0.6f, 0.6f, 1.0f)); 
 
@@ -2510,7 +2512,8 @@ void ModuleEditor::DrawLibraryWindow(const std::string& libraryFolder) {
             if (entryName != "." && entryName != "..") {
 
                 if ((entryName.find(".yscene") != std::string::npos) || 
-                    (entryName.find(".ymodel") != std::string::npos)) {
+                    (entryName.find(".ymodel") != std::string::npos) ||
+                    (entryName.find(".json") != std::string::npos)) {
 
                     ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.2f, 0.6f, 0.6f, 1.0f));
 

@@ -12,6 +12,7 @@ namespace PhysfsEncapsule {
     void InitializePhysFS();
 
     bool FolderExists(std::string route);
+    bool FileExists(std::string route);
     void CreateFolder(std::string route, std::string folderName);
     void ReadFolder(std::string route);
     void DeleteFolder(std::string route);

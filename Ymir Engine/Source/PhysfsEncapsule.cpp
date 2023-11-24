@@ -10,7 +10,12 @@ void PhysfsEncapsule::InitializePhysFS()
 
 bool PhysfsEncapsule::FolderExists(std::string route)
 {
-    return std::filesystem::exists(route);
+    return std::filesystem::exists(route) && std::filesystem::is_directory(route);
+}
+
+bool PhysfsEncapsule::FileExists(std::string route)
+{
+    return std::filesystem::exists(route) && std::filesystem::is_regular_file(route);
 }
 
 void PhysfsEncapsule::CreateFolder(std::string route, std::string folderName)

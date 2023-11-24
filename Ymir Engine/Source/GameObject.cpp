@@ -36,8 +36,6 @@ void GameObject::Update()
 
 	}
 
-	//aabb.SetFromCenterAndSize(ctransform->GetPosition(), float3::one);
-
 }
 
 void GameObject::Enable()
