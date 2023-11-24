@@ -439,6 +439,12 @@ void ModuleEditor::DrawEditor()
 
             }
 
+            if (ImGui::MenuItem("Library")) {
+
+                showLibrary = true;
+
+            }
+
             ImGui::EndMenu();
         }
 
@@ -976,6 +982,107 @@ void ModuleEditor::DrawEditor()
 
         if (ImGui::Begin("Assets", &showAssets), true) {
 
+            DrawAssetsWindow("Assets/");
+
+            // Display the modal when showModal is true
+            if (showModal) {
+
+                ImGui::OpenPopup(selectedFilePath.c_str());
+
+                showModal = false;  // Reset the flag
+
+            }
+
+            // Modal window for displaying file contents
+            if (ImGui::BeginPopupModal(selectedFilePath.c_str(), nullptr, ImGuiWindowFlags_AlwaysAutoResize)) {
+
+                // Read and display the contents of the selected file
+
+                std::ifstream file(selectedFilePath);
+
+                if (file.is_open()) {
+
+                    std::string fileContents((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+
+                    ImGui::Text("%s", fileContents.c_str());
+
+                    file.close();
+
+                }
+
+                // Close the modal window
+
+                if (ImGui::Button("Close")) {
+
+                    ImGui::CloseCurrentPopup();
+
+                }
+
+                ImGui::EndPopup();
+            }
+
+            ImGui::End();
+        }
+
+    }
+
+    if (showLibrary) {
+
+        if (ImGui::Begin("Library", &showLibrary), true) {
+
+            DrawLibraryWindow("Library/");
+
+            std::string completeFilePath = selectedFilePath.c_str();
+            std::string shortenedFilePath;
+
+            // Find the position of the first "/" in the string
+            size_t found = completeFilePath.find("/");
+
+            if (found != std::string::npos) {
+
+                shortenedFilePath = selectedFilePath.substr(found + 1);
+
+            }
+            else {
+
+                shortenedFilePath = completeFilePath;
+
+            }
+
+            // Display the modal when showModal is true
+            if (showModal) {
+
+                ImGui::OpenPopup(shortenedFilePath.c_str());
+                showModal = false;  // Reset the flag
+
+            }
+
+            // Modal window for displaying file contents
+
+            if (ImGui::BeginPopupModal(shortenedFilePath.c_str(), nullptr, ImGuiWindowFlags_AlwaysAutoResize)) {
+
+                // Read and display the contents of the selected file
+
+                std::ifstream file(selectedFilePath);
+
+                if (file.is_open()) {
+
+                    std::string fileContents((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+
+                    ImGui::Text("%s", fileContents.c_str());
+
+                    file.close();
+                }
+
+                // Close the modal window
+                if (ImGui::Button("Close")) {
+
+                    ImGui::CloseCurrentPopup();
+
+                }
+
+                ImGui::EndPopup();
+            }
 
             ImGui::End();
         }
@@ -2247,22 +2354,187 @@ void ModuleEditor::ManipulateGizmo(const float* viewMatrix, const float* project
 
 void ModuleEditor::DrawFileExplorer(const std::string& rootFolder) {
 
+    // Process Directories First
+
     for (const auto& entry : std::filesystem::directory_iterator(rootFolder)) {
 
-        std::string entryName = entry.path().filename().string();
+        if (entry.is_directory()) {
 
-        if (entryName != "." && entryName != "..") {
-            if (entry.is_directory()) {
+            std::string entryName = entry.path().filename().string();
+
+            if (entryName != "." && entryName != "..") {
 
                 if (ImGui::TreeNodeEx(entryName.c_str(), ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick)) {
-                    DrawFileExplorer(entry.path().string());
-                    ImGui::TreePop();
-                }
-            }
-            else {
 
-                ImGui::TextColored(ImVec4(0.4f, 0.8f, 1.0f, 1.0f), "%s", entryName.c_str());
+                    DrawFileExplorer(entry.path().string());
+
+                    ImGui::TreePop();
+
+                }
+
             }
+
+        }
+
+    }
+
+    // Process Files Afterwards
+
+    for (const auto& entry : std::filesystem::directory_iterator(rootFolder)) {
+
+        if (!entry.is_directory()) {
+
+            std::string entryName = entry.path().filename().string();
+
+            if (entryName != "." && entryName != "..") {
+
+                ImGui::Selectable(entryName.c_str());
+
+            }
+
+        }
+
+    }
+
+}
+
+void ModuleEditor::DrawAssetsWindow(const std::string& assetsFolder) {
+
+    // Process Directories First
+
+    for (const auto& entry : std::filesystem::directory_iterator(assetsFolder)) {
+
+        if (entry.is_directory()) {
+
+            std::string entryName = entry.path().filename().string();
+
+            if (entryName != "." && entryName != "..") {
+
+                ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 0.8f, 0.3f, 1.0f));
+
+                if (ImGui::TreeNodeEx(entryName.c_str(), ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick)) {
+
+                    DrawAssetsWindow(entry.path().string());
+
+                    ImGui::TreePop();
+
+                }
+
+                ImGui::PopStyleColor();
+
+            }
+
+        }
+
+    }
+
+    // Process Files Afterwards
+
+    for (const auto& entry : std::filesystem::directory_iterator(assetsFolder)) {
+
+        if (!entry.is_directory()) {
+
+            std::string entryName = entry.path().filename().string();
+
+            if (entryName != "." && entryName != "..") {
+
+                if ((entryName.find(".meta") != std::string::npos) || (entryName.find(".glsl") != std::string::npos)) {
+
+                    ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.2f, 0.6f, 0.6f, 1.0f)); 
+
+                    if (ImGui::Selectable(entryName.c_str())) {
+
+                        selectedFilePath = entry.path().string();
+                        showModal = true;  // Set the flag to open the modal
+                    }
+
+                    ImGui::PopStyleColor();
+
+                }
+                else {
+
+                    ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
+
+                    ImGui::Selectable(entryName.c_str());
+
+                    ImGui::PopStyleColor();
+
+                }
+
+            }
+
+        }
+
+    }
+
+}
+
+void ModuleEditor::DrawLibraryWindow(const std::string& libraryFolder) {
+
+    // Process Directories First
+
+    for (const auto& entry : std::filesystem::directory_iterator(libraryFolder)) {
+
+        if (entry.is_directory()) {
+
+            std::string entryName = entry.path().filename().string();
+
+            if (entryName != "." && entryName != "..") {
+
+                ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 0.8f, 0.3f, 1.0f));
+
+                if (ImGui::TreeNodeEx(entryName.c_str(), ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick)) {
+
+                    DrawLibraryWindow(entry.path().string());
+
+                    ImGui::TreePop();
+
+                }
+
+                ImGui::PopStyleColor();
+
+            }
+
+        }
+
+    }
+
+    // Process Files Afterwards
+
+    for (const auto& entry : std::filesystem::directory_iterator(libraryFolder)) {
+
+        if (!entry.is_directory()) {
+
+            std::string entryName = entry.path().filename().string();
+
+            if (entryName != "." && entryName != "..") {
+
+                if ((entryName.find(".yscene") != std::string::npos) || 
+                    (entryName.find(".ymodel") != std::string::npos)) {
+
+                    ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.2f, 0.6f, 0.6f, 1.0f));
+
+                    if (ImGui::Selectable(entryName.c_str())) {
+
+                        selectedFilePath = entry.path().string();
+                        showModal = true;  // Set the flag to open the modal
+                    }
+
+                    ImGui::PopStyleColor();
+
+                }
+                else {
+
+                    ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
+
+                    ImGui::Selectable(entryName.c_str());
+
+                    ImGui::PopStyleColor();
+
+                }
+
+            }
+
         }
 
     }

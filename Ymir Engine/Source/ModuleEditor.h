@@ -124,6 +124,12 @@ public:
 	// Function to draw File Explorer
 	void DrawFileExplorer(const std::string& rootFolder);
 
+	// Function to draw Assets Window
+	void DrawAssetsWindow(const std::string& assetsFolder);
+
+	// Function to draw Library Window
+	void DrawLibraryWindow(const std::string& libraryFolder);
+
 public:
 
 	// Enables ImGui to render additional data
@@ -143,6 +149,7 @@ public:
 	bool showResources = true;
 	bool showFileExplorer = true;
 	bool showAssets = true;
+	bool showLibrary = true;
 
 	// OpenGL settings checkbox toggle booleans
 	bool gl_DepthTesting = true;
@@ -200,6 +207,10 @@ public:
 	// 3D Meshes Configuration
 	bool showVertexNormals = false;
 	bool showFaceNormals = false;
+
+	// File Contents Modal Window handlers
+	std::string selectedFilePath;
+	bool showModal = false;
 
 };
 
