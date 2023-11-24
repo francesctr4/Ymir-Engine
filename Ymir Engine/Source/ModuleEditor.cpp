@@ -986,6 +986,7 @@ void ModuleEditor::DrawEditor()
 
         if (ImGui::Begin("File Explorer", &showFileExplorer), true) {
 
+            DrawFileExplorer(".");
 
             ImGui::End();
         }
@@ -2242,4 +2243,28 @@ void ModuleEditor::DrawInspector()
 void ModuleEditor::ManipulateGizmo(const float* viewMatrix, const float* projectionMatrix, GizmoOperation operation, GizmoMode mode, float* modelMatrix, float* deltaMatrix, float* snap)
 {
     ImGuizmo::Manipulate(viewMatrix, projectionMatrix, ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::MODE::WORLD, modelMatrix);
+}
+
+void ModuleEditor::DrawFileExplorer(const std::string& rootFolder) {
+
+    for (const auto& entry : std::filesystem::directory_iterator(rootFolder)) {
+
+        std::string entryName = entry.path().filename().string();
+
+        if (entryName != "." && entryName != "..") {
+            if (entry.is_directory()) {
+
+                if (ImGui::TreeNodeEx(entryName.c_str(), ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick)) {
+                    DrawFileExplorer(entry.path().string());
+                    ImGui::TreePop();
+                }
+            }
+            else {
+
+                ImGui::TextColored(ImVec4(0.4f, 0.8f, 1.0f, 1.0f), "%s", entryName.c_str());
+            }
+        }
+
+    }
+
 }

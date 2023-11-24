@@ -7,6 +7,7 @@
 #include "Primitive.h"
 #include <vector>
 #include <string>
+#include <filesystem>
 
 class GameObject;
 
@@ -119,6 +120,9 @@ public:
 
 	// Function to manage Gizmo
 	void ManipulateGizmo(const float* viewMatrix, const float* projectionMatrix, GizmoOperation operation, GizmoMode mode, float* modelMatrix, float* deltaMatrix = 0, float* snap = 0);
+
+	// Function to draw File Explorer
+	void DrawFileExplorer(const std::string& rootFolder);
 
 public:
 
