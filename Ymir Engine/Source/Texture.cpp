@@ -6,17 +6,16 @@
 
 #include "Application.h"
 #include "ModuleFileSystem.h"
+#include "PhysfsEncapsule.h"
 
 Texture::Texture()
 {
 	ID = 0;
-	UID = Random::Generate();
 }
 
 Texture::Texture(const std::string& path)
 {
 	ID = 0;
-	UID = Random::Generate();
 
 	LoadTexture(path);
 }
@@ -28,6 +27,25 @@ Texture::~Texture()
 
 void Texture::LoadTexture(const std::string& path)
 {
+	// 0. Handle UID
+
+	JsonFile* tmpMetaFile = JsonFile::GetJSON(path + ".meta");
+
+	if (tmpMetaFile) {
+
+		// The meta file exists; it's not the first time we load the texture.
+		UID = tmpMetaFile->GetInt("UID");
+
+		delete tmpMetaFile;
+
+	}
+	else {
+
+		// The meta file doesn't exists; first time loading the texture.
+		UID = Random::Generate();
+
+	}
+
 	// 1. Load DevIL Image
 
 	ILuint imageID;

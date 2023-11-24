@@ -26,6 +26,8 @@ public:
     void ModifyJSON(std::string route, std::string fileName);
     void DeleteJSON(std::string route, std::string fileName);
 
+    static JsonFile* JsonFile::GetJSON(const std::string& route);
+
     // -------------------------- Support functions --------------------------------
 
     void SetInt(const char* key, int value);

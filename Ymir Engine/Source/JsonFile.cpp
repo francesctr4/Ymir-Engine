@@ -73,6 +73,30 @@ void JsonFile::DeleteJSON(std::string route, std::string fileName)
 
 }
 
+JsonFile* JsonFile::GetJSON(const std::string& route) {
+
+    JsonFile* jsonFile = new JsonFile();
+
+    // Load the existing JSON file
+
+    jsonFile->rootValue = json_parse_file(route.c_str());
+
+    // Error handling
+    if (!jsonFile->rootValue) {
+
+        LOG("Error: Unable to load JSON file from %s", route.c_str());
+
+        delete jsonFile;
+
+        return nullptr;
+    }
+
+    // Get the JSON object from the root value
+    jsonFile->rootObject = json_value_get_object(jsonFile->rootValue);
+
+    return jsonFile;
+}
+
 // -------------------------- Support functions --------------------------------
 
 void JsonFile::SetInt(const char* key, int value) {
