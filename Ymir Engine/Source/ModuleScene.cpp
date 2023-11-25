@@ -44,7 +44,7 @@ bool ModuleScene::Init()
 
 	gameCameraComponent = new CCamera(gameCameraObject);
 
-	gameCameraComponent->SetPos(0.0f, 2.0f, 20.0f);
+	gameCameraComponent->SetPos(-40.0f, 29.0f, 54.0f);
 	gameCameraComponent->LookAt(float3(0.f, 0.f, 0.f));
 	gameCameraComponent->SetAspectRatio(SCREEN_WIDTH / SCREEN_HEIGHT);
 

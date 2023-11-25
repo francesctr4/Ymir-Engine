@@ -169,9 +169,10 @@ bool ModuleRenderer3D::Init()
 
 	Grid.axis = true;
 
-	// Load Baker House from the start
+	// Load Street Environment from the start
 
-	models.push_back(Model("Assets/BakerHouse.fbx"));
+	//models.push_back(Model("Assets/BakerHouse.fbx"));
+	models.push_back(Model("Assets/Street_Environment/StreetEnvironment.fbx"));
 
 	// Skybox
 
