@@ -36,7 +36,7 @@ public:
 
 private:
 
-    void ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO);
+    void ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO, int iteration);
     Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene, GameObject* linkGO, NodeTransform* transform);
 
     void GenerateModelMetaFile();

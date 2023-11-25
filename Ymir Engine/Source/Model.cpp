@@ -96,7 +96,7 @@ void Model::LoadModel(const std::string& path)
 
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		ProcessNode(scene->mRootNode, scene, nullptr);
+		ProcessNode(scene->mRootNode, scene, nullptr, -1);
 
 		LOG("Model created: %s", name.c_str());
 
@@ -109,7 +109,7 @@ void Model::LoadModel(const std::string& path)
 
 }
 
-void Model::ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO)
+void Model::ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO, int iteration)
 {
 	// Retrieve transformation from Assimp
 
@@ -162,6 +162,23 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO
 
 		// Model Meta File and Library File Creation
 
+		JsonFile* tmpMetaFile = JsonFile::GetJSON(path + ".meta");
+
+		if (tmpMetaFile) {
+
+			// The meta file exists; it's not the first time we load the texture.
+			currentNodeGO->UID = tmpMetaFile->GetIntArray("Meshes Embedded UID")[iteration];
+			
+			delete tmpMetaFile;
+
+		}
+		else {
+
+			// The meta file doesn't exists; first time loading the texture.
+			currentNodeGO->UID = Random::Generate();
+
+		}
+
 		embeddedMeshesUID.push_back(currentNodeGO->UID);
 
 		GenerateModelMetaFile();
@@ -183,7 +200,7 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO
 
 	for (uint i = 0; i < node->mNumChildren; i++)
 	{
-		ProcessNode(node->mChildren[i], scene, currentNodeGO);
+		ProcessNode(node->mChildren[i], scene, currentNodeGO, iteration);
 	}
 
 }
