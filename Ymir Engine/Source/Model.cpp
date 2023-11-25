@@ -123,7 +123,7 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO
 	tmpNodeTransform.translation = { translation.x, translation.y, translation.z };
 
 	Quat rotQ(rotation.x, rotation.y, rotation.z, rotation.w);
-	tmpNodeTransform.rotation = { rotQ.ToEulerXYZ() };
+	tmpNodeTransform.rotation = rotQ.ToEulerXYZ();
 
 	tmpNodeTransform.scale = { scaling.x, scaling.y, scaling.z };
 

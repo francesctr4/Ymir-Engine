@@ -32,11 +32,11 @@ Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vec
 
     InitBoundingBoxes();
 
-    // This is commented to avoid scale problems (1:100) and weird imported rotations, but works.
+    // Load transformation from Assimp
 
-    //this->meshShader.translation = transform->translation;
-    //this->meshShader.rotation = transform->rotation;
-    //this->meshShader.scale = transform->scale;
+    this->meshShader.translation = transform->translation;
+    this->meshShader.rotation = transform->rotation * RADTODEG;
+    this->meshShader.scale = transform->scale;
     
 }
 

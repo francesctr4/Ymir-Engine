@@ -313,7 +313,7 @@ void ModuleRenderer3D::HandleDragAndDrop()
 {
 	if (App->input->droppedFile) {
 
-		if (IsFileExtension(App->input->droppedFileDirectory, ".fbx") || IsFileExtension(App->input->droppedFileDirectory, ".FBX") || IsFileExtension(App->input->droppedFileDirectory, ".DAE")) {
+		if (IsFileExtension(App->input->droppedFileDirectory, ".fbx") || IsFileExtension(App->input->droppedFileDirectory, ".FBX") || IsFileExtension(App->input->droppedFileDirectory, ".DAE") || IsFileExtension(App->input->droppedFileDirectory, ".dae")) {
 
 			models.push_back(Model(App->input->droppedFileDirectory));
 
