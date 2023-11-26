@@ -547,19 +547,86 @@ Quat JsonFile::GetQuat(const char* key) const
 
 // -------------------------- Scene Serialization functions --------------------------------
 
+// ---------- Individual Elements
+
 void JsonFile::SetComponent(const char* key, const Component& component)
 {
+    JSON_Value* componentValue = json_value_init_object();
+    JSON_Object* componentObject = json_value_get_object(componentValue);
 
+    switch (component.ctype)
+    {
+    case NONE:
+        // Handle NONE case (if needed)
+        break;
+
+    case TRANSFORM:
+        json_object_set_string(componentObject, "Type", "Transform");
+        // Additional properties specific to the Transform component can be added here
+        break;
+
+    case MESH:
+        json_object_set_string(componentObject, "Type", "Mesh");
+        // Additional properties specific to the Mesh component can be added here
+        break;
+
+    case MATERIAL:
+        json_object_set_string(componentObject, "Type", "Material");
+        // Additional properties specific to the Material component can be added here
+        break;
+
+    case CAMERA:
+        json_object_set_string(componentObject, "Type", "Camera");
+        // Additional properties specific to the Camera component can be added here
+        break;
+    }
+
+    // Add the component object to the main object
+    json_object_set_value(rootObject, key, componentValue);
 }
 
-void JsonFile::SetComponent(JSON_Object* componentObject, const Component& component)
+Component* JsonFile::GetComponent(const char* key) const
 {
+    JSON_Value* componentValue = json_object_get_value(rootObject, key);
 
-}
+    if (componentValue != nullptr && json_value_get_type(componentValue) == JSONObject) {
 
-Component JsonFile::GetComponent(const char* key) const
-{
-    return Component(nullptr, ComponentType::NONE);
+        JSON_Object* componentObject = json_value_get_object(componentValue);
+
+        // Create a new Component
+        Component* component = new Component();
+
+        // Get common properties
+        std::string type = json_object_get_string(componentObject, "Type");
+
+        if (type == "Transform") {
+
+            component->ctype = ComponentType::TRANSFORM;
+
+        }
+
+        if (type == "Mesh") {
+
+            component->ctype = ComponentType::MESH;
+
+        }
+
+        if (type == "Material") {
+
+            component->ctype = ComponentType::MATERIAL;
+
+        }
+
+        if (type == "Camera") {
+
+            component->ctype = ComponentType::CAMERA;
+
+        }       
+
+        return component;
+    }
+
+    return nullptr;
 }
 
 void JsonFile::SetGameObject(const char* key, const GameObject& gameObject)
@@ -634,11 +701,118 @@ void JsonFile::SetGameObject(const char* key, const GameObject& gameObject)
         json_object_set_value(gameObjectObject, "Children UID", childrenValue);
 
     }
-    
-    // Save Components Info (TODO)
-    
+
+    // Save Components Info
+
+    JSON_Value* componentsValue = json_value_init_array();
+    JSON_Array* componentsArray = json_value_get_array(componentsValue);
+
+    for (const auto& component : gameObject.mComponents) {
+
+        JSON_Value* componentValue = json_value_init_object();
+        JSON_Object* componentObject = json_value_get_object(componentValue);
+
+        // Call the existing SetGameObject function to set individual GameObject properties
+        SetComponent(componentObject, *component);
+
+        // Add the GameObject to the hierarchy array
+        json_array_append_value(componentsArray, componentValue);
+    }
+
+    // Add the hierarchy array to the main object
+    json_object_set_value(gameObjectObject, "Components", componentsValue);
+
     // Add the GameObject to the main array
     json_object_set_value(rootObject, key, gameObjectValue);
+}
+
+GameObject* JsonFile::GetGameObject(const char* key) const
+{
+    JSON_Value* gameObjectValue = json_object_get_value(rootObject, key);
+
+    if (gameObjectValue != nullptr && json_value_get_type(gameObjectValue) == JSONObject) {
+        JSON_Object* gameObjectObject = json_value_get_object(gameObjectValue);
+
+        // Create a new GameObject
+        GameObject* gameObject = new GameObject();
+
+        // Get Name
+        const char* name = json_object_get_string(gameObjectObject, "Name");
+        gameObject->name = (name != nullptr) ? name : "";
+
+        // Get UID
+        gameObject->UID = static_cast<int>(json_object_get_number(gameObjectObject, "UID"));
+
+        // Get Parent UID
+        if (json_object_has_value_of_type(gameObjectObject, "Parent UID", JSONNumber)) {
+            gameObject->mParent->UID = static_cast<int>(json_object_get_number(gameObjectObject, "Parent UID"));
+        }
+
+        // Get Children UID
+        if (json_object_has_value_of_type(gameObjectObject, "Children UID", JSONArray)) {
+            JSON_Array* childrenArray = json_object_get_array(gameObjectObject, "Children UID");
+            size_t numChildren = json_array_get_count(childrenArray);
+
+            for (size_t i = 0; i < numChildren; ++i) {
+                int childUID = static_cast<int>(json_array_get_number(childrenArray, i));
+                // You need to find the corresponding child GameObject using the UID
+                // and add it to gameObject->mChildren.
+                // Assuming you have a function like FindGameObjectByUID, implement it accordingly.
+                //gameObject->mChildren.push_back(FindGameObjectByUID(childUID));
+            }
+
+        }
+
+        // Get Components
+        if (json_object_has_value_of_type(gameObjectObject, "Components", JSONArray)) {
+            JSON_Array* componentsArray = json_object_get_array(gameObjectObject, "Components");
+            size_t numComponents = json_array_get_count(componentsArray);
+
+            for (size_t i = 0; i < numComponents; ++i) {
+                JSON_Value* componentValue = json_array_get_value(componentsArray, i);
+
+                if (json_value_get_type(componentValue) == JSONObject) {
+                    JSON_Object* componentObject = json_value_get_object(componentValue);
+
+                    // Create a new Component
+                    Component* component = new Component();
+
+                    // Call the existing GetComponent function to retrieve individual Component properties
+                    GetComponent(componentObject, *component);
+
+                    // Add the Component to the GameObject's components vector
+                    gameObject->mComponents.push_back(component);
+                }
+            }
+        }
+
+        return gameObject;
+    }
+
+    return nullptr;
+}
+
+// ---------- Save Scene 
+
+void JsonFile::SetHierarchy(const char* key, const std::vector<GameObject*>& gameObjects)
+{
+    JSON_Value* hierarchyValue = json_value_init_array();
+    JSON_Array* hierarchyArray = json_value_get_array(hierarchyValue);
+
+    for (const auto& gameObject : gameObjects) {
+
+        JSON_Value* gameObjectValue = json_value_init_object();
+        JSON_Object* gameObjectObject = json_value_get_object(gameObjectValue);
+
+        // Call the existing SetGameObject function to set individual GameObject properties
+        SetGameObject(gameObjectObject, *gameObject);
+
+        // Add the GameObject to the hierarchy array
+        json_array_append_value(hierarchyArray, gameObjectValue);
+    }
+
+    // Add the hierarchy array to the main object
+    json_object_set_value(rootObject, key, hierarchyValue);
 }
 
 void JsonFile::SetGameObject(JSON_Object* gameObjectObject, const GameObject& gameObject)
@@ -695,12 +869,98 @@ void JsonFile::SetGameObject(JSON_Object* gameObjectObject, const GameObject& ga
         json_object_set_value(gameObjectObject, "Children UID", childrenValue);
     }
 
-    // Save Components Info (TODO)
+    // Save Components Info
+
+    JSON_Value* componentsValue = json_value_init_array();
+    JSON_Array* componentsArray = json_value_get_array(componentsValue);
+
+    for (const auto& component : gameObject.mComponents) {
+
+        JSON_Value* componentValue = json_value_init_object();
+        JSON_Object* componentObject = json_value_get_object(componentValue);
+
+        // Call the existing SetGameObject function to set individual GameObject properties
+        SetComponent(componentObject, *component);
+
+        // Add the GameObject to the hierarchy array
+        json_array_append_value(componentsArray, componentValue);
+    }
+
+    // Add the hierarchy array to the main object
+    json_object_set_value(gameObjectObject, "Components", componentsValue);
+
 }
 
-GameObject JsonFile::GetGameObject(const char* key) const
+void JsonFile::SetComponent(JSON_Object* componentObject, const Component& component)
 {
-    return GameObject("", nullptr);
+    switch (component.ctype)
+    {
+    case NONE:
+        // Handle NONE case (if needed)
+        break;
+
+    case TRANSFORM:
+        json_object_set_string(componentObject, "Type", "Transform");
+        // Additional properties specific to the Transform component can be added here
+        break;
+
+    case MESH:
+        json_object_set_string(componentObject, "Type", "Mesh");
+        // Additional properties specific to the Mesh component can be added here
+        break;
+
+    case MATERIAL:
+        json_object_set_string(componentObject, "Type", "Material");
+        // Additional properties specific to the Material component can be added here
+        break;
+
+    case CAMERA:
+        json_object_set_string(componentObject, "Type", "Camera");
+        // Additional properties specific to the Camera component can be added here
+        break;
+    }
+}
+
+// ---------- Load Scene
+
+std::vector<GameObject*> JsonFile::GetHierarchy(const char* key) const
+{
+    std::vector<GameObject*> gameObjects;
+
+    JSON_Value* hierarchyValue = json_object_get_value(rootObject, key);
+
+    if (hierarchyValue != nullptr && json_value_get_type(hierarchyValue) == JSONArray) {
+
+        JSON_Array* hierarchyArray = json_value_get_array(hierarchyValue);
+
+        size_t numGameObjects = json_array_get_count(hierarchyArray);
+
+        gameObjects.reserve(numGameObjects);
+
+        for (size_t i = 0; i < numGameObjects; ++i) {
+
+            JSON_Value* gameObjectValue = json_array_get_value(hierarchyArray, i);
+
+            if (json_value_get_type(gameObjectValue) == JSONObject) {
+
+                JSON_Object* gameObjectObject = json_value_get_object(gameObjectValue);
+
+                // Create a new GameObject
+                GameObject* gameObject = new GameObject();
+
+                // Call a function to extract individual GameObject properties
+                GetGameObject(gameObjectObject, *gameObject);
+
+                // Add the GameObject to the vector
+                gameObjects.push_back(gameObject);
+
+            }
+
+        }
+
+    }
+
+    return gameObjects;
 }
 
 void JsonFile::GetGameObject(const JSON_Object* gameObjectObject, GameObject& gameObject) const
@@ -752,61 +1012,29 @@ void JsonFile::GetGameObject(const JSON_Object* gameObjectObject, GameObject& ga
 
     }
 
-    // Get Components Info (TODO)
+    // Get Components Info
 
-}
+    if (json_object_has_value_of_type(gameObjectObject, "Components", JSONArray)) {
 
-void JsonFile::SetHierarchy(const char* key, const std::vector<GameObject*>& gameObjects)
-{
-    JSON_Value* hierarchyValue = json_value_init_array();
-    JSON_Array* hierarchyArray = json_value_get_array(hierarchyValue);
+        JSON_Array* componentsArray = json_object_get_array(gameObjectObject, "Components");
+        size_t numComponents = json_array_get_count(componentsArray);
 
-    for (const auto& gameObject : gameObjects) {
+        for (size_t i = 0; i < numComponents; ++i) {
 
-        JSON_Value* gameObjectValue = json_value_init_object();
-        JSON_Object* gameObjectObject = json_value_get_object(gameObjectValue);
+            JSON_Value* componentValue = json_array_get_value(componentsArray, i);
 
-        // Call the existing SetGameObject function to set individual GameObject properties
-        SetGameObject(gameObjectObject, *gameObject);
+            if (json_value_get_type(componentValue) == JSONObject) {
 
-        // Add the GameObject to the hierarchy array
-        json_array_append_value(hierarchyArray, gameObjectValue);
-    }
+                JSON_Object* componentObject = json_value_get_object(componentValue);
 
-    // Add the hierarchy array to the main object
-    json_object_set_value(rootObject, key, hierarchyValue);
-}
+                // Create a new Component
+                Component* component = new Component();
 
-std::vector<GameObject*> JsonFile::GetHierarchy(const char* key) const
-{
-    std::vector<GameObject*> gameObjects;
+                // Call the existing GetComponent function to extract individual Component properties
+                GetComponent(componentObject, *component);
 
-    JSON_Value* hierarchyValue = json_object_get_value(rootObject, key);
-
-    if (hierarchyValue != nullptr && json_value_get_type(hierarchyValue) == JSONArray) {
-
-        JSON_Array* hierarchyArray = json_value_get_array(hierarchyValue);
-
-        size_t numGameObjects = json_array_get_count(hierarchyArray);
-
-        gameObjects.reserve(numGameObjects);
-
-        for (size_t i = 0; i < numGameObjects; ++i) {
-
-            JSON_Value* gameObjectValue = json_array_get_value(hierarchyArray, i);
-
-            if (json_value_get_type(gameObjectValue) == JSONObject) {
-
-                JSON_Object* gameObjectObject = json_value_get_object(gameObjectValue);
-
-                // Create a new GameObject
-                GameObject* gameObject = new GameObject();
-
-                // Call a function to extract individual GameObject properties
-                GetGameObject(gameObjectObject, *gameObject);
-
-                // Add the GameObject to the vector
-                gameObjects.push_back(gameObject);
+                // Add the Component to the GameObject's components vector
+                gameObject.mComponents.push_back(component);
 
             }
 
@@ -814,5 +1042,32 @@ std::vector<GameObject*> JsonFile::GetHierarchy(const char* key) const
 
     }
 
-    return gameObjects;
+}
+
+void JsonFile::GetComponent(const JSON_Object* componentObject, Component& component) const {
+
+    // Get common properties
+    std::string type = json_object_get_string(componentObject, "Type");
+
+    if (type == "Transform") {
+
+        component.ctype = ComponentType::TRANSFORM;
+
+    }
+    else if (type == "Mesh") {
+
+        component.ctype = ComponentType::MESH;
+
+    }
+    else if (type == "Material") {
+
+        component.ctype = ComponentType::MATERIAL;
+
+    }
+    else if (type == "Camera") {
+
+        component.ctype = ComponentType::CAMERA;
+
+    }
+
 }

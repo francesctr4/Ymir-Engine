@@ -38,14 +38,6 @@ bool ModuleScene::Init()
 
 	LOG("Loading scene");
 
-	ysceneFile.SetFloat3("Editor Camera Position", App->camera->editorCamera->GetPos());
-	ysceneFile.SetFloat3("Editor Camera Right (X)", App->camera->editorCamera->GetRight());
-	ysceneFile.SetFloat3("Editor Camera Up (Y)", App->camera->editorCamera->GetUp());
-	ysceneFile.SetFloat3("Editor Camera Front (Z)", App->camera->editorCamera->GetFront());
-	ysceneFile.SetHierarchy("Hierarchy", gameObjects);
-
-	ysceneFile.CreateJSON(External->fileSystem->libraryScenesPath, std::to_string(mRootNode->UID) + ".yscene");
-
 	cameras.push_back(App->camera->editorCamera);
 
 	gameCameraComponent = new CCamera(gameCameraObject);
@@ -56,6 +48,16 @@ bool ModuleScene::Init()
 
 	gameCameraObject->AddComponent(gameCameraComponent);
 	cameras.push_back(gameCameraComponent);
+
+	// yscene file creation
+
+	ysceneFile.SetFloat3("Editor Camera Position", App->camera->editorCamera->GetPos());
+	ysceneFile.SetFloat3("Editor Camera Right (X)", App->camera->editorCamera->GetRight());
+	ysceneFile.SetFloat3("Editor Camera Up (Y)", App->camera->editorCamera->GetUp());
+	ysceneFile.SetFloat3("Editor Camera Front (Z)", App->camera->editorCamera->GetFront());
+	ysceneFile.SetHierarchy("Hierarchy", gameObjects);
+
+	ysceneFile.CreateJSON(External->fileSystem->libraryScenesPath, std::to_string(mRootNode->UID) + ".yscene");
 
 	return ret;
 }
@@ -178,9 +180,9 @@ void ModuleScene::LoadScene()
 	App->camera->editorCamera->SetUp(sceneToLoad->GetFloat3("Editor Camera Up (Y)"));
 	App->camera->editorCamera->SetFront(sceneToLoad->GetFloat3("Editor Camera Front (Z)"));
 
-	// ClearScene();
+	//ClearScene();
 
-	// gameObjects = sceneToLoad->GetHierarchy("Hierarchy");
+	//gameObjects = sceneToLoad->GetHierarchy("Hierarchy");
 
 	delete sceneToLoad;
 }

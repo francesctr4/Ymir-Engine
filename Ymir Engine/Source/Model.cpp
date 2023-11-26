@@ -162,22 +162,22 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO
 
 		// Model Meta File and Library File Creation
 
-		JsonFile* tmpMetaFile = JsonFile::GetJSON(path + ".meta");
+		//JsonFile* tmpMetaFile = JsonFile::GetJSON(path + ".meta");
 
-		if (tmpMetaFile) {
+		//if (tmpMetaFile) {
 
 			// The meta file exists; it's not the first time we load the texture.
-			currentNodeGO->UID = tmpMetaFile->GetIntArray("Meshes Embedded UID")[iteration];
+			//currentNodeGO->UID = tmpMetaFile->GetIntArray("Meshes Embedded UID")[iteration];
 			
-			delete tmpMetaFile;
+			//delete tmpMetaFile;
 
-		}
-		else {
+		//}
+		//else {
 
 			// The meta file doesn't exists; first time loading the texture.
 			currentNodeGO->UID = Random::Generate();
 
-		}
+		//}
 
 		embeddedMeshesUID.push_back(currentNodeGO->UID);
 
@@ -347,8 +347,6 @@ void Model::GenerateYmodelFile(const float3& translation, const float3& rotation
 	ymodelFile.SetInt("UID", modelGO->UID);
 	ymodelFile.SetInt("Parent UID", modelGO->mParent->UID);
 	ymodelFile.SetIntArray("Children UID", embeddedMeshesUID.data(), embeddedMeshesUID.size());
-
-	// Save Components Info (TODO)
 
 	ymodelFile.CreateJSON(External->fileSystem->libraryModelsPath, std::to_string(modelGO->UID) + ".ymodel");
 }

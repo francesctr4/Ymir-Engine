@@ -15,6 +15,7 @@ enum ComponentType {
 class Component {
 public:
 
+	Component();
 	Component(GameObject* owner, ComponentType type);
 	virtual ~Component();
 

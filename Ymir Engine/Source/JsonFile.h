@@ -79,20 +79,25 @@ public:
 
     // -------------------------- Scene Serialization functions --------------------------------
 
-    void SetComponent(const char* key, const Component& component);
-    Component GetComponent(const char* key) const;
+    // ---------- Individual Elements
 
-    void SetComponent(JSON_Object* componentObject, const Component& component);
-    
+    void SetComponent(const char* key, const Component& component);
+    Component* GetComponent(const char* key) const;
 
     void SetGameObject(const char* key, const GameObject& gameObject);
-    GameObject GetGameObject(const char* key) const;
-
-    void SetGameObject(JSON_Object* gameObjectObject, const GameObject& gameObject);
-    void GetGameObject(const JSON_Object* gameObjectObject, GameObject& gameObject) const;
+    GameObject* GetGameObject(const char* key) const;
+    
+    // ---------- Save Scene 
 
     void SetHierarchy(const char* key, const std::vector<GameObject*>& gameObjects);
+    void SetGameObject(JSON_Object* gameObjectObject, const GameObject& gameObject);
+    void SetComponent(JSON_Object* componentObject, const Component& component);
+
+    // ---------- Load Scene
+
     std::vector<GameObject*> GetHierarchy(const char* key) const;
+    void GetGameObject(const JSON_Object* gameObjectObject, GameObject& gameObject) const;
+    void GetComponent(const JSON_Object* componentObject, Component& component) const;
 
 private:
 
