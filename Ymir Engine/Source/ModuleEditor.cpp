@@ -216,7 +216,8 @@ void ModuleEditor::DrawEditor()
 
             if (ImGui::MenuItem("Empty")) {
 
-                App->scene->CreateGameObject("Empty", App->scene->mRootNode);
+                GameObject* empty = App->scene->CreateGameObject("Empty", App->scene->mRootNode);
+                empty->UID = Random::Generate();
 
             }
 
@@ -2187,6 +2188,29 @@ void ModuleEditor::CreateHierarchyTree(GameObject* node)
 
         }
 
+        if (ImGui::BeginDragDropSource())
+        {
+            ImGui::SetDragDropPayload("GameObject", node, sizeof(GameObject*));
+
+            draggedGO = node;
+            ImGui::Text("Drag to");
+            ImGui::EndDragDropSource();
+        }
+
+        if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem))
+        {
+            hoveredGO = node;
+        }
+
+        if (ImGui::BeginDragDropTarget())
+        {
+            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("GameObject")) {
+
+                draggedGO->SetParent(hoveredGO);
+            }
+            ImGui::EndDragDropTarget();
+        }
+
         if (ImGui::IsItemClicked(1)) {
 
             ImGui::OpenPopup("DeleteGameObject");
@@ -2252,6 +2276,13 @@ void ModuleEditor::CreateHierarchyTree(GameObject* node)
                     App->scene->ClearScene();
 
                 }
+
+            }
+
+            if (ImGui::MenuItem("Create Empty Children")) {
+
+                GameObject* empty = App->scene->CreateGameObject("Empty", node);
+                empty->UID = Random::Generate();
 
             }
 

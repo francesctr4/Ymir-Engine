@@ -64,7 +64,17 @@ void GameObject::Disable()
 
 void GameObject::SetParent(GameObject* newParent)
 {
+	if (this->mParent)
+	{
+		auto it = std::find(this->mParent->mChildren.begin(), this->mParent->mChildren.end(), this);
+		if (it != this->mParent->mChildren.end())
+		{
+			this->mParent->mChildren.erase(it);
+		}
+	}
+
 	mParent = newParent;
+	mParent->AddChild(this);
 }
 
 void GameObject::AddChild(GameObject* child)

@@ -212,6 +212,10 @@ public:
 	std::string selectedFilePath;
 	bool showModal = false;
 
+	// Drag and Drop Hierarchy handlers
+	GameObject* hoveredGO = nullptr;
+	GameObject* draggedGO = nullptr;
+
 };
 
 #endif // MODULE_EDITOR
