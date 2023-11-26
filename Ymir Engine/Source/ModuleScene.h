@@ -35,6 +35,9 @@ public:
 
 	void ClearScene();
 
+	void SaveScene();
+	void LoadScene();
+
 	void HandleGameObjectSelection(const LineSegment& ray);
 
 public:

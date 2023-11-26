@@ -1,4 +1,6 @@
 #include "JsonFile.h"
+#include "GameObject.h"
+#include "Component.h"
 #include <vector>
 #include "Log.h"
 
@@ -533,4 +535,167 @@ Quat JsonFile::GetQuat(const char* key) const
     resultQuat.z = static_cast<float>(json_array_get_number(jsonQuatArray, 3));
 
     return resultQuat;
+}
+
+// -------------------------- Scene Serialization functions --------------------------------
+
+void JsonFile::SetComponent(const char* key, const Component& component)
+{
+
+}
+
+void JsonFile::SetGameObject(const char* key, const GameObject& gameObject)
+{
+    JSON_Value* gameObjectValue = json_value_init_object();
+    JSON_Object* gameObjectObject = json_value_get_object(gameObjectValue);
+
+    // Set Name
+
+    json_object_set_string(gameObjectObject, "Name", gameObject.name.c_str());
+
+    // Set Position
+
+    //JSON_Value* positionValue = json_value_init_array();
+    //JSON_Array* positionArray = json_value_get_array(positionValue);
+    //json_array_append_number(positionArray, gameObject.mTransform->translation.x);
+    //json_array_append_number(positionArray, gameObject.mTransform->translation.y);
+    //json_array_append_number(positionArray, gameObject.mTransform->translation.z);
+    //json_object_set_value(gameObjectObject, "Position", positionValue);
+
+    // Set Rotation
+
+    //JSON_Value* rotationValue = json_value_init_array();
+    //JSON_Array* rotationArray = json_value_get_array(rotationValue);
+    //json_array_append_number(rotationArray, gameObject.mTransform->rotation.x);
+    //json_array_append_number(rotationArray, gameObject.mTransform->rotation.y);
+    //json_array_append_number(rotationArray, gameObject.mTransform->rotation.z);
+    //json_object_set_value(gameObjectObject, "Rotation", rotationValue);
+
+    // Set Scale
+
+    /*JSON_Value* scaleValue = json_value_init_array();
+    JSON_Array* scaleArray = json_value_get_array(scaleValue);
+    json_array_append_number(scaleArray, gameObject.mTransform->scale.x);
+    json_array_append_number(scaleArray, gameObject.mTransform->scale.y);
+    json_array_append_number(scaleArray, gameObject.mTransform->scale.z);
+    json_object_set_value(gameObjectObject, "Scale", scaleValue);*/
+
+    // Set UID
+
+    json_object_set_number(gameObjectObject, "UID", gameObject.UID);
+
+    // Set Parent UID
+
+    if (gameObject.mParent != nullptr) {
+
+        json_object_set_number(gameObjectObject, "Parent UID", gameObject.mParent->UID);
+
+    }
+
+    // Set Children UID
+
+    std::vector<int> childrenUID;
+
+    for (auto& child : gameObject.mChildren) {
+
+        childrenUID.push_back(child->UID);
+
+    }
+
+    if (!childrenUID.empty()) {
+
+        JSON_Value* childrenValue = json_value_init_array();
+        JSON_Array* childrenArray = json_value_get_array(childrenValue);
+
+        for (const auto& childUID : childrenUID) {
+
+            json_array_append_number(childrenArray, childUID);
+
+        }
+
+        json_object_set_value(gameObjectObject, "Children UID", childrenValue);
+
+    }
+    
+    // Save Components Info (TODO)
+    
+    // Add the GameObject to the main array
+    json_object_set_value(rootObject, key, gameObjectValue);
+}
+
+void JsonFile::SetGameObject(JSON_Object* gameObjectObject, const GameObject& gameObject)
+{
+    // Set Name
+    json_object_set_string(gameObjectObject, "Name", gameObject.name.c_str());
+
+    // Set Position
+    //JSON_Value* positionValue = json_value_init_array();
+    //JSON_Array* positionArray = json_value_get_array(positionValue);
+    //json_array_append_number(positionArray, gameObject.mTransform->translation.x);
+    //json_array_append_number(positionArray, gameObject.mTransform->translation.y);
+    //json_array_append_number(positionArray, gameObject.mTransform->translation.z);
+    //json_object_set_value(gameObjectObject, "Position", positionValue);
+
+    // Set Rotation
+    //JSON_Value* rotationValue = json_value_init_array();
+    //JSON_Array* rotationArray = json_value_get_array(rotationValue);
+    //json_array_append_number(rotationArray, gameObject.mTransform->rotation.x);
+    //json_array_append_number(rotationArray, gameObject.mTransform->rotation.y);
+    //json_array_append_number(rotationArray, gameObject.mTransform->rotation.z);
+    //json_object_set_value(gameObjectObject, "Rotation", rotationValue);
+
+    // Set Scale
+    //JSON_Value* scaleValue = json_value_init_array();
+    //JSON_Array* scaleArray = json_value_get_array(scaleValue);
+    //json_array_append_number(scaleArray, gameObject.mTransform->scale.x);
+    //json_array_append_number(scaleArray, gameObject.mTransform->scale.y);
+    //json_array_append_number(scaleArray, gameObject.mTransform->scale.z);
+    //json_object_set_value(gameObjectObject, "Scale", scaleValue);
+
+    // Set UID
+    json_object_set_number(gameObjectObject, "UID", gameObject.UID);
+
+    // Set Parent UID
+    if (gameObject.mParent != nullptr) {
+        json_object_set_number(gameObjectObject, "Parent UID", gameObject.mParent->UID);
+    }
+
+    // Set Children UID
+    std::vector<int> childrenUID;
+    for (const auto& child : gameObject.mChildren) {
+        childrenUID.push_back(child->UID);
+    }
+
+    if (!childrenUID.empty()) {
+        JSON_Value* childrenValue = json_value_init_array();
+        JSON_Array* childrenArray = json_value_get_array(childrenValue);
+
+        for (const auto& childUID : childrenUID) {
+            json_array_append_number(childrenArray, childUID);
+        }
+
+        json_object_set_value(gameObjectObject, "Children UID", childrenValue);
+    }
+
+    // Save Components Info (TODO)
+}
+
+void JsonFile::SetHierarchy(const char* key, const std::vector<GameObject*>& gameObjects)
+{
+    JSON_Value* hierarchyValue = json_value_init_array();
+    JSON_Array* hierarchyArray = json_value_get_array(hierarchyValue);
+
+    for (const auto& gameObject : gameObjects) {
+        JSON_Value* gameObjectValue = json_value_init_object();
+        JSON_Object* gameObjectObject = json_value_get_object(gameObjectValue);
+
+        // Call the existing SetGameObject function to set individual GameObject properties
+        SetGameObject(gameObjectObject, *gameObject);
+
+        // Add the GameObject to the hierarchy array
+        json_array_append_value(hierarchyArray, gameObjectValue);
+    }
+
+    // Add the hierarchy array to the main object
+    json_object_set_value(rootObject, key, hierarchyValue);
 }

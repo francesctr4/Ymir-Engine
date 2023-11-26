@@ -38,6 +38,12 @@ bool ModuleScene::Init()
 
 	LOG("Loading scene");
 
+	ysceneFile.SetFloat3("Editor Camera Position", App->camera->editorCamera->GetPos());
+	ysceneFile.SetFloat3("Editor Camera Right (X)", App->camera->editorCamera->GetRight());
+	ysceneFile.SetFloat3("Editor Camera Up (Y)", App->camera->editorCamera->GetUp());
+	ysceneFile.SetFloat3("Editor Camera Front (Z)", App->camera->editorCamera->GetFront());
+	ysceneFile.SetHierarchy("Hierarchy", gameObjects);
+
 	ysceneFile.CreateJSON(External->fileSystem->libraryScenesPath, std::to_string(mRootNode->UID) + ".yscene");
 
 	cameras.push_back(App->camera->editorCamera);
@@ -80,6 +86,18 @@ update_status ModuleScene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN) {
 
 		ClearScene();
+
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+
+		SaveScene();
+
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_L) == KEY_REPEAT) {
+
+		LoadScene();
 
 	}
 
@@ -137,6 +155,28 @@ void ModuleScene::ClearScene()
 
 	App->renderer3D->models.clear();
 	mRootNode = CreateGameObject("Scene", nullptr); // Recreate scene
+}
+
+void ModuleScene::SaveScene()
+{
+	ysceneFile.SetFloat3("Editor Camera Position", App->camera->editorCamera->GetPos());
+	ysceneFile.SetFloat3("Editor Camera Right (X)", App->camera->editorCamera->GetRight());
+	ysceneFile.SetFloat3("Editor Camera Up (Y)", App->camera->editorCamera->GetUp());
+	ysceneFile.SetFloat3("Editor Camera Front (Z)", App->camera->editorCamera->GetFront());
+	ysceneFile.SetHierarchy("Hierarchy", gameObjects);
+
+	ysceneFile.CreateJSON(External->fileSystem->libraryScenesPath, std::to_string(mRootNode->UID) + ".yscene");
+}
+
+void ModuleScene::LoadScene()
+{
+	JsonFile* sceneToLoad = JsonFile::GetJSON(External->fileSystem->libraryScenesPath + std::to_string(mRootNode->UID) + ".yscene");
+
+	App->camera->editorCamera->SetPos(sceneToLoad->GetFloat3("Editor Camera Position"));
+	App->camera->editorCamera->SetUp(sceneToLoad->GetFloat3("Editor Camera Up (Y)"));
+	App->camera->editorCamera->SetFront(sceneToLoad->GetFloat3("Editor Camera Front (Z)"));
+
+	delete sceneToLoad;
 }
 
 void ModuleScene::HandleGameObjectSelection(const LineSegment& ray)

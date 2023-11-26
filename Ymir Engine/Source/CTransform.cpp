@@ -10,7 +10,9 @@
 
 CTransform::CTransform(GameObject* owner) : Component(owner, ComponentType::TRANSFORM)
 {
-
+    translation = float3::zero;
+    rotation = float3::zero;
+    scale = float3::zero;
 }
 
 CTransform::~CTransform()

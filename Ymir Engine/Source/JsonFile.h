@@ -14,6 +14,9 @@
 
 #include "External/MathGeoLib/include/Math/Quat.h"
 
+class GameObject;
+class Component;
+
 class JsonFile {
 public:
 
@@ -73,6 +76,15 @@ public:
 
     void SetQuat(const char* key, const Quat& quaternion);
     Quat GetQuat(const char* key) const;
+
+    // -------------------------- Scene Serialization functions --------------------------------
+
+    void SetComponent(const char* key, const Component& component);
+
+    void SetGameObject(const char* key, const GameObject& gameObject);
+
+    void SetGameObject(JSON_Object* gameObjectObject, const GameObject& gameObject);
+    void SetHierarchy(const char* key, const std::vector<GameObject*>& gameObjects);
 
 private:
 
