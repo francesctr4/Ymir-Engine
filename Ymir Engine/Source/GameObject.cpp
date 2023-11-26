@@ -5,6 +5,17 @@
 #include "ModuleFileSystem.h"
 #include "PhysfsEncapsule.h"
 
+GameObject::GameObject()
+{
+	this->name = "";
+	mParent = nullptr;
+
+	active = true;
+	selected = false;
+
+	AddComponent(new CTransform(this));
+}
+
 GameObject::GameObject(std::string name, GameObject* parent)
 {
 	this->name = name;
@@ -24,6 +35,7 @@ GameObject::~GameObject()
 void GameObject::Update()
 {
 	// Check if any of the UIDs is repeated (it's not gonna happen)
+
 	for (auto it = External->scene->gameObjects.begin(); it != External->scene->gameObjects.end(); ++it) {
 
 		if ((*it)->UID == this->UID && (*it) != this) { // If it is repeated, regenerate

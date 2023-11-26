@@ -27,9 +27,9 @@ public:
 
     void CreateJSON(std::string route, std::string fileName);
     void ModifyJSON(std::string route, std::string fileName);
-    void DeleteJSON(std::string route, std::string fileName);
 
-    static JsonFile* JsonFile::GetJSON(const std::string& route);
+    static JsonFile* GetJSON(const std::string& route);
+    static void DeleteJSON(const std::string& route);
 
     // -------------------------- Support functions --------------------------------
 
@@ -80,11 +80,19 @@ public:
     // -------------------------- Scene Serialization functions --------------------------------
 
     void SetComponent(const char* key, const Component& component);
+    Component GetComponent(const char* key) const;
+
+    void SetComponent(JSON_Object* componentObject, const Component& component);
+    
 
     void SetGameObject(const char* key, const GameObject& gameObject);
+    GameObject GetGameObject(const char* key) const;
 
     void SetGameObject(JSON_Object* gameObjectObject, const GameObject& gameObject);
+    void GetGameObject(const JSON_Object* gameObjectObject, GameObject& gameObject) const;
+
     void SetHierarchy(const char* key, const std::vector<GameObject*>& gameObjects);
+    std::vector<GameObject*> GetHierarchy(const char* key) const;
 
 private:
 

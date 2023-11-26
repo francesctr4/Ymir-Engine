@@ -16,6 +16,7 @@
 class GameObject {
 public:
 
+	GameObject();
 	GameObject(std::string name, GameObject* parent);
 	virtual ~GameObject();
 

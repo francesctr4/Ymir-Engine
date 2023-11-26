@@ -2,6 +2,8 @@
 #include "GameObject.h"
 #include "Component.h"
 #include <vector>
+#include <filesystem>
+#include "PhysfsEncapsule.h"
 #include "Log.h"
 
 JsonFile::JsonFile()
@@ -70,9 +72,15 @@ void JsonFile::ModifyJSON(std::string route, std::string fileName)
 
 }
 
-void JsonFile::DeleteJSON(std::string route, std::string fileName)
+void JsonFile::DeleteJSON(const std::string& route)
 {
+    // Check if the file exists before attempting to delete
+    if (PhysfsEncapsule::FileExists(route))
+    {
+        // Delete the file
+        PhysfsEncapsule::DeleteFilePhysFS(route);
 
+    }
 }
 
 JsonFile* JsonFile::GetJSON(const std::string& route) {
@@ -544,6 +552,16 @@ void JsonFile::SetComponent(const char* key, const Component& component)
 
 }
 
+void JsonFile::SetComponent(JSON_Object* componentObject, const Component& component)
+{
+
+}
+
+Component JsonFile::GetComponent(const char* key) const
+{
+    return Component(nullptr, ComponentType::NONE);
+}
+
 void JsonFile::SetGameObject(const char* key, const GameObject& gameObject)
 {
     JSON_Value* gameObjectValue = json_value_init_object();
@@ -680,12 +698,71 @@ void JsonFile::SetGameObject(JSON_Object* gameObjectObject, const GameObject& ga
     // Save Components Info (TODO)
 }
 
+GameObject JsonFile::GetGameObject(const char* key) const
+{
+    return GameObject("", nullptr);
+}
+
+void JsonFile::GetGameObject(const JSON_Object* gameObjectObject, GameObject& gameObject) const
+{
+    // Get Name
+
+    const char* name = json_object_get_string(gameObjectObject, "Name");
+    gameObject.name = (name != nullptr) ? name : "";
+
+    // Get Position, Rotation, Scale (TODO)
+
+    // Get UID
+
+    gameObject.UID = json_object_get_number(gameObjectObject, "UID");
+
+    // Get Parent UID
+
+    if (json_object_has_value_of_type(gameObjectObject, "Parent UID", JSONNumber)) {
+
+        int parentUID = static_cast<int>(json_object_get_number(gameObjectObject, "Parent UID"));
+
+        // You need to find the corresponding parent GameObject using the UID
+        // and set it to gameObject.mParent.
+
+        if (gameObject.mParent != nullptr) {
+
+            gameObject.mParent->UID = parentUID;
+
+        }
+
+    }
+
+    // Get Children UID
+
+    if (json_object_has_value_of_type(gameObjectObject, "Children UID", JSONArray)) {
+
+        JSON_Array* childrenArray = json_object_get_array(gameObjectObject, "Children UID");
+
+        size_t numChildren = json_array_get_count(childrenArray);
+
+        for (size_t i = 0; i < numChildren; ++i) {
+
+            int childUID = static_cast<int>(json_array_get_number(childrenArray, i));
+            // You need to find the corresponding child GameObject using the UID
+            // and add it to gameObject.mChildren.
+            gameObject.mChildren[i]->UID = childUID;
+
+        }
+
+    }
+
+    // Get Components Info (TODO)
+
+}
+
 void JsonFile::SetHierarchy(const char* key, const std::vector<GameObject*>& gameObjects)
 {
     JSON_Value* hierarchyValue = json_value_init_array();
     JSON_Array* hierarchyArray = json_value_get_array(hierarchyValue);
 
     for (const auto& gameObject : gameObjects) {
+
         JSON_Value* gameObjectValue = json_value_init_object();
         JSON_Object* gameObjectObject = json_value_get_object(gameObjectValue);
 
@@ -698,4 +775,44 @@ void JsonFile::SetHierarchy(const char* key, const std::vector<GameObject*>& gam
 
     // Add the hierarchy array to the main object
     json_object_set_value(rootObject, key, hierarchyValue);
+}
+
+std::vector<GameObject*> JsonFile::GetHierarchy(const char* key) const
+{
+    std::vector<GameObject*> gameObjects;
+
+    JSON_Value* hierarchyValue = json_object_get_value(rootObject, key);
+
+    if (hierarchyValue != nullptr && json_value_get_type(hierarchyValue) == JSONArray) {
+
+        JSON_Array* hierarchyArray = json_value_get_array(hierarchyValue);
+
+        size_t numGameObjects = json_array_get_count(hierarchyArray);
+
+        gameObjects.reserve(numGameObjects);
+
+        for (size_t i = 0; i < numGameObjects; ++i) {
+
+            JSON_Value* gameObjectValue = json_array_get_value(hierarchyArray, i);
+
+            if (json_value_get_type(gameObjectValue) == JSONObject) {
+
+                JSON_Object* gameObjectObject = json_value_get_object(gameObjectValue);
+
+                // Create a new GameObject
+                GameObject* gameObject = new GameObject();
+
+                // Call a function to extract individual GameObject properties
+                GetGameObject(gameObjectObject, *gameObject);
+
+                // Add the GameObject to the vector
+                gameObjects.push_back(gameObject);
+
+            }
+
+        }
+
+    }
+
+    return gameObjects;
 }

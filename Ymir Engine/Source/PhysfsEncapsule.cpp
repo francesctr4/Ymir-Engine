@@ -89,6 +89,11 @@ void PhysfsEncapsule::DeleteFolder(std::string route)
   
 }
 
+void PhysfsEncapsule::DeleteFilePhysFS(std::string route)
+{
+    std::filesystem::remove(route);
+}
+
 bool PhysfsEncapsule::CopyFileFromSource(std::string source, std::string destination)
 {
     PHYSFS_File* srcFile = PHYSFS_openRead(source.c_str());
