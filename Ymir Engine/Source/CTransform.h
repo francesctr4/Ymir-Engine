@@ -28,7 +28,13 @@ public:
 	float3 rotation;
 	float3 scale;
 
+	float3* translationPtr;
+	float3* rotationPtr;
+	float3* scalePtr;
+
 	float4x4 mGlobalMatrix;
 	float4x4 mLocalMatrix;
+
+	bool resetPressed;
 
 };

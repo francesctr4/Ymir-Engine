@@ -91,6 +91,10 @@ bool ModuleEditor::Init()
     ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
     ImGui_ImplOpenGL3_Init();
 
+    gizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
+    gizmoMode = ImGuizmo::MODE::WORLD;
+    modelMatrix = float4x4::identity;
+
 	return ret;
 }
 
@@ -1127,10 +1131,16 @@ void ModuleEditor::DrawEditor()
             App->camera->editorCamera->SetAspectRatio(size.x / size.y);
             ImGui::Image((ImTextureID)App->camera->editorCamera->framebuffer.TCB, size, ImVec2(0, 1), ImVec2(1, 0));
 
-            // ImGuizmo handlers
+            // ImGuizmo Handlers
+            
+            // Get the position of the ImGui window.
             ImVec2 sceneWindowPos = ImGui::GetWindowPos();
+
+            // Get the maximum content region size of the ImGui window.
             ImVec2 sceneContentRegionMax = ImGui::GetContentRegionMax();
-            int sceneFrameHeightOffset = ImGui::GetFrameHeight() / 2;
+
+            // Calculate the vertical offset for the gizmo to be centered in the ImGui window frame.
+            float sceneFrameHeightOffset = ImGui::GetFrameHeight() / 2.0f;
 
             // Gizmo Management
             DrawGizmo(sceneWindowPos, sceneContentRegionMax, sceneFrameHeightOffset);
@@ -1139,16 +1149,6 @@ void ModuleEditor::DrawEditor()
         }
 
     }
-
-    /*float4x4 projection;
-    glGetFloatv(GL_PROJECTION_MATRIX, projection.ptr());
-
-    float4x4 view;
-    glGetFloatv(GL_MODELVIEW_MATRIX, view.ptr());
-
-    float4x4 model = float4x4::identity;
-
-    ManipulateGizmo(view.ptr(), projection.ptr(), GizmoOperation::TRANSLATE, GizmoMode::LOCAL, model.ptr());*/
 
     // --------------------------------- Here finishes the code for the editor ----------------------------------------
     
@@ -2379,57 +2379,103 @@ void ModuleEditor::DrawInspector()
 
 }
 
-void ModuleEditor::DrawGizmo(ImVec2 sceneWindowPos, ImVec2 sceneContentRegionMax, int sceneFrameHeightOffset)
+void ModuleEditor::DrawGizmo(ImVec2 sceneWindowPos, ImVec2 sceneContentRegionMax, float sceneFrameHeightOffset)
 {
+    // Begin the ImGuizmo frame.
     ImGuizmo::BeginFrame(); 
+   
+    // Iterate through all game objects in the scene.
+    for (auto it = App->scene->gameObjects.begin(); it != App->scene->gameObjects.end(); ++it) {
 
-    //if (App->editor->GameObject_selected == nullptr) return;
+        // Check if the current game object is selected.
+        if ((*it)->selected) {
 
-    //ComponentTransform* selected_transform = (ComponentTransform*)App->editor->GameObject_selected->GetComponent(ComponentTypes::TRANSFORM);
+            // Check for key presses to set the gizmo operation and mode.
+            if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
 
-    //ViewMatrix from OpenGL
-    float4x4 viewMatrix = App->camera->editorCamera->GetViewMatrix();
+                gizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
+            }
 
-    //ProjectionMatrix from OpenGL
-    float4x4 projectionMatrix = App->camera->editorCamera->GetProjectionMatrix();
+            if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
 
-    //float3 mPosition = App->editor->GameObject_selected->transform->GetPosition();
-    //float4x4 modelProjection = float4x4::Translate(mPosition);
-    float4x4 modelMatrix = float4x4::identity;
+                gizmoOperation = ImGuizmo::OPERATION::ROTATE;
+            }
 
-    float3 modelPosition = float3::zero;
-    modelMatrix = float4x4::Translate(modelPosition);
+            if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
 
-    ImGuizmo::SetRect(sceneWindowPos.x, sceneWindowPos.y + sceneFrameHeightOffset, sceneContentRegionMax.x, sceneContentRegionMax.y);
+                gizmoOperation = ImGuizmo::OPERATION::SCALE;
 
-    //ImGuizmo::SetRect(0, 0, App->window->width, App->window->height);
+            }
 
-    /*ComponentTransform* trans = App->editor->GameObject_selected->transform;
-    float4x4 mat = trans->GetTransformMatrix().Transposed();*/
+            if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN) {
 
-    //gizmoOperation
-    /*float modelPtr[16];
-    memcpy(modelPtr, modelProjection.ptr(), 16 * sizeof(float));*/
+                gizmoMode = ImGuizmo::MODE::WORLD;
 
-    //ImGuizmo::MODE finalMode = (gizmoOperation == ImGuizmo::OPERATION::SCALE ? ImGuizmo::MODE::LOCAL : guizmoMode);
+            }
 
-    ImGuizmo::Manipulate(viewMatrix.ptr(), projectionMatrix.ptr(), ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::MODE::LOCAL, modelMatrix.ptr());
-    //ImGuizmo::Manipulate(viewMatrix.ptr(), projectionMatrix.ptr(), gizmoOperation, finalMode, modelPtr);
+            if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
 
+                gizmoMode = ImGuizmo::MODE::LOCAL;
 
-    //if (ImGuizmo::IsUsing())
-    //{
-    //    //Reformat ImGuizmo Transform output to our matrix
-    //    float4x4 newMatrix;
-    //    newMatrix.Set(modelMatrix);
-    //    modelMatrix = newMatrix;
+            }
 
-    //    //Column or Row? idk
-    //    //float3 firtsCol = float3(modelProjection[0][0], modelProjection[1][0], modelProjection[2][0]);
+            ImGuizmo::MODE modeApplied;
+            
+            // Hardcoded local mode to prevent Scale from Reseting the Rotation.
+            if (gizmoOperation == ImGuizmo::OPERATION::SCALE) {
 
-    //    //Set Global Transform 
-    //    //selected_transform->world_position = firtsCol;
-    //}
+                modeApplied = ImGuizmo::MODE::LOCAL; 
+            }
+            else {
+
+                modeApplied = gizmoMode;
+
+            }
+
+            // Get the view and projection matrices from the editor camera.
+            float4x4 viewMatrix = App->camera->editorCamera->GetViewMatrix();
+            float4x4 projectionMatrix = App->camera->editorCamera->GetProjectionMatrix();
+
+            // Get the transform component of the current game object.
+            CTransform* ctransform = (CTransform*)(*it)->GetComponent(ComponentType::TRANSFORM);
+
+            // Copy the model matrix to a float array for ImGuizmo.
+            float modelPtr[16];
+            memcpy(modelPtr, modelMatrix.ptr(), 16 * sizeof(float));
+
+            // Set the rectangle for ImGuizmo in the editor window.
+            ImGuizmo::SetRect(sceneWindowPos.x, sceneWindowPos.y + sceneFrameHeightOffset, sceneContentRegionMax.x, sceneContentRegionMax.y);
+
+            // Use ImGuizmo to manipulate the object in the scene.
+            ImGuizmo::Manipulate(viewMatrix.ptr(), projectionMatrix.ptr(), gizmoOperation, modeApplied, modelPtr);
+
+            // Check if the gizmo is being used.
+            if (ImGuizmo::IsUsing())
+            {
+                // Convert the modified matrix back to float4x4.
+                float4x4 newMatrix;
+                newMatrix.Set(modelPtr);
+                modelMatrix = newMatrix;
+
+                // Update the transform components based on the modified matrix.
+                *ctransform->translationPtr = modelMatrix.Transposed().TranslatePart();
+                *ctransform->rotationPtr = modelMatrix.Transposed().RotatePart().ToEulerXYZ() * RADTODEG;
+                *ctransform->scalePtr = modelMatrix.Transposed().GetScale();
+
+            }
+
+            // Check if the reset button is pressed, and reset the model matrix.
+            if (ctransform->resetPressed) {
+
+                modelMatrix = float4x4::identity;
+                ctransform->resetPressed = false;
+
+            }
+
+        }
+
+    }
+
 }
 
 void ModuleEditor::DrawFileExplorer(const std::string& rootFolder) {

@@ -124,7 +124,7 @@ public:
 	void DrawInspector();
 
 	// Function to manage Gizmo
-	void DrawGizmo(ImVec2 sceneWindowPos, ImVec2 sceneContentRegionMax, int sceneFrameHeightOffset);
+	void DrawGizmo(ImVec2 sceneWindowPos, ImVec2 sceneContentRegionMax, float sceneFrameHeightOffset);
 
 	// Function to draw File Explorer
 	void DrawFileExplorer(const std::string& rootFolder);
@@ -220,6 +220,11 @@ public:
 	// Drag and Drop Hierarchy handlers
 	GameObject* hoveredGO = nullptr;
 	GameObject* draggedGO = nullptr;
+
+	// ImGuizmo handlers
+	ImGuizmo::OPERATION gizmoOperation;
+	ImGuizmo::MODE gizmoMode;
+	float4x4 modelMatrix;
 
 };
 

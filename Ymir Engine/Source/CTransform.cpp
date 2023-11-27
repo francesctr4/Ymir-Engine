@@ -13,6 +13,15 @@ CTransform::CTransform(GameObject* owner) : Component(owner, ComponentType::TRAN
     translation = float3::zero;
     rotation = float3::zero;
     scale = float3::zero;
+
+    translationPtr = nullptr;
+    rotationPtr = nullptr;
+    scalePtr = nullptr;
+
+    resetPressed = false;
+
+    mGlobalMatrix = float4x4::identity;
+
 }
 
 CTransform::~CTransform()
@@ -49,21 +58,25 @@ void CTransform::OnInspector()
 
                 if ((*jt).meshGO->selected || (*it).modelGO->selected) {
 
-                    ImGui::DragFloat3("Transform", (*jt).meshShader.translation.ptr(), 0.1f);
-                    ImGui::DragFloat3("Rotation", (*jt).meshShader.rotation.ptr(), 0.1f);
-                    ImGui::DragFloat3("Scale", (*jt).meshShader.scale.ptr(), 0.1f);
-
                     translation = (*jt).meshShader.translation;
                     rotation = (*jt).meshShader.rotation;
                     scale = (*jt).meshShader.scale;
 
-                    ImGui::Spacing();
+                    translationPtr = &(*jt).meshShader.translation;
+                    rotationPtr = &(*jt).meshShader.rotation;
+                    scalePtr = &(*jt).meshShader.scale;
+
+                    ImGui::DragFloat3("Transform", (*translationPtr).ptr(), 0.1f);
+                    ImGui::DragFloat3("Rotation", (*rotationPtr).ptr(), 0.1f);
+                    ImGui::DragFloat3("Scale", (*scalePtr).ptr(), 0.1f);
 
                     if (ImGui::Button("Reset Transformations")) {
 
                         (*jt).meshShader.Translate({ 0,0,0 });
                         (*jt).meshShader.Rotate({ 0,0,0 });
                         (*jt).meshShader.Scale({ 1,1,1 });
+
+                        resetPressed = true;
 
                     }
 
