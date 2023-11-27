@@ -98,14 +98,11 @@ update_status ModuleCamera3D::Update(float dt)
 
 void ModuleCamera3D::CreateMousePickingRay(float mousePosX, float mousePosY)
 {
-	float mousePosX_normalized = mousePosX / (float)App->window->width;
-	float mousePosY_normalized = mousePosY / (float)App->window->height;
-
-	mousePosX_normalized = (mousePosX_normalized - 0.5) / 0.5;
-	mousePosY_normalized = (mousePosY_normalized - 0.5) / 0.5;
+	// Normalize mouse coordinates to the range [-1, 1]
+	float mousePosX_normalized = (2.0f * mousePosX) / App->window->width - 1.0f;
+	float mousePosY_normalized = 1.0f - (2.0f * mousePosY) / App->window->height;
 
 	mousePickingRay = editorCamera->frustum.UnProjectLineSegment(mousePosX_normalized, mousePosY_normalized);
 
 	App->scene->HandleGameObjectSelection(mousePickingRay);
-
 }
