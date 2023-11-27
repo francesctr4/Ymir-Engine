@@ -9,6 +9,11 @@
 #include <string>
 #include <filesystem>
 
+#include "External/ImGui/imgui.h"
+#include "External/ImGui/backends/imgui_impl_sdl2.h"
+#include "External/ImGui/backends/imgui_impl_opengl3.h"
+#include "External/ImGuizmo/include/ImGuizmo.h"
+
 class GameObject;
 
 enum GizmoOperation
@@ -119,7 +124,7 @@ public:
 	void DrawInspector();
 
 	// Function to manage Gizmo
-	void ManipulateGizmo(const float* viewMatrix, const float* projectionMatrix, GizmoOperation operation, GizmoMode mode, float* modelMatrix, float* deltaMatrix = 0, float* snap = 0);
+	void DrawGizmo(ImVec2 sceneWindowPos, ImVec2 sceneContentRegionMax, int sceneFrameHeightOffset);
 
 	// Function to draw File Explorer
 	void DrawFileExplorer(const std::string& rootFolder);

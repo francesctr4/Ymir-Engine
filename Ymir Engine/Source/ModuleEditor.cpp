@@ -15,11 +15,6 @@
 
 #include "External/SDL/include/SDL_opengl.h"
 
-#include "External/ImGui/imgui.h"
-#include "External/ImGui/backends/imgui_impl_sdl2.h"
-#include "External/ImGui/backends/imgui_impl_opengl3.h"
-#include "External/ImGuizmo/include/ImGuizmo.h"
-
 #include "External/Assimp/include/version.h"
 
 #include "External/Optick/include/optick.h"
@@ -108,8 +103,6 @@ void ModuleEditor::DrawEditor()
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
-
-    ImGuizmo::BeginFrame();
 
     // --------------------------------- Here starts the code for the editor ----------------------------------------
 
@@ -1133,6 +1126,14 @@ void ModuleEditor::DrawEditor()
             ImVec2 size = ImGui::GetContentRegionAvail();
             App->camera->editorCamera->SetAspectRatio(size.x / size.y);
             ImGui::Image((ImTextureID)App->camera->editorCamera->framebuffer.TCB, size, ImVec2(0, 1), ImVec2(1, 0));
+
+            // ImGuizmo handlers
+            ImVec2 sceneWindowPos = ImGui::GetWindowPos();
+            ImVec2 sceneContentRegionMax = ImGui::GetContentRegionMax();
+            int sceneFrameHeightOffset = ImGui::GetFrameHeight() / 2;
+
+            // Gizmo Management
+            DrawGizmo(sceneWindowPos, sceneContentRegionMax, sceneFrameHeightOffset);
 
             ImGui::End();
         }
@@ -2378,9 +2379,57 @@ void ModuleEditor::DrawInspector()
 
 }
 
-void ModuleEditor::ManipulateGizmo(const float* viewMatrix, const float* projectionMatrix, GizmoOperation operation, GizmoMode mode, float* modelMatrix, float* deltaMatrix, float* snap)
+void ModuleEditor::DrawGizmo(ImVec2 sceneWindowPos, ImVec2 sceneContentRegionMax, int sceneFrameHeightOffset)
 {
-    ImGuizmo::Manipulate(viewMatrix, projectionMatrix, ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::MODE::WORLD, modelMatrix);
+    ImGuizmo::BeginFrame(); 
+
+    //if (App->editor->GameObject_selected == nullptr) return;
+
+    //ComponentTransform* selected_transform = (ComponentTransform*)App->editor->GameObject_selected->GetComponent(ComponentTypes::TRANSFORM);
+
+    //ViewMatrix from OpenGL
+    float4x4 viewMatrix = App->camera->editorCamera->GetViewMatrix();
+
+    //ProjectionMatrix from OpenGL
+    float4x4 projectionMatrix = App->camera->editorCamera->GetProjectionMatrix();
+
+    //float3 mPosition = App->editor->GameObject_selected->transform->GetPosition();
+    //float4x4 modelProjection = float4x4::Translate(mPosition);
+    float4x4 modelMatrix = float4x4::identity;
+
+    float3 modelPosition = float3::zero;
+    modelMatrix = float4x4::Translate(modelPosition);
+
+    ImGuizmo::SetRect(sceneWindowPos.x, sceneWindowPos.y + sceneFrameHeightOffset, sceneContentRegionMax.x, sceneContentRegionMax.y);
+
+    //ImGuizmo::SetRect(0, 0, App->window->width, App->window->height);
+
+    /*ComponentTransform* trans = App->editor->GameObject_selected->transform;
+    float4x4 mat = trans->GetTransformMatrix().Transposed();*/
+
+    //gizmoOperation
+    /*float modelPtr[16];
+    memcpy(modelPtr, modelProjection.ptr(), 16 * sizeof(float));*/
+
+    //ImGuizmo::MODE finalMode = (gizmoOperation == ImGuizmo::OPERATION::SCALE ? ImGuizmo::MODE::LOCAL : guizmoMode);
+
+    ImGuizmo::Manipulate(viewMatrix.ptr(), projectionMatrix.ptr(), ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::MODE::LOCAL, modelMatrix.ptr());
+    //ImGuizmo::Manipulate(viewMatrix.ptr(), projectionMatrix.ptr(), gizmoOperation, finalMode, modelPtr);
+
+
+    //if (ImGuizmo::IsUsing())
+    //{
+    //    //Reformat ImGuizmo Transform output to our matrix
+    //    float4x4 newMatrix;
+    //    newMatrix.Set(modelMatrix);
+    //    modelMatrix = newMatrix;
+
+    //    //Column or Row? idk
+    //    //float3 firtsCol = float3(modelProjection[0][0], modelProjection[1][0], modelProjection[2][0]);
+
+    //    //Set Global Transform 
+    //    //selected_transform->world_position = firtsCol;
+    //}
 }
 
 void ModuleEditor::DrawFileExplorer(const std::string& rootFolder) {
