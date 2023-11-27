@@ -5,6 +5,8 @@
 #include <filesystem>
 #include "PhysfsEncapsule.h"
 #include "Log.h"
+#include "Application.h"
+#include "ModuleScene.h"
 
 JsonFile::JsonFile()
 {
@@ -1006,6 +1008,8 @@ void JsonFile::GetGameObject(const JSON_Object* gameObjectObject, GameObject& ga
             int childUID = static_cast<int>(json_array_get_number(childrenArray, i));
             // You need to find the corresponding child GameObject using the UID
             // and add it to gameObject.mChildren.
+            GameObject* childGO = External->scene->CreateGameObject("Child " + std::to_string(i), &gameObject);
+            gameObject.mChildren.push_back(childGO);
             gameObject.mChildren[i]->UID = childUID;
 
         }

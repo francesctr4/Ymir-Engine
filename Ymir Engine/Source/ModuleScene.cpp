@@ -149,7 +149,7 @@ void ModuleScene::DestroyGameObject(GameObject* toDestroy)
 
 void ModuleScene::ClearScene()
 {
-	JsonFile::DeleteJSON(External->fileSystem->libraryScenesPath + std::to_string(mRootNode->UID) + ".yscene");
+	//JsonFile::DeleteJSON(External->fileSystem->libraryScenesPath + std::to_string(mRootNode->UID) + ".yscene");
 
 	App->editor->DestroyHierarchyTree(mRootNode);
 	delete mRootNode;
@@ -180,9 +180,9 @@ void ModuleScene::LoadScene()
 	App->camera->editorCamera->SetUp(sceneToLoad->GetFloat3("Editor Camera Up (Y)"));
 	App->camera->editorCamera->SetFront(sceneToLoad->GetFloat3("Editor Camera Front (Z)"));
 
-	//ClearScene();
+	ClearScene();
 
-	//gameObjects = sceneToLoad->GetHierarchy("Hierarchy");
+	gameObjects = sceneToLoad->GetHierarchy("Hierarchy");
 
 	delete sceneToLoad;
 }
