@@ -180,9 +180,9 @@ void ModuleScene::LoadScene()
 	App->camera->editorCamera->SetUp(sceneToLoad->GetFloat3("Editor Camera Up (Y)"));
 	App->camera->editorCamera->SetFront(sceneToLoad->GetFloat3("Editor Camera Front (Z)"));
 
-	ClearScene();
+	//ClearScene();
 
-	gameObjects = sceneToLoad->GetHierarchy("Hierarchy");
+	//gameObjects = sceneToLoad->GetHierarchy("Hierarchy");
 
 	delete sceneToLoad;
 }

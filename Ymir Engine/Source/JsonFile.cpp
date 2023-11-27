@@ -1003,14 +1003,16 @@ void JsonFile::GetGameObject(const JSON_Object* gameObjectObject, GameObject& ga
 
         size_t numChildren = json_array_get_count(childrenArray);
 
+        gameObject.mChildren.reserve(numChildren);
+
         for (size_t i = 0; i < numChildren; ++i) {
 
             int childUID = static_cast<int>(json_array_get_number(childrenArray, i));
             // You need to find the corresponding child GameObject using the UID
             // and add it to gameObject.mChildren.
-            GameObject* childGO = External->scene->CreateGameObject("Child " + std::to_string(i), &gameObject);
+            GameObject* childGO = new GameObject();
+            childGO->UID = childUID;
             gameObject.mChildren.push_back(childGO);
-            gameObject.mChildren[i]->UID = childUID;
 
         }
 
