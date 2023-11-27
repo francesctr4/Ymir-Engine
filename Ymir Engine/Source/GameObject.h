@@ -10,6 +10,7 @@
 #include "CTransform.h"
 #include "CMesh.h"
 #include "CMaterial.h"
+#include "CCamera.h"
 
 #include "Random.h"
 

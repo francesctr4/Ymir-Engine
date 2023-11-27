@@ -895,32 +895,137 @@ void JsonFile::SetGameObject(JSON_Object* gameObjectObject, const GameObject& ga
 
 void JsonFile::SetComponent(JSON_Object* componentObject, const Component& component)
 {
-    switch (component.ctype)
-    {
-    case NONE:
+    if (component.ctype == ComponentType::NONE) {
+
         // Handle NONE case (if needed)
-        break;
 
-    case TRANSFORM:
-        json_object_set_string(componentObject, "Type", "Transform");
-        // Additional properties specific to the Transform component can be added here
-        break;
-
-    case MESH:
-        json_object_set_string(componentObject, "Type", "Mesh");
-        // Additional properties specific to the Mesh component can be added here
-        break;
-
-    case MATERIAL:
-        json_object_set_string(componentObject, "Type", "Material");
-        // Additional properties specific to the Material component can be added here
-        break;
-
-    case CAMERA:
-        json_object_set_string(componentObject, "Type", "Camera");
-        // Additional properties specific to the Camera component can be added here
-        break;
     }
+    else if (component.ctype == ComponentType::TRANSFORM) {
+
+        json_object_set_string(componentObject, "Type", "Transform");
+
+        CTransform* ctransform = (CTransform*)&component;
+
+        json_object_set_number(componentObject, "Active", ctransform->active);
+
+        // Translation
+
+        JSON_Value* translationArrayValue = json_value_init_array();
+        JSON_Array* translationArray = json_value_get_array(translationArrayValue);
+
+        json_array_append_number(translationArray, ctransform->translation.x);
+        json_array_append_number(translationArray, ctransform->translation.y);
+        json_array_append_number(translationArray, ctransform->translation.z);
+
+        json_object_set_value(componentObject, "Translation", translationArrayValue);
+
+        // Rotation
+
+        JSON_Value* rotationArrayValue = json_value_init_array();
+        JSON_Array* rotationArray = json_value_get_array(rotationArrayValue);
+
+        json_array_append_number(rotationArray, ctransform->rotation.x);
+        json_array_append_number(rotationArray, ctransform->rotation.y);
+        json_array_append_number(rotationArray, ctransform->rotation.z);
+
+        json_object_set_value(componentObject, "Rotation", rotationArrayValue);
+
+        // Scale
+
+        JSON_Value* scaleArrayValue = json_value_init_array();
+        JSON_Array* scaleArray = json_value_get_array(scaleArrayValue);
+
+        json_array_append_number(scaleArray, ctransform->scale.x);
+        json_array_append_number(scaleArray, ctransform->scale.y);
+        json_array_append_number(scaleArray, ctransform->scale.z);
+
+        json_object_set_value(componentObject, "Scale", scaleArrayValue);
+
+    }
+    else if (component.ctype == ComponentType::MESH) {
+
+        json_object_set_string(componentObject, "Type", "Mesh");
+
+        CMesh* cmesh = (CMesh*)&component;
+
+        json_object_set_number(componentObject, "Active", cmesh->active);
+        
+        json_object_set_number(componentObject, "Vertex Count", cmesh->nVertices);
+        json_object_set_number(componentObject, "Index Count", cmesh->nIndices);
+
+    }
+    else if (component.ctype == ComponentType::MATERIAL) {
+
+        json_object_set_string(componentObject, "Type", "Material");
+
+        CMaterial* cmaterial = (CMaterial*)&component;
+
+        json_object_set_number(componentObject, "Active", cmaterial->active);
+
+    }
+    else if (component.ctype == ComponentType::CAMERA) {
+
+        json_object_set_string(componentObject, "Type", "Camera");
+
+        CCamera* ccamera = (CCamera*)&component;
+
+        json_object_set_number(componentObject, "Active", ccamera->active);
+
+        // Right
+
+        JSON_Value* rightArrayValue = json_value_init_array();
+        JSON_Array* rightArray = json_value_get_array(rightArrayValue);
+
+        json_array_append_number(rightArray, ccamera->GetRight().x);
+        json_array_append_number(rightArray, ccamera->GetRight().y);
+        json_array_append_number(rightArray, ccamera->GetRight().z);
+
+        json_object_set_value(componentObject, "Right", rightArrayValue);
+
+        // Up
+
+        JSON_Value* upArrayValue = json_value_init_array();
+        JSON_Array* upArray = json_value_get_array(upArrayValue);
+
+        json_array_append_number(upArray, ccamera->GetUp().x);
+        json_array_append_number(upArray, ccamera->GetUp().y);
+        json_array_append_number(upArray, ccamera->GetUp().z);
+
+        json_object_set_value(componentObject, "Up", upArrayValue);
+
+        // Front
+
+        JSON_Value* frontArrayValue = json_value_init_array();
+        JSON_Array* frontArray = json_value_get_array(frontArrayValue);
+
+        json_array_append_number(frontArray, ccamera->GetFront().x);
+        json_array_append_number(frontArray, ccamera->GetFront().y);
+        json_array_append_number(frontArray, ccamera->GetFront().z);
+
+        json_object_set_value(componentObject, "Front", frontArrayValue);
+
+        // FOV
+
+        json_object_set_number(componentObject, "FOV", ccamera->GetVerticalFOV());
+
+        // Near Plane
+
+        json_object_set_number(componentObject, "Near Plane", ccamera->GetNearPlane());
+
+        // Far Plane
+
+        json_object_set_number(componentObject, "Far Plane", ccamera->GetFarPlane());
+
+        // Enable/Disable Frustum Culling
+
+        json_object_set_number(componentObject, "Frustum Culling", ccamera->enableFrustumCulling);
+
+        // Enable/Disable Bounding Boxes
+
+        json_object_set_number(componentObject, "Draw Bounding Boxes", ccamera->drawBoundingBoxes);
+
+    }
+
 }
 
 // ---------- Load Scene
