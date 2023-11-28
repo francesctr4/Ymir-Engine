@@ -94,6 +94,9 @@
     <Filter Include="Sources\Core">
       <UniqueIdentifier>{a9d86c36-8dd3-4457-a653-ae69bdbdf08a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Externals\ImGuiNodeEditor">
+      <UniqueIdentifier>{ff633a82-6692-4e95-987f-05721708ace4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Module.h">
@@ -750,6 +753,24 @@
     <ClInclude Include="Source\External\ImGuizmo\include\GraphEditor.h">
       <Filter>Externals\ImGuizmo</Filter>
     </ClInclude>
+    <ClInclude Include="Source\External\ImGuiNodeEditor\include\crude_json.h">
+      <Filter>Externals\ImGuiNodeEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\External\ImGuiNodeEditor\include\imgui_bezier_math.h">
+      <Filter>Externals\ImGuiNodeEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\External\ImGuiNodeEditor\include\imgui_canvas.h">
+      <Filter>Externals\ImGuiNodeEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\External\ImGuiNodeEditor\include\imgui_extra_math.h">
+      <Filter>Externals\ImGuiNodeEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\External\ImGuiNodeEditor\include\imgui_node_editor.h">
+      <Filter>Externals\ImGuiNodeEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\External\ImGuiNodeEditor\include\imgui_node_editor_internal.h">
+      <Filter>Externals\ImGuiNodeEditor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -1043,6 +1064,18 @@
     <ClCompile Include="Source\External\ImGuizmo\include\GraphEditor.cpp">
       <Filter>Externals\ImGuizmo</Filter>
     </ClCompile>
+    <ClCompile Include="Source\External\ImGuiNodeEditor\include\crude_json.cpp">
+      <Filter>Externals\ImGuiNodeEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\External\ImGuiNodeEditor\include\imgui_canvas.cpp">
+      <Filter>Externals\ImGuiNodeEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\External\ImGuiNodeEditor\include\imgui_node_editor.cpp">
+      <Filter>Externals\ImGuiNodeEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\External\ImGuiNodeEditor\include\imgui_node_editor_api.cpp">
+      <Filter>Externals\ImGuiNodeEditor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\External\MathGeoLib\include\Geometry\KDTree.inl">
@@ -1071,6 +1104,15 @@
     </None>
     <None Include="Game\Assets\Shaders\OutlineShader.glsl">
       <Filter>Sources\Tools\Shader Pipeline\GLSL</Filter>
+    </None>
+    <None Include="Source\External\ImGuiNodeEditor\include\imgui_bezier_math.inl">
+      <Filter>Externals\ImGuiNodeEditor</Filter>
+    </None>
+    <None Include="Source\External\ImGuiNodeEditor\include\imgui_extra_math.inl">
+      <Filter>Externals\ImGuiNodeEditor</Filter>
+    </None>
+    <None Include="Source\External\ImGuiNodeEditor\include\imgui_node_editor_internal.inl">
+      <Filter>Externals\ImGuiNodeEditor</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
