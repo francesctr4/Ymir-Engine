@@ -4,38 +4,101 @@
 // ----------------------------------------------------
 
 #include "Timer.h"
+#include "Application.h"
 
 // ---------------------------------------------
 Timer::Timer()
 {
-	Start();
+	currentState = TimerState::STOPPED;
+	started_at = 0;
+	stopped_at = 0;
+
+	timeScale = 1.0f; // Default time scale
 }
 
 // ---------------------------------------------
 void Timer::Start()
 {
-	running = true;
+	currentState = TimerState::RUNNING;
 	started_at = SDL_GetTicks();
+}
+
+// ---------------------------------------------
+void Timer::Resume()
+{
+	if (currentState == TimerState::PAUSED) {
+	
+		// Update started_at to adjust for the time spent in the paused state
+		started_at += SDL_GetTicks() - stopped_at;
+
+		currentState = TimerState::RUNNING;
+	}
+
+}
+
+// ---------------------------------------------
+void Timer::Pause()
+{
+	if (currentState == TimerState::RUNNING) {
+
+		stopped_at = SDL_GetTicks();
+
+		currentState = TimerState::PAUSED;
+	}
 }
 
 // ---------------------------------------------
 void Timer::Stop()
 {
-	running = false;
-	stopped_at = SDL_GetTicks();
+	started_at = 0;
+	stopped_at = 0;
+	currentState = TimerState::STOPPED;
 }
 
 // ---------------------------------------------
-Uint32 Timer::Read()
+float Timer::ReadMS()
 {
-	if(running == true)
+	if (currentState == TimerState::RUNNING)
 	{
-		return SDL_GetTicks() - started_at;
+		return static_cast<float>((SDL_GetTicks() - started_at) * timeScale);
 	}
 	else
 	{
-		return stopped_at - started_at;
+		return static_cast<float>((stopped_at - started_at) * timeScale);
 	}
 }
 
+// ---------------------------------------------
+float Timer::ReadSec()
+{
+	if (currentState == TimerState::RUNNING)
+	{
+		return (SDL_GetTicks() - started_at) * 0.001f * timeScale;
+	}
+	else
+	{
+		return (stopped_at - started_at) * 0.001f * timeScale;
+	}
+}
 
+// ---------------------------------------------
+void Timer::StepFrame(float dt)
+{
+	if (currentState == TimerState::PAUSED) {
+
+		stopped_at += (1 / dt);
+
+	}
+
+}
+
+// ---------------------------------------------
+void Timer::SetTimeScale(float scale)
+{
+	timeScale = scale;
+}
+
+TimerState Timer::GetState() const
+{
+	return currentState;
+}

@@ -962,17 +962,124 @@ void ModuleEditor::DrawEditor()
 
     }
 
+    // Time Management
+
     if (ImGui::Begin(" ", NULL, ImGuiWindowFlags_NoNav | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse)) {
 
         float windowWidth = ImGui::GetWindowWidth();
-        float buttonWidth = 50.0f; // Adjust the button width as needed
+        float buttonWidth = 50.0f; 
         float posX = (windowWidth - (3 * buttonWidth + 2 * ImGui::GetStyle().ItemSpacing.x)) * 0.5f;
+
+        ImGui::SameLine(20.0f);
+
+        ImGui::TextColored(ImVec4(0.7f, 0.7f, 1.0f, 1.0f), "Graphics Time: %.3f", TimeManager::graphicsTimer.ReadSec());
+
+        ImGui::SameLine();
+        ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 20.0f);
+
+        ImGui::TextColored(ImVec4(0.7f, 0.7f, 1.0f, 1.0f), "Frame Count: %d", TimeManager::FrameCount);
+
+        ImGui::SameLine();
+
         ImGui::SetCursorPosX(posX);
-        ImGui::Button("Play");
+
+        static bool isPlaying = false;
+        static bool isPaused = false;
+
+        if (isPlaying) {
+
+            if (ImGui::Button("Stop")) {
+
+                TimeManager::gameTimer.Stop();
+
+                isPlaying = false;
+                isPaused = false;
+
+                App->scene->LoadScene();
+
+            }
+
+        }
+        else {
+
+            if (ImGui::Button("Play")) {
+
+                TimeManager::gameTimer.Start();
+
+                isPlaying = true;
+
+                App->scene->SaveScene();
+
+            }
+
+        }
+
         ImGui::SameLine();
-        ImGui::Button("Pause");
+
+        if (isPaused) {
+
+            if (ImGui::Button("Resume")) {
+
+                if (isPlaying) {
+
+                    TimeManager::gameTimer.Resume();
+
+                    isPaused = false;
+
+                }
+
+            }
+
+        }
+        else {
+
+            if (ImGui::Button("Pause")) {
+
+                if (isPlaying) {
+
+                    TimeManager::gameTimer.Pause();
+
+                    isPaused = true;
+
+                }
+
+            }
+
+        }
+
         ImGui::SameLine();
-        ImGui::Button("Frame");
+
+        if (ImGui::Button("Step")) {
+
+            TimeManager::gameTimer.StepFrame(TimeManager::DeltaTime);
+
+        }
+
+        ImGui::SameLine();
+        ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 20.0f);
+
+        ImGui::TextColored(ImVec4(1.0f, 0.5f, 0.5f, 1.0f), "Game Time: %.3f", TimeManager::gameTimer.ReadSec());
+
+        ImGui::SameLine(ImGui::GetWindowWidth() - 250.0f);
+
+        ImGui::PushItemWidth(100.0f);
+
+        static float scale = 1.0f; // Default Scale
+        if (ImGui::SliderFloat("Time Scale", &scale, 0.1f, 5.0f, "%.2f"))
+        {
+            TimeManager::gameTimer.SetTimeScale(scale);
+        }
+
+        ImGui::PushItemWidth(-1);
+
+        ImGui::SameLine();
+
+        if (ImGui::Button("Reset"))
+        {
+            scale = 1.0f;
+            TimeManager::gameTimer.SetTimeScale(scale);
+        }
+
         ImGui::End();
     }
 
@@ -1101,6 +1208,7 @@ void ModuleEditor::DrawEditor()
     if (showResources) {
 
         if (ImGui::Begin("Resources", &showResources), true) {
+
 
 
             ImGui::End();

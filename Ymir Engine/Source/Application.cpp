@@ -75,6 +75,10 @@ bool Application::Init()
 	}
 	
 	ms_timer.Start();
+
+	TimeManager::FrameCount = 0;
+	TimeManager::graphicsTimer.Start();
+
 	return ret;
 }
 
@@ -83,8 +87,11 @@ void Application::PrepareUpdate()
 {
 	OPTICK_EVENT();
 
-	dt = (float)ms_timer.Read() / 1000.0f;
+	dt = (float)ms_timer.ReadMS() / 1000.0f;
 	ms_timer.Start();
+
+	TimeManager::DeltaTime = dt;
+	TimeManager::FrameCount++;
 }
 
 // ---------------------------------------------

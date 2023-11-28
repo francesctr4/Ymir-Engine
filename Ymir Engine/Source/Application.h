@@ -2,6 +2,7 @@
 
 #include "Globals.h"
 #include "Timer.h"
+#include "TimeManager.h"
 
 #include<vector>
 

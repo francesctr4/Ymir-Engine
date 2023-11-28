@@ -8,6 +8,7 @@
 #include "GameObject.h"
 #include "Log.h"
 #include "CCamera.h"
+#include "TimeManager.h"
 
 #include "ModuleFileSystem.h"
 #include "PhysfsEncapsule.h"
@@ -91,13 +92,13 @@ update_status ModuleScene::Update(float dt)
 
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+	if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && TimeManager::gameTimer.GetState() == TimerState::STOPPED) {
 
 		SaveScene();
 
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_L) == KEY_REPEAT) {
+	if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_L) == KEY_REPEAT && TimeManager::gameTimer.GetState() == TimerState::STOPPED) {
 
 		LoadScene();
 

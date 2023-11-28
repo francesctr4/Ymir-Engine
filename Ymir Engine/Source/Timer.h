@@ -4,6 +4,14 @@
 #include "Globals.h"
 #include "External/SDL/include/SDL.h"
 
+// Enumeration for timer states
+enum class TimerState
+{
+	STOPPED,
+	RUNNING,
+	PAUSED
+};
+
 class Timer
 {
 public:
@@ -12,15 +20,27 @@ public:
 	Timer();
 
 	void Start();
+	void Resume();
+	void Pause();
 	void Stop();
 
-	Uint32 Read();
+	void StepFrame(float dt);
+	void SetTimeScale(float scale);
+
+	float ReadMS();
+	float ReadSec();
+
+	TimerState GetState() const;
 
 private:
 
-	bool	running;
-	Uint32	started_at;
-	Uint32	stopped_at;
+	TimerState currentState; 
+
+	float started_at;
+	float stopped_at;
+
+	float timeScale;
+
 };
 
 #endif //__TIMER_H__
