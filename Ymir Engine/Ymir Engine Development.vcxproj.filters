@@ -747,6 +747,9 @@
     <ClInclude Include="Source\Settings.h">
       <Filter>Sources\Tools\Serialization</Filter>
     </ClInclude>
+    <ClInclude Include="Source\External\ImGuizmo\include\GraphEditor.h">
+      <Filter>Externals\ImGuizmo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -1036,6 +1039,9 @@
     </ClCompile>
     <ClCompile Include="Source\Settings.cpp">
       <Filter>Sources\Tools\Serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\External\ImGuizmo\include\GraphEditor.cpp">
+      <Filter>Externals\ImGuizmo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

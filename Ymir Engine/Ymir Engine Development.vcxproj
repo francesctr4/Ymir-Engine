@@ -85,6 +85,7 @@
     <ClInclude Include="Source\CCamera.h" />
     <ClInclude Include="Source\Delegate.h" />
     <ClInclude Include="Source\EventSystem.h" />
+    <ClInclude Include="Source\External\ImGuizmo\include\GraphEditor.h" />
     <ClInclude Include="Source\External\ImGuizmo\include\ImCurveEdit.h" />
     <ClInclude Include="Source\External\ImGuizmo\include\ImGradient.h" />
     <ClInclude Include="Source\External\ImGuizmo\include\ImGuizmo.h" />
@@ -309,6 +310,7 @@
     <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\CTransform.cpp" />
     <ClCompile Include="Source\Delegate.cpp" />
+    <ClCompile Include="Source\External\ImGuizmo\include\GraphEditor.cpp" />
     <ClCompile Include="Source\External\ImGuizmo\include\ImCurveEdit.cpp" />
     <ClCompile Include="Source\External\ImGuizmo\include\ImGradient.cpp" />
     <ClCompile Include="Source\External\ImGuizmo\include\ImGuizmo.cpp" />
