@@ -38,7 +38,7 @@ public:
 	void SaveScene();
 	void LoadScene();
 
-	// Function to handle Mouse Picking
+	// Function to handle GameObject selection by Mouse Picking
 	void HandleGameObjectSelection(const LineSegment& ray);
 
 public:
