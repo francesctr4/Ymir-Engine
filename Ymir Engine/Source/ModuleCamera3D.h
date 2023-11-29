@@ -19,7 +19,7 @@ public:
 	update_status Update(float dt) override;
 	bool CleanUp() override;
 
-	void CreateMousePickingRay(float mousePosX, float mousePosY);
+	void CreateMousePickingRay(float mousePosX_normalized, float mousePosY_normalized);
 
 public:
 

@@ -124,7 +124,7 @@ public:
 	void DrawInspector();
 
 	// Function to manage Gizmo
-	void DrawGizmo(ImVec2 sceneWindowPos, ImVec2 sceneContentRegionMax, float sceneFrameHeightOffset);
+	void DrawGizmo(const ImVec2& sceneWindowPos, const ImVec2& sceneContentRegionMax, const float& sceneFrameHeightOffset);
 
 	// Function to draw File Explorer
 	void DrawFileExplorer(const std::string& rootFolder);
@@ -134,6 +134,12 @@ public:
 
 	// Function to draw Library Window
 	void DrawLibraryWindow(const std::string& libraryFolder);
+
+	// Function to handle Mouse Picking
+	void MousePickingManagement(const ImVec2& mousePosition, const ImVec2& sceneWindowPos, const ImVec2& sceneWindowSize, const float& sceneFrameHeightOffset);
+
+	// Support function to normalize the given coordinates based on the specified ImGui Window Bounding Box.
+	ImVec2 NormalizePoint(const float& x, const float& y, const float& w, const float& h, const ImVec2& originalPoint);
 
 public:
 

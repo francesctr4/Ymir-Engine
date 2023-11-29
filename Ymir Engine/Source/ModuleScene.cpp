@@ -188,67 +188,68 @@ void ModuleScene::LoadScene()
 	delete sceneToLoad;
 }
 
+// Function to handle Mouse Picking
 void ModuleScene::HandleGameObjectSelection(const LineSegment& ray)
 {
-	//std::map<float, Mesh*> mesh_candidates;
+	std::map<float, Mesh*> mesh_candidates;
 
-	//for (auto it = App->renderer3D->models.begin(); it != App->renderer3D->models.end(); ++it) {
-	//	for (auto jt = (*it).meshes.begin(); jt != (*it).meshes.end(); ++jt) {
-	//		Mesh* mesh_to_test = &(*jt);  // Assuming meshes are stored by value, adjust if needed
+	for (auto it = App->renderer3D->models.begin(); it != App->renderer3D->models.end(); ++it) {
+		for (auto jt = (*it).meshes.begin(); jt != (*it).meshes.end(); ++jt) {
+			Mesh* mesh_to_test = &(*jt);  // Assuming meshes are stored by value, adjust if needed
 
-	//		float closest, furthest;
-	//		if (ray.Intersects(mesh_to_test->globalAABB, closest, furthest)) {
-	//			mesh_candidates[closest] = mesh_to_test;
-	//		}
-	//	}
-	//}
+			float closest, furthest;
+			if (ray.Intersects(mesh_to_test->globalAABB, closest, furthest)) {
+				mesh_candidates[closest] = mesh_to_test;
+			}
+		}
+	}
 
-	//std::vector<Mesh*> meshes_sorted;
+	std::vector<Mesh*> meshes_sorted;
 
-	//for (auto& candidate : mesh_candidates) {
-	//	meshes_sorted.push_back(candidate.second);
-	//}
+	for (auto& candidate : mesh_candidates) {
+		meshes_sorted.push_back(candidate.second);
+	}
 
-	//// Set all meshes to unselected initially
-	//for (Mesh* mesh : meshes_sorted) {
-	//	if (mesh != nullptr && mesh->meshGO != nullptr) {
-	//		mesh->meshGO->selected = false;
-	//	}
-	//}
+	// Set all meshes to unselected initially
+	for (Mesh* mesh : meshes_sorted) {
+		if (mesh != nullptr && mesh->meshGO != nullptr) {
+			mesh->meshGO->selected = false;
+		}
+	}
 
-	//for (Mesh* mesh : meshes_sorted) {
-	//	if (mesh != nullptr) {
-	//		LineSegment local_ray = ray;
+	for (Mesh* mesh : meshes_sorted) {
+		if (mesh != nullptr) {
+			LineSegment local_ray = ray;
 
-	//		// Transform the ray using the mesh's transform
-	//		local_ray.Transform(mesh->meshShader.model);
+			// Transform the ray using the mesh's transform
+			local_ray.Transform(mesh->meshShader.model);
 
-	//		// Iterate over triangles in the mesh
-	//		for (uint j = 0; j < mesh->indices.size(); j += 3) {
-	//			uint triangle_indices[3] = { mesh->indices[j], mesh->indices[j + 1], mesh->indices[j + 2] };
+			// Iterate over triangles in the mesh
+			for (uint j = 0; j < mesh->indices.size(); j += 3) {
+				uint triangle_indices[3] = { mesh->indices[j], mesh->indices[j + 1], mesh->indices[j + 2] };
 
-	//			// Access vertices without multiplying index by 3
-	//			float3 point_a(mesh->vertices[triangle_indices[0]].position);
-	//			float3 point_b(mesh->vertices[triangle_indices[1]].position);
-	//			float3 point_c(mesh->vertices[triangle_indices[2]].position);
+				// Access vertices without multiplying index by 3
+				float3 point_a(mesh->vertices[triangle_indices[0]].position);
+				float3 point_b(mesh->vertices[triangle_indices[1]].position);
+				float3 point_c(mesh->vertices[triangle_indices[2]].position);
 
-	//			Triangle triangle(point_a, point_b, point_c);
+				Triangle triangle(point_a, point_b, point_c);
 
-	//			if (local_ray.Intersects(triangle, nullptr, nullptr)) {
-	//				// Intersection found, set the selected object
-	//				if (mesh->meshGO != nullptr) {
-	//					mesh->meshGO->selected = true;
-	//				}
-	//				return;
-	//			}
-	//		}
-	//	}
-	//}
+				if (local_ray.Intersects(triangle, nullptr, nullptr)) {
+					// Intersection found, set the selected object
+					if (mesh->meshGO != nullptr) {
+						mesh->meshGO->selected = true;
+					}
+					return;
+				}
+			}
+		}
+	}
 
-	//// No intersection found, clear the selection for all meshes
-	//for (Mesh* mesh : meshes_sorted) {
-	//	if (mesh != nullptr && mesh->meshGO != nullptr) {
-	//		mesh->meshGO->selected = false;
-	//	}
-	//}
+	// No intersection found, clear the selection for all meshes
+	for (Mesh* mesh : meshes_sorted) {
+		if (mesh != nullptr && mesh->meshGO != nullptr) {
+			mesh->meshGO->selected = false;
+		}
+	}
 }

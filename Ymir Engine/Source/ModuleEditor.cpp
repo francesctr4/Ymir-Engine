@@ -1239,10 +1239,16 @@ void ModuleEditor::DrawEditor()
             App->camera->editorCamera->SetAspectRatio(size.x / size.y);
             ImGui::Image((ImTextureID)App->camera->editorCamera->framebuffer.TCB, size, ImVec2(0, 1), ImVec2(1, 0));
 
-            // ImGuizmo Handlers
+            // Retrieve Info from ImGui Scene Window
             
+            // Get the Mouse Position using ImGui.
+            ImVec2 mousePosition = ImGui::GetMousePos();
+
             // Get the position of the ImGui window.
             ImVec2 sceneWindowPos = ImGui::GetWindowPos();
+
+            // Get the size of the ImGui window.
+            ImVec2 sceneWindowSize = ImGui::GetWindowSize();
 
             // Get the maximum content region size of the ImGui window.
             ImVec2 sceneContentRegionMax = ImGui::GetContentRegionMax();
@@ -1252,6 +1258,13 @@ void ModuleEditor::DrawEditor()
 
             // Gizmo Management
             DrawGizmo(sceneWindowPos, sceneContentRegionMax, sceneFrameHeightOffset);
+
+            // Mouse Picking Management
+            
+            if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN && !ImGuizmo::IsUsing())
+            {
+                MousePickingManagement(mousePosition, sceneWindowPos, sceneWindowSize, sceneFrameHeightOffset);
+            }
 
             ImGui::End();
         }
@@ -2487,7 +2500,7 @@ void ModuleEditor::DrawInspector()
 
 }
 
-void ModuleEditor::DrawGizmo(ImVec2 sceneWindowPos, ImVec2 sceneContentRegionMax, float sceneFrameHeightOffset)
+void ModuleEditor::DrawGizmo(const ImVec2& sceneWindowPos, const ImVec2& sceneContentRegionMax, const float& sceneFrameHeightOffset)
 {
     // Begin the ImGuizmo frame.
     ImGuizmo::BeginFrame(); 
@@ -2776,4 +2789,32 @@ void ModuleEditor::DrawLibraryWindow(const std::string& libraryFolder) {
 
     }
 
+}
+
+// Function to handle Mouse Picking
+void ModuleEditor::MousePickingManagement(const ImVec2& mousePosition, const ImVec2& sceneWindowPos, const ImVec2& sceneWindowSize, const float& sceneFrameHeightOffset) {
+
+    ImVec2 normalizedPoint = NormalizePoint(sceneWindowPos.x, sceneWindowPos.y + (sceneFrameHeightOffset * 2), sceneWindowSize.x, sceneWindowSize.y - (sceneFrameHeightOffset * 2), mousePosition);
+
+    // The point values should be within the range of [-1,1] for the frustum.UnProjectLineSegment() function.
+
+    normalizedPoint.x = (normalizedPoint.x - 0.5f) / 0.5f;
+    normalizedPoint.y = -((normalizedPoint.y - 0.5f) / 0.5f);
+
+    if ((normalizedPoint.x >= -1 && normalizedPoint.x <= 1) && (normalizedPoint.y >= -1 && normalizedPoint.y <= 1))
+    {
+        App->camera->CreateMousePickingRay(normalizedPoint.x, normalizedPoint.y);
+    }
+
+}
+
+// Support function to normalize the given coordinates based on the specified ImGui Window Bounding Box.
+ImVec2 ModuleEditor::NormalizePoint(const float& x, const float& y, const float& w, const float& h, const ImVec2& originalPoint)
+{
+    ImVec2 normalizedPoint;
+
+    normalizedPoint.x = (originalPoint.x - x) / ((x + w) - x);
+    normalizedPoint.y = (originalPoint.y - y) / ((y + h) - y);
+
+    return normalizedPoint;
 }
