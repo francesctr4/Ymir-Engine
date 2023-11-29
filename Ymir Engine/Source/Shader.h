@@ -63,6 +63,7 @@ public:
     float3 scale = { 1,1,1 };
 
     bool normalMap;
+    bool selected;
 
     float4x4 projection;
     float4x4 view;

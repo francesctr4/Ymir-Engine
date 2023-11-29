@@ -1102,9 +1102,6 @@
     <None Include="Game\Assets\Shaders\VertexShader.glsl">
       <Filter>Sources\Tools\Shader Pipeline\GLSL</Filter>
     </None>
-    <None Include="Game\Assets\Shaders\OutlineShader.glsl">
-      <Filter>Sources\Tools\Shader Pipeline\GLSL</Filter>
-    </None>
     <None Include="Source\External\ImGuiNodeEditor\include\imgui_bezier_math.inl">
       <Filter>Externals\ImGuiNodeEditor</Filter>
     </None>

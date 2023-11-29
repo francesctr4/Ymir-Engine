@@ -7,6 +7,7 @@ in vec3 Normal;
 
 uniform sampler2D texture_diffuse1;
 uniform bool displayNormalMap; // Boolean uniform to toggle between normal visualization and texture display
+uniform bool selected;
 
 vec4 DisplayNormalMap() {
 
@@ -53,7 +54,11 @@ void main()
         vec4 mainTexture = texture(texture_diffuse1, TexCoords);
         FragColor = mainTexture;
 
-        //FragColor = AddOutline(mainTexture, vec4(1.0, 0.5, 0.0, 1.0), 0.2);
+        if (selected) {
+
+            FragColor = AddOutline(mainTexture, vec4(1.0, 0.5, 0.0, 1.0), 0.2);
+
+        }
 
     }
 }

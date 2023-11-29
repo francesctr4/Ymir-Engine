@@ -58,7 +58,6 @@ public:
     GameObject* meshGO;
 
     Shader meshShader;
-    Shader outlineShader;
 
     bool enableVertexNormals;
     bool enableFaceNormals;

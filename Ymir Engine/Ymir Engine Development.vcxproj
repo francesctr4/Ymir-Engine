@@ -412,7 +412,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Game\Assets\Shaders\FragmentShader.glsl" />
-    <None Include="Game\Assets\Shaders\OutlineShader.glsl" />
     <None Include="Game\Assets\Shaders\VertexShader.glsl" />
     <None Include="Source\External\ImGuiNodeEditor\include\imgui_bezier_math.inl" />
     <None Include="Source\External\ImGuiNodeEditor\include\imgui_extra_math.inl" />

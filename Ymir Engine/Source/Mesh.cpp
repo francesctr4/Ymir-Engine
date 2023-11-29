@@ -124,6 +124,8 @@ void Mesh::DrawMesh()
 
     meshShader.normalMap = showNormalMap;
 
+    meshShader.selected = this->meshGO->selected;
+
 	// ------------------- Draw Mesh Geometry and Textures --------------------
     
     // Draw Vertex Positions

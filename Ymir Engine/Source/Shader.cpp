@@ -9,6 +9,7 @@ Shader::Shader()
 {
 	shaderProgram = 0;
 	normalMap = false;
+	selected = false;
 }
 
 Shader::Shader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath)
@@ -172,7 +173,7 @@ void Shader::SetShaderUniforms()
 
 	ToggleNormalMap(normalMap);
 
-	//External->editor->ManipulateGizmo(view.ptr(), projection.ptr(), GizmoOperation::TRANSLATE, GizmoMode::LOCAL, model.ptr());
+	this->SetBool("selected", selected);
 
 }
 
