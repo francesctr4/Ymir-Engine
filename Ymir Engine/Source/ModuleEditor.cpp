@@ -2578,11 +2578,18 @@ void ModuleEditor::DrawGizmo(const ImVec2& sceneWindowPos, const ImVec2& sceneCo
                 newMatrix.Set(modelPtr);
                 modelMatrix = newMatrix;
 
-                // Update the transform components based on the modified matrix.
-                *ctransform->translationPtr = modelMatrix.Transposed().TranslatePart();
-                *ctransform->rotationPtr = modelMatrix.Transposed().RotatePart().ToEulerXYZ() * RADTODEG;
-                *ctransform->scalePtr = modelMatrix.Transposed().GetScale();
+                // Safety check to avoid nullptr transformations.
+                if ((ctransform->translationPtr != nullptr) && 
+                    (ctransform->rotationPtr != nullptr) && 
+                    (ctransform->scalePtr != nullptr)) {
 
+                    // Update the transform components based on the modified matrix.
+                    *ctransform->translationPtr = modelMatrix.Transposed().TranslatePart();
+                    *ctransform->rotationPtr = modelMatrix.Transposed().RotatePart().ToEulerXYZ() * RADTODEG;
+                    *ctransform->scalePtr = modelMatrix.Transposed().GetScale();
+
+                }
+                
             }
 
             // Check if the reset button is pressed, and reset the model matrix.
