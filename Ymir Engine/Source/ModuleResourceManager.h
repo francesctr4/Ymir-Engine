@@ -1,6 +1,9 @@
 #pragma once
 
+#include <map>
+
 #include "Module.h"
+#include "Resources.h"
 
 class ModuleResourceManager : public Module
 {
@@ -16,8 +19,8 @@ public:
 	update_status PostUpdate(float dt) override;
 	bool CleanUp() override;
 
-public:
+private:
 
-
+	std::map<uint, Resource*> resources;
 
 };

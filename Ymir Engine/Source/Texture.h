@@ -20,10 +20,19 @@
 
 enum class TextureTypes {
 
+    NONE = -1,
     DIFFUSE,
     SPECULAR,
-    NORMAL,
-    HEIGHT
+    AMBIENT,
+    EMISSIVE,
+    HEIGHT,
+    NORMALS,
+    SHININESS,
+    OPACITY,
+    DISPLACEMENT,
+    LIGHTMAP,
+    REFLECTION,
+    UNKNOWN
 
 };
 
