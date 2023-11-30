@@ -299,7 +299,6 @@ bool ModuleRenderer3D::CleanUp()
 	return true;
 }
 
-
 void ModuleRenderer3D::OnResize(int width, int height)
 {
 	for (auto& it = App->scene->cameras.begin(); it != App->scene->cameras.end(); ++it) {
