@@ -175,15 +175,15 @@ void ModuleScene::SaveScene()
 
 void ModuleScene::LoadScene()
 {
-	JsonFile* sceneToLoad = JsonFile::GetJSON(External->fileSystem->libraryScenesPath + std::to_string(mRootNode->UID) + ".yscene");
+	JsonFile* sceneToLoad = JsonFile::GetJSON("Library/Scenes/1529471130.yscene");
 
 	App->camera->editorCamera->SetPos(sceneToLoad->GetFloat3("Editor Camera Position"));
 	App->camera->editorCamera->SetUp(sceneToLoad->GetFloat3("Editor Camera Up (Y)"));
 	App->camera->editorCamera->SetFront(sceneToLoad->GetFloat3("Editor Camera Front (Z)"));
 
-	//ClearScene();
+	ClearScene();
 
-	//gameObjects = sceneToLoad->GetHierarchy("Hierarchy");
+	gameObjects = sceneToLoad->GetHierarchy("Hierarchy");
 
 	delete sceneToLoad;
 }
