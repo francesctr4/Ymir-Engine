@@ -175,7 +175,7 @@ void ModuleScene::SaveScene()
 
 void ModuleScene::LoadScene()
 {
-	JsonFile* sceneToLoad = JsonFile::GetJSON("Library/Scenes/1529471130.yscene");
+	JsonFile* sceneToLoad = JsonFile::GetJSON("Library/Scenes/1151777533.yscene");
 
 	App->camera->editorCamera->SetPos(sceneToLoad->GetFloat3("Editor Camera Position"));
 	App->camera->editorCamera->SetUp(sceneToLoad->GetFloat3("Editor Camera Up (Y)"));

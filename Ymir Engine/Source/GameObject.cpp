@@ -122,3 +122,20 @@ void GameObject::DestroyGameObject()
 	}
 
 }
+
+GameObject* GameObject::GetGameObjectFromUID(const std::vector<GameObject*>& gameObjects, const uint& UID)
+{
+	GameObject* gameObjectWithUID = nullptr;
+
+	for (auto it = gameObjects.begin(); it != gameObjects.end(); ++it) {
+
+		if ((*it)->UID == UID) {
+
+			gameObjectWithUID = (*it);
+
+		}
+
+	}
+
+	return gameObjectWithUID;
+}

@@ -1056,7 +1056,7 @@ std::vector<GameObject*> JsonFile::GetHierarchy(const char* key) const
                 GameObject* gameObject = new GameObject();
 
                 // Call a function to extract individual GameObject properties
-                GetGameObject(gameObjectObject, *gameObject);
+                GetGameObject(gameObjects, gameObjectObject, *gameObject);
 
                 // Add the GameObject to the vector
                 gameObjects.push_back(gameObject);
@@ -1070,7 +1070,7 @@ std::vector<GameObject*> JsonFile::GetHierarchy(const char* key) const
     return gameObjects;
 }
 
-void JsonFile::GetGameObject(const JSON_Object* gameObjectObject, GameObject& gameObject) const
+void JsonFile::GetGameObject(const std::vector<GameObject*>& gameObjects, const JSON_Object* gameObjectObject, GameObject& gameObject) const
 {
     // Get Name
 
@@ -1092,11 +1092,8 @@ void JsonFile::GetGameObject(const JSON_Object* gameObjectObject, GameObject& ga
         // You need to find the corresponding parent GameObject using the UID
         // and set it to gameObject.mParent.
 
-        if (gameObject.mParent != nullptr) {
-
-            gameObject.mParent->UID = parentUID;
-
-        }
+        GameObject* parent = GameObject::GetGameObjectFromUID(gameObjects, parentUID);
+        gameObject.SetParent(parent);
 
     }
 
