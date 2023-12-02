@@ -4,3 +4,18 @@ ResourceMaterial::ResourceMaterial(uint UID) : Resource(UID, ResourceType::MATER
 {
 
 }
+
+bool ResourceMaterial::IsLoadedInMemory()
+{
+    return false;
+}
+
+bool ResourceMaterial::LoadInMemory()
+{
+    return false;
+}
+
+bool ResourceMaterial::UnloadFromMemory()
+{
+    return false;
+}

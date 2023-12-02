@@ -1,6 +1,7 @@
 #pragma once
 
 #include <map>
+#include <string>
 
 #include "Module.h"
 #include "Resources.h"
@@ -9,9 +10,12 @@ class ModuleResourceManager : public Module
 {
 public:
 
-	ModuleResourceManager(Application* app, bool start_enabled = true);
+	// Constructor & Destructor
 
+	ModuleResourceManager(Application* app, bool start_enabled = true);
 	virtual ~ModuleResourceManager();
+
+	// Module Functions
 
 	bool Init() override;
 	update_status PreUpdate(float dt) override;
@@ -19,26 +23,59 @@ public:
 	update_status PostUpdate(float dt) override;
 	bool CleanUp() override;
 
-	bool ExistsInLibrary(ResourceType type, const uint& UID) const;
-
-	uint GetUIDFromAssetsPath(const std::string& assetsFilePath) const;
+	// Specific Functions
 
 	uint ImportFile(const std::string& assetsFilePath);
+
 	uint GenerateNewUID();
 
-	Resource* RequestResource(const uint& UID);
-	void ReleaseResource(const uint& UID);
+	uint ExistsInLibrary(const std::string& assetsFilePath) const;
+	bool ExistsInLibrary(ResourceType type, const uint& UID) const;
+
+	bool IsResourceLoaded(const uint& UID);
+	void LoadResource(const uint& UID);
+	void UnloadResource(const uint& UID);
 
 	Resource* CreateResourceFromAssets(std::string assetsFilePath, ResourceType type, const uint& UID);
 	Resource* CreateResourceFromLibrary(std::string libraryFilePath, ResourceType type, const uint& UID);
 
 	ResourceType GetTypeFromAssetsPath(std::string assetsFilePath);
 	ResourceType GetTypeFromLibraryPath(std::string libraryFilePath);
+	ResourceType GetTypeFromString(std::string typeString);
 
 	std::map<uint, Resource*> GetResourcesMap() const; 
 
 private:
 
+	Resource* RequestResource(const uint& UID);
+	void ReleaseResource(Resource* resource);
+
+private:
+
 	std::map<uint, Resource*> resources;
+
+	// Utility maps
+
+	std::map<ResourceType, std::string> resourceTypeToString {
+
+		{ResourceType::MESH, "ymesh"},
+		{ResourceType::MODEL, "ymodel"},
+		{ResourceType::SCENE, "yscene"},
+		{ResourceType::MATERIAL, "ymat"},
+		{ResourceType::TEXTURE, "dds"},
+		{ResourceType::SHADER, "spv"},
+
+	};
+
+	std::map<ResourceType, std::string> resourceTypeToLibraryFolder {
+
+		{ResourceType::MESH, "Library/Meshes/"},
+		{ResourceType::MODEL, "Library/Models/"},
+		{ResourceType::SCENE, "Library/Scenes/"},
+		{ResourceType::MATERIAL, "Library/Materials/"},
+		{ResourceType::TEXTURE, "Library/Textures/"},
+		{ResourceType::SHADER, "Library/Shaders/"},
+
+	};
 
 };

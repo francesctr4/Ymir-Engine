@@ -7,9 +7,9 @@ public:
 
 	ResourceMesh(uint UID);
 
-	//bool IsLoadedInMemory() override;
-	//bool LoadInMemory() override;
-	//bool UnloadFromMemory() override;
+	bool IsLoadedInMemory() override;
+	bool LoadInMemory() override;
+	bool UnloadFromMemory() override;
 
 private:
 
