@@ -51,3 +51,8 @@ bool ModuleResourceManager::CleanUp()
 
 	return ret;
 }
+
+std::map<uint, Resource*> ModuleResourceManager::GetResourcesMap() const
+{
+	return resources;
+}
