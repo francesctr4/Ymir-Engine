@@ -70,11 +70,11 @@ bool ModuleResourceManager::CleanUp()
 	return ret;
 }
 
-uint ModuleResourceManager::ImportFile(const std::string& assetsFilePath)
+Resource* ModuleResourceManager::ImportFile(const std::string& assetsFilePath)
 {
 	// Create Meta
 
-	std::string metaFilePath; // In Progress
+	std::string metaFilePath = assetsFilePath + ".meta"; // Assuming the meta file exists.
 
 	// Retrieve info from Meta
 
@@ -85,31 +85,82 @@ uint ModuleResourceManager::ImportFile(const std::string& assetsFilePath)
 
 	Resource* resource = CreateResourceFromAssets(assetsFilePath, type, UID);
 
-	//int ret = 0;
-
-	//char* fileBuffer = nullptr;
-	//unsigned int size = FileSystem::LoadToBuffer(assetsFile, &fileBuffer); //<-- pseudocode, load from File System
+	/* The resources that have to be transformed to Ymir Engine format have to be imported,
+	but the resources that are already in the custom format only have to be loaded. */
 
 	switch (resource->GetType()) {
 
-		case ResourceType::TEXTURE: 
+		case ResourceType::MESH:
 
-		//ImporterTexture::Import(assetsFilePath.c_str(), (ResourceTexture*)resource); 
-		break;
+			//ImporterMesh::Load(assetsFilePath.c_str(), (ResourceMesh*)resource);
+			break;
 
-	//case ResourceType::MODEL: ModelImporter::Import(fileBuffer, size, resource); break;
-	//	//case Resource::Type::MESH: MeshLoader::BufferToMeshes(fileBuffer, size, resource); break;
-	//case ResourceType::SCENE: FileSystem::Save(resource->GetLibraryPath(), fileBuffer, size, false); break;
+		case ResourceType::MODEL:
+
+			//ImporterModel::Import(assetsFilePath.c_str(), (ResourceModel*)resource);
+			break;
+
+		case ResourceType::SCENE:
+
+			//ImporterScene::Load(assetsFilePath.c_str(), (ResourceScene*)resource);
+			break;
+
+		case ResourceType::TEXTURE:
+
+			//ImporterTexture::Import(assetsFilePath.c_str(), (ResourceTexture*)resource);
+			break;
+
+		case ResourceType::MATERIAL:
+
+			//ImporterMaterial::Load(assetsFilePath.c_str(), (ResourceMaterial*)resource);
+			break;
+
+		case ResourceType::SHADER:
+
+			//ImporterShader::Import(assetsFilePath.c_str(), (ResourceShader*)resource);
+			break;
+
 	}
 
-	////Save the resource to custom format
-	//ret = resource->GetUID();
+	return resource;
+}
 
-	//RELEASE_ARRAY(fileBuffer);
+void ModuleResourceManager::SaveResourceToLibrary(Resource* resource)
+{
+	switch (resource->GetType()) {
 
-	//UnloadResource(ret);
-	//return ret;
-	return uint();
+		case ResourceType::MESH:
+		
+			//ImporterMesh::Save((ResourceMesh*)resource, resource->GetLibraryFilePath());
+			break;
+
+		case ResourceType::MODEL:
+
+			//ImporterModel::Save((ResourceModel*)resource, resource->GetLibraryFilePath());
+			break;
+
+		case ResourceType::SCENE:
+
+			//ImporterScene::Save((ResourceScene*)resource, resource->GetLibraryFilePath());
+			break;
+
+		case ResourceType::TEXTURE:
+
+			//ImporterTexture::Save((ResourceTexture*)resource, resource->GetLibraryFilePath());
+			break;
+
+		case ResourceType::MATERIAL:
+
+			//ImporterMaterial::Save((ResourceMaterial*)resource, resource->GetLibraryFilePath());
+			break;
+
+		case ResourceType::SHADER:
+
+			//ImporterShader::Save((ResourceShader*)resource, resource->GetLibraryFilePath());
+			break;
+
+	}
+
 }
 
 uint ModuleResourceManager::GenerateNewUID()
@@ -172,6 +223,22 @@ bool ModuleResourceManager::IsResourceLoaded(const uint& UID)
 	}
 		
 	return false;
+}
+
+void ModuleResourceManager::LoadResource(const uint& UID)
+{
+	std::map<uint, Resource*>::iterator it = resources.find(UID);
+
+	if (it == resources.end()) 
+	{
+		return;
+	}
+
+	Resource* tmpResource = it->second;
+
+	tmpResource->IncreaseReferenceCount();
+
+	tmpResource->LoadInMemory();
 }
 
 void ModuleResourceManager::UnloadResource(const uint& UID)

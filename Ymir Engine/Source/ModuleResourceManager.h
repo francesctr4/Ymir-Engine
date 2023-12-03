@@ -25,9 +25,11 @@ public:
 
 	// Specific Functions
 
-	uint ImportFile(const std::string& assetsFilePath);
+	Resource* ImportFile(const std::string& assetsFilePath);
+	void SaveResourceToLibrary(Resource* resource);
 
 	uint GenerateNewUID();
+	std::string GenerateLibraryFile(const uint& UID, ResourceType type);
 
 	uint ExistsInLibrary(const std::string& assetsFilePath) const;
 	bool ExistsInLibrary(ResourceType type, const uint& UID) const;

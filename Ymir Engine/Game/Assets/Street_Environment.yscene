@@ -1,0 +1,1337 @@
+{
+    "Editor Camera Position": [
+        -37.690280914306641,
+        50.868423461914062,
+        106.05110931396484
+    ],
+    "Editor Camera Right (X)": [
+        0.92949557304382324,
+        -7.4505805969238281e-08,
+        0.36883535981178284
+    ],
+    "Editor Camera Up (Y)": [
+        0.14839182794094086,
+        0.915496826171875,
+        -0.37395945191383362
+    ],
+    "Editor Camera Front (Z)": [
+        0.33766758441925049,
+        -0.40232518315315247,
+        -0.85095024108886719
+    ],
+    "Hierarchy": [
+        {
+            "Name": "Scene",
+            "UID": 133566133,
+            "Children UID": [
+                1397626159,
+                887067525,
+                210347121
+            ],
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Scale": [
+                        0,
+                        0,
+                        0
+                    ]
+                }
+            ]
+        },
+        {
+            "Name": "Main Camera",
+            "UID": 1397626159,
+            "Parent UID": 133566133,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Scale": [
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "Type": "Camera",
+                    "Active": 1,
+                    "Right": [
+                        0.80355727672576904,
+                        0,
+                        0.59522765874862671
+                    ],
+                    "Up": [
+                        0.23584151268005371,
+                        0.91815537214279175,
+                        -0.3183860182762146
+                    ],
+                    "Front": [
+                        0.54651135206222534,
+                        -0.39622071385383606,
+                        -0.73779028654098511
+                    ],
+                    "FOV": 60.000003814697266,
+                    "Near Plane": 1,
+                    "Far Plane": 1000,
+                    "Frustum Culling": 1,
+                    "Draw Bounding Boxes": 0
+                }
+            ]
+        },
+        {
+            "Name": "StreetEnvironment",
+            "UID": 887067525,
+            "Parent UID": 133566133,
+            "Children UID": [
+                1841743746,
+                421055976,
+                1245847816,
+                238807586,
+                641942836,
+                274490318,
+                1350535682,
+                1064169203,
+                683573399,
+                697062468,
+                685737255,
+                1391676557,
+                1745508271,
+                1713967436,
+                774638579,
+                543049484,
+                1761252691,
+                107422607,
+                1644314228,
+                255677523,
+                783673806,
+                1507797804,
+                1086573762,
+                899971971,
+                1873607032,
+                809439004,
+                70999520,
+                1144792611,
+                2115567099,
+                843405662
+            ],
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        30.695278167724609,
+                        2.1210730949405843e-07,
+                        -21.612646102905273
+                    ],
+                    "Rotation": [
+                        -90,
+                        0,
+                        90
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                }
+            ]
+        },
+        {
+            "Name": "City_building_004",
+            "UID": 1841743746,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        -41.47589111328125,
+                        0,
+                        -21.01409912109375
+                    ],
+                    "Rotation": [
+                        -90,
+                        4.0711100397945732e-13,
+                        -1.0017912245530169e-05
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 3850,
+                    "Index Count": 5988
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "City_building_001",
+            "UID": 421055976,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        17.707164764404297,
+                        2.1210730949405843e-07,
+                        -20.053276062011719
+                    ],
+                    "Rotation": [
+                        -90,
+                        4.0711100397945732e-13,
+                        -1.0017912245530169e-05
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 2132,
+                    "Index Count": 4176
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "City_building_007",
+            "UID": 1245847816,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Scale": [
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 436,
+                    "Index Count": 684
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "City_building_008",
+            "UID": 238807586,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Scale": [
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 419,
+                    "Index Count": 864
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "Line002",
+            "UID": 641942836,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Scale": [
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 48,
+                    "Index Count": 72
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "Plane001",
+            "UID": 274490318,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Scale": [
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 25,
+                    "Index Count": 96
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "City_building_010",
+            "UID": 1350535682,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Scale": [
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 4,
+                    "Index Count": 4
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 3268,
+                    "Index Count": 4998
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "City_building_011",
+            "UID": 1064169203,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Scale": [
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 436,
+                    "Index Count": 684
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "City_building_013",
+            "UID": 683573399,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        -42.288055419921875,
+                        5.0146070407208754e-07,
+                        -33.201576232910156
+                    ],
+                    "Rotation": [
+                        -90,
+                        0,
+                        90
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 2452,
+                    "Index Count": 4197
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "City_building_014",
+            "UID": 697062468,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Scale": [
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 4218,
+                    "Index Count": 6636
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "City_building_016",
+            "UID": 685737255,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Scale": [
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 4,
+                    "Index Count": 4
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 3268,
+                    "Index Count": 4998
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "City_building_017",
+            "UID": 1391676557,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Scale": [
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 4,
+                    "Index Count": 4
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 3268,
+                    "Index Count": 4998
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "City_building_022",
+            "UID": 1745508271,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        -20.831323623657227,
+                        0,
+                        27.426488876342773
+                    ],
+                    "Rotation": [
+                        -90,
+                        -5.0089561227650847e-06,
+                        179.99998474121094
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 4670,
+                    "Index Count": 8496
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "City_building_023",
+            "UID": 1713967436,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        42.130641937255859,
+                        -1.5106878663573298e-06,
+                        -37.4932861328125
+                    ],
+                    "Rotation": [
+                        -90,
+                        2.0355550198972866e-13,
+                        -2.7329808744980255e-06
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 436,
+                    "Index Count": 684
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "City_building_024",
+            "UID": 774638579,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Scale": [
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 419,
+                    "Index Count": 864
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "City_building_026",
+            "UID": 543049484,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Scale": [
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 4523,
+                    "Index Count": 8232
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "City_building_028",
+            "UID": 1761252691,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Scale": [
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 6069,
+                    "Index Count": 8292
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "Object010",
+            "UID": 107422607,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        -20.604873657226562,
+                        -0.47595983743667603,
+                        -4.0667424201965332
+                    ],
+                    "Rotation": [
+                        -90,
+                        4.0711100397945732e-13,
+                        -1.0017912245530169e-05
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 1440,
+                    "Index Count": 2160
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "City_building_030",
+            "UID": 1644314228,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Scale": [
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 6069,
+                    "Index Count": 8292
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "City_building_031",
+            "UID": 255677523,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        -34.679481506347656,
+                        -9.3834518111179932e-07,
+                        41.835563659667969
+                    ],
+                    "Rotation": [
+                        -90,
+                        0,
+                        -90
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 6069,
+                    "Index Count": 8292
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "City_building_032",
+            "UID": 783673806,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Scale": [
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 3850,
+                    "Index Count": 5988
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "City_building_033",
+            "UID": 1507797804,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Scale": [
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 4772,
+                    "Index Count": 7986
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "City_building_034",
+            "UID": 1086573762,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Scale": [
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 3481,
+                    "Index Count": 6378
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "City_building_035",
+            "UID": 899971971,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Scale": [
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 6069,
+                    "Index Count": 8292
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "City_building_036",
+            "UID": 1873607032,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Scale": [
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 2452,
+                    "Index Count": 4197
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "City_building_037",
+            "UID": 809439004,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Scale": [
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 2548,
+                    "Index Count": 4530
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "City_building_038",
+            "UID": 70999520,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        -41.649002075195312,
+                        0,
+                        16.495393753051758
+                    ],
+                    "Rotation": [
+                        -90,
+                        5.122642050991999e-06,
+                        -89.999984741210938
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 3972,
+                    "Index Count": 7392
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "City_building_039",
+            "UID": 1144792611,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Scale": [
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 6069,
+                    "Index Count": 8292
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "City_building_040",
+            "UID": 2115567099,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Scale": [
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 6069,
+                    "Index Count": 8292
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "City_building_041",
+            "UID": 843405662,
+            "Parent UID": 887067525,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        30.695278167724609,
+                        2.1210730949405843e-07,
+                        -21.612646102905273
+                    ],
+                    "Rotation": [
+                        -90,
+                        0,
+                        90
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 2132,
+                    "Index Count": 4176
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        },
+        {
+            "Name": "Skybox",
+            "UID": 210347121,
+            "Parent UID": 133566133,
+            "Children UID": [
+                48005904
+            ],
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        -0,
+                        0,
+                        -0
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                }
+            ]
+        },
+        {
+            "Name": "Sphere",
+            "UID": 48005904,
+            "Parent UID": 210347121,
+            "Components": [
+                {
+                    "Type": "Transform",
+                    "Active": 1,
+                    "Translation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        -0,
+                        0,
+                        -0
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": "Mesh",
+                    "Active": 1,
+                    "Vertex Count": 2143,
+                    "Index Count": 11904
+                },
+                {
+                    "Type": "Material",
+                    "Active": 1
+                }
+            ]
+        }
+    ]
+}
