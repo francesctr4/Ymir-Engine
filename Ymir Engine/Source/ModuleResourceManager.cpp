@@ -409,6 +409,11 @@ ResourceType ModuleResourceManager::GetTypeFromString(std::string typeString)
 	return tmpType;
 }
 
+std::string ModuleResourceManager::GetStringFromType(ResourceType type)
+{
+	return resourceTypeToString.at(type);
+}
+
 std::map<uint, Resource*> ModuleResourceManager::GetResourcesMap() const
 {
 	return resources;

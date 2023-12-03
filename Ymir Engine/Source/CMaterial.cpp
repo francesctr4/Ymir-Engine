@@ -41,6 +41,17 @@ void CMaterial::OnInspector()
     {
         ImGui::Indent();
 
+        ImGui::Spacing();
+
+        ImGui::Text("Current .dds UID: %d", 0);
+
+        ImGui::Spacing();
+
+        ImGui::Button("Drop .dds to change texture", ImVec2(200, 50));
+        DdsDragDropTarget();
+
+        ImGui::Spacing();
+
         ImGui::Image(reinterpret_cast<void*>(static_cast<intptr_t>(ID)), ImVec2(200,200));
         ImGui::Spacing();
 
@@ -66,4 +77,24 @@ void CMaterial::OnInspector()
         ImGui::Unindent();
     }
 
+}
+
+void CMaterial::DdsDragDropTarget()
+{
+    if (ImGui::BeginDragDropTarget())
+    {
+        if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("dds"))
+        {
+            std::string* libraryFilePathDrop = (std::string*)payload->Data;
+
+            // Unload Resource of the previous texture loaded if it had any
+
+            // Retrieve name of the file dropped, and then get the UID.
+
+            // Lastly, Request Resource of the Texture with given UID, Path and Type and render it (add a reference).
+
+        }
+
+        ImGui::EndDragDropTarget();
+    }
 }

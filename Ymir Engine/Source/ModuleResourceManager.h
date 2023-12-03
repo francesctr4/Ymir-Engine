@@ -43,7 +43,9 @@ public:
 
 	ResourceType GetTypeFromAssetsPath(std::string assetsFilePath);
 	ResourceType GetTypeFromLibraryPath(std::string libraryFilePath);
+
 	ResourceType GetTypeFromString(std::string typeString);
+	std::string GetStringFromType(ResourceType type);
 
 	std::map<uint, Resource*> GetResourcesMap() const; 
 

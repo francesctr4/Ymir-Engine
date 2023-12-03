@@ -16,11 +16,13 @@ public:
 	void Update() override;
 	void OnInspector() override;
 
+	void YmeshDragDropTarget();
 
 public:
 
-	Mesh* meshReference;
 	uint nVertices;
 	uint nIndices;
+
+	Mesh* meshReference;
 
 };

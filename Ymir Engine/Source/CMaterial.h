@@ -19,9 +19,9 @@ public:
 	void Update() override;
 	void OnInspector() override;
 
-public:
+	void DdsDragDropTarget();
 
-	GameObject* owner;
+public:
 
 	uint ID;
 	std::string path;

@@ -7,7 +7,7 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 #include "GameObject.h"
-
+#include "ModuleResourceManager.h"
 
 CMesh::CMesh(GameObject* owner) : Component(owner, ComponentType::MESH)
 {
@@ -42,10 +42,23 @@ void CMesh::OnInspector()
     {
         ImGui::Indent();
 
+        ImGui::Spacing();
+
+        ImGui::Text("Current .ymesh UID: %d", 0);
+
+        ImGui::Spacing();
+
+        ImGui::Button("Drop .ymesh to change mesh", ImVec2(200, 50));
+        YmeshDragDropTarget();
+
+        ImGui::Spacing();
+
         ImGui::Text("Vertices: %d", nVertices);
+
         ImGui::Spacing();
 
         ImGui::Text("Indices: %d", nIndices);
+
         ImGui::Spacing();
 
         for (auto it = External->renderer3D->models.begin(); it != External->renderer3D->models.end(); ++it) {
@@ -70,5 +83,31 @@ void CMesh::OnInspector()
         }
 
         ImGui::Unindent();
+    }
+}
+
+void CMesh::YmeshDragDropTarget()
+{
+    if (ImGui::BeginDragDropTarget())
+    {
+        if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ymesh"))
+        {
+            std::string* libraryFilePathDrop = (std::string*)payload->Data;
+
+            if (meshReference != nullptr) {
+
+                //External->resourceManager->UnloadResource(meshReference->GetUID());
+
+                meshReference = nullptr;
+
+            }
+
+            // Retrieve name of the file dropped, and then get the UID.
+
+            // Lastly, Request Resource of the Mesh with given UID, Path and Type and render it (add a reference).
+
+        }
+
+        ImGui::EndDragDropTarget();
     }
 }

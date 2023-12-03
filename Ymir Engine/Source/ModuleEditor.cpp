@@ -10,6 +10,7 @@
 #include "ModuleCamera3D.h"
 #include "ModuleInput.h"
 #include "ModuleScene.h"
+#include "ModuleResourceManager.h"
 
 #include "GameObject.h"
 
@@ -1209,7 +1210,12 @@ void ModuleEditor::DrawEditor()
 
         if (ImGui::Begin("Resources", &showResources), true) {
 
+            ImGui::TextColored(ImVec4(1.f, 0.5f, 0.5f, 1.f), "Total Resources Loaded: %d", App->resourceManager->GetResourcesMap().size());
 
+            for (const auto& [UID, Resource] : App->resourceManager->GetResourcesMap()) 
+            {
+                ImGui::Text("Type: %s | UID: %d | References: %d", App->resourceManager->GetStringFromType(Resource->GetType()), Resource->GetUID(), Resource->GetReferenceCount());
+            }
 
             ImGui::End();
         }
@@ -2775,6 +2781,7 @@ void ModuleEditor::DrawLibraryWindow(const std::string& libraryFolder) {
 
                         selectedFilePath = entry.path().string();
                         showModal = true;  // Set the flag to open the modal
+
                     }
 
                     ImGui::PopStyleColor();
@@ -2786,6 +2793,32 @@ void ModuleEditor::DrawLibraryWindow(const std::string& libraryFolder) {
 
                     ImGui::Selectable(entryName.c_str());
 
+                    if ((entryName.find(".dds") != std::string::npos)) {
+
+                        if (ImGui::BeginDragDropSource())
+                        {
+                            ImGui::SetDragDropPayload("dds", entry.path().string().data(), entry.path().string().length());
+
+                            ImGui::Text("Import Texture: %s", entry.path().string().c_str());
+
+                            ImGui::EndDragDropSource();
+                        }
+
+                    }
+
+                    if ((entryName.find(".ymesh") != std::string::npos)) {
+
+                        if (ImGui::BeginDragDropSource())
+                        {
+                            ImGui::SetDragDropPayload("ymesh", entry.path().string().data(), entry.path().string().length());
+
+                            ImGui::Text("Import Mesh: %s", entry.path().string().c_str());
+
+                            ImGui::EndDragDropSource();
+                        }
+
+                    }
+                    
                     ImGui::PopStyleColor();
 
                 }
