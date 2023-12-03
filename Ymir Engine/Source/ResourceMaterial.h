@@ -15,7 +15,7 @@ enum class MaterialMapType {
 
 	ALBEDO,		// Diffuse Texture Type
 	METALLIC,	// Specular Texture Type
-	NORMAL,		// Normals Texture Type
+	NORMAL,		// Normal Texture Type
 	HEIGHT,		// Height Texture Type
 	OCCLUSION,  // Ambient Texture Type
 	EMISSION,	// Emissive Texture Type

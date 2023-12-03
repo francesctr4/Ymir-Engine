@@ -7,6 +7,10 @@
 #include <windows.h>
 #include <stdio.h>
 
+#include "External/Glew/include/glew.h"
+#include "External/SDL/include/SDL_opengl.h"
+#include <gl/GL.h>
+
 #define CAP(n) ((n <= 0.0f) ? n=0.0f : (n >= 1.0f) ? n=1.0f : n=n)
 
 #define DEGTORAD 0.0174532925199432957f

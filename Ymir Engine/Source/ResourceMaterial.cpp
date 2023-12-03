@@ -13,7 +13,7 @@ ResourceMaterial::ResourceMaterial(uint UID) : Resource(UID, ResourceType::MATER
 
     materialMaps[MaterialMapType::ALBEDO] = std::make_shared<ResourceTexture>(0);      // Diffuse Texture Type
     materialMaps[MaterialMapType::METALLIC] = std::make_shared<ResourceTexture>(0);    // Specular Texture Type
-    materialMaps[MaterialMapType::NORMAL] = std::make_shared<ResourceTexture>(0);      // Normals Texture Type
+    materialMaps[MaterialMapType::NORMAL] = std::make_shared<ResourceTexture>(0);      // Normal Texture Type
     materialMaps[MaterialMapType::HEIGHT] = std::make_shared<ResourceTexture>(0);      // Height Texture Type
     materialMaps[MaterialMapType::OCCLUSION] = std::make_shared<ResourceTexture>(0);   // Ambient Texture Type
     materialMaps[MaterialMapType::EMISSION] = std::make_shared<ResourceTexture>(0);    // Emissive Texture Type
