@@ -61,9 +61,6 @@
     <Filter Include="Externals\ImGuizmo">
       <UniqueIdentifier>{2aeea0e7-6ca8-499e-85e8-17679d936cc5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Utility">
-      <UniqueIdentifier>{121f8e6b-df36-4ab0-be0d-601ddfc9e503}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sources\Core">
       <UniqueIdentifier>{a9d86c36-8dd3-4457-a653-ae69bdbdf08a}</UniqueIdentifier>
     </Filter>
@@ -97,6 +94,9 @@
     <Filter Include="Sources\Features\Time Management">
       <UniqueIdentifier>{dbfef42a-354c-419a-a82d-2a455b35f03d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Utils">
+      <UniqueIdentifier>{121f8e6b-df36-4ab0-be0d-601ddfc9e503}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Module.h">
@@ -115,10 +115,10 @@
       <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="Source\Primitive.h">
-      <Filter>Sources\Utility</Filter>
+      <Filter>Sources\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Source\Light.h">
-      <Filter>Sources\Utility</Filter>
+      <Filter>Sources\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Source\External\MathGeoLib\include\MathBuildConfig.h">
       <Filter>Externals\MathGeoLib</Filter>
@@ -718,25 +718,25 @@
       <Filter>Sources\Features\Time Management</Filter>
     </ClInclude>
     <ClInclude Include="Source\Color.h">
-      <Filter>Sources\Utility</Filter>
+      <Filter>Sources\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Source\Delegate.h">
-      <Filter>Sources\Utility</Filter>
+      <Filter>Sources\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Source\EventSystem.h">
-      <Filter>Sources\Utility</Filter>
+      <Filter>Sources\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Source\FrameBuffer.h">
-      <Filter>Sources\Utility</Filter>
+      <Filter>Sources\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Source\Log.h">
-      <Filter>Sources\Utility</Filter>
+      <Filter>Sources\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Source\Random.h">
-      <Filter>Sources\Utility</Filter>
+      <Filter>Sources\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Source\Singleton.h">
-      <Filter>Sources\Utility</Filter>
+      <Filter>Sources\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Source\Application.h">
       <Filter>Sources\Core</Filter>
@@ -789,10 +789,10 @@
       <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="Source\Primitive.cpp">
-      <Filter>Sources\Utility</Filter>
+      <Filter>Sources\Utils</Filter>
     </ClCompile>
     <ClCompile Include="Source\Light.cpp">
-      <Filter>Sources\Utility</Filter>
+      <Filter>Sources\Utils</Filter>
     </ClCompile>
     <ClCompile Include="Source\External\MathGeoLib\include\Geometry\AABB.cpp">
       <Filter>Externals\MathGeoLib\Geometry</Filter>
@@ -1035,22 +1035,22 @@
       <Filter>Sources\Features\Time Management</Filter>
     </ClCompile>
     <ClCompile Include="Source\Color.cpp">
-      <Filter>Sources\Utility</Filter>
+      <Filter>Sources\Utils</Filter>
     </ClCompile>
     <ClCompile Include="Source\Delegate.cpp">
-      <Filter>Sources\Utility</Filter>
+      <Filter>Sources\Utils</Filter>
     </ClCompile>
     <ClCompile Include="Source\FrameBuffer.cpp">
-      <Filter>Sources\Utility</Filter>
+      <Filter>Sources\Utils</Filter>
     </ClCompile>
     <ClCompile Include="Source\Log.cpp">
-      <Filter>Sources\Utility</Filter>
+      <Filter>Sources\Utils</Filter>
     </ClCompile>
     <ClCompile Include="Source\Random.cpp">
-      <Filter>Sources\Utility</Filter>
+      <Filter>Sources\Utils</Filter>
     </ClCompile>
     <ClCompile Include="Source\Singleton.cpp">
-      <Filter>Sources\Utility</Filter>
+      <Filter>Sources\Utils</Filter>
     </ClCompile>
     <ClCompile Include="Source\Application.cpp">
       <Filter>Sources\Core</Filter>

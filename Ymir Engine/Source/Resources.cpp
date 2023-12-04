@@ -6,6 +6,8 @@ Resource::Resource()
 	this->UID = 0;
 
 	this->referenceCount = 0;
+
+	this->isLoaded = false;
 }
 
 Resource::Resource(uint UID, ResourceType type)
@@ -14,6 +16,8 @@ Resource::Resource(uint UID, ResourceType type)
 	this->UID = UID;
 
 	this->referenceCount = 0;
+
+	this->isLoaded = false;
 }
 
 Resource::~Resource()
@@ -25,6 +29,8 @@ Resource::~Resource()
 	this->UID = 0;
 
 	this->referenceCount = 0;
+
+	this->isLoaded = false;
 }
 
 ResourceType Resource::GetType() const
@@ -70,4 +76,9 @@ void Resource::IncreaseReferenceCount()
 void Resource::DecreaseReferenceCount()
 {
 	this->referenceCount--;
+}
+
+bool Resource::IsLoadedInMemory() const
+{
+	return isLoaded;
 }

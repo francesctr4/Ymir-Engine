@@ -24,11 +24,6 @@ ResourceMaterial::~ResourceMaterial()
 
 }
 
-bool ResourceMaterial::IsLoadedInMemory()
-{
-    return false;
-}
-
 bool ResourceMaterial::LoadInMemory()
 {
     return false;

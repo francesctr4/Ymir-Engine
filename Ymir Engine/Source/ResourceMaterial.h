@@ -34,7 +34,6 @@ public:
 
 	// Inherited Functions
 
-	bool IsLoadedInMemory() override;
 	bool LoadInMemory() override;
 	bool UnloadFromMemory() override;
 

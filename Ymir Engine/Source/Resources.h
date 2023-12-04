@@ -35,7 +35,8 @@ public:
 	void IncreaseReferenceCount();
 	void DecreaseReferenceCount();
 
-	virtual bool IsLoadedInMemory() = 0;
+	bool IsLoadedInMemory() const;
+
 	virtual bool LoadInMemory() = 0;
 	virtual bool UnloadFromMemory() = 0;
 
@@ -48,5 +49,7 @@ protected:
 	uint UID;
 
 	uint referenceCount;
+
+	bool isLoaded;
 
 };

@@ -40,7 +40,7 @@ uint ImporterMesh::Save(const Mesh* ourMesh, char** fileBuffer)
     return size;
 }
 
-void ImporterMesh::Load(const char* fileBuffer, Mesh* ourMesh)
+void ImporterMesh::Load(const char* fileBuffer, ResourceMesh* ourMesh)
 {
     char* cursor = const_cast<char*>(fileBuffer);
 

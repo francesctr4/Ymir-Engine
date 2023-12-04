@@ -20,7 +20,6 @@ public:
 
 	ResourceShader(uint UID);
 
-	bool IsLoadedInMemory() override;
 	bool LoadInMemory() override;
 	bool UnloadFromMemory() override;
 
