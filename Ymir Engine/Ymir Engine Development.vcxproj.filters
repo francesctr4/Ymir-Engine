@@ -771,6 +771,9 @@
     <ClInclude Include="Source\External\ImGuiNodeEditor\include\imgui_node_editor_internal.h">
       <Filter>Externals\ImGuiNodeEditor</Filter>
     </ClInclude>
+    <ClInclude Include="Source\DefaultShader.h">
+      <Filter>Sources\Features\Shader Pipeline</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
