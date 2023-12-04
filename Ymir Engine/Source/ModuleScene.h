@@ -41,6 +41,9 @@ public:
 	// Function to handle GameObject selection by Mouse Picking
 	void HandleGameObjectSelection(const LineSegment& ray);
 
+	// Function to test if picking inside an AABB
+	bool IsInsideAABB(const float3& point, const AABB& aabb);
+
 public:
 
 	GameObject* mRootNode;

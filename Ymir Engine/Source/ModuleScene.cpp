@@ -209,9 +209,13 @@ void ModuleScene::HandleGameObjectSelection(const LineSegment& ray)
 			// Check for intersection between the ray and the global axis-aligned bounding box (AABB) of the mesh.
 			if (ray.Intersects(meshToTest->globalAABB, closest, furthest)) {
 
-				// Store the mesh in the map based on the closest intersection distance.
-				meshCandidates[closest] = meshToTest;
-
+				// Test if the mesh is inside another AABB (avoid Skybox selection).
+				if (!IsInsideAABB(ray.a, meshToTest->globalAABB))
+				{
+					// Store the mesh in the map based on the closest intersection distance.
+					meshCandidates[closest] = meshToTest;
+				}
+				
 			}
 
 		}
@@ -303,4 +307,14 @@ void ModuleScene::HandleGameObjectSelection(const LineSegment& ray)
 
 	}
 
+}
+
+bool ModuleScene::IsInsideAABB(const float3& point, const AABB& aabb)
+{
+	return point.x >= aabb.minPoint.x 
+		&& point.x <= aabb.maxPoint.x 
+		&& point.y >= aabb.minPoint.y 
+		&& point.y <= aabb.maxPoint.y
+		&& point.z >= aabb.minPoint.z 
+		&& point.z <= aabb.maxPoint.z;
 }
