@@ -1,7 +1,7 @@
 #include "ResourceMesh.h"
 #include "ImporterMesh.h"
 
-#include "ResourceTexture.h"
+#include "ResourceMaterial.h"
 
 #include "Log.h"
 
@@ -10,6 +10,8 @@ ResourceMesh::ResourceMesh(uint UID) : Resource(UID, ResourceType::MESH)
     VBO = 0;
     EBO = 0;
     VAO = 0;
+
+    material = ResourceMaterial::defaultMaterial;
 }
 
 ResourceMesh::~ResourceMesh()
@@ -100,11 +102,19 @@ bool ResourceMesh::UnloadFromMemory()
         VAO = 0;
     }
 
+    // Delete the material
+
+    if (material != 0) {
+
+        delete material;
+        material = nullptr;
+
+    }
+
     // Clear the vectors
 
     vertices.clear();
     indices.clear();
-    textures.clear();
 
     isLoaded = false;
 

@@ -16,7 +16,7 @@
 //
 //};
 
-class ResourceTexture;
+class ResourceMaterial;
 
 class ResourceMesh : public Resource {
 public:
@@ -39,7 +39,7 @@ public:
 
 	std::vector<Vertex> vertices;
 	std::vector<GLuint> indices;
-	std::vector<ResourceTexture*> textures;
+	ResourceMaterial* material;
 
 private:
 

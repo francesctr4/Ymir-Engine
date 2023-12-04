@@ -49,6 +49,10 @@ public:
 	std::string MaterialMapTypeToString(MaterialMapType mapType);
 	MaterialMapType StringToMaterialMapType(std::string mapName);
 
+public:
+
+	static ResourceMaterial* defaultMaterial;
+
 private:
 
 	// Material Shader

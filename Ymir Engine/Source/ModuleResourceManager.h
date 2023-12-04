@@ -35,7 +35,8 @@ public:
 	bool ExistsInLibrary(ResourceType type, const uint& UID) const;
 
 	bool IsResourceLoaded(const uint& UID);
-	void LoadResource(const uint& UID);
+	
+	Resource* RequestResource(const uint& UID);
 	void UnloadResource(const uint& UID);
 
 	Resource* CreateResourceFromAssets(std::string assetsFilePath, ResourceType type, const uint& UID);
@@ -51,7 +52,7 @@ public:
 
 private:
 
-	Resource* RequestResource(const uint& UID);
+	void LoadResource(const uint& UID);
 	void ReleaseResource(Resource* resource);
 
 private:

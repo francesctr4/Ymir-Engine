@@ -3,6 +3,8 @@
 #include "ResourceShader.h"
 #include "ResourceTexture.h"
 
+#include "DefaultShader.h"
+
 ResourceMaterial::ResourceMaterial(uint UID) : Resource(UID, ResourceType::MATERIAL)
 {
     // Material Shader
@@ -17,6 +19,10 @@ ResourceMaterial::ResourceMaterial(uint UID) : Resource(UID, ResourceType::MATER
     materialMaps[MaterialMapType::HEIGHT] = std::make_shared<ResourceTexture>(0);      // Height Texture Type
     materialMaps[MaterialMapType::OCCLUSION] = std::make_shared<ResourceTexture>(0);   // Ambient Texture Type
     materialMaps[MaterialMapType::EMISSION] = std::make_shared<ResourceTexture>(0);    // Emissive Texture Type
+
+    // Initialize Default Material
+
+    // defaultMaterial->materialShader = DefaultShader; (Pseudocode)
 }
 
 ResourceMaterial::~ResourceMaterial()
