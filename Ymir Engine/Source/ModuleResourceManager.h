@@ -36,7 +36,7 @@ public:
 
 	bool IsResourceLoaded(const uint& UID);
 	
-	Resource* RequestResource(const uint& UID);
+	Resource* RequestResource(const uint& UID, const char* libraryFilePath = nullptr);
 	void UnloadResource(const uint& UID);
 
 	Resource* CreateResourceFromAssets(std::string assetsFilePath, ResourceType type, const uint& UID);

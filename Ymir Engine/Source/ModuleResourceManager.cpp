@@ -241,6 +241,94 @@ void ModuleResourceManager::LoadResource(const uint& UID)
 	tmpResource->LoadInMemory();
 }
 
+Resource* ModuleResourceManager::RequestResource(const uint& UID, const char* libraryFilePath)
+{
+	std::map<uint, Resource*>::iterator it = resources.find(UID);
+
+	if (it != resources.end())
+	{
+		it->second->IncreaseReferenceCount();
+
+		return it->second;
+	}
+	else {
+
+		if (libraryFilePath != nullptr)
+		{
+			Resource* tmpResource = nullptr;
+
+			if (PhysfsEncapsule::FileExists(libraryFilePath))
+			{
+				ResourceType tmpType = GetTypeFromLibraryPath(libraryFilePath);
+
+				switch (tmpType) {
+
+					case ResourceType::MESH:
+
+						tmpResource = new ResourceMesh(UID);
+
+						break;
+
+					case ResourceType::MODEL:
+
+						tmpResource = new ResourceModel(UID);
+
+						break;
+
+					case ResourceType::SCENE:
+
+						tmpResource = new ResourceScene(UID);
+
+						break;
+
+					case ResourceType::TEXTURE:
+
+						tmpResource = new ResourceTexture(UID);
+
+						break;
+
+					case ResourceType::MATERIAL:
+
+						tmpResource = new ResourceMaterial(UID);
+
+						break;
+
+					case ResourceType::SHADER:
+
+						tmpResource = new ResourceShader(UID);
+
+						break;
+
+				}
+
+				if (tmpResource != nullptr)
+				{
+					resources[UID] = tmpResource;
+
+					tmpResource->SetLibraryFilePath(libraryFilePath);
+
+					tmpResource->IncreaseReferenceCount();
+
+					tmpResource->LoadInMemory();
+				}
+
+			}
+
+			return tmpResource;
+
+		}
+		else {
+
+			LOG("Resource requested isn't loaded and hasn't a library file.");
+
+			return nullptr;
+
+		}
+
+	}
+
+}
+
 void ModuleResourceManager::UnloadResource(const uint& UID)
 {
 	std::map<uint, Resource*>::iterator it = resources.find(UID);
