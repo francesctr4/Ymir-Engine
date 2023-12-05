@@ -26,7 +26,7 @@ namespace DefaultShader {
 		TexCoords = aTexCoords;
 	}
 
-#endif
+#endif 
 
 #ifdef FRAGMENT_SHADER
 
@@ -41,7 +41,7 @@ namespace DefaultShader {
 		FragColor = texture(texture_diffuse1, TexCoords);
 	}
 
-#endif
+#endif 
 
 	)";
 

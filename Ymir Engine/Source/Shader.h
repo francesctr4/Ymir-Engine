@@ -28,8 +28,10 @@ public:
     // Shader destructor
     virtual ~Shader();
 
-    // Load the Shader
+    // Functions to load the Shader
     void LoadShader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath);
+    void LoadShader(const std::string& shaderFilePath);
+    void LoadShaderFromString(const std::string& shaderString);
 
     // Use the Shader
     void UseShader(bool toggle);
@@ -73,7 +75,7 @@ private:
 
     // Private methods to encapsulate Shader Functionality
     void AddShader(GLuint shaderProgram, const char* pShaderText, GLenum shaderType);
-    std::string Shader::ReadShaderFile(const std::string& filename);
+    std::string ReadShaderFile(const std::string& filename);
 
     float4x4 CreateTranslationMatrix(float3 translation);
     float4x4 CreateRotationMatrix(float3 rotation);

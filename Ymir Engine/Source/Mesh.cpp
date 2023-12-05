@@ -7,6 +7,8 @@
 #include "GameObject.h"
 #include "Model.h"
 
+#include "DefaultShader.h"
+
 Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vector<Texture>& textures, GameObject* linkGO, NodeTransform* transform)
 {
 	VBO = 0;
@@ -115,7 +117,7 @@ void Mesh::DrawMesh()
 
         }
         
-        meshShader.LoadShader(SHADER_VS,SHADER_FS);
+        meshShader.LoadShaderFromString(DefaultShader::Source);
 
         loadedTextures = true;
         applyCheckerTexture = false;

@@ -86,6 +86,134 @@ void Shader::LoadShader(const std::string& vertexShaderPath, const std::string& 
 
 }
 
+void Shader::LoadShader(const std::string& shaderFilePath)
+{
+	shaderProgram = glCreateProgram();
+
+	if (shaderProgram == 0) {
+
+		LOG("Error creating shader program.");
+		return;
+	}
+	else {
+
+		LOG("Shader program created successfully.");
+
+	}
+
+	std::string fullShader = ReadShaderFile(shaderFilePath);
+
+	std::string vertexDefine = "#define VERTEX_SHADER\n";
+	std::string	 fragmentDefine = "#define FRAGMENT_SHADER\n";
+
+	std::string vs = vertexDefine + fullShader;
+	AddShader(shaderProgram, vs.c_str(), GL_VERTEX_SHADER);
+
+	std::string fs = fragmentDefine + fullShader;
+	AddShader(shaderProgram, fs.c_str(), GL_FRAGMENT_SHADER);
+
+	GLint success = 0;
+	GLchar errorLog[1024] = { 0 };
+
+	glLinkProgram(shaderProgram);
+
+	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+
+	if (success == 0) {
+
+		glGetProgramInfoLog(shaderProgram, sizeof(errorLog), NULL, errorLog);
+
+		LOG("Error linking shader program: '%s'\n", errorLog);
+		return;
+	}
+	else {
+
+		LOG("Shader program linked successfully.");
+
+	}
+
+	glValidateProgram(shaderProgram);
+
+	glGetProgramiv(shaderProgram, GL_VALIDATE_STATUS, &success);
+
+	if (!success) {
+
+		glGetProgramInfoLog(shaderProgram, sizeof(errorLog), NULL, errorLog);
+
+		LOG("Invalid shader program: '%s\n", errorLog);
+		return;
+	}
+	else {
+
+		LOG("Successfully loaded shader.");
+
+	}
+}
+
+void Shader::LoadShaderFromString(const std::string& shaderString)
+{
+	shaderProgram = glCreateProgram();
+
+	if (shaderProgram == 0) {
+
+		LOG("Error creating shader program.");
+		return;
+	}
+	else {
+
+		LOG("Shader program created successfully.");
+
+	}
+
+	std::string vertexDefine = "#define VERTEX_SHADER";
+	std::string	fragmentDefine = "#define FRAGMENT_SHADER";
+
+	std::string vs = vertexDefine + shaderString;
+	LOG(vs.c_str());
+
+	AddShader(shaderProgram, vs.c_str(), GL_VERTEX_SHADER);
+
+	std::string fs = fragmentDefine + shaderString;
+	AddShader(shaderProgram, fs.c_str(), GL_FRAGMENT_SHADER);
+
+	GLint success = 0;
+	GLchar errorLog[1024] = { 0 };
+
+	glLinkProgram(shaderProgram);
+
+	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+
+	if (success == 0) {
+
+		glGetProgramInfoLog(shaderProgram, sizeof(errorLog), NULL, errorLog);
+
+		LOG("Error linking shader program: '%s'\n", errorLog);
+		return;
+	}
+	else {
+
+		LOG("Shader program linked successfully.");
+
+	}
+
+	glValidateProgram(shaderProgram);
+
+	glGetProgramiv(shaderProgram, GL_VALIDATE_STATUS, &success);
+
+	if (!success) {
+
+		glGetProgramInfoLog(shaderProgram, sizeof(errorLog), NULL, errorLog);
+
+		LOG("Invalid shader program: '%s\n", errorLog);
+		return;
+	}
+	else {
+
+		LOG("Successfully loaded shader.");
+
+	}
+}
+
 void Shader::UseShader(bool toggle)
 {
 	if (toggle) {
