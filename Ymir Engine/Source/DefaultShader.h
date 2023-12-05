@@ -2,7 +2,11 @@
 
 #include <string>
 
+#include "Shader.h"
+
 namespace DefaultShader {
+
+	static Shader defaultShader;
 
 	static std::string Source = R"(
 

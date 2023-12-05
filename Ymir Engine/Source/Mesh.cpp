@@ -117,7 +117,7 @@ void Mesh::DrawMesh()
 
         }
         
-        meshShader.LoadShaderFromString(DefaultShader::Source);
+        meshShader.LoadShader(SHADER_VS_FS);
 
         loadedTextures = true;
         applyCheckerTexture = false;

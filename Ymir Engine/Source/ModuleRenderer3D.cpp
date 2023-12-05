@@ -10,6 +10,8 @@
 #include "Log.h"
 #include "GameObject.h"
 
+#include "DefaultShader.h"
+
 #include "External/Optick/include/optick.h"
 
 ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -168,6 +170,10 @@ bool ModuleRenderer3D::Init()
 	LOG("OpenGL initialized successfully.");
 
 	Grid.axis = true;
+
+	// Initialize and Load Default Shader.
+
+	DefaultShader::defaultShader.LoadShaderFromString(DefaultShader::Source);
 
 	// Load Street Environment from the start
 

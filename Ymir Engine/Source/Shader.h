@@ -13,9 +13,16 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <regex>
 
 #define SHADER_VS "Assets/Shaders/VertexShader.glsl"
 #define SHADER_FS "Assets/Shaders/FragmentShader.glsl"
+#define SHADER_VS_FS "Assets/Shaders/MyShader.glsl"
+
+// Regex utils to retrieve code from unique-file shaders
+const std::regex versionRegex("#version\\s+\\d+\\s+core");
+const std::regex vertexShaderRegex("#ifdef VERTEX_SHADER([\\s\\S]+?)#endif");
+const std::regex fragmentShaderRegex("#ifdef FRAGMENT_SHADER([\\s\\S]+?)#endif");
 
 class Shader
 {

@@ -1114,6 +1114,9 @@
     <None Include="Source\External\ImGuiNodeEditor\include\imgui_node_editor_internal.inl">
       <Filter>Externals\ImGuiNodeEditor</Filter>
     </None>
+    <None Include="Game\Assets\Shaders\MyShader.glsl">
+      <Filter>Sources\Features\Shader Pipeline\GLSL</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\Icon.rc">

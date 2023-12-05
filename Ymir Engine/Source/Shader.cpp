@@ -101,15 +101,37 @@ void Shader::LoadShader(const std::string& shaderFilePath)
 
 	}
 
-	std::string fullShader = ReadShaderFile(shaderFilePath);
+	// Retrieve the shaderString
+	std::string shaderString = ReadShaderFile(shaderFilePath);
 
-	std::string vertexDefine = "#define VERTEX_SHADER\n";
-	std::string	 fragmentDefine = "#define FRAGMENT_SHADER\n";
+	// Define regex objects to match specific patterns in the shader string
+	std::smatch match;
 
-	std::string vs = vertexDefine + fullShader;
+	// Strings to store extracted components of the shader
+	std::string version, vertexShaderCode, fragmentShaderCode;
+
+	/* Use regex search to extract the components of the shader and
+	store them in the respective strings */
+
+	if (std::regex_search(shaderString, match, versionRegex)) {
+		version = match.str();
+	}
+
+	if (std::regex_search(shaderString, match, vertexShaderRegex)) {
+		vertexShaderCode = match[1];
+	}
+
+	if (std::regex_search(shaderString, match, fragmentShaderRegex)) {
+		fragmentShaderCode = match[1];
+	}
+
+	/* Concatenate the version string with the code string and add the respective
+	shader to the shader program using the AddShader function */
+
+	std::string vs = version + vertexShaderCode;
 	AddShader(shaderProgram, vs.c_str(), GL_VERTEX_SHADER);
 
-	std::string fs = fragmentDefine + fullShader;
+	std::string fs = version + fragmentShaderCode;
 	AddShader(shaderProgram, fs.c_str(), GL_FRAGMENT_SHADER);
 
 	GLint success = 0;
@@ -165,15 +187,34 @@ void Shader::LoadShaderFromString(const std::string& shaderString)
 
 	}
 
-	std::string vertexDefine = "#define VERTEX_SHADER";
-	std::string	fragmentDefine = "#define FRAGMENT_SHADER";
+	// Define regex objects to match specific patterns in the shader string
+	std::smatch match;
 
-	std::string vs = vertexDefine + shaderString;
-	LOG(vs.c_str());
+	// Strings to store extracted components of the shader
+	std::string version, vertexShaderCode, fragmentShaderCode;
 
+	/* Use regex search to extract the components of the shader and 
+	store them in the respective strings */
+
+	if (std::regex_search(shaderString, match, versionRegex)) { 
+		version = match.str(); 
+	}
+
+	if (std::regex_search(shaderString, match, vertexShaderRegex)) {
+		vertexShaderCode = match[1];
+	}
+
+	if (std::regex_search(shaderString, match, fragmentShaderRegex)) {
+		fragmentShaderCode = match[1];
+	}
+
+	/* Concatenate the version string with the code string and add the respective 
+	shader to the shader program using the AddShader function */
+
+	std::string vs = version + vertexShaderCode;
 	AddShader(shaderProgram, vs.c_str(), GL_VERTEX_SHADER);
 
-	std::string fs = fragmentDefine + shaderString;
+	std::string fs = version + fragmentShaderCode;
 	AddShader(shaderProgram, fs.c_str(), GL_FRAGMENT_SHADER);
 
 	GLint success = 0;
