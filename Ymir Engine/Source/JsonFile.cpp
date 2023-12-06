@@ -1097,28 +1097,28 @@ void JsonFile::GetGameObject(const std::vector<GameObject*>& gameObjects, const 
 
     }
 
-    // Get Children UID
+    // Get Children UID (commented to solve the problem with load hierarchy)
 
-    if (json_object_has_value_of_type(gameObjectObject, "Children UID", JSONArray)) {
+    //if (json_object_has_value_of_type(gameObjectObject, "Children UID", JSONArray)) {
 
-        JSON_Array* childrenArray = json_object_get_array(gameObjectObject, "Children UID");
+    //    JSON_Array* childrenArray = json_object_get_array(gameObjectObject, "Children UID");
 
-        size_t numChildren = json_array_get_count(childrenArray);
+    //    size_t numChildren = json_array_get_count(childrenArray);
 
-        gameObject.mChildren.reserve(numChildren);
+    //    gameObject.mChildren.reserve(numChildren);
 
-        for (size_t i = 0; i < numChildren; ++i) {
+    //    for (size_t i = 0; i < numChildren; ++i) {
 
-            int childUID = static_cast<int>(json_array_get_number(childrenArray, i));
-            // You need to find the corresponding child GameObject using the UID
-            // and add it to gameObject.mChildren.
-            GameObject* childGO = new GameObject();
-            childGO->UID = childUID;
-            gameObject.mChildren.push_back(childGO);
+    //        int childUID = static_cast<int>(json_array_get_number(childrenArray, i));
+    //        // You need to find the corresponding child GameObject using the UID
+    //        // and add it to gameObject.mChildren.
+    //        GameObject* childGO = new GameObject();
+    //        childGO->UID = childUID;
+    //        gameObject.mChildren.push_back(childGO);
 
-        }
+    //    }
 
-    }
+    //}
 
     // Get Components Info
 

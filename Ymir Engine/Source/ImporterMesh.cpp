@@ -64,3 +64,31 @@ void ImporterMesh::Load(const char* fileBuffer, ResourceMesh* ourMesh)
     memcpy(ourMesh->vertices.data(), cursor, bytes);
     cursor += bytes;
 }
+
+void ImporterMesh::Load(const char* fileBuffer, Mesh* ourMesh)
+{
+    char* cursor = const_cast<char*>(fileBuffer);
+
+    // Load the header (ranges)
+    uint ranges[2];
+    uint bytes = sizeof(ranges);
+    memcpy(ranges, cursor, bytes);
+    cursor += bytes;
+
+    // Resize indices and vertices
+    ourMesh->indices.resize(ranges[0]);
+    ourMesh->vertices.resize(ranges[1]);
+
+    // Load indices
+    bytes = sizeof(uint) * ourMesh->indices.size();
+    memcpy(ourMesh->indices.data(), cursor, bytes);
+    cursor += bytes;
+
+    // Load vertices
+    bytes = sizeof(float) * 3 * ourMesh->vertices.size() + sizeof(float) * 3 * ourMesh->vertices.size() + sizeof(float) * 2 * ourMesh->vertices.size();
+    memcpy(ourMesh->vertices.data(), cursor, bytes);
+    cursor += bytes;
+
+    ourMesh->LoadMesh();
+
+}

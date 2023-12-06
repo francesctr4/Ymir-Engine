@@ -151,6 +151,7 @@ void ModuleScene::DestroyGameObject(GameObject* toDestroy)
 void ModuleScene::ClearScene()
 {
 	//JsonFile::DeleteJSON(External->fileSystem->libraryScenesPath + std::to_string(mRootNode->UID) + ".yscene");
+	uint deletedSceneUID = mRootNode->UID;
 
 	App->editor->DestroyHierarchyTree(mRootNode);
 	delete mRootNode;
@@ -160,6 +161,7 @@ void ModuleScene::ClearScene()
 
 	App->renderer3D->models.clear();
 	mRootNode = CreateGameObject("Scene", nullptr); // Recreate scene
+	mRootNode->UID = deletedSceneUID;
 }
 
 void ModuleScene::SaveScene()
@@ -175,7 +177,7 @@ void ModuleScene::SaveScene()
 
 void ModuleScene::LoadScene()
 {
-	JsonFile* sceneToLoad = JsonFile::GetJSON("Assets/Scenes/Baker_House.yscene");
+	JsonFile* sceneToLoad = JsonFile::GetJSON(External->fileSystem->libraryScenesPath + std::to_string(mRootNode->UID) + ".yscene");
 
 	App->camera->editorCamera->SetPos(sceneToLoad->GetFloat3("Editor Camera Position"));
 	App->camera->editorCamera->SetUp(sceneToLoad->GetFloat3("Editor Camera Up (Y)"));
@@ -184,6 +186,7 @@ void ModuleScene::LoadScene()
 	ClearScene();
 
 	gameObjects = sceneToLoad->GetHierarchy("Hierarchy");
+	mRootNode = gameObjects[0];
 
 	delete sceneToLoad;
 }

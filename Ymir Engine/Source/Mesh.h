@@ -37,6 +37,8 @@ public:
     Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vector<Texture>& textures, GameObject* linkGO, NodeTransform* transform);
     virtual ~Mesh();
 
+    void LoadMesh();
+
     void DrawMesh();
 
     void InitBoundingBoxes();
@@ -85,7 +87,5 @@ private:
     GLuint VBO;
     GLuint EBO;
     GLuint VAO;
-
-    void LoadMesh();
 
 };
