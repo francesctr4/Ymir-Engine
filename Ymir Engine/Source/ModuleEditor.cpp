@@ -2292,7 +2292,7 @@ void ModuleEditor::CreateHierarchyTree(GameObject* node)
     if (node != nullptr) {
 
         // Set flags to open the tree nodes
-        ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_DefaultOpen | (node->selected ? ImGuiTreeNodeFlags_Selected : 0);
+        ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_DefaultOpen | (node->selected ? ImGuiTreeNodeFlags_Selected : 0) | (node->mChildren.size() ? 0 : ImGuiTreeNodeFlags_Leaf);
 
         if (!node->active) ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 1.0f, 1.0f, 0.4f));
 
