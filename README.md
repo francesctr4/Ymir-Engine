@@ -73,6 +73,7 @@ the geometry was in default state (because the normals aren't managed inside the
 ### v0.2 - Engine Editor
 
 ![Engine Editor](https://github.com/francesctr4/Ymir-Engine/assets/99948892/60e046b7-a202-4ad4-929e-6003e46db754)
+![Frustum Culling GIF](https://github.com/francesctr4/Ymir-Engine/assets/99948892/c450f2a6-32ca-4ede-a089-2ea709d22eb7)
 
 (Work In Progress)
 
