@@ -72,6 +72,8 @@ the geometry was in default state (because the normals aren't managed inside the
 
 ### v0.2 - Engine Editor
 
+![Engine Editor](https://github.com/francesctr4/Ymir-Engine/assets/99948892/60e046b7-a202-4ad4-929e-6003e46db754)
+
 (Work In Progress)
 
 ### v0.1 - Geometry Viewer
