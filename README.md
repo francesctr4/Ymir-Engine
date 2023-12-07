@@ -70,6 +70,10 @@ the geometry was in default state (because the normals aren't managed inside the
 
 ## Features
 
+### v0.2 - Engine Editor
+
+(Work In Progress)
+
 ### v0.1 - Geometry Viewer
 
 ![Geometry Viewer](https://github.com/francesctr4/Ymir-Engine/assets/99948892/4f386158-7507-4f23-83f4-87af180ec91e)
