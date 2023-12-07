@@ -74,7 +74,7 @@ the geometry was in default state (because the normals aren't managed inside the
 
 ![Engine Editor](https://github.com/francesctr4/Ymir-Engine/assets/99948892/60e046b7-a202-4ad4-929e-6003e46db754)
 ![Frustum Culling GIF](https://github.com/francesctr4/Ymir-Engine/assets/99948892/c450f2a6-32ca-4ede-a089-2ea709d22eb7)
-![Gizmo GIF](https://github.com/francesctr4/Ymir-Engine/assets/99948892/fa880cd5-5ae7-46e8-9bfc-4a6baeecefbd)
+![Gizmo GIF](https://github.com/francesctr4/Ymir-Engine/assets/99948892/0298985a-6f14-4016-bb57-f0e9789dda16)
 
 (Work In Progress)
 
