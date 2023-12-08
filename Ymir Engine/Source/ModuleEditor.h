@@ -14,20 +14,9 @@
 #include "External/ImGui/backends/imgui_impl_opengl3.h"
 #include "External/ImGuizmo/include/ImGuizmo.h"
 
+#include "NodeEditor.h"
+
 class GameObject;
-
-enum GizmoOperation
-{
-	TRANSLATE,
-	ROTATE,
-	SCALE
-};
-
-enum GizmoMode
-{
-	LOCAL,
-	WORLD
-};
 
 class ModuleEditor : public Module
 {
@@ -162,6 +151,8 @@ public:
 	bool showAssets = true;
 	bool showLibrary = true;
 
+	bool showNodeEditor = true;
+
 	// OpenGL settings checkbox toggle booleans
 	bool gl_DepthTesting = true;
 	bool gl_FaceCulling = true;
@@ -231,6 +222,9 @@ public:
 	ImGuizmo::OPERATION gizmoOperation;
 	ImGuizmo::MODE gizmoMode;
 	float4x4 modelMatrix;
+
+	// Node Editor
+	NodeEditorWindow nodeEditor;
 
 };
 

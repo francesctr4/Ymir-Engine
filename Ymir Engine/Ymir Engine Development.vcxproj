@@ -290,6 +290,7 @@
     <ClInclude Include="Source\ModuleResourceManager.h" />
     <ClInclude Include="Source\ModuleScene.h" />
     <ClInclude Include="Source\ModuleWindow.h" />
+    <ClInclude Include="Source\NodeEditor.h" />
     <ClInclude Include="Source\PhysfsEncapsule.h" />
     <ClInclude Include="Source\Primitive.h" />
     <ClInclude Include="Source\Random.h" />
@@ -393,6 +394,7 @@
     <ClCompile Include="Source\ModuleResourceManager.cpp" />
     <ClCompile Include="Source\ModuleScene.cpp" />
     <ClCompile Include="Source\ModuleWindow.cpp" />
+    <ClCompile Include="Source\NodeEditor.cpp" />
     <ClCompile Include="Source\PhysfsEncapsule.cpp" />
     <ClCompile Include="Source\Primitive.cpp" />
     <ClCompile Include="Source\Random.cpp" />

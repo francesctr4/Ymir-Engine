@@ -97,6 +97,9 @@
     <Filter Include="Sources\Utils">
       <UniqueIdentifier>{121f8e6b-df36-4ab0-be0d-601ddfc9e503}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Editor">
+      <UniqueIdentifier>{201ded83-4895-498a-bbb6-f70c12703a4d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Module.h">
@@ -774,6 +777,9 @@
     <ClInclude Include="Source\DefaultShader.h">
       <Filter>Sources\Features\Shader Pipeline</Filter>
     </ClInclude>
+    <ClInclude Include="Source\NodeEditor.h">
+      <Filter>Sources\Editor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -1078,6 +1084,9 @@
     </ClCompile>
     <ClCompile Include="Source\External\ImGuiNodeEditor\include\imgui_node_editor_api.cpp">
       <Filter>Externals\ImGuiNodeEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\NodeEditor.cpp">
+      <Filter>Sources\Editor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -92,9 +92,15 @@ bool ModuleEditor::Init()
     ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
     ImGui_ImplOpenGL3_Init();
 
+    // Gizmo Handlers
+
     gizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
     gizmoMode = ImGuizmo::MODE::WORLD;
     modelMatrix = float4x4::identity;
+
+    // Node Editor
+
+    nodeEditor.Create();
 
 	return ret;
 }
@@ -441,6 +447,12 @@ void ModuleEditor::DrawEditor()
             if (ImGui::MenuItem("Library")) {
 
                 showLibrary = true;
+
+            }
+
+            if (ImGui::MenuItem("Node Editor")) {
+
+                showNodeEditor = true;
 
             }
 
@@ -1277,6 +1289,17 @@ void ModuleEditor::DrawEditor()
 
     }
 
+    if (showNodeEditor) {
+
+        if (ImGui::Begin("Node Editor", &showNodeEditor), true) {
+
+            nodeEditor.Update();
+
+            ImGui::End();
+        }
+
+    }
+
     // --------------------------------- Here finishes the code for the editor ----------------------------------------
     
     // Rendering
@@ -1677,6 +1700,8 @@ bool ModuleEditor::CleanUp()
     bool ret = true;
 
     LOG("Deleting editor...");
+
+    nodeEditor.Destroy();
 
     // ImGui CleanUp
 
