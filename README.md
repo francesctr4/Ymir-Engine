@@ -56,7 +56,7 @@ _**Joel Romero Botella**_
     - Time Management: Manipulate simulation state with the buttons at the top.
     - Assets/Library Window: Left click on the files that are highlighted to open them.
     - Mouse Picking: Left Click on a GameObject in the scene to select it.
-    - Gizmo: Manipulate GameObjects transformation directly from the scene. 
+    - Gizmo: Manipulate GameObjects transformation directly from the scene. The controls are: 
         "W" Translation
         "E" Rotation
         "R" Scale
