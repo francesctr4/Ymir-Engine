@@ -13,7 +13,7 @@ NodeEditorWindow::~NodeEditorWindow()
 }
 
 void NodeEditorWindow::Create() {
-
+    
     NodeEditor::Config config;
     config.SettingsFile = "NodeEditor.json";
 
@@ -51,18 +51,20 @@ void NodeEditorWindow::Update() {
             NodeEditor::SetNodePosition(nodeA_ID, ImVec2(10, 10));
 
         }
-            
+
+        NodeEditor::PushStyleColor(NodeEditor::StyleColor_NodeBorder, ImColor(255, 0, 0, 255));
+
         if (NodeEditor::BeginNode(nodeA_ID), true) {
 
             ImGui::Text("Node A");
-
+            
             if (NodeEditor::BeginPin(nodeA_InputPinID, NodeEditor::PinKind::Input), true) {
 
                 ImGui::Text("-> In");
 
                 NodeEditor::EndPin();
             }
-            
+
             ImGui::SameLine();
 
             if (NodeEditor::BeginPin(nodeA_OutputPinID, NodeEditor::PinKind::Output), true) {
@@ -71,10 +73,12 @@ void NodeEditorWindow::Update() {
 
                 NodeEditor::EndPin();
             }
-            
+
             NodeEditor::EndNode();
         }
-        
+
+        NodeEditor::PopStyleColor(1);
+
         // Node B
 
         NodeEditor::NodeId nodeB_ID = UID++;
@@ -87,6 +91,8 @@ void NodeEditorWindow::Update() {
             NodeEditor::SetNodePosition(nodeB_ID, ImVec2(210, 60));
 
         }
+
+        NodeEditor::PushStyleColor(NodeEditor::StyleColor_NodeBorder, ImColor(0, 0, 255, 255));
 
         if (NodeEditor::BeginNode(nodeB_ID), true) {
 
@@ -121,6 +127,67 @@ void NodeEditorWindow::Update() {
 
             NodeEditor::EndNode();
         }
+
+        NodeEditor::PopStyleColor(1);
+
+        // Node C
+
+        NodeEditor::NodeId nodeC_ID = UID++;
+        NodeEditor::PinId nodeC_InputPinID1 = UID++;
+        NodeEditor::PinId nodeC_InputPinID2 = UID++;
+        NodeEditor::PinId nodeC_OutputPinID1 = UID++;
+        NodeEditor::PinId nodeC_OutputPinID2 = UID++;
+
+        if (mFirstFrame) {
+
+            NodeEditor::SetNodePosition(nodeC_ID, ImVec2(210, -60));
+
+        }
+
+        NodeEditor::PushStyleColor(NodeEditor::StyleColor_NodeBorder, ImColor(0, 255, 0, 255));
+
+        if (NodeEditor::BeginNode(nodeC_ID), true) {
+
+            ImGui::Text("Node C");
+
+            NodePinBeginColumn();
+
+            if (NodeEditor::BeginPin(nodeC_InputPinID1, NodeEditor::PinKind::Input), true) {
+
+                ImGui::Text("-> In 1");
+
+                NodeEditor::EndPin();
+            }
+
+            if (NodeEditor::BeginPin(nodeC_InputPinID2, NodeEditor::PinKind::Input), true) {
+
+                ImGui::Text("-> In 2");
+
+                NodeEditor::EndPin();
+            }
+
+            NodePinNextColumn();
+
+            if (NodeEditor::BeginPin(nodeC_OutputPinID1, NodeEditor::PinKind::Output), true) {
+
+                ImGui::Text("Out ->");
+
+                NodeEditor::EndPin();
+            }
+
+            if (NodeEditor::BeginPin(nodeC_OutputPinID2, NodeEditor::PinKind::Output), true) {
+
+                ImGui::Text("Out ->");
+
+                NodeEditor::EndPin();
+            }
+
+            NodePinEndColumn();
+
+            NodeEditor::EndNode();
+        }
+
+        NodeEditor::PopStyleColor(1);
 
         // Submit Links
         for (auto& linkInfo : mLinks) {
