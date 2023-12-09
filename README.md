@@ -2,7 +2,7 @@
 
 ### Repository Link: [Ymir Engine](https://github.com/francesctr4/Ymir-Engine)
 
-### Current release version: v0.1
+### Current release version: v0.2 - Engine Editor
 
 ### GitHub page: (In Progress)
 
@@ -102,9 +102,11 @@ the geometry was in default state (because the normals aren't managed inside the
 - There is an option in Inspector -> Mesh Component to turn on/off the Normal Map of the selected Mesh (done by shader).
 - The Gizmo has been implemented and can be used to manage GameObjects' transformations.
 - The shaders now can be loaded using a single file instead of separating Vertex Shader and Fragment Shader.
+- Added Node Editor for future material editing with shaders.
 
 ![Frustum Culling GIF](https://github.com/francesctr4/Ymir-Engine/assets/99948892/c450f2a6-32ca-4ede-a089-2ea709d22eb7)
 ![Gizmo GIF](https://github.com/francesctr4/Ymir-Engine/assets/99948892/0298985a-6f14-4016-bb57-f0e9789dda16)
+![Node Editor](https://github.com/francesctr4/Ymir-Engine/assets/99948892/e3fe5c90-3f55-4057-8feb-df4e3859d45e)
 
 ## Known bugs (Work in progress)
 
