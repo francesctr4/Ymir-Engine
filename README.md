@@ -47,9 +47,16 @@ _**Joel Romero Botella**_
 #### SCENE
 
     - "C" Clears the scene.
-    - Hierarchy: Right click to select GameObject and Right click to delete selected GameObject.
+    - "LCTRL + S": Save the scene.
+    - "LCTRL + L": Load the scene.
+    - Hierarchy: Right click to select GameObject and Right click to delete selected GameObject. 
+    You can drag the GameObjects to reparent them.
     - Inspector: Drag Transform values to modify the mesh (only with shader enabled).
     - Drag and Drop: Drag .fbx or .png/.dds (to selected GameObject) directly to scene to load them.
+    - Time Management: Manipulate simulation state with the buttons at the top.
+    - Assets/Library Window: Left click on the files that are highlighted to open them.
+    - Mouse Picking: Left Click on a GameObject in the scene to select it.
+    - Gizmo: Manipulate GameObjects transformation directly from the scene.
 
 #### EDITOR
 
@@ -102,6 +109,7 @@ This means that all the loading of the meshes is being done by Assimp using the 
 ## Additional functionality (Cool features!)
 
 - There is a space skybox by default. In the folder Assets/Skybox there is more skybox textures in case you want to test several environments.
+- The Assets and Library Windows have some files highlighted on blue, you can interact with them to read the contents inside the engine.
 - When you select a GameObject, the shader makes an orange highlight to the mesh.
 - There is an option in Inspector -> Mesh Component to turn on/off the Normal Map of the selected Mesh (done by shader).
 - The Gizmo has been implemented and can be used to manage GameObjects' transformations.
