@@ -151,7 +151,7 @@ public:
 	bool showAssets = true;
 	bool showLibrary = true;
 
-	bool showNodeEditor = true;
+	bool showNodeEditor = false;
 
 	// OpenGL settings checkbox toggle booleans
 	bool gl_DepthTesting = true;

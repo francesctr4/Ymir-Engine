@@ -177,8 +177,8 @@ bool ModuleRenderer3D::Init()
 
 	// Load Street Environment from the start
 
-	models.push_back(Model("Assets/BakerHouse.fbx"));
-	//models.push_back(Model("Assets/Street_Environment/StreetEnvironment.fbx"));
+	//models.push_back(Model("Assets/BakerHouse.fbx"));
+	models.push_back(Model("Assets/Street_Environment/StreetEnvironment.fbx"));
 
 	// Skybox
 
