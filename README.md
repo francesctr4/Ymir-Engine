@@ -29,7 +29,7 @@ _**Joel Romero Botella**_
 
 ## Disclaimer
 
-- The Release build may weigh a little (1.300 KB) because of the .fbx stored in the Assets folder (Debug build weighs 4.800 KB).
+- The Release build may weigh a little (1.612 KB) because of the .fbx stored in the Assets folder (Debug build weighs 6.243 KB).
 
 ## Instructions
 
@@ -65,8 +65,12 @@ _**Joel Romero Botella**_
 the shader won't be enabled and the transformations won't be applied. To solve this apply the checker texture to the gameObject or
 drag a texture to enable the shader.
 
-- Moreover, the vertex normals and the face normals do not follow the GameObject transformations and they will be displayed as if
-the geometry was in default state (because the normals aren't managed inside the shaders).
+- The Resource Manager is not finished for this delivery, although you can find the source files in progress (Resources classes and Importers).
+This means that all the loading of the meshes is being done by Assimp using the Assets file (it will take some time to start the engine).
+
+- The Scene Loading and Saving currently only loads and saves the GameObject structure of the scene and the editor camera position.
+
+- Temporal folder library creation is done correctly and the resources are saved with the custom file format, but they are not being loaded from Library yet.
 
 ## Features
 
@@ -110,7 +114,22 @@ the geometry was in default state (because the normals aren't managed inside the
 
 ## Known bugs (Work in progress)
 
-(Section in Progress)
+- There's some visual errors on the material component of the GameObjects in the inspector. When you upload a new model, the texture displayed from the older loaded meshes turns pitch black.
+
+- The vertex normals and the face normals do not follow exactly the GameObject transformations.
+
+- The Gizmo is only usable with meshes with a shader and is visible above the editor.
+
+- Mouse picking can only be done with real transformations, not the ones in the shader. So when you move the GameObject with the gizmo, you can't no longer mouse pick the GameObject.
+  
+- Custom File Format files .ymesh and .yscene are being duplicated everytime the engine starts, because it generates a new UID automatically, but .ymodel files and .dds textures are managed correctly.
+
+- When deleting a GameObject sometimes the shader disables and everything is displayed white.
+
+- GameObjects transform has several issues: only applicable to meshes, and models movement doesn't transform correctly the childrens because there is no local transform.
+
+- There's also some visual errors on the transform component of the GameObjects in the inspector. When a model has several meshes and you select the model itself, there is n transform components
+according to n meshes the model has and the Reset Transform button doesn't work properly in this situation.
 
 ### v0.1 - Geometry Viewer
 
