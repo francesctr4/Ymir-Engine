@@ -122,8 +122,13 @@ This means that all the loading of the meshes is being done by Assimp using the 
 - Added Node Editor for future material editing with shaders.
 
 ![Frustum Culling GIF](https://github.com/francesctr4/Ymir-Engine/assets/99948892/c450f2a6-32ca-4ede-a089-2ea709d22eb7)
+_Frustum Culling_
+
 ![Gizmo GIF](https://github.com/francesctr4/Ymir-Engine/assets/99948892/0298985a-6f14-4016-bb57-f0e9789dda16)
+_Gizmo Showcase_
+
 ![Node Editor](https://github.com/francesctr4/Ymir-Engine/assets/99948892/e3fe5c90-3f55-4057-8feb-df4e3859d45e)
+_Node Editor_
 
 ## Known bugs (Work in progress)
 
