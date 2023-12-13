@@ -100,6 +100,9 @@
     <Filter Include="Sources\Editor">
       <UniqueIdentifier>{201ded83-4895-498a-bbb6-f70c12703a4d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Externals\ImGuiTextEditor">
+      <UniqueIdentifier>{e58bded8-c50c-4799-a1f8-6f87896d18b4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Module.h">
@@ -780,6 +783,9 @@
     <ClInclude Include="Source\NodeEditor.h">
       <Filter>Sources\Editor</Filter>
     </ClInclude>
+    <ClInclude Include="Source\External\ImGuiTextEditor\include\TextEditor.h">
+      <Filter>Externals\ImGuiTextEditor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -1087,6 +1093,9 @@
     </ClCompile>
     <ClCompile Include="Source\NodeEditor.cpp">
       <Filter>Sources\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\External\ImGuiTextEditor\include\TextEditor.cpp">
+      <Filter>Externals\ImGuiTextEditor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

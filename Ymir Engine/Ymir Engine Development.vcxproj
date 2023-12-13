@@ -92,6 +92,7 @@
     <ClInclude Include="Source\External\ImGuiNodeEditor\include\imgui_extra_math.h" />
     <ClInclude Include="Source\External\ImGuiNodeEditor\include\imgui_node_editor.h" />
     <ClInclude Include="Source\External\ImGuiNodeEditor\include\imgui_node_editor_internal.h" />
+    <ClInclude Include="Source\External\ImGuiTextEditor\include\TextEditor.h" />
     <ClInclude Include="Source\External\ImGuizmo\include\GraphEditor.h" />
     <ClInclude Include="Source\External\ImGuizmo\include\ImCurveEdit.h" />
     <ClInclude Include="Source\External\ImGuizmo\include\ImGradient.h" />
@@ -322,6 +323,7 @@
     <ClCompile Include="Source\External\ImGuiNodeEditor\include\imgui_canvas.cpp" />
     <ClCompile Include="Source\External\ImGuiNodeEditor\include\imgui_node_editor.cpp" />
     <ClCompile Include="Source\External\ImGuiNodeEditor\include\imgui_node_editor_api.cpp" />
+    <ClCompile Include="Source\External\ImGuiTextEditor\include\TextEditor.cpp" />
     <ClCompile Include="Source\External\ImGuizmo\include\GraphEditor.cpp" />
     <ClCompile Include="Source\External\ImGuizmo\include\ImCurveEdit.cpp" />
     <ClCompile Include="Source\External\ImGuizmo\include\ImGradient.cpp" />
