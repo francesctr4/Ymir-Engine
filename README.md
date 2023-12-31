@@ -2,9 +2,9 @@
 
 ### Repository Link: [Ymir Engine](https://github.com/francesctr4/Ymir-Engine)
 
-### Current release version: v0.2 - Engine Editor
+### Current release version: [v0.2 - Engine Editor](https://github.com/francesctr4/Ymir-Engine/releases/tag/v0.2)
 
-### GitHub page: (In Progress)
+### GitHub page: [Ymir Engine Website](https://francesctr4.github.io/Ymir-Engine/)
 
 ## Description
 
