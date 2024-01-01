@@ -786,6 +786,9 @@
     <ClInclude Include="Source\External\ImGuiTextEditor\include\TextEditor.h">
       <Filter>Externals\ImGuiTextEditor</Filter>
     </ClInclude>
+    <ClInclude Include="Source\ShaderEditor.h">
+      <Filter>Sources\Features\Shader Pipeline</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -1096,6 +1099,9 @@
     </ClCompile>
     <ClCompile Include="Source\External\ImGuiTextEditor\include\TextEditor.cpp">
       <Filter>Externals\ImGuiTextEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ShaderEditor.cpp">
+      <Filter>Sources\Features\Shader Pipeline</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

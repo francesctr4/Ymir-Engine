@@ -15,6 +15,7 @@
 #include "External/ImGuizmo/include/ImGuizmo.h"
 
 #include "NodeEditor.h"
+#include "ShaderEditor.h"
 
 class GameObject;
 
@@ -152,6 +153,7 @@ public:
 	bool showLibrary = true;
 
 	bool showNodeEditor = false;
+	bool showShaderEditor = true;
 
 	// OpenGL settings checkbox toggle booleans
 	bool gl_DepthTesting = true;
@@ -225,6 +227,9 @@ public:
 
 	// Node Editor
 	NodeEditorWindow nodeEditor;
+
+	// Shader Editor
+	ShaderEditor shaderEditor;
 
 };
 

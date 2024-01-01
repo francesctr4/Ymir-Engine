@@ -8,9 +8,7 @@ namespace DefaultShader {
 
 	static Shader defaultShader;
 
-	static std::string Source = R"(
-
-#version 450 core
+	static std::string Source = R"(#version 450 core
 
 #ifdef VERTEX_SHADER
 
@@ -45,8 +43,6 @@ namespace DefaultShader {
 		FragColor = texture(texture_diffuse1, TexCoords);
 	}
 
-#endif 
-
-	)";
+#endif)";
 
 }

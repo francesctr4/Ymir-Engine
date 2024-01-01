@@ -86,11 +86,11 @@ update_status ModuleScene::Update(float dt)
 
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN) {
+	//if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN) {
 
-		ClearScene();
+	//	ClearScene();
 
-	}
+	//}
 
 	if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && TimeManager::gameTimer.GetState() == TimerState::STOPPED) {
 

@@ -102,6 +102,10 @@ bool ModuleEditor::Init()
 
     nodeEditor.Create();
 
+    // Shader Editor
+
+    shaderEditor.Init();
+
 	return ret;
 }
 
@@ -453,6 +457,12 @@ void ModuleEditor::DrawEditor()
             if (ImGui::MenuItem("Node Editor")) {
 
                 showNodeEditor = true;
+
+            }
+
+            if (ImGui::MenuItem("Shader Editor")) {
+
+                showShaderEditor = true;
 
             }
 
@@ -1294,6 +1304,17 @@ void ModuleEditor::DrawEditor()
         if (ImGui::Begin("Node Editor", &showNodeEditor), true) {
 
             nodeEditor.Update();
+
+            ImGui::End();
+        }
+
+    }
+
+    if (showShaderEditor) {
+
+        if (ImGui::Begin("Shader Editor", &showShaderEditor), true) {
+
+            shaderEditor.Update();
 
             ImGui::End();
         }
@@ -2723,8 +2744,7 @@ void ModuleEditor::DrawAssetsWindow(const std::string& assetsFolder) {
 
             if (entryName != "." && entryName != "..") {
 
-                if ((entryName.find(".meta") != std::string::npos) || 
-                    (entryName.find(".glsl") != std::string::npos) ||
+                if ((entryName.find(".meta") != std::string::npos) ||                   
                     (entryName.find(".json") != std::string::npos)) {
 
                     ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.2f, 0.6f, 0.6f, 1.0f)); 
@@ -2733,6 +2753,19 @@ void ModuleEditor::DrawAssetsWindow(const std::string& assetsFolder) {
 
                         selectedFilePath = entry.path().string();
                         showModal = true;  // Set the flag to open the modal
+                    }
+
+                    ImGui::PopStyleColor();
+
+                }
+                else if (entryName.find(".glsl") != std::string::npos) {
+
+                    ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.2f, 0.6f, 0.6f, 1.0f));
+
+                    if (ImGui::Selectable(entryName.c_str())) {
+
+                        shaderEditor.LoadShaderTXT(entry.path().string());
+
                     }
 
                     ImGui::PopStyleColor();

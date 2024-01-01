@@ -305,6 +305,7 @@
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\Settings.h" />
     <ClInclude Include="Source\Shader.h" />
+    <ClInclude Include="Source\ShaderEditor.h" />
     <ClInclude Include="Source\Singleton.h" />
     <ClInclude Include="Source\Texture.h" />
     <ClInclude Include="Source\TimeManager.h" />
@@ -410,6 +411,7 @@
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\Settings.cpp" />
     <ClCompile Include="Source\Shader.cpp" />
+    <ClCompile Include="Source\ShaderEditor.cpp" />
     <ClCompile Include="Source\Singleton.cpp" />
     <ClCompile Include="Source\Texture.cpp" />
     <ClCompile Include="Source\TimeManager.cpp" />
