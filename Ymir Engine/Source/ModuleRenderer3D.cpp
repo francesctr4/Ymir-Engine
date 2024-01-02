@@ -337,6 +337,7 @@ void ModuleRenderer3D::HandleDragAndDrop()
 					if ((*jt).meshGO->selected || (*it).modelGO->selected) {
 
 						(*jt).loadedTextures = false;
+						(*jt).loadedShader = false;
 
 						Texture tmpTexture;
 
@@ -381,6 +382,7 @@ void ModuleRenderer3D::ApplyCheckerTexture()
 			if ((*jt).meshGO->selected || (*it).modelGO->selected) {
 
 				(*jt).loadedTextures = false;
+				(*jt).loadedShader = false;
 
 				Texture checkerTexture;
 
@@ -421,6 +423,7 @@ void ModuleRenderer3D::ReloadTextures()
 		for (auto jt = (*it).meshes.begin(); jt != (*it).meshes.end(); ++jt) {
 
 			(*jt).loadedTextures = false;
+			(*jt).loadedShader = false;
 
 		}
 

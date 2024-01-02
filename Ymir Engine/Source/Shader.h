@@ -78,6 +78,8 @@ public:
     float4x4 view;
     float4x4 model;
 
+    std::string path;
+
 private:
 
     // Private methods to encapsulate Shader Functionality

@@ -65,6 +65,7 @@ public:
     bool enableFaceNormals;
 
     bool loadedTextures;
+    bool loadedShader;
     bool applyCheckerTexture;
 
     bool addedMaterialComponent;

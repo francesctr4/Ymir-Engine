@@ -88,6 +88,8 @@ void Shader::LoadShader(const std::string& vertexShaderPath, const std::string& 
 
 void Shader::LoadShader(const std::string& shaderFilePath)
 {
+	path = shaderFilePath;
+
 	shaderProgram = glCreateProgram();
 
 	if (shaderProgram == 0) {

@@ -1,6 +1,12 @@
 #include "ShaderEditor.h"
 #include "Log.h"
 
+#include "Application.h"
+#include "ModuleRenderer3D.h"
+#include "GameObject.h"
+
+std::string ShaderEditor::pathToRecompile;
+
 ShaderEditor::ShaderEditor()
 {
 	// Set Text Editor Language for editing the shaders, in this case, we are using GLSL.
@@ -59,10 +65,22 @@ bool ShaderEditor::Update()
 	if (ImGui::Button("Save Shader"))
 	{
 		SaveShaderTXT(textEditor.GetText(), shaderFileName);
-		pathToRecompile = path;
+
+		for (auto it = External->renderer3D->models.begin(); it != External->renderer3D->models.end(); ++it) {
+
+			for (auto jt = (*it).meshes.begin(); jt != (*it).meshes.end(); ++jt) {
+
+				(*jt).loadedShader = false;
+
+			}
+
+		}
+
 	}
 	else if (pathToRecompile != "") {
+
 		pathToRecompile = "";
+
 	}
 
 	ImGui::PopStyleColor();
@@ -118,6 +136,8 @@ bool ShaderEditor::SaveShaderTXT(std::string shaderText, std::string fileName)
 	bool ret = true;
 
 	std::string fullPath = SHADERS_ASSETS_PATH + fileName + ".glsl";
+
+	//pathToRecompile = fullPath;
 
 	// Open the file for writing
 	std::ofstream outputFile(fullPath);

@@ -6,6 +6,7 @@
 #include <string>
 #include <filesystem>
 #include "DefaultShader.h"
+#include "Shader.h"
 
 #define SHADERS_ASSETS_PATH "Assets/Shaders/"
 #define SHADERS_LIBRARY_PATH "Library/Shaders/"
@@ -17,7 +18,7 @@ public:
 
 	ShaderEditor();
 	virtual ~ShaderEditor();
-
+	
 	// Main Functionality
 
 	bool Init();
@@ -32,6 +33,10 @@ private:
 	void CreateShaderTXT();
 	bool SaveShaderTXT(std::string shaderText, std::string fileName);
 	void DeleteShaderTXT(std::string fileName);
+
+public:
+
+	static std::string pathToRecompile;
 
 private:
 
@@ -48,8 +53,6 @@ private:
 
 	std::string path = "";
 	std::string shaderFileName = "";
-
-	std::string pathToRecompile = "";
 
 };
 

@@ -8,6 +8,8 @@
 #include "ModuleRenderer3D.h"
 #include "GameObject.h"
 
+#include "ShaderEditor.h"
+
 CMaterial::CMaterial(GameObject* owner) : Component(owner, ComponentType::MATERIAL)
 {
 
@@ -30,6 +32,11 @@ void CMaterial::Disable()
 
 void CMaterial::Update()
 {
+    /*if (meshShader->path == ShaderEditor::pathToRecompile) {
+
+        meshShader->LoadShader(path);
+
+    }*/
 
 }
 
@@ -40,6 +47,10 @@ void CMaterial::OnInspector()
     if (ImGui::CollapsingHeader("Material", flags))
     {
         ImGui::Indent();
+
+        ImGui::Spacing();
+
+        //ImGui::Text("Shader Path: %s", meshShader->path.c_str());
 
         ImGui::Spacing();
 
