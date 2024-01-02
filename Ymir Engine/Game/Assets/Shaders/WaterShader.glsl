@@ -9,39 +9,41 @@ layout (location = 2) in vec2 aTexCoords;
 out vec2 TexCoords;
 out vec3 Normal;
 
+out float height;
+out float peak;
+
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 
 uniform float time;
 uniform float speed;
-float timer;
 
-out float height;
-out float depth;
-out float peak;
+float timer;
 
 void main(){
 
+	TexCoords = aTexCoords;
+	Normal = aNormal;
+
+	timer = time * speed;
+
 	vec3 pos = aPos;
 	
-	timer = time * speed;
-	
+	// Modify the position based on time and speed using sinusoidal functions
+
 	pos.z += 0.2 * sin(pos.y + (timer * 0.8));
 	pos.z += 0.4 * sin(pos.x * 0.5 + (timer * 2));
+
 	peak = pos.z;
 	
 	pos.z += 0.6 * sin(pos.y * 0.1 + (timer * 3));
 	
-	gl_Position = projection * view * model * vec4(pos.xyz, 1.0);
-	
-	// Variable settings
-
-	depth = gl_Position.z;
 	height = pos.z;
-	TexCoords = aTexCoords;
-	Normal = aNormal;
 
+	// Calculate final position in clip space
+
+	gl_Position = projection * view * model * vec4(pos.xyz, 1.0);
 }
 
 #endif
@@ -51,28 +53,27 @@ void main(){
 in vec2 TexCoords;
 in vec3 Normal;
 
+in float height;
+in float peak;
+
 out vec4 FragColor;
 
 uniform sampler2D texture_diffuse1;
-
-in float height;
-in float depth;
-in float peak;
 
 vec4 color = vec4(0.1, 0.2, 0.4, 1.0);
 
 void main(){
 
+	// Combine texture and color based on height and peak information
+
 	color += vec4(0.2, 0.2, 0.3, 0.0) * height;
 	color -= -peak * 0.05;
-	
 	color -= 0.2;
-	
-	FragColor = texture(texture_diffuse1, TexCoords) * 0.6 + color; // - (0.003 * depth);
 
+	// Combine final color using the received diffuse texture
+	
+	FragColor = texture(texture_diffuse1, TexCoords) * 0.6 + color;
 }
 
 #endif
-
-
 

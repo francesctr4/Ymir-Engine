@@ -12,7 +12,7 @@
 
 CMaterial::CMaterial(GameObject* owner) : Component(owner, ComponentType::MATERIAL)
 {
-
+    selectedShader = 0;
 }
 
 CMaterial::~CMaterial()
@@ -42,6 +42,8 @@ void CMaterial::Update()
 
 void CMaterial::OnInspector()
 {
+    const char* listShaders[]{ "Loaded", "None", "Chess" };
+
     ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_DefaultOpen;
 
     if (ImGui::CollapsingHeader("Material", flags))
@@ -51,6 +53,9 @@ void CMaterial::OnInspector()
         ImGui::Spacing();
 
         //ImGui::Text("Shader Path: %s", meshShader->path.c_str());
+        ImGui::Text("Shader: ");
+        ImGui::SameLine();
+        ImGui::Combo("##ChooseShader", &selectedShader, listShaders, IM_ARRAYSIZE(listShaders));
 
         ImGui::Spacing();
 

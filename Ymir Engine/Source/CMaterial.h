@@ -28,6 +28,7 @@ public:
 	// Shaders
 
 	Shader* meshShader;
+	int selectedShader;
 
 	// Textures
 
