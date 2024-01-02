@@ -346,6 +346,11 @@ void Shader::SetShaderUniforms()
 
 	this->SetBool("selected", selected);
 
+	// Water Shader
+
+	this->SetFloat("time", TimeManager::graphicsTimer.ReadSec());
+	this->SetFloat("speed", 0.5);
+
 }
 
 void Shader::ToggleNormalMap(bool value)

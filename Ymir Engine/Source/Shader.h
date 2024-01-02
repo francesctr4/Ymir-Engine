@@ -18,6 +18,7 @@
 #define SHADER_VS "Assets/Shaders/VertexShader.glsl"
 #define SHADER_FS "Assets/Shaders/FragmentShader.glsl"
 #define SHADER_VS_FS "Assets/Shaders/MyShader.glsl"
+#define WATER_SHADER "Assets/Shaders/WaterShader.glsl"
 
 // Regex utils to retrieve code from unique-file shaders
 const std::regex versionRegex("#version\\s+\\d+\\s+core");

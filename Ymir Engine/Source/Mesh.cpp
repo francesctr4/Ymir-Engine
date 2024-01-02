@@ -127,7 +127,7 @@ void Mesh::DrawMesh()
 
     if (!loadedShader) {
 
-        meshShader.LoadShader(SHADER_VS_FS);
+        meshShader.LoadShader(WATER_SHADER);
 
         loadedShader = true;
     }

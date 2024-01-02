@@ -184,6 +184,10 @@ bool ModuleRenderer3D::Init()
 
 	models.push_back(Model("Assets/Skybox/Skybox.fbx"));
 
+	// Water Shader
+
+	models.push_back(Model("Assets/Water.fbx"));
+
 	// Load Editor and Game FrameBuffers
 
 	App->camera->editorCamera->framebuffer.Load();
