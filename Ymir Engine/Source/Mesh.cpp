@@ -147,17 +147,13 @@ void Mesh::DrawMesh()
 
             (*it).BindTexture(true);
 
-            if ((*it).IsLoaded()) {
-
-                meshShader.UseShader(true);
-
-                meshShader.SetShaderUniforms();
-
-            }
-
         }
 
     }
+
+    meshShader.UseShader(true);
+
+    meshShader.SetShaderUniforms();
 
     glBindVertexArray(VAO);
 
@@ -165,15 +161,11 @@ void Mesh::DrawMesh()
 
     glBindVertexArray(0);
 
+    meshShader.UseShader(false);
+
     if (External->renderer3D->texturingEnabled) {
 
         for (auto it = textures.begin(); it != textures.end(); ++it) {
-
-            if ((*it).IsLoaded()) {
-
-                meshShader.UseShader(false);
-
-            }
 
             (*it).BindTexture(false);
 
