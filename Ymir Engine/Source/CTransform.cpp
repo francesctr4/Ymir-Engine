@@ -66,6 +66,8 @@ void CTransform::OnInspector()
                     rotationPtr = &(*jt).meshShader.rotation;
                     scalePtr = &(*jt).meshShader.scale;
 
+                    //mGlobalMatrix = float4x4::FromTRS(*translationPtr, Quat::FromEulerXYZ((*rotationPtr).x * DEGTORAD, (*rotationPtr).y * DEGTORAD, (*rotationPtr).z * DEGTORAD).Normalized(), *scalePtr).Transposed();
+
                     ImGui::DragFloat3("Transform", (*translationPtr).ptr(), 0.1f);
                     ImGui::DragFloat3("Rotation", (*rotationPtr).ptr(), 0.1f);
                     ImGui::DragFloat3("Scale", (*scalePtr).ptr(), 0.1f);
