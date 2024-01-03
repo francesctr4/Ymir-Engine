@@ -186,7 +186,7 @@ bool ModuleRenderer3D::Init()
 
 	// Water Shader
 
-	models.push_back(Model("Assets/Water.fbx"));
+	models.push_back(Model("Assets/Water.fbx", WATER_SHADER));
 
 	// Load Editor and Game FrameBuffers
 

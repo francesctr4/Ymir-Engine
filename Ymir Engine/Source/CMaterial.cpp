@@ -37,12 +37,22 @@ void CMaterial::Update()
         meshShader->LoadShader(path);
 
     }*/
-
 }
 
 void CMaterial::OnInspector()
 {
-    const char* listShaders[]{ "Loaded", "None", "Chess" };
+    std::vector<const char*> listShaderPaths;
+    std::vector<const char*> listShaderNames;
+    bool shaderDirtyFlag = false; // Introduce a dirty flag
+
+    for (auto& it = Shader::loadedShaders.begin(); it != Shader::loadedShaders.end(); ++it) {
+        
+        listShaderPaths.push_back(it->first.c_str());
+
+        std::string shaderFileName = std::filesystem::path(it->first).stem().string();
+        listShaderNames.push_back(strdup(shaderFileName.c_str())); // strdup to allocate new memory
+
+    }
 
     ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_DefaultOpen;
 
@@ -55,7 +65,34 @@ void CMaterial::OnInspector()
         //ImGui::Text("Shader Path: %s", meshShader->path.c_str());
         ImGui::Text("Shader: ");
         ImGui::SameLine();
-        ImGui::Combo("##ChooseShader", &selectedShader, listShaders, IM_ARRAYSIZE(listShaders));
+
+        if (ImGui::Combo("##ChooseShader", &selectedShader, listShaderNames.data(), listShaderNames.size())) {
+            
+            shaderDirtyFlag = true;
+
+        }
+
+        if (shaderDirtyFlag) {
+
+            // Perform actions when selectedShader changes
+
+            for (auto it = External->renderer3D->models.begin(); it != External->renderer3D->models.end(); ++it) {
+
+                for (auto jt = (*it).meshes.begin(); jt != (*it).meshes.end(); ++jt) {
+
+                    if ((*jt).meshGO->selected) {
+
+                        (*jt).shaderPath = listShaderPaths[selectedShader];
+                        (*jt).loadedShader = false;
+
+                    }
+                }
+            }
+
+            // Reset the dirty flag after handling the change
+            shaderDirtyFlag = false;
+
+        }
 
         ImGui::Spacing();
 

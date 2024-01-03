@@ -4,6 +4,7 @@
 
 #include "Globals.h"
 #include <string>
+#include <filesystem>
 
 #include "Shader.h"
 

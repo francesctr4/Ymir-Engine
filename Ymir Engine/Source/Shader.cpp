@@ -5,6 +5,8 @@
 #include "Application.h"
 #include "ModuleEditor.h"
 
+std::map<std::string, Shader*> Shader::loadedShaders;
+
 Shader::Shader()
 {
 	shaderProgram = 0;
@@ -172,6 +174,9 @@ void Shader::LoadShader(const std::string& shaderFilePath)
 		LOG("Successfully loaded shader.");
 
 	}
+
+	loadedShaders[path] = this;
+
 }
 
 void Shader::LoadShaderFromString(const std::string& shaderString)

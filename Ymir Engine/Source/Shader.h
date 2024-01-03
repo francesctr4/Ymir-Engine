@@ -10,6 +10,8 @@
 #include "External/MathGeoLib/include/Math/Quat.h"
 
 #include <iostream>
+#include <vector>
+#include <map>
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -80,6 +82,8 @@ public:
     float4x4 model;
 
     std::string path;
+
+    static std::map<std::string, Shader*> loadedShaders;
 
 private:
 

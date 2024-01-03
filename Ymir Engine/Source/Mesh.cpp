@@ -9,7 +9,7 @@
 
 #include "DefaultShader.h"
 
-Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vector<Texture>& textures, GameObject* linkGO, NodeTransform* transform)
+Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vector<Texture>& textures, GameObject* linkGO, NodeTransform* transform, const std::string& shaderPath)
 {
 	VBO = 0;
 	EBO = 0;
@@ -40,7 +40,8 @@ Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vec
     this->meshShader.translation = transform->translation;
     this->meshShader.rotation = transform->rotation * RADTODEG;
     this->meshShader.scale = transform->scale;
-    
+
+    this->shaderPath = shaderPath;
 }
 
 Mesh::~Mesh()
@@ -127,7 +128,7 @@ void Mesh::DrawMesh()
 
     if (!loadedShader) {
 
-        meshShader.LoadShader(WATER_SHADER);
+        meshShader.LoadShader(shaderPath);
 
         loadedShader = true;
     }

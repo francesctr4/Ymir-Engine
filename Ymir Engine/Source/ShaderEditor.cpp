@@ -5,13 +5,14 @@
 #include "ModuleRenderer3D.h"
 #include "GameObject.h"
 
-std::string ShaderEditor::pathToRecompile;
-
 ShaderEditor::ShaderEditor()
 {
 	// Set Text Editor Language for editing the shaders, in this case, we are using GLSL.
 	codeLanguage = TextEditor::LanguageDefinition::GLSL();
 	textEditor.SetLanguageDefinition(codeLanguage);
+
+	// Initialize Shader File Name
+	shaderFileName = "";
 }
 
 ShaderEditor::~ShaderEditor()
@@ -77,11 +78,6 @@ bool ShaderEditor::Update()
 		}
 
 	}
-	else if (pathToRecompile != "") {
-
-		pathToRecompile = "";
-
-	}
 
 	ImGui::PopStyleColor();
 
@@ -101,24 +97,6 @@ bool ShaderEditor::Update()
 	ImGui::Separator();
 
 	ImGui::Spacing();
-
-	/*if (App->assets->editShader)
-	{
-		path = App->assets->pathShaderSelected;
-
-		nameShader = path.substr(path.find_last_of("/") + 1);
-
-		std::string text = App->assets->LoadTXT(path);
-
-		if (text == "SHADER_EDITOR_ERROR") {
-			textEditor.SetReadOnly(true);
-		}
-		else {
-			textEditor.SetReadOnly(false);
-		}
-
-		textEditor.SetText(text);
-	}*/
 
 	textEditor.Render("Shader Editor");
 
@@ -162,6 +140,10 @@ bool ShaderEditor::SaveShaderTXT(std::string shaderText, std::string fileName)
 		ret = false;
 	}
 
+	Shader* tmpShader = new Shader();
+	tmpShader->LoadShader(fullPath);
+	delete tmpShader;
+
 	// Return true if the operation was successful
 	return ret;
 }
@@ -183,6 +165,16 @@ void ShaderEditor::DeleteShaderTXT(std::string fileName)
 	{
 		// File deletion failed
 		LOG("Error: Unable to delete file: %s", fullPath.c_str());
+	}
+
+	// Use find to locate the element in loadedShaders
+	auto it = Shader::loadedShaders.find(fullPath);
+
+	if (it != Shader::loadedShaders.end())
+	{
+		// Element found, erase it from the map
+		Shader::loadedShaders.erase(it);
+		LOG("Shader entry removed from loadedShaders: %s", fullPath.c_str());
 	}
 
 }

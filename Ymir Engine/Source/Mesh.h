@@ -34,7 +34,7 @@ struct Vertex {
 class Mesh {
 public:
 
-    Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vector<Texture>& textures, GameObject* linkGO, NodeTransform* transform);
+    Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vector<Texture>& textures, GameObject* linkGO, NodeTransform* transform, const std::string& shaderPath);
     virtual ~Mesh();
 
     void LoadMesh();
@@ -60,6 +60,7 @@ public:
     GameObject* meshGO;
 
     Shader meshShader;
+    std::string shaderPath;
 
     bool enableVertexNormals;
     bool enableFaceNormals;

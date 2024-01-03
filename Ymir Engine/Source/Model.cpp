@@ -30,9 +30,9 @@ Model::Model()
 	}
 }
 
-Model::Model(const std::string& path)
+Model::Model(const std::string& path, const std::string& shaderPath)
 {
-	LoadModel(path);
+	LoadModel(path, shaderPath);
 }
 
 Model::~Model()
@@ -58,7 +58,7 @@ void Model::DrawModel()
 	
 }
 
-void Model::LoadModel(const std::string& path)
+void Model::LoadModel(const std::string& path, const std::string& shaderPath)
 {
 	this->path = path;
 
@@ -96,7 +96,7 @@ void Model::LoadModel(const std::string& path)
 
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		ProcessNode(scene->mRootNode, scene, nullptr, -1);
+		ProcessNode(scene->mRootNode, scene, nullptr, shaderPath, -1);
 
 		LOG("Model created: %s", name.c_str());
 
@@ -109,7 +109,7 @@ void Model::LoadModel(const std::string& path)
 
 }
 
-void Model::ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO, int iteration)
+void Model::ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO, const std::string& shaderPath, int iteration)
 {
 	// Retrieve transformation from Assimp
 
@@ -193,19 +193,19 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene, GameObject* parentGO
 	{
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 
-		meshes.push_back(ProcessMesh(mesh, scene, currentNodeGO, &tmpNodeTransform));
+		meshes.push_back(ProcessMesh(mesh, scene, currentNodeGO, &tmpNodeTransform, shaderPath));
 	}
 
 	// Then do the same for each of its children
 
 	for (uint i = 0; i < node->mNumChildren; i++)
 	{
-		ProcessNode(node->mChildren[i], scene, currentNodeGO, iteration);
+		ProcessNode(node->mChildren[i], scene, currentNodeGO, shaderPath, iteration);
 	}
 
 }
 
-Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene, GameObject* linkGO, NodeTransform* transform)
+Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene, GameObject* linkGO, NodeTransform* transform, const std::string& shaderPath)
 {
 	std::vector<Vertex> vertices;
 	std::vector<GLuint> indices;
@@ -306,7 +306,7 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene, GameObject* linkGO, 
 
 	// Create the mesh
 
-	Mesh tmpMesh(vertices, indices, textures, linkGO, transform);
+	Mesh tmpMesh(vertices, indices, textures, linkGO, transform, shaderPath);
 
 	CMesh* cmesh = new CMesh(linkGO);
 

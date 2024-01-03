@@ -34,25 +34,12 @@ private:
 	bool SaveShaderTXT(std::string shaderText, std::string fileName);
 	void DeleteShaderTXT(std::string fileName);
 
-public:
-
-	static std::string pathToRecompile;
-
 private:
-
-	std::string inputText;
-	char inputTextBuff[255] = { "" };
 
 	TextEditor textEditor;
 	TextEditor::LanguageDefinition codeLanguage;
 
-	std::string txt = "";
-
-	int txtNum = 0;
-	int listLength = 0;
-
-	std::string path = "";
-	std::string shaderFileName = "";
+	std::string shaderFileName;
 
 };
 
