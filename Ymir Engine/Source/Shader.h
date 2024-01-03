@@ -25,6 +25,46 @@ const std::regex versionRegex("#version\\s+\\d+\\s+core");
 const std::regex vertexShaderRegex("#ifdef VERTEX_SHADER([\\s\\S]+?)#endif");
 const std::regex fragmentShaderRegex("#ifdef FRAGMENT_SHADER([\\s\\S]+?)#endif");
 
+enum class UniformType {
+
+    NONE = -1,
+
+    f1, 
+    f1v, 
+    i1, 
+    i1v, 
+    f2, 
+    f2v, 
+    i2, 
+    i2v, 
+    f3, 
+    f3v, 
+    i3, 
+    i3v, 
+    f4, 
+    f4v, 
+    i4, 
+    i4v, 
+    f2mat, 
+    f3mat, 
+    f4mat,
+
+    ALL
+
+};
+
+struct Uniform {
+
+    Uniform(std::string name, void* value, UniformType valueType, int numberOfElements)
+        : value(value), name(name), valueType(valueType), elements(numberOfElements) {}
+
+    void* value;
+    std::string name;
+    UniformType valueType;
+    int elements;
+
+};
+
 class Shader
 {
 public:
@@ -40,6 +80,9 @@ public:
     void LoadShader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath);
     void LoadShader(const std::string& shaderFilePath);
     void LoadShaderFromString(const std::string& shaderString);
+
+    // Function to evaluate the availability of the Shader
+    bool IsValid();
 
     // Use the Shader
     void UseShader(bool toggle);
@@ -63,10 +106,19 @@ public:
 
     void ToggleNormalMap(bool value);
 
+    // Value pointer MUST be allocated in heap (new)
+    void AddUniform(std::string name, void* value, UniformType type, int nElements);
+
+    // Deleting uniform does not delete value allocation
+    void DeleteUniform(std::string name);
+
 public:
 
     // Shader Program Identificator (ID)
     GLuint shaderProgram;
+
+    // Shader Uniforms
+    std::vector<Uniform> uniforms;
 
     float3 translation = { 0, 0, 0 };
     float3 rotation = { 0,0,0 };
@@ -81,6 +133,7 @@ public:
 
     std::string path;
 
+    // Static map to keep track of the already loaded shaders in the engine
     static std::map<std::string, Shader*> loadedShaders;
 
 private:
@@ -88,6 +141,9 @@ private:
     // Private methods to encapsulate Shader Functionality
     void AddShader(GLuint shaderProgram, const char* pShaderText, GLenum shaderType);
     std::string ReadShaderFile(const std::string& filename);
+
+    // Private method to link code uniforms to shader uniforms  
+    void BindUniform(Uniform* uniformPtr);
 
     float4x4 CreateTranslationMatrix(float3 translation);
     float4x4 CreateRotationMatrix(float3 rotation);

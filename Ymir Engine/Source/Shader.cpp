@@ -262,6 +262,11 @@ void Shader::LoadShaderFromString(const std::string& shaderString)
 	}
 }
 
+bool Shader::IsValid()
+{
+	return (shaderProgram != 0);
+}
+
 void Shader::UseShader(bool toggle)
 {
 	if (toggle) {
@@ -455,4 +460,19 @@ float4x4 Shader::CreateScaleMatrix(float3 scale)
 	};
 
 	return scaleMatrix;
+}
+
+void Shader::AddUniform(std::string name, void* value, UniformType type, int nElements)
+{
+
+}
+
+void Shader::DeleteUniform(std::string name)
+{
+
+}
+
+void Shader::BindUniform(Uniform* uniformPtr) 
+{
+
 }
