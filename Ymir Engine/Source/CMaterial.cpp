@@ -62,6 +62,28 @@ void CMaterial::OnInspector()
         ImGui::Text("Shader: ");
         ImGui::SameLine();
 
+        // Find the index of the current shader path in listShaderPaths
+        for (auto it = External->renderer3D->models.begin(); it != External->renderer3D->models.end(); ++it) {
+
+            for (auto jt = (*it).meshes.begin(); jt != (*it).meshes.end(); ++jt) {
+
+                if ((*jt).meshGO->selected) {
+
+                    // Find the index of the current shader path in listShaderPaths
+                    auto it = std::find(listShaderPaths.begin(), listShaderPaths.end(), (*jt).shaderPath);
+
+                    if (it != listShaderPaths.end()) {
+
+                        selectedShader = static_cast<int>(std::distance(listShaderPaths.begin(), it));
+
+                    }
+
+                }
+
+            }
+
+        }
+
         if (ImGui::Combo("##ChooseShader", &selectedShader, listShaderNames.data(), listShaderNames.size())) {
             
             shaderDirtyFlag = true;
