@@ -32,11 +32,7 @@ void CMaterial::Disable()
 
 void CMaterial::Update()
 {
-    /*if (meshShader->path == ShaderEditor::pathToRecompile) {
 
-        meshShader->LoadShader(path);
-
-    }*/
 }
 
 void CMaterial::OnInspector()

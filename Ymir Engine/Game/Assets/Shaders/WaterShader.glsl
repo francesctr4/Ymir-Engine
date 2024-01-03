@@ -23,23 +23,22 @@ float timer;
 
 void main(){
 
-	TexCoords = aTexCoords;
+	vec3 pos = aPos;
+	
 	Normal = aNormal;
+	TexCoords = aTexCoords;
 
 	timer = time * speed;
-
-	vec3 pos = aPos;
 	
 	// Modify the position based on time and speed using sinusoidal functions
 
 	pos.z += 0.2 * sin(pos.y + (timer * 0.8));
 	pos.z += 0.4 * sin(pos.x * 0.5 + (timer * 2));
-
-	peak = pos.z;
-	
 	pos.z += 0.6 * sin(pos.y * 0.1 + (timer * 3));
 	
-	height = pos.z;
+	// Send height and peak values to the fragment shader
+	
+	height = peak = pos.z;
 
 	// Calculate final position in clip space
 
@@ -76,4 +75,3 @@ void main(){
 }
 
 #endif
-
