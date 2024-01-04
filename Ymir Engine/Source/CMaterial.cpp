@@ -39,7 +39,7 @@ void CMaterial::OnInspector()
 {
     std::vector<const char*> listShaderPaths;
     std::vector<const char*> listShaderNames;
-    bool shaderDirtyFlag = false; // Introduce a dirty flag
+    bool shaderDirtyFlag = false; 
 
     for (auto& it = Shader::loadedShaders.begin(); it != Shader::loadedShaders.end(); ++it) {
         
@@ -55,6 +55,10 @@ void CMaterial::OnInspector()
     if (ImGui::CollapsingHeader("Material", flags))
     {
         ImGui::Indent();
+
+        ImGui::Spacing();
+
+        ImGui::SeparatorText("SHADER");
 
         ImGui::Spacing();
 
@@ -114,19 +118,166 @@ void CMaterial::OnInspector()
 
         ImGui::Spacing();
 
-        ImGui::Text("Current .dds UID: %d", 0);
+        // Shader Uniforms Management
+
+        for (auto it = External->renderer3D->models.begin(); it != External->renderer3D->models.end(); ++it) {
+
+            for (auto jt = (*it).meshes.begin(); jt != (*it).meshes.end(); ++jt) {
+
+                if ((*jt).meshGO->selected) {
+
+                    if ((*jt).meshShader.uniforms.size() == 0) {
+
+                        ImGui::Text("No editable uniforms.");
+
+                    }
+                    else {
+
+                        ImGui::Text("Uniforms:");
+
+                    }
+
+                    ImGui::Spacing();
+
+                    ImGui::Indent();
+
+                    for (auto kt = jt->meshShader.uniforms.begin(); kt != jt->meshShader.uniforms.end(); ++kt) {
+
+                        ImGui::Text("%s", kt->name.c_str());
+
+                        ImGui::SameLine();
+
+                        std::string label = "##" + kt->name;
+
+                        switch (kt->type) {
+                        case UniformType::i1:
+                        case UniformType::f1: {
+
+                            float newValue = 0.5;
+                            
+                            ImGui::DragFloat(label.c_str(), &newValue, 0.1f);
+
+                            // Set the new value for the uniform
+                            jt->meshShader.SetUniformValue(kt->name, &newValue);
+                            break;
+                        }
+                        // Add cases for other uniform types as needed
+                        }
+
+                    }
+
+                    ImGui::Unindent();
+
+                    //ImGui::Text("Water Speed: ");
+
+                    //ImGui::SameLine();
+
+                    //ImGui::PushItemWidth(100);
+                    //ImGui::DragFloat("##WaterSpeed", &(*jt).meshShader.waterShaderSpeed, 0.1f);
+                    //ImGui::PopItemWidth();
+
+                }
+
+            }
+
+        }
+
+        /*for (size_t i = 0; i < shader->uniforms.size(); i++) {
+
+            switch (shader->uniforms[i].valueType) {
+            case UniformType::f1:
+            {
+                ImGui::InputFloat(shader->uniforms[i].name.c_str(), (float*)shader->uniforms[i].value);
+            }
+            break;
+            case UniformType::f2:
+            {
+                ImGui::InputFloat2(shader->uniforms[i].name.c_str(), (float*)shader->uniforms[i].value);
+            }
+            break;
+            case UniformType::f3:
+            {
+                ImGui::InputFloat3(shader->uniforms[i].name.c_str(), (float*)shader->uniforms[i].value);
+            }
+            break;
+            case UniformType::f4:
+            {
+                ImGui::InputFloat4(shader->uniforms[i].name.c_str(), (float*)shader->uniforms[i].value);
+            }
+            break;
+            case UniformType::i1:
+            {
+                ImGui::InputInt(shader->uniforms[i].name.c_str(), (int*)shader->uniforms[i].value);
+            }
+            break;
+            case UniformType::i2:
+            {
+                ImGui::InputInt2(shader->uniforms[i].name.c_str(), (int*)shader->uniforms[i].value);
+            }
+            break;
+            case UniformType::i3:
+            {
+                ImGui::InputInt3(shader->uniforms[i].name.c_str(), (int*)shader->uniforms[i].value);
+            }
+            break;
+            case UniformType::i4:
+            {
+                ImGui::InputInt4(shader->uniforms[i].name.c_str(), (int*)shader->uniforms[i].value);
+            }
+            break;
+            }
+        }*/
 
         ImGui::Spacing();
 
-        ImGui::Button("Drop .dds to change texture", ImVec2(200, 50));
+        ImGui::SeparatorText("TEXTURES");
+
+        ImGui::Spacing();
+
+        ImVec2 textureMapSize(20, 20);
+
+        ImGui::Image(reinterpret_cast<void*>(static_cast<intptr_t>(ID)), textureMapSize);
         DdsDragDropTarget();
+        ImGui::SameLine();
+        ImGui::Text("Diffuse");
+        ImGui::SameLine();
+        ImGui::Text("(%s)", path.c_str());
 
         ImGui::Spacing();
 
-        ImGui::Image(reinterpret_cast<void*>(static_cast<intptr_t>(ID)), ImVec2(200,200));
+        ImGui::ColorButton("Specular", ImVec4(0, 0, 0, 0), ImGuiColorEditFlags_NoTooltip | ImGuiColorEditFlags_NoBorder, textureMapSize);
+        DdsDragDropTarget();
+        ImGui::SameLine();
+        ImGui::Text("Specular");
+
         ImGui::Spacing();
 
-        ImGui::Text("Path: %s", path.c_str());
+        ImGui::ColorButton("Normal", ImVec4(0, 0, 0, 0), ImGuiColorEditFlags_NoTooltip | ImGuiColorEditFlags_NoBorder, textureMapSize);
+        DdsDragDropTarget();
+        ImGui::SameLine();
+        ImGui::Text("Normal");
+
+        ImGui::Spacing();
+
+        ImGui::ColorButton("Height", ImVec4(0, 0, 0, 0), ImGuiColorEditFlags_NoTooltip | ImGuiColorEditFlags_NoBorder, textureMapSize);
+        DdsDragDropTarget();
+        ImGui::SameLine();
+        ImGui::Text("Height");
+
+        ImGui::Spacing();
+
+        ImGui::ColorButton("Ambient", ImVec4(0, 0, 0, 0), ImGuiColorEditFlags_NoTooltip | ImGuiColorEditFlags_NoBorder, textureMapSize);
+        DdsDragDropTarget();
+        ImGui::SameLine();
+        ImGui::Text("Ambient");
+
+        ImGui::Spacing();
+
+        ImGui::ColorButton("Emissive", ImVec4(0, 0, 0, 0), ImGuiColorEditFlags_NoTooltip | ImGuiColorEditFlags_NoBorder, textureMapSize);
+        DdsDragDropTarget();
+        ImGui::SameLine();
+        ImGui::Text("Emissive");
+
         ImGui::Spacing();
 
         if (ImGui::Button("Apply Checker Texture")) {

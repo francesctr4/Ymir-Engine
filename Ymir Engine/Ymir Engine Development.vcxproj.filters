@@ -1123,12 +1123,6 @@
     <None Include="Source\External\MathGeoLib\include\Math\Matrix.inl">
       <Filter>Externals\MathGeoLib\Math</Filter>
     </None>
-    <None Include="Game\Assets\Shaders\FragmentShader.glsl">
-      <Filter>Sources\Features\Shader Pipeline\GLSL</Filter>
-    </None>
-    <None Include="Game\Assets\Shaders\VertexShader.glsl">
-      <Filter>Sources\Features\Shader Pipeline\GLSL</Filter>
-    </None>
     <None Include="Source\External\ImGuiNodeEditor\include\imgui_bezier_math.inl">
       <Filter>Externals\ImGuiNodeEditor</Filter>
     </None>
@@ -1139,6 +1133,9 @@
       <Filter>Externals\ImGuiNodeEditor</Filter>
     </None>
     <None Include="Game\Assets\Shaders\MyShader.glsl">
+      <Filter>Sources\Features\Shader Pipeline\GLSL</Filter>
+    </None>
+    <None Include="Game\Assets\Shaders\WaterShader.glsl">
       <Filter>Sources\Features\Shader Pipeline\GLSL</Filter>
     </None>
   </ItemGroup>

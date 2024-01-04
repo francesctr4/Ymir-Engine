@@ -55,13 +55,14 @@ enum class UniformType {
 
 struct Uniform {
 
-    Uniform(std::string name, void* value, UniformType valueType, int numberOfElements)
-        : value(value), name(name), valueType(valueType), elements(numberOfElements) {}
+    Uniform() : value(nullptr), name(""), type(UniformType::NONE), nElements(0) {}
+    Uniform(std::string name, void* value, UniformType type, int nElements)
+        : value(value), name(name), type(type), nElements(nElements) {}
 
     void* value;
     std::string name;
-    UniformType valueType;
-    int elements;
+    UniformType type;
+    int nElements;
 
 };
 
@@ -112,6 +113,10 @@ public:
     // Deleting uniform does not delete value allocation
     void DeleteUniform(std::string name);
 
+    void SetUniformValue(const std::string& name, const void* newValue);
+
+    static size_t GetUniformSize(UniformType type, int nElements);
+
 public:
 
     // Shader Program Identificator (ID)
@@ -136,6 +141,8 @@ public:
     // Static map to keep track of the already loaded shaders in the engine
     static std::map<std::string, Shader*> loadedShaders;
 
+    float waterShaderSpeed = 0.5;
+
 private:
 
     // Private methods to encapsulate Shader Functionality
@@ -143,7 +150,10 @@ private:
     std::string ReadShaderFile(const std::string& filename);
 
     // Private method to link code uniforms to shader uniforms  
-    void BindUniform(Uniform* uniformPtr);
+    void BindUniform(Uniform* uniform);
+
+    // Private method to read the uniforms directly from shader code
+    void ExtractUniformsFromShaderCode(const std::string& shaderCode);
 
     float4x4 CreateTranslationMatrix(float3 translation);
     float4x4 CreateRotationMatrix(float3 rotation);

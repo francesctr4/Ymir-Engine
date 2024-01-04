@@ -108,6 +108,8 @@ void Shader::LoadShader(const std::string& shaderFilePath)
 	// Retrieve the shaderString
 	std::string shaderString = ReadShaderFile(shaderFilePath);
 
+	ExtractUniformsFromShaderCode(shaderString);
+
 	// Define regex objects to match specific patterns in the shader string
 	std::smatch match;
 
@@ -279,6 +281,12 @@ void Shader::UseShader(bool toggle)
 		glUseProgram(0);
 
 	}
+
+	for (size_t i = 0; i < uniforms.size(); i++)
+	{
+		BindUniform(&uniforms[i]);
+	}
+
 }
 
 void Shader::ClearShader()
@@ -359,7 +367,7 @@ void Shader::SetShaderUniforms()
 	// Water Shader
 
 	this->SetFloat("time", TimeManager::graphicsTimer.ReadSec());
-	this->SetFloat("speed", 0.5);
+	//this->SetFloat("speed", waterShaderSpeed);
 
 }
 
@@ -423,6 +431,62 @@ std::string Shader::ReadShaderFile(const std::string& filename) {
 	return fileContents;
 }
 
+void Shader::ExtractUniformsFromShaderCode(const std::string& shaderCode)
+{
+	std::istringstream iss(shaderCode);
+	std::string line;
+
+	while (std::getline(iss, line)) {
+		std::istringstream lineStream(line);
+		std::string token;
+
+		while (lineStream >> token) {
+			if (token == "uniform") {
+				std::string type, name;
+				lineStream >> type >> name;
+
+				// Remove trailing semicolon from the name
+				if (!name.empty() && name.back() == ';') {
+
+					name.pop_back();
+
+				}
+
+				// Ignore "time" uniform
+				if (name == "time") {
+					continue;
+				}
+
+				// Extract type and name information and add to the shader
+
+				if (type == "int") {
+
+					this->AddUniform(name, new int(0.5), UniformType::i1, 1);
+
+				}
+				else if (type == "float") {
+
+					this->AddUniform(name, new float(0.5), UniformType::f1, 1);
+
+				}
+
+				// You can add more types if necessary, i will just leave support for int and float uniforms.
+
+			}
+
+		}
+
+	}
+
+	// Use std::remove_if along with erase to remove uniforms not present in the shader code
+	uniforms.erase(std::remove_if(uniforms.begin(), uniforms.end(),
+		[&shaderCode](const auto& uniform) {
+			return shaderCode.find(uniform.name) == std::string::npos;
+		}),
+		uniforms.end());
+
+}
+
 float4x4 Shader::CreateTranslationMatrix(float3 translation)
 {
 	float4x4 translationMatrix = {
@@ -464,15 +528,168 @@ float4x4 Shader::CreateScaleMatrix(float3 scale)
 
 void Shader::AddUniform(std::string name, void* value, UniformType type, int nElements)
 {
+	// Check if a uniform with the same name already exists
+	for (Uniform& existingUniform : uniforms) {
+		if (existingUniform.name == name) {
+			// Handle the case where the uniform with the same name is found
+			// For example, update the existing uniform with the new information
+			existingUniform.value = value;
+			existingUniform.type = type;
+			existingUniform.nElements = nElements;
+			return;
+		}
+	}
 
+	// If no existing uniform with the same name is found, add a new one
+	uniforms.push_back(Uniform(name, value, type, nElements));
 }
 
 void Shader::DeleteUniform(std::string name)
 {
+	for (auto& it = uniforms.begin(); it != uniforms.end(); ++it)
+	{
+		if (it->name == name) {
+
+			uniforms.erase(it);
+
+		}
+
+	}
 
 }
 
-void Shader::BindUniform(Uniform* uniformPtr) 
+void Shader::BindUniform(Uniform* uniform) 
 {
+	int uniformLocation = glGetUniformLocation(shaderProgram, uniform->name.c_str());
 
+	switch (uniform->type) {
+
+		case UniformType::f1:
+
+			glUniform1f(uniformLocation, *(GLfloat*)uniform->value);
+			break;
+
+		case UniformType::f1v:
+
+			glUniform1fv(uniformLocation, uniform->nElements, (GLfloat*)uniform->value);
+			break;
+
+		case UniformType::i1:
+
+			glUniform1i(uniformLocation, *(GLint*)uniform->value);
+			break;
+
+		case UniformType::i1v:
+
+			glUniform1iv(uniformLocation, uniform->nElements, (GLint*)uniform->value);
+			break;
+
+		case UniformType::f2:
+
+			glUniform2f(uniformLocation, *(GLfloat*)uniform->value, *((GLfloat*)uniform->value + 1));
+			break;
+
+		case UniformType::f2v:
+
+			glUniform2fv(uniformLocation, uniform->nElements, (GLfloat*)uniform->value);
+			break;
+
+		case UniformType::i2:
+
+			glUniform2i(uniformLocation, *(GLint*)uniform->value, *((GLint*)uniform->value + 1));
+			break;
+
+		case UniformType::i2v:
+
+			glUniform2iv(uniformLocation, uniform->nElements, (GLint*)uniform->value);
+			break;
+
+		case UniformType::f3:
+
+			glUniform3f(uniformLocation, *(GLfloat*)uniform->value, *((GLfloat*)uniform->value + 1), *((GLfloat*)uniform->value + 2));
+			break;
+
+		case UniformType::f3v:
+
+			glUniform3fv(uniformLocation, uniform->nElements, (GLfloat*)uniform->value);
+			break;
+
+		case UniformType::i3:
+
+			glUniform3i(uniformLocation, *(GLint*)uniform->value, *((GLint*)uniform->value + 1), *((GLint*)uniform->value + 2));
+			break;
+
+		case UniformType::i3v:
+
+			glUniform3iv(uniformLocation, uniform->nElements, (GLint*)uniform->value);
+			break;
+
+		case UniformType::f4:
+
+			glUniform4f(uniformLocation, *(GLfloat*)uniform->value, *((GLfloat*)uniform->value + 1), *((GLfloat*)uniform->value + 2), *((GLfloat*)uniform->value + 3));
+			break;
+
+		case UniformType::f4v:
+
+			glUniform4fv(uniformLocation, uniform->nElements, (GLfloat*)uniform->value);
+			break;
+
+		case UniformType::i4:
+
+			glUniform4i(uniformLocation, *(GLint*)uniform->value, *((GLint*)uniform->value + 1), *((GLint*)uniform->value + 2), *((GLint*)uniform->value + 3));
+			break;
+
+		case UniformType::i4v:
+
+			glUniform4iv(uniformLocation, uniform->nElements, (GLint*)uniform->value);
+			break;
+
+		case UniformType::f2mat:
+
+			glUniformMatrix2fv(uniformLocation, uniform->nElements, false, (GLfloat*)uniform->value);
+			break;
+
+		case UniformType::f3mat:
+
+			glUniformMatrix3fv(uniformLocation, uniform->nElements, false, (GLfloat*)uniform->value);
+			break;
+
+		case UniformType::f4mat:
+
+			glUniformMatrix4fv(uniformLocation, uniform->nElements, false, (GLfloat*)uniform->value);
+			break;
+
+	}
+
+}
+
+void Shader::SetUniformValue(const std::string& name, const void* newValue) {
+
+	for (Uniform& uniform : uniforms) {
+		if (uniform.name == name) {
+			// Copy the new value to the existing memory location
+			std::memcpy(uniform.value, newValue, GetUniformSize(uniform.type, uniform.nElements));
+			return;
+		}
+	}
+
+	// Handle error if the uniform name is not found
+	std::cerr << "Uniform not found: " << name << std::endl;
+}
+
+size_t Shader::GetUniformSize(UniformType type, int nElements) {
+	// Implement logic to calculate size based on type and elements
+	// You may need to adjust this based on your specific needs
+	size_t elementSize = 0;
+	switch (type) {
+	case UniformType::f1:
+		elementSize = sizeof(float);
+		break;
+	case UniformType::f2:
+		elementSize = 2 * sizeof(float);
+		break;
+		// Add cases for other types as needed
+	}
+
+	return elementSize * nElements;
 }
