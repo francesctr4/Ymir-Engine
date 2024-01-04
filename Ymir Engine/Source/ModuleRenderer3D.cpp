@@ -188,11 +188,15 @@ bool ModuleRenderer3D::Init()
 
 	models.push_back(Model("Assets/Water.fbx", WATER_SHADER));
 
-	// Rainbow Shader already loaded from start
+	// Shaders already loaded from the start
 
 	Shader* rainbowShader = new Shader;
 	rainbowShader->LoadShader("Assets/Shaders/RainbowShader.glsl");
 	delete rainbowShader;
+
+	Shader* lavaShader = new Shader;
+	lavaShader->LoadShader("Assets/Shaders/LavaShader.glsl");
+	delete lavaShader;
 
 	// Load Editor and Game FrameBuffers
 
