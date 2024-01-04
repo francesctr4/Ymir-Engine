@@ -188,6 +188,12 @@ bool ModuleRenderer3D::Init()
 
 	models.push_back(Model("Assets/Water.fbx", WATER_SHADER));
 
+	// Rainbow Shader already loaded from start
+
+	Shader* rainbowShader = new Shader;
+	rainbowShader->LoadShader("Assets/Shaders/RainbowShader.glsl");
+	delete rainbowShader;
+
 	// Load Editor and Game FrameBuffers
 
 	App->camera->editorCamera->framebuffer.Load();
