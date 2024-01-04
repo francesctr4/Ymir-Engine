@@ -150,17 +150,16 @@ void CMaterial::OnInspector()
                         std::string label = "##" + kt->name;
 
                         switch (kt->type) {
-                        case UniformType::i1:
-                        case UniformType::f1: {
 
-                            float newValue = 0.5;
+                            case UniformType::i1:
+                            case UniformType::f1: {
                             
-                            ImGui::DragFloat(label.c_str(), &newValue, 0.1f);
+                                ImGui::DragFloat(label.c_str(), (float*)kt->value, 0.1f);
 
-                            // Set the new value for the uniform
-                            jt->meshShader.SetUniformValue(kt->name, &newValue);
-                            break;
-                        }
+                                // Set the new value for the uniform
+                                jt->meshShader.SetUniformValue(kt->name, (float*)kt->value);
+                                break;
+                            }
                         // Add cases for other uniform types as needed
                         }
 
