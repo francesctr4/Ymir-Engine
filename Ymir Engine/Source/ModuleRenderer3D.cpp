@@ -198,6 +198,10 @@ bool ModuleRenderer3D::Init()
 	lavaShader->LoadShader("Assets/Shaders/LavaShader.glsl");
 	delete lavaShader;
 
+	Shader* colorShader = new Shader;
+	colorShader->LoadShader("Assets/Shaders/ColorShader.glsl");
+	delete colorShader;
+
 	// Load Editor and Game FrameBuffers
 
 	App->camera->editorCamera->framebuffer.Load();

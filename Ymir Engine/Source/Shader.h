@@ -29,6 +29,7 @@ enum class UniformType {
 
     NONE = -1,
 
+    boolean,
     f1, 
     f1v, 
     i1, 
@@ -59,8 +60,8 @@ struct Uniform {
     Uniform(std::string name, void* value, UniformType type, int nElements)
         : value(value), name(name), type(type), nElements(nElements) {}
 
-    void* value;
     std::string name;
+    void* value;
     UniformType type;
     int nElements;
 
@@ -105,17 +106,10 @@ public:
 
     void SetShaderUniforms();
 
-    void ToggleNormalMap(bool value);
-
-    // Value pointer MUST be allocated in heap (new)
     void AddUniform(std::string name, void* value, UniformType type, int nElements);
-
-    // Deleting uniform does not delete value allocation
     void DeleteUniform(std::string name);
-
     void SetUniformValue(const std::string& name, const void* newValue);
-
-    static size_t GetUniformSize(UniformType type, int nElements);
+    static size_t GetUniformSize(UniformType type);
 
 public:
 
@@ -129,7 +123,6 @@ public:
     float3 rotation = { 0,0,0 };
     float3 scale = { 1,1,1 };
 
-    bool normalMap;
     bool selected;
 
     float4x4 projection;
@@ -141,7 +134,8 @@ public:
     // Static map to keep track of the already loaded shaders in the engine
     static std::map<std::string, Shader*> loadedShaders;
 
-    float waterShaderSpeed = 0.5;
+    // Static map to convert uniform type to string
+    static std::map<UniformType, std::string> uniformTypeToString;
 
 private:
 

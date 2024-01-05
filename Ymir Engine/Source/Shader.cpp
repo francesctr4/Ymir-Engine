@@ -7,10 +7,23 @@
 
 std::map<std::string, Shader*> Shader::loadedShaders;
 
+std::map<UniformType, std::string> Shader::uniformTypeToString {
+
+	{UniformType::boolean, "bool"},
+	{UniformType::f1, "float"},
+	{UniformType::f2, "vec2"},
+	{UniformType::f3, "vec3"},
+	{UniformType::f4, "vec4"},
+	{UniformType::i1, "int"},
+	{UniformType::i2, "ivec2"},
+	{UniformType::i3, "ivec3"},
+	{UniformType::i4, "ivec4"},
+
+};
+
 Shader::Shader()
 {
 	shaderProgram = 0;
-	normalMap = false;
 	selected = false;
 }
 
@@ -360,20 +373,12 @@ void Shader::SetShaderUniforms()
 	this->SetMatrix4x4("model", model);
 	this->model = model;
 
-	ToggleNormalMap(normalMap);
-
+	// Selected uniform management
 	this->SetBool("selected", selected);
 
-	// Water Shader
-
+	// Time uniform management
 	this->SetFloat("time", TimeManager::graphicsTimer.ReadSec());
-	//this->SetFloat("speed", waterShaderSpeed);
 
-}
-
-void Shader::ToggleNormalMap(bool value)
-{
-	this->SetBool("displayNormalMap", value);
 }
 
 void Shader::AddShader(GLuint shaderProgram, const char* pShaderText, GLenum shaderType)
@@ -429,62 +434,6 @@ std::string Shader::ReadShaderFile(const std::string& filename) {
 	file.close();
 
 	return fileContents;
-}
-
-void Shader::ExtractUniformsFromShaderCode(const std::string& shaderCode)
-{
-	std::istringstream iss(shaderCode);
-	std::string line;
-
-	while (std::getline(iss, line)) {
-		std::istringstream lineStream(line);
-		std::string token;
-
-		while (lineStream >> token) {
-			if (token == "uniform") {
-				std::string type, name;
-				lineStream >> type >> name;
-
-				// Remove trailing semicolon from the name
-				if (!name.empty() && name.back() == ';') {
-
-					name.pop_back();
-
-				}
-
-				// Ignore "time" uniform
-				if (name == "time") {
-					continue;
-				}
-
-				// Extract type and name information and add to the shader
-
-				if (type == "int") {
-
-					this->AddUniform(name, new int(0.5), UniformType::i1, 1);
-
-				}
-				else if (type == "float") {
-
-					this->AddUniform(name, new float(0.5), UniformType::f1, 1);
-
-				}
-
-				// You can add more types if necessary, i will just leave support for int and float uniforms.
-
-			}
-
-		}
-
-	}
-
-	// Use std::remove_if along with erase to remove uniforms not present in the shader code
-	uniforms.erase(std::remove_if(uniforms.begin(), uniforms.end(),
-		[&shaderCode](const auto& uniform) {
-			return shaderCode.find(uniform.name) == std::string::npos;
-		}),
-		uniforms.end());
-
 }
 
 float4x4 Shader::CreateTranslationMatrix(float3 translation)
@@ -563,6 +512,11 @@ void Shader::BindUniform(Uniform* uniform)
 	int uniformLocation = glGetUniformLocation(shaderProgram, uniform->name.c_str());
 
 	switch (uniform->type) {
+
+		case UniformType::boolean:
+
+			glUniform1i(uniformLocation, *(bool*)uniform->value);
+			break;
 
 		case UniformType::f1:
 
@@ -663,12 +617,103 @@ void Shader::BindUniform(Uniform* uniform)
 
 }
 
+void Shader::ExtractUniformsFromShaderCode(const std::string& shaderCode)
+{
+	std::istringstream iss(shaderCode);
+	std::string line;
+
+	while (std::getline(iss, line)) {
+		std::istringstream lineStream(line);
+		std::string token;
+
+		while (lineStream >> token) {
+			if (token == "uniform") {
+				std::string type, name;
+				lineStream >> type >> name;
+
+				// Remove trailing semicolon from the name
+				if (!name.empty() && name.back() == ';') {
+
+					name.pop_back();
+
+				}
+
+				// Ignore "time" and "selected" uniforms because they are managed internally
+				if (name == "time" || name == "selected") {
+					continue;
+				}
+
+				// Extract type and name information and add to the shader
+
+				if (type == "int") {
+
+					this->AddUniform(name, new int(0.5), UniformType::i1, 1);
+
+				}
+				else if (type == "float") {
+
+					this->AddUniform(name, new float(0.5), UniformType::f1, 1);
+
+				}
+				else if (type == "bool") {
+
+					this->AddUniform(name, new bool(false), UniformType::boolean, 1);
+
+				}
+				else if (type == "vec2") {
+
+					this->AddUniform(name, new float[2] {0.0, 0.0}, UniformType::f2, 2);
+
+				}
+				else if (type == "vec3") {
+
+					this->AddUniform(name, new float[3] {0.0, 0.0, 0.0}, UniformType::f3, 3);
+
+				}
+				else if (type == "vec4") {
+
+					this->AddUniform(name, new float[4] {0.0, 0.0, 0.0, 0.0}, UniformType::f4, 4);
+
+				}
+				else if (type == "ivec2") {
+
+					this->AddUniform(name, new int[2] {0, 0}, UniformType::i2, 2);
+
+				}
+				else if (type == "ivec3") {
+
+					this->AddUniform(name, new int[3] {0, 0, 0}, UniformType::i3, 3);
+
+				}
+				else if (type == "ivec4") {
+
+					this->AddUniform(name, new int[4] {0, 0, 0, 0}, UniformType::i4, 4);
+
+				}
+
+			}
+
+		}
+
+	}
+
+	// Use std::remove_if along with erase to remove uniforms not present in the shader code
+	uniforms.erase(std::remove_if(uniforms.begin(), uniforms.end(),
+		[&shaderCode](const auto& uniform) {
+			// Check if "uniform", type, and name are present in the shader code
+			std::string uniformDeclaration = "uniform " + uniformTypeToString[uniform.type] + " " + uniform.name;
+			return shaderCode.find(uniformDeclaration) == std::string::npos;
+		}),
+		uniforms.end());
+
+}
+
 void Shader::SetUniformValue(const std::string& name, const void* newValue) {
 
 	for (Uniform& uniform : uniforms) {
 		if (uniform.name == name) {
 			// Copy the new value to the existing memory location
-			std::memcpy(uniform.value, newValue, GetUniformSize(uniform.type, uniform.nElements));
+			std::memcpy(uniform.value, newValue, GetUniformSize(uniform.type));
 			return;
 		}
 	}
@@ -677,19 +722,59 @@ void Shader::SetUniformValue(const std::string& name, const void* newValue) {
 	std::cerr << "Uniform not found: " << name << std::endl;
 }
 
-size_t Shader::GetUniformSize(UniformType type, int nElements) {
+size_t Shader::GetUniformSize(UniformType type) {
 	// Implement logic to calculate size based on type and elements
 	// You may need to adjust this based on your specific needs
 	size_t elementSize = 0;
-	switch (type) {
+
+	switch (type)
+	{
+	case UniformType::boolean:
+
+		elementSize = sizeof(bool);
+		break;
+
 	case UniformType::f1:
+
 		elementSize = sizeof(float);
 		break;
+
 	case UniformType::f2:
-		elementSize = 2 * sizeof(float);
+
+		elementSize = sizeof(float) * 2;
 		break;
-		// Add cases for other types as needed
+
+	case UniformType::f3:
+
+		elementSize = sizeof(float) * 3;
+		break;
+
+	case UniformType::f4:
+
+		elementSize = sizeof(float) * 4;
+		break;
+
+	case UniformType::i1:
+
+		elementSize = sizeof(int);
+		break;
+
+	case UniformType::i2:
+
+		elementSize = sizeof(int) * 2;
+		break;
+
+	case UniformType::i3:
+
+		elementSize = sizeof(int) * 3;
+		break;
+
+	case UniformType::i4:
+
+		elementSize = sizeof(int) * 4;
+		break;
+
 	}
 
-	return elementSize * nElements;
+	return elementSize;
 }

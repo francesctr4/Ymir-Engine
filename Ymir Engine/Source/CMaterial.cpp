@@ -149,18 +149,80 @@ void CMaterial::OnInspector()
 
                         std::string label = "##" + kt->name;
 
-                        switch (kt->type) {
+                        switch (kt->type)
+                        {
+                        case UniformType::boolean:
 
-                            case UniformType::i1:
-                            case UniformType::f1: {
-                            
-                                ImGui::DragFloat(label.c_str(), (float*)kt->value, 0.1f);
+                            ImGui::Checkbox(label.c_str(), (bool*)kt->value);
 
-                                // Set the new value for the uniform
-                                jt->meshShader.SetUniformValue(kt->name, (float*)kt->value);
-                                break;
-                            }
-                        // Add cases for other uniform types as needed
+                            jt->meshShader.SetUniformValue(kt->name, (bool*)kt->value);
+
+                            break;
+
+                        case UniformType::i1:
+
+                            ImGui::DragInt(label.c_str(), (int*)kt->value, 0.1f);
+
+                            jt->meshShader.SetUniformValue(kt->name, (int*)kt->value);
+
+                            break;
+
+                        case UniformType::i2:
+
+                            ImGui::DragInt2(label.c_str(), (int*)kt->value, 0.1f);
+
+                            jt->meshShader.SetUniformValue(kt->name, (int*)kt->value);
+
+                            break;
+
+                        case UniformType::i3:
+
+                            ImGui::DragInt3(label.c_str(), (int*)kt->value, 0.1f);
+
+                            jt->meshShader.SetUniformValue(kt->name, (int*)kt->value);
+
+                            break;
+
+                        case UniformType::i4:
+
+                            ImGui::DragInt4(label.c_str(), (int*)kt->value, 0.1f);
+
+                            jt->meshShader.SetUniformValue(kt->name, (int*)kt->value);
+
+                            break;
+
+                        case UniformType::f1:
+
+                            ImGui::DragFloat(label.c_str(), (float*)kt->value, 0.1f);
+
+                            jt->meshShader.SetUniformValue(kt->name, (float*)kt->value);
+
+                            break;
+
+                        case UniformType::f2:
+
+                            ImGui::DragFloat2(label.c_str(), (float*)kt->value, 0.1f);
+
+                            jt->meshShader.SetUniformValue(kt->name, (float*)kt->value);
+
+                            break;
+
+                        case UniformType::f3:
+
+                            ImGui::DragFloat3(label.c_str(), (float*)kt->value, 0.1f);
+
+                            jt->meshShader.SetUniformValue(kt->name, (float*)kt->value);
+
+                            break;
+
+                        case UniformType::f4:
+
+                            ImGui::DragFloat4(label.c_str(), (float*)kt->value, 0.1f);
+
+                            jt->meshShader.SetUniformValue(kt->name, (float*)kt->value);
+
+                            break;
+
                         }
 
                     }

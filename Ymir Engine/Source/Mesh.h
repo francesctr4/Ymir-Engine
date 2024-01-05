@@ -71,8 +71,6 @@ public:
 
     bool addedMaterialComponent;
 
-    bool showNormalMap;
-
     float4x4 previousModelMatrix;
 
     // Bounding Boxes Handling

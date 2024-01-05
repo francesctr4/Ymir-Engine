@@ -27,7 +27,6 @@ Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vec
     loadedShader = false;
     applyCheckerTexture = false;
     addedMaterialComponent = false;
-    showNormalMap = false;
 
     previousModelMatrix = meshShader.model;
 
@@ -132,8 +131,6 @@ void Mesh::DrawMesh()
 
         loadedShader = true;
     }
-
-    meshShader.normalMap = showNormalMap;
 
     meshShader.selected = this->meshGO->selected;
 
