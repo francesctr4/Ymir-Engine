@@ -58,6 +58,17 @@ Game Developer in C++ and C# with high focus on low level systems and engine-rel
 
 ![Water Shader](https://github.com/francesctr4/Ymir-Engine/assets/99948892/4611846f-ed47-4209-864a-2e98939c84e5)
 
+### ...and more shaders!
+
+#### Lava Shader
+![Lava Shader](https://github.com/francesctr4/Ymir-Engine/assets/99948892/dfecc094-7a8f-45c9-89e7-301fc4ab66b9)
+
+#### Rainbow Shader
+![Rainbow Shader](https://github.com/francesctr4/Ymir-Engine/assets/99948892/27e77ceb-043a-4add-a81f-ede8fd426cd5)
+
+#### Color Shader
+![Color Shader](https://github.com/francesctr4/Ymir-Engine/assets/99948892/e1b75436-febf-4141-a79b-c329a9a35b6e)
+
 # Workflow Video
 
 - One minute video speed-up that shows the process of authoring scenes in your editor, especially with your core technology from the last assignment (captured from the computer, not mobile).
