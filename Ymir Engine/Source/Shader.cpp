@@ -5,8 +5,10 @@
 #include "Application.h"
 #include "ModuleEditor.h"
 
+// Static map to keep track of the already loaded shaders in the engine
 std::map<std::string, Shader*> Shader::loadedShaders;
 
+// Static map to convert uniform type to string
 std::map<UniformType, std::string> Shader::uniformTypeToString {
 
 	{UniformType::boolean, "bool"},
@@ -30,7 +32,6 @@ Shader::Shader()
 Shader::Shader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath)
 {
 	shaderProgram = 0;
-
 	LoadShader(vertexShaderPath, fragmentShaderPath);
 }
 
@@ -103,6 +104,7 @@ void Shader::LoadShader(const std::string& vertexShaderPath, const std::string& 
 
 void Shader::LoadShader(const std::string& shaderFilePath)
 {
+	// Store the path of the shader
 	path = shaderFilePath;
 
 	shaderProgram = glCreateProgram();
@@ -121,6 +123,7 @@ void Shader::LoadShader(const std::string& shaderFilePath)
 	// Retrieve the shaderString
 	std::string shaderString = ReadShaderFile(shaderFilePath);
 
+	// Function to read the uniforms directly from shader code
 	ExtractUniformsFromShaderCode(shaderString);
 
 	// Define regex objects to match specific patterns in the shader string
@@ -190,6 +193,7 @@ void Shader::LoadShader(const std::string& shaderFilePath)
 
 	}
 
+	// We add the shader and its path to the map of loaded shaders 
 	loadedShaders[path] = this;
 
 }
@@ -295,6 +299,7 @@ void Shader::UseShader(bool toggle)
 
 	}
 
+	// If the shader has editable uniforms, bind them with the engine to be able to modify the values.
 	for (size_t i = 0; i < uniforms.size(); i++)
 	{
 		BindUniform(&uniforms[i]);
@@ -352,8 +357,11 @@ void Shader::Scale(float3 scale)
 	this->scale = scale;
 }
 
+
 void Shader::SetShaderUniforms()
 {
+	// Set shader uniforms that are essential (matrices, time, etc.):
+
 	float4x4 projection;
 	glGetFloatv(GL_PROJECTION_MATRIX, projection.ptr());
 	this->SetMatrix4x4("projection", projection.Transposed()); // Note: Transpose the matrix when passing to shader
@@ -475,24 +483,33 @@ float4x4 Shader::CreateScaleMatrix(float3 scale)
 	return scaleMatrix;
 }
 
+// --------------------------------------- Uniform Management ---------------------------------------
+
+// Add Uniform to the vector of uniforms of the shader
 void Shader::AddUniform(std::string name, void* value, UniformType type, int nElements)
 {
-	// Check if a uniform with the same name already exists
+	// First check if a uniform with the same name already exists:
 	for (Uniform& existingUniform : uniforms) {
+
 		if (existingUniform.name == name) {
-			// Handle the case where the uniform with the same name is found
-			// For example, update the existing uniform with the new information
+			
+			// If already exists, update the existing uniform with the new information
 			existingUniform.value = value;
 			existingUniform.type = type;
 			existingUniform.nElements = nElements;
+
 			return;
 		}
+
 	}
 
-	// If no existing uniform with the same name is found, add a new one
+	// If no existing uniform with the same name is found, add a new one:
+
 	uniforms.push_back(Uniform(name, value, type, nElements));
+
 }
 
+// Delete Uniform from the vector of uniforms of the shader
 void Shader::DeleteUniform(std::string name)
 {
 	for (auto& it = uniforms.begin(); it != uniforms.end(); ++it)
@@ -507,10 +524,13 @@ void Shader::DeleteUniform(std::string name)
 
 }
 
+// Function to link code uniforms to shader uniforms  
 void Shader::BindUniform(Uniform* uniform) 
 {
+	// First get the uniform location from the shader program:
 	int uniformLocation = glGetUniformLocation(shaderProgram, uniform->name.c_str());
 
+	// Then bind the uniform value according to the uniform type:
 	switch (uniform->type) {
 
 		case UniformType::boolean:
@@ -617,25 +637,33 @@ void Shader::BindUniform(Uniform* uniform)
 
 }
 
+// Function to dynamically read the uniforms directly from shader code
 void Shader::ExtractUniformsFromShaderCode(const std::string& shaderCode)
 {
+	// 1. We create a string stream to iterate through each line of the shader code
 	std::istringstream iss(shaderCode);
 	std::string line;
 
+	// 2. Then we iterate through each line in the shader code
 	while (std::getline(iss, line)) {
+
+		// 3. We create another string stream to tokenize each line
 		std::istringstream lineStream(line);
 		std::string token;
 
+		// 4. Then we iterate through tokens in the current line
 		while (lineStream >> token) {
+
+			// 5. Check if the token is "uniform"
 			if (token == "uniform") {
+
+				// 6. Read the type and name of the uniform
 				std::string type, name;
 				lineStream >> type >> name;
 
 				// Remove trailing semicolon from the name
 				if (!name.empty() && name.back() == ';') {
-
 					name.pop_back();
-
 				}
 
 				// Ignore "time" and "selected" uniforms because they are managed internally
@@ -643,8 +671,7 @@ void Shader::ExtractUniformsFromShaderCode(const std::string& shaderCode)
 					continue;
 				}
 
-				// Extract type and name information and add to the shader
-
+				// 7. Extract type and name information and add uniform to the shader:
 				if (type == "int") {
 
 					this->AddUniform(name, new int(0.5), UniformType::i1, 1);
@@ -697,34 +724,39 @@ void Shader::ExtractUniformsFromShaderCode(const std::string& shaderCode)
 
 	}
 
-	// Use std::remove_if along with erase to remove uniforms not present in the shader code
+	// Finally, we use std::remove_if along with erase to remove uniforms not present in the shader code:
 	uniforms.erase(std::remove_if(uniforms.begin(), uniforms.end(),
 		[&shaderCode](const auto& uniform) {
-			// Check if "uniform", type, and name are present in the shader code
+
+			// Check if the structure "uniform " + "type " + "name" is present in the shader code:
 			std::string uniformDeclaration = "uniform " + uniformTypeToString[uniform.type] + " " + uniform.name;
+
 			return shaderCode.find(uniformDeclaration) == std::string::npos;
 		}),
 		uniforms.end());
 
 }
 
+// Function to manage the value of the uniform inside the shader
 void Shader::SetUniformValue(const std::string& name, const void* newValue) {
 
 	for (Uniform& uniform : uniforms) {
+
 		if (uniform.name == name) {
+
 			// Copy the new value to the existing memory location
 			std::memcpy(uniform.value, newValue, GetUniformSize(uniform.type));
+
 			return;
 		}
+
 	}
 
-	// Handle error if the uniform name is not found
-	std::cerr << "Uniform not found: " << name << std::endl;
 }
 
+// Function to get the uniform size in memory according to its type
 size_t Shader::GetUniformSize(UniformType type) {
-	// Implement logic to calculate size based on type and elements
-	// You may need to adjust this based on your specific needs
+
 	size_t elementSize = 0;
 
 	switch (type)

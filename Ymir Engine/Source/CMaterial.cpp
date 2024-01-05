@@ -12,6 +12,7 @@
 
 CMaterial::CMaterial(GameObject* owner) : Component(owner, ComponentType::MATERIAL)
 {
+    ID = 0;
     selectedShader = 0;
 }
 
@@ -37,10 +38,12 @@ void CMaterial::Update()
 
 void CMaterial::OnInspector()
 {
+    // Vectors of shader paths and names
     std::vector<const char*> listShaderPaths;
     std::vector<const char*> listShaderNames;
     bool shaderDirtyFlag = false; 
 
+    // Manage loaded shaders
     for (auto& it = Shader::loadedShaders.begin(); it != Shader::loadedShaders.end(); ++it) {
         
         listShaderPaths.push_back(it->first.c_str());
@@ -58,15 +61,15 @@ void CMaterial::OnInspector()
 
         ImGui::Spacing();
 
+        // ------------------------------------ SHADER ------------------------------------
+
         ImGui::SeparatorText("SHADER");
 
         ImGui::Spacing();
 
-        //ImGui::Text("Shader Path: %s", meshShader->path.c_str());
         ImGui::Text("Shader: ");
         ImGui::SameLine();
 
-        // Find the index of the current shader path in listShaderPaths
         for (auto it = External->renderer3D->models.begin(); it != External->renderer3D->models.end(); ++it) {
 
             for (auto jt = (*it).meshes.begin(); jt != (*it).meshes.end(); ++jt) {
@@ -88,6 +91,7 @@ void CMaterial::OnInspector()
 
         }
 
+        // Choose between the list of shaders
         if (ImGui::Combo("##ChooseShader", &selectedShader, listShaderNames.data(), listShaderNames.size())) {
             
             shaderDirtyFlag = true;
@@ -96,8 +100,7 @@ void CMaterial::OnInspector()
 
         if (shaderDirtyFlag) {
 
-            // Perform actions when selectedShader changes
-
+            // When selected shader changes, update the shader path and recompile
             for (auto it = External->renderer3D->models.begin(); it != External->renderer3D->models.end(); ++it) {
 
                 for (auto jt = (*it).meshes.begin(); jt != (*it).meshes.end(); ++jt) {
@@ -140,15 +143,16 @@ void CMaterial::OnInspector()
                     ImGui::Spacing();
 
                     ImGui::Indent();
-
+                    
+                    // In case the shader has editable uniforms:
                     for (auto kt = jt->meshShader.uniforms.begin(); kt != jt->meshShader.uniforms.end(); ++kt) {
-
-                        ImGui::Text("%s", kt->name.c_str());
-
-                        ImGui::SameLine();
 
                         std::string label = "##" + kt->name;
 
+                        ImGui::Text("%s", kt->name.c_str());
+                        ImGui::SameLine();
+
+                        // Change display according to uniform type
                         switch (kt->type)
                         {
                         case UniformType::boolean:
@@ -229,71 +233,21 @@ void CMaterial::OnInspector()
 
                     ImGui::Unindent();
 
-                    //ImGui::Text("Water Speed: ");
-
-                    //ImGui::SameLine();
-
-                    //ImGui::PushItemWidth(100);
-                    //ImGui::DragFloat("##WaterSpeed", &(*jt).meshShader.waterShaderSpeed, 0.1f);
-                    //ImGui::PopItemWidth();
-
                 }
 
             }
 
         }
 
-        /*for (size_t i = 0; i < shader->uniforms.size(); i++) {
-
-            switch (shader->uniforms[i].valueType) {
-            case UniformType::f1:
-            {
-                ImGui::InputFloat(shader->uniforms[i].name.c_str(), (float*)shader->uniforms[i].value);
-            }
-            break;
-            case UniformType::f2:
-            {
-                ImGui::InputFloat2(shader->uniforms[i].name.c_str(), (float*)shader->uniforms[i].value);
-            }
-            break;
-            case UniformType::f3:
-            {
-                ImGui::InputFloat3(shader->uniforms[i].name.c_str(), (float*)shader->uniforms[i].value);
-            }
-            break;
-            case UniformType::f4:
-            {
-                ImGui::InputFloat4(shader->uniforms[i].name.c_str(), (float*)shader->uniforms[i].value);
-            }
-            break;
-            case UniformType::i1:
-            {
-                ImGui::InputInt(shader->uniforms[i].name.c_str(), (int*)shader->uniforms[i].value);
-            }
-            break;
-            case UniformType::i2:
-            {
-                ImGui::InputInt2(shader->uniforms[i].name.c_str(), (int*)shader->uniforms[i].value);
-            }
-            break;
-            case UniformType::i3:
-            {
-                ImGui::InputInt3(shader->uniforms[i].name.c_str(), (int*)shader->uniforms[i].value);
-            }
-            break;
-            case UniformType::i4:
-            {
-                ImGui::InputInt4(shader->uniforms[i].name.c_str(), (int*)shader->uniforms[i].value);
-            }
-            break;
-            }
-        }*/
-
         ImGui::Spacing();
+
+        // ------------------------------------ TEXTURES ------------------------------------
 
         ImGui::SeparatorText("TEXTURES");
 
         ImGui::Spacing();
+
+        // Display texture maps of the gameobject material
 
         ImVec2 textureMapSize(20, 20);
 
@@ -341,6 +295,8 @@ void CMaterial::OnInspector()
 
         ImGui::Spacing();
 
+        // Utility buttons
+
         if (ImGui::Button("Apply Checker Texture")) {
 
             External->renderer3D->ApplyCheckerTexture();
@@ -370,7 +326,7 @@ void CMaterial::DdsDragDropTarget()
         {
             std::string* libraryFilePathDrop = (std::string*)payload->Data;
 
-            // Unload Resource of the previous texture loaded if it had any
+            // Unload Resource of the previous texture loaded if it had any.
 
             // Retrieve name of the file dropped, and then get the UID.
 
