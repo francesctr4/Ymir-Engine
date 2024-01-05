@@ -1,10 +1,34 @@
 # Ymir Engine: Project Description
 
-- Short introduction to the engine and it's context (university subject).
+Ymir Engine is part of the Game Engines subject, on the third year of the Videogame Design and Development degree, 
+taught at CITM UPC (Terrassa) and supervised by [Miquel Suau](https://github.com/MayKoder).
+
+The engine has been made from scratch in C++ using SDL and OpenGL to manage graphics. The main target of the project is to
+be able to integrate complex systems such as graphics management and game engine architecture in a simple and understandable way
+for educational purposes.
+
+<p align="center">
+  <img src="https://github.com/francesctr4/Ymir-Engine/assets/99948892/d686ac0f-9cc2-43b1-b6dd-1682679b1617" alt="YmirEngineLogo" width="400" height="400"/>
+</p>
 
 # Team Members: About Us
 
 - Team or members photo and quick explanation of the individual work of each member.
+
+### _**Francesc Teruel Rodríguez**_
+
+![profile](https://github.com/francesctr4/Ymir-Engine/assets/99948892/9d5a7869-07fb-407c-b0e6-7201c8fa4307)
+
+Game Developer in C++ and C# with high focus on low level systems and engine-related programming.
+
+* ### Contributions to the project:
+  * filler text
+  
+* **GitHub:** [francesctr4](https://github.com/francesctr4)
+
+### _**Joel Romero Botella**_
+
+* **GitHub:** [Joeltecke25](https://github.com/Joeltecke25)
   
 # Ymir Engine: Main Core Sub-Systems
 
@@ -24,7 +48,7 @@
 
 ### Repository Link: [Ymir Engine](https://github.com/francesctr4/Ymir-Engine)
 
-### Releases Link: [Releases](https://github.com/francesctr4/Ymir-Engine/releases)
+### Last Release Link: (not yet)
 
 # License
 
