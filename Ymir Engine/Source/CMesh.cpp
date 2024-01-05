@@ -44,10 +44,6 @@ void CMesh::OnInspector()
 
         ImGui::Spacing();
 
-        ImGui::Text("Current .ymesh UID: %d", 0);
-
-        ImGui::Spacing();
-
         ImGui::Button("Drop .ymesh to change mesh", ImVec2(200, 50));
         YmeshDragDropTarget();
 

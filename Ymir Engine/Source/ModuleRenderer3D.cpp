@@ -173,7 +173,7 @@ bool ModuleRenderer3D::Init()
 
 	// Load Street Environment from the start
 
-	models.push_back(Model("Assets/BakerHouse.fbx"));
+	//models.push_back(Model("Assets/BakerHouse.fbx"));
 	//models.push_back(Model("Assets/Street_Environment/StreetEnvironment.fbx"));
 
 	// Skybox
@@ -185,6 +185,10 @@ bool ModuleRenderer3D::Init()
 	models.push_back(Model("Assets/Water.fbx", WATER_SHADER));
 
 	// Shaders already loaded from the start
+
+	Shader* defaultShader = new Shader;
+	defaultShader->LoadShader("Assets/Shaders/DefaultShader.glsl");
+	delete defaultShader;
 
 	Shader* rainbowShader = new Shader;
 	rainbowShader->LoadShader("Assets/Shaders/RainbowShader.glsl");
