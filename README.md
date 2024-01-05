@@ -2,7 +2,7 @@
 
 ### Repository Link: [Ymir Engine](https://github.com/francesctr4/Ymir-Engine)
 
-### Current release version: [v0.2 - Engine Editor](https://github.com/francesctr4/Ymir-Engine/releases/tag/v0.2)
+### Current release version: v0.3 - Shader Pipeline
 
 ### GitHub page: [Ymir Engine Website](https://francesctr4.github.io/Ymir-Engine/)
 
@@ -73,10 +73,6 @@ _**Joel Romero Botella**_
 
 ### Additional Instructions
 
-- The shader is currently responsible for the transformations on the gameobjects, so if you upload a model without a texture,
-the shader won't be enabled and the transformations won't be applied. To solve this apply the checker texture to the gameObject or
-drag a texture to enable the shader.
-
 - The Resource Manager is not finished for this delivery, although you can find the source files in progress (Resources classes and Importers).
 This means that all the loading of the meshes is being done by Assimp using the Assets file (it will take some time to start the engine).
 
@@ -84,7 +80,28 @@ This means that all the loading of the meshes is being done by Assimp using the 
 
 - Temporal folder library creation is done correctly and the resources are saved with the custom file format, but they are not being loaded from Library yet.
 
+- To open a shader in the shader editor you have to click on them from the Assets Window.
+
 ## Features
+
+### v0.3 - Shader Pipeline
+
+![Shader Pipeline](https://github.com/francesctr4/Ymir-Engine/assets/99948892/6d37b426-8279-42e0-9616-09bdb1b6a36d)
+
+- The engine uses a shader pipeline to draw geometry.
+- New shaders can be applied to materials with the editor.
+- Engine keeps track of loaded shaders to change between them when necessary on gameobjects materials.
+- Default Shader is applied on GameObjects that don't have any texture or any specific shader attached.
+- Shader Hot Reload: Editing a shader in-engine automatically compiles and applies the changes.
+- Water Shader: Flat mesh (plane) that should simulate simple water.
+    - Vertex Shader: Simple wave movement.
+    - Fragment Shader: The color of the pixels changes based on its height (blue on the bottom, white on the top).
+- Unform values can be edited from the inspector.
+- Compile error lines and messages are shown in the editor (Console Window).
+
+## Additional functionality (Cool features!)
+
+- More shaders included!
 
 ### v0.2 - Engine Editor
 
@@ -136,7 +153,7 @@ _Node Editor_
 
 - The vertex normals and the face normals do not follow exactly the GameObject transformations.
 
-- The Gizmo is only usable with meshes with a shader and is visible above the editor.
+- The Gizmo is only usable with meshes with a shader and is visible above the editor. Moreover, on first use, it resets the initial transformation of the GameObject.
 
 - Mouse picking can only be done with real transformations, not the ones in the shader. So when you move the GameObject with the gizmo, you can't no longer mouse pick the GameObject.
   
