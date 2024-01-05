@@ -96,12 +96,20 @@ This means that all the loading of the meshes is being done by Assimp using the 
 - Water Shader: Flat mesh (plane) that should simulate simple water.
     - Vertex Shader: Simple wave movement.
     - Fragment Shader: The color of the pixels changes based on its height (blue on the bottom, white on the top).
-- Unform values can be edited from the inspector.
-- Compile error lines and messages are shown in the editor (Console Window).
+- Dynamic Shader Uniform Detection & Modification: uniform values are dynamically read from the shader and can be edited from the inspector.
+- Shader compile error lines and messages are shown in the editor (Console Window).
+- Shader Editor: open your shaders or create new ones on runtime with a text editor.
+- The shader editor is actually functional and can be used to create shaders and test them on runtime.
 
 ## Additional functionality (Cool features!)
 
-- More shaders included!
+- Apart from the water shader, there are more shaders included (all of them created and tested on the engine itself):
+    - Lava Shader:
+    - Rainbow Shader:
+    - Color Shader:     
+![Lava Shader](https://github.com/francesctr4/Ymir-Engine/assets/99948892/dfecc094-7a8f-45c9-89e7-301fc4ab66b9)
+![Rainbow Shader](https://github.com/francesctr4/Ymir-Engine/assets/99948892/27e77ceb-043a-4add-a81f-ede8fd426cd5)
+![Color Shader](https://github.com/francesctr4/Ymir-Engine/assets/99948892/e1b75436-febf-4141-a79b-c329a9a35b6e)
 
 ### v0.2 - Engine Editor
 
