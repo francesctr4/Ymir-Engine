@@ -5,6 +5,7 @@
 
 #include <string>
 #include <filesystem>
+
 #include "DefaultShader.h"
 #include "Shader.h"
 
@@ -24,6 +25,7 @@ public:
 	bool Init();
 	bool Update();
 
+	// Function to load the shader code into the text editor
 	void LoadShaderTXT(std::string filePath);
 
 private:

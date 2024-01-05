@@ -1,12 +1,12 @@
-#pragma once
+#ifndef __DEFAULT_SHADER__
+#define __DEFAULT_SHADER__
 
 #include <string>
 
-#include "Shader.h"
+/* This is the default shader, which is the minimum amount of GLSL code in order to
+use the shader on the engine and render models correctly on screen. */
 
 namespace DefaultShader {
-
-	static Shader defaultShader;
 
 	static std::string Source = R"(#version 450 core
 
@@ -46,3 +46,5 @@ namespace DefaultShader {
 #endif)";
 
 }
+
+#endif // __DEFAULT_SHADER__

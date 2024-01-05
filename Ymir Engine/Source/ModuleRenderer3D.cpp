@@ -171,10 +171,6 @@ bool ModuleRenderer3D::Init()
 
 	Grid.axis = true;
 
-	// Initialize and Load Default Shader.
-
-	DefaultShader::defaultShader.LoadShaderFromString(DefaultShader::Source);
-
 	// Load Street Environment from the start
 
 	models.push_back(Model("Assets/BakerHouse.fbx"));

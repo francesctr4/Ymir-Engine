@@ -36,12 +36,11 @@ bool ShaderEditor::Update()
 	ImGui::Text("File Name: ");
 	ImGui::SameLine();
 
-	char nameBuffer[256]; // You can adjust the buffer size as needed
-
-	// Copy the current name to the buffer
+	// Buffers for handling the input text field
+	char nameBuffer[256];
 	strcpy(nameBuffer, shaderFileName.c_str());
 
-	// Create an input text field in your ImGui window
+	// Input text field for the name of the shader file
 	if (ImGui::InputText(" ", nameBuffer, sizeof(nameBuffer)))
 	{
 		// The input text has changed, update the name
@@ -52,10 +51,13 @@ bool ShaderEditor::Update()
 
 	ImGui::Separator();
 
+	// -------------- Shader Editor Functionality --------------
+
 	ImGui::Spacing();
 
 	if (ImGui::Button("Create Shader"))
 	{
+		// Creates a new shader on the text editor with the default shader base applied
 		CreateShaderTXT();
 	}
 
@@ -65,8 +67,10 @@ bool ShaderEditor::Update()
 
 	if (ImGui::Button("Save Shader"))
 	{
+		// 1. Save the shader file and update the changes in the assets file
 		SaveShaderTXT(textEditor.GetText(), shaderFileName);
 
+		// 2. Recompile the shaders
 		for (auto it = External->renderer3D->models.begin(); it != External->renderer3D->models.end(); ++it) {
 
 			for (auto jt = (*it).meshes.begin(); jt != (*it).meshes.end(); ++jt) {
@@ -87,6 +91,7 @@ bool ShaderEditor::Update()
 
 	if (ImGui::Button("Delete Shader"))
 	{
+		// Delete the shader file from the text editor, the files and the memory
 		DeleteShaderTXT(shaderFileName);
 	}
 
@@ -98,6 +103,7 @@ bool ShaderEditor::Update()
 
 	ImGui::Spacing();
 
+	// Render the Shader Editor
 	textEditor.Render("Shader Editor");
 
 	return ret;
@@ -115,15 +121,13 @@ bool ShaderEditor::SaveShaderTXT(std::string shaderText, std::string fileName)
 
 	std::string fullPath = SHADERS_ASSETS_PATH + fileName + ".glsl";
 
-	//pathToRecompile = fullPath;
-
 	// Open the file for writing
 	std::ofstream outputFile(fullPath);
 
 	// Check if the file is opened successfully
 	if (!outputFile.is_open()) {
-		// Handle the error (e.g., print an error message)
-		std::cerr << "Error: Unable to open file for writing - " << fullPath << std::endl;
+		// Handle the error
+		LOG("Error: Unable to open file for writing - %s", fullPath.c_str());
 		ret = false;
 	}
 
@@ -135,16 +139,16 @@ bool ShaderEditor::SaveShaderTXT(std::string shaderText, std::string fileName)
 
 	// Check if the file is closed successfully
 	if (!outputFile) {
-		// Handle the error (e.g., print an error message)
-		std::cerr << "Error: Failed to write content to file - " << fullPath << std::endl;
+		// Handle the error
+		LOG("Error: Failed to write content to file - %s", fullPath.c_str());
 		ret = false;
 	}
 
+	// Load Shader into memory to be able to be selected on the inspector
 	Shader* tmpShader = new Shader();
 	tmpShader->LoadShader(fullPath);
 	delete tmpShader;
 
-	// Return true if the operation was successful
 	return ret;
 }
 
@@ -152,10 +156,11 @@ void ShaderEditor::DeleteShaderTXT(std::string fileName)
 {
 	std::string fullPath = SHADERS_ASSETS_PATH + fileName + ".glsl";
 
+	// Reset variables when deleting the current shader
 	textEditor.SetText("");
 	shaderFileName = "";
 
-	// Use std::filesystem::remove to delete the file
+	// Using std::filesystem::remove to delete the file
 	if (std::filesystem::remove(fullPath))
 	{
 		// File deletion successful
@@ -170,6 +175,7 @@ void ShaderEditor::DeleteShaderTXT(std::string fileName)
 	// Use find to locate the element in loadedShaders
 	auto it = Shader::loadedShaders.find(fullPath);
 
+	// Erase the shader from memory
 	if (it != Shader::loadedShaders.end())
 	{
 		// Element found, erase it from the map
@@ -196,8 +202,6 @@ void ShaderEditor::LoadShaderTXT(std::string filePath)
 	file.close();
 
 	// Retrieve the shader file contents for the Shader Editor
-
 	shaderFileName = std::filesystem::path(filePath).stem().string();
-
 	textEditor.SetText(fileContents);
 }

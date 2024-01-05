@@ -79,7 +79,6 @@ void Mesh::DrawMesh()
                     CMaterial* cmaterial = new CMaterial(meshGO);
                     cmaterial->path = (*it).path;
                     cmaterial->ID = (*it).ID;
-                    cmaterial->meshShader = &meshShader;
                     meshGO->AddComponent(cmaterial);
 
                     addedMaterialComponent = true;
@@ -109,12 +108,20 @@ void Mesh::DrawMesh()
                     CMaterial* cmaterial = new CMaterial(meshGO);
                     cmaterial->path = (*it).path;
                     cmaterial->ID = (*it).ID;
-                    cmaterial->meshShader = &meshShader;
                     meshGO->AddComponent(cmaterial);
 
                     addedMaterialComponent = true;
 
                 }
+
+            }
+
+            if (textures.empty() && !addedMaterialComponent) {
+
+                CMaterial* cmaterial = new CMaterial(meshGO);
+                meshGO->AddComponent(cmaterial);
+
+                addedMaterialComponent = true;
 
             }
 

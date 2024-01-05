@@ -1138,6 +1138,15 @@
     <None Include="Game\Assets\Shaders\WaterShader.glsl">
       <Filter>Sources\Features\Shader Pipeline\GLSL</Filter>
     </None>
+    <None Include="Game\Assets\Shaders\ColorShader.glsl">
+      <Filter>Sources\Features\Shader Pipeline\GLSL</Filter>
+    </None>
+    <None Include="Game\Assets\Shaders\LavaShader.glsl">
+      <Filter>Sources\Features\Shader Pipeline\GLSL</Filter>
+    </None>
+    <None Include="Game\Assets\Shaders\RainbowShader.glsl">
+      <Filter>Sources\Features\Shader Pipeline\GLSL</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\Icon.rc">
