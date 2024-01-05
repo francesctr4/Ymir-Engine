@@ -82,6 +82,7 @@ Game Developer in C++ and C# with high focus on low level systems and engine-rel
 # Workflow Video
 
 - One minute video speed-up that shows the process of authoring scenes in your editor, especially with your core technology from the last assignment (captured from the computer, not mobile).
+<iframe width="560" height="315" src="https://www.youtube.com/embed/KRQcgcFDksc?si=ImCD4ViJ6wsMqt0H" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 # Repository and Releases
 
