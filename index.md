@@ -38,6 +38,11 @@ Game Developer in C++ and C# with high focus on low level systems and engine-rel
 
 - Detailed explanation of last assignment sub-system, containing two animated gif that shows editor and in-game functionality.
 
+### Shader Pipeline for rendering geometry (VAO)
+
+![VAO](https://github.com/francesctr4/Ymir-Engine/assets/99948892/7a2e6c77-168c-4b87-9150-11f95a977b5c)
+![rendering](https://github.com/francesctr4/Ymir-Engine/assets/99948892/070cdaca-06e9-4e1b-a30b-6ddccb8c8061)
+
 ### Shader Editor
 
 ![Shader Editor](https://github.com/francesctr4/Ymir-Engine/assets/99948892/dfa4dc53-4d90-413c-bd67-f83e198f6cb5)
@@ -45,6 +50,11 @@ Game Developer in C++ and C# with high focus on low level systems and engine-rel
 ### Shader Hot Reload
 
 ![Hot Reload](https://github.com/francesctr4/Ymir-Engine/assets/99948892/5bc1645a-6de5-4bc7-b604-b90ee96f364c)
+
+### Compilation Messages and Errors
+
+![shaderdebug](https://github.com/francesctr4/Ymir-Engine/assets/99948892/fb0065ae-f0cd-4a1c-973e-334107494724)
+![error](https://github.com/francesctr4/Ymir-Engine/assets/99948892/c8b53d7e-b66d-44d6-9cdc-a90f4939678a)
 
 ### Dynamic Uniform Detection
 
