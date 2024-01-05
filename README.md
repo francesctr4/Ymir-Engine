@@ -104,11 +104,13 @@ This means that all the loading of the meshes is being done by Assimp using the 
 ## Additional functionality (Cool features!)
 
 - Apart from the water shader, there are more shaders included (all of them created and tested on the engine itself):
-    - Lava Shader:
-    - Rainbow Shader:
-    - Color Shader:     
+### Lava Shader
 ![Lava Shader](https://github.com/francesctr4/Ymir-Engine/assets/99948892/dfecc094-7a8f-45c9-89e7-301fc4ab66b9)
+
+### Rainbow Shader
 ![Rainbow Shader](https://github.com/francesctr4/Ymir-Engine/assets/99948892/27e77ceb-043a-4add-a81f-ede8fd426cd5)
+
+### Color Shader
 ![Color Shader](https://github.com/francesctr4/Ymir-Engine/assets/99948892/e1b75436-febf-4141-a79b-c329a9a35b6e)
 
 ### v0.2 - Engine Editor
