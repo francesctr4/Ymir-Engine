@@ -38,6 +38,20 @@ Game Developer in C++ and C# with high focus on low level systems and engine-rel
 
 - Detailed explanation of last assignment sub-system, containing two animated gif that shows editor and in-game functionality.
 
+### Shader Editor
+
+### Shader Hot Reload
+
+### Dynamic Uniform Detection
+
+![Dynamic Uniform Detection](https://github.com/francesctr4/Ymir-Engine/assets/99948892/035d0867-9977-46af-bc0f-2d74130cdbf6)
+
+### Shader Library
+
+![Shader Library](https://github.com/francesctr4/Ymir-Engine/assets/99948892/7ceac485-7f61-4a56-afae-99c31081b3c4)
+
+### Water Shader
+
 # Workflow Video
 
 - One minute video speed-up that shows the process of authoring scenes in your editor, especially with your core technology from the last assignment (captured from the computer, not mobile).
