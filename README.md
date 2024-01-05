@@ -100,7 +100,6 @@ This means that all the loading of the meshes is being done by Assimp using the 
 - **Water Shader**: Flat mesh (plane) that should simulate simple water.
     - Vertex Shader: Simple wave movement.
     - Fragment Shader: The color of the pixels changes based on its height (blue on the bottom, white on the top).
-- ...and more!
 
 ## Additional functionality (Cool features!)
 
