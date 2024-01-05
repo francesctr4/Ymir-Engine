@@ -1,3 +1,4 @@
 theme: jekyll-theme-slate
-title: Split Screen
-description: Personal Research by Francesc Teruel Rodríguez
+title: Ymir Engine
+description: a 3D game engine developed from scratch in C++ using SDL, OpenGL and several other third party libraries
+show_downloads: true
