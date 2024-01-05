@@ -40,7 +40,11 @@ Game Developer in C++ and C# with high focus on low level systems and engine-rel
 
 ### Shader Editor
 
+![Shader Editor](https://github.com/francesctr4/Ymir-Engine/assets/99948892/dfa4dc53-4d90-413c-bd67-f83e198f6cb5)
+
 ### Shader Hot Reload
+
+![Hot Reload](https://github.com/francesctr4/Ymir-Engine/assets/99948892/5bc1645a-6de5-4bc7-b604-b90ee96f364c)
 
 ### Dynamic Uniform Detection
 
@@ -51,6 +55,8 @@ Game Developer in C++ and C# with high focus on low level systems and engine-rel
 ![Shader Library](https://github.com/francesctr4/Ymir-Engine/assets/99948892/7ceac485-7f61-4a56-afae-99c31081b3c4)
 
 ### Water Shader
+
+![Water Shader](https://github.com/francesctr4/Ymir-Engine/assets/99948892/4611846f-ed47-4209-864a-2e98939c84e5)
 
 # Workflow Video
 
