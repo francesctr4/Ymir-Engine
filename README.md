@@ -89,17 +89,18 @@ This means that all the loading of the meshes is being done by Assimp using the 
 ![Shader Pipeline](https://github.com/francesctr4/Ymir-Engine/assets/99948892/6d37b426-8279-42e0-9616-09bdb1b6a36d)
 
 - The engine uses a shader pipeline to draw geometry.
+- **Shader Editor**: open your shaders or create new ones on runtime with a text editor.
+- **Shader Hot Reload**: Editing a shader in-engine automatically compiles and applies the changes.
+- Shader compile error lines and messages are shown in the editor (Console Window).
+- **Dynamic Shader Uniform Detection & Modification**: uniform values are dynamically read from the shader and can be edited from the inspector.
+- The shader editor is actually functional and can be used to create shaders and test them on runtime.
 - New shaders can be applied to materials with the editor.
 - Engine keeps track of loaded shaders to change between them when necessary on gameobjects materials.
-- Default Shader is applied on GameObjects that don't have any texture or any specific shader attached.
-- Shader Hot Reload: Editing a shader in-engine automatically compiles and applies the changes.
-- Water Shader: Flat mesh (plane) that should simulate simple water.
+- Ymir Engine's default shader ("MyShader.glsl") is applied on GameObjects that don't have any texture or any specific shader attached.
+- **Water Shader**: Flat mesh (plane) that should simulate simple water.
     - Vertex Shader: Simple wave movement.
     - Fragment Shader: The color of the pixels changes based on its height (blue on the bottom, white on the top).
-- Dynamic Shader Uniform Detection & Modification: uniform values are dynamically read from the shader and can be edited from the inspector.
-- Shader compile error lines and messages are shown in the editor (Console Window).
-- Shader Editor: open your shaders or create new ones on runtime with a text editor.
-- The shader editor is actually functional and can be used to create shaders and test them on runtime.
+- ...and more!
 
 ## Additional functionality (Cool features!)
 
