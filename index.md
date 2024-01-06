@@ -39,7 +39,7 @@ to the user, in order to serve as an environment to create games:
 
 ### Editor
 
-
+* The engine provides a 
 
 ### Graphics Pipeline (with Shaders)
 
@@ -47,17 +47,29 @@ to the user, in order to serve as an environment to create games:
 
 ### Drag & Drop
 
-
+* 3D Models with the format .fbx and textures with the format .png or .dds can be dragged directly onto the scene
+from the file explorer and the engine will load the elements.
 
 ### GameObject Structure & Components
 
+* The engine has a GameObject tree structure, where the scene itself is the root of that tree and the several elements
+on the scene are children of the root node. Each mesh and element is its own gameobject, with components that can be modified.
+The GameObjects can have children and parents, the same way as Unity manages its gameobjects.
+  
+* Available Components:
+  * Component Transform: manages the GameObject transformation (translation, rotation, scale).
+  * Component Mesh: manages the GameObject mesh and geometry.
+  * Component Material: manages the GameObject appearance (shader and textures).
+  * Component Camera: creates a camera on the GameObject and serves as a POV (point of view) for the Game Camera.
 
 ### Hierarchy & Inspector
 
+* Hierarchy: a window that displays the full GameObject tree structure of the current scene.
+* Inspector: a window that displays information about the active components of the current selected GameObject on the scene.
 
 ### Console
 
-
+* An ImGui window that displays all the engine messages and LOGs so that the user can see and understand what's going on.
 
 ## Engine Editor
 
