@@ -111,12 +111,17 @@ for example, the textures.
 
 ### Resource Management
 
-* 
+* A resource manager is a subsystem responsible for managing and controlling the usage of various resources required by the application.
+Resources in this context typically include assets such as textures, meshes, models, and other data needed for rendering graphics and
+supporting other game features.
+
+* In the case of Ymir Engine, the Resource Manager it's the Achilles Heel of the core subsystems, because it's not completely finished and
+the resources are still not managed properly. If the project ends up growing in the future, the next step for sure will be fixing the resource manager.
 
 ### Time Management
 
 * The engine has a Play/Stop/Step system that manages the simulation of the game scene. At the moment the functionality is limited
-because of the serialization problems, but all the timers and buttons work correctly.
+because of the resource manager current state, but all the timers and buttons work correctly.
 
 # High-Level System: Shader Pipeline
 
