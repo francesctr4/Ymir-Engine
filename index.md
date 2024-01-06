@@ -45,9 +45,10 @@ in order to serve as a controller for the user to take advantage of the features
 ### Graphics Pipeline (with Shaders)
 
 * The engine uses Assimp to import the desired geometry into the engine. The rendering pipeline involves loading the meshes from Assimp
-and creating the necessary OpenGL buffers to generate the geometry. Moreover, in the case of this engine, shaders are being used
-alongside the buffers and a Vertex Array Object (VAO) in order to use the programmable pipeline of OpenGL and to be able to do
-the Shader Pipeline as the last assignment's High-Level System.
+and creating the necessary OpenGL buffers to generate the geometry.
+
+* Moreover, in the case of this engine, shaders are being used alongside the buffers and a Vertex Array Object (VAO) in order to use
+the programmable pipeline of OpenGL and to be able to do the Shader Pipeline as the last assignment's High-Level System.
 
 ### Drag & Drop
 
@@ -58,7 +59,8 @@ from the file explorer and the engine will load the elements.
 
 * The engine has a GameObject tree structure, where the scene itself is the root of that tree and the several elements
 on the scene are children of the root node. Each mesh and element is its own gameobject, with components that can be modified.
-The GameObjects can have children and parents, the same way as Unity manages its gameobjects.
+
+* The GameObjects can have children and parents, the same way as Unity manages its gameobjects.
   
 * Available Components:
   * Component Transform: manages the GameObject transformation (translation, rotation, scale).
