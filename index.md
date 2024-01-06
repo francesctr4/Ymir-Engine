@@ -81,21 +81,31 @@ on the scene are children of the root node. Each mesh and element is its own gam
 
 ### Camera Frustum
 
-
-### Time Management
-
-
-### Serialization
-
-
-### Custom File Format
-
+* The camera of the engine has been reworked into a MathGeoLib frustum, that manages all the calculations of the matrices internally.
+It is really useful to be able to implement the Frustum Culling system, that discards GameObjects outside the Game Camera.
 
 ### Scene & Game Framebuffers
 
+* The engine has two ImGui windows to separate the game view from scene view, just as Unity does. In order to achieve this functionality,
+two OpenGL framebuffers have been created, one in each camera, in the respective ImGui window so that we are able to see the two points
+of view simultaneously.
+
+### Custom File Format
+
+* 
+
+### Serialization
+
+* 
 
 ### Resource Management
 
+* 
+
+### Time Management
+
+* The engine has a Play/Stop/Step system that manages the simulation of the game scene. At the moment the functionality is limited
+because of the serialization problems, but all the timers and buttons work correctly.
 
 ### v0.2 - Engine Editor
 
