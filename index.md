@@ -134,6 +134,12 @@ supporting other game features.
 * In the case of Ymir Engine, the Resource Manager it's the Achilles Heel of the core subsystems, because it's not completely finished and
 the resources are still not managed properly. If the project ends up growing in the future, the next step for sure will be fixing the resource manager.
 
+![Resource1](https://github.com/francesctr4/Ymir-Engine/assets/99948892/79c5c036-07d0-4c7e-87f5-fcd899c95c7b)
+
+![Resource2](https://github.com/francesctr4/Ymir-Engine/assets/99948892/2ddb6453-0925-4e57-85c7-a8a2143a298c)
+
+![Resource3](https://github.com/francesctr4/Ymir-Engine/assets/99948892/a7082f29-5866-4ced-9547-331468235fb8)
+
 ### Time Management
 
 * The engine has a Play/Stop/Step system that manages the simulation of the game scene. At the moment the functionality is limited
