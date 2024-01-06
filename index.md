@@ -54,6 +54,19 @@ Here are some screenshots from the code itself that show the insides of the mesh
 ### Shader Editor
 
 The Shader Editor is an ImGui Window with a Text Editor that is capable of reading GLSL language attached to it.
+It has an input text field that displays the name of the current shader (modifiable) and several buttons:
+
+* **Create Shader**: writes the default shader as base on the shader editor to help you start creating your shader.
+
+* **Save Shader**: saves the shader file in "Assets/Shaders/ directory, compiles and loads the shader into the engine.
+After saving the shader, you can select it from the list of loaded shaders on the Component Material of the GameObjects.
+In case you were opening an existing shader, it will update the new contents and recompile the shader on the engine.
+
+* **Delete Shader**: deletes the current shader opened at the shader editor, from the memory, the list of loaded shaders,
+the files and lastly from the shader editor itself. No trace of that shader on the engine anymore.
+
+If you want to open an existing shader on your project, you can do it by going to the Assets Window and then opening
+the Shaders/ folder, and then click on the shader to open it on the Shader Editor.
 
 ![Shader Editor](https://github.com/francesctr4/Ymir-Engine/assets/99948892/dfa4dc53-4d90-413c-bd67-f83e198f6cb5)
 
