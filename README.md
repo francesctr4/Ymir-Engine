@@ -80,7 +80,8 @@ This means that all the loading of the meshes is being done by Assimp using the 
 
 - Temporal folder library creation is done correctly and the resources are saved with the custom file format, but they are not being loaded from Library yet.
 
-- To open a shader in the shader editor you have to click on them from the Assets Window.
+- It is recommended that you check the [Website](https://francesctr4.github.io/Ymir-Engine/) of the engine in order to know more about the engine features,
+specially if you want to know everything about the Shader Pipeline and shader management inside the engine.
 
 ## Features
 
