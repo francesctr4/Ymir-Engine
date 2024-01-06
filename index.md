@@ -34,6 +34,68 @@ Game Developer in C++ and C# with high focus on low level systems and engine-rel
 
 - Short explanation of the main core sub-systems.
 
+### v0.1 - Geometry Viewer
+
+- Baker House automatically loaded at the start.
+- Two models provided in FBX format with one channel diffuse texture.
+- Drag&Drop of FBX files from anywhere in the Hard Drive.
+- Drag&Drop of DDS/PNG files (apply the texture to the selected GameObject).
+- GameObject structure, one for each loaded mesh.
+- Three components available for the GameObjects: Transform, Mesh and Material.
+- Unity-like camera controls.
+- Editor Windows:
+  - Console: Show LOGs.
+  - Configuration:
+    - A graph for the frames per second.
+    - Configuration for variables on each module (renderer, window, input, textures).
+    - Information output of memory consumption and hardware detection.
+    - OpenGL configuration.
+    - ...and more!
+  - Hierarchy: list with all GameObjects with tree structure. The user is able to select a GameObject through this window.
+  - Inspector: displays information about the components of the selected GameObject.
+- About Modal Window to get info about the engine.
+- Menu to load basic shapes.
+
+## Additional functionality (Cool features!)
+
+- Early Shader Implementation for Rendering Geometry with VAO (Vertex Shader and Fragment Shader).
+- Apply Transformations to Geometry with the Transform Component (Translation, Rotation and Scale).
+- Custom Icon Uploaded to the Engine Executable.
+- Extensive primitive library inside the engine on GameObject menu.
+
+### v0.2 - Engine Editor
+
+- The ‘Street Environment’ scene is automatically loaded at the start.
+- The user is be able to use the inspector to modify a GameObject:
+    - Hierarchy: delete, reparent, create empty and create children.
+    - Transform: translate, rotate and scale GameObjects.
+    - Camera is a component with settings that can be modified.
+- GameObjects can be picked from the world using the mouse.
+- All meshes use a bounding volume (AABB) and can be discarded using Frustum Culling.
+- Models, meshes and textures are saved to Ymir Engine format under “Library” folder.
+- Scene is serialized to a file that can be loaded.
+- The user can Start / Pause / Stop the simulation and recover its original state.
+- The editor has 2 windows:
+    - One with the scene (Editor view).
+    - Another one captured from a GameObject with a camera component (Main Game Camera).
+    - Each one has its own framebuffer and the user can visualize both at the same time.
+- Resource Management:
+    - Assets Window that shows all user assets.
+    - The user can drop/import new files. Assets window reacts properly.
+    - On first use, the temporal folder Library is created and meta files are generated for each new imported asset.
+    - Library can be regenerated if deleted.
+    - The imported assets are saved in Library folder with Ymir Engine custom file format.
+
+## Additional functionality (Cool features!)
+
+- There is a space skybox by default. In the folder Assets/Skybox there is more skybox textures in case you want to test several environments.
+- The Assets and Library Windows have some files highlighted on blue, you can interact with them to read the contents inside the engine.
+- When you select a GameObject, the shader makes an orange highlight to the mesh.
+- There is an option in Inspector -> Mesh Component to turn on/off the Normal Map of the selected Mesh (done by shader).
+- The Gizmo has been implemented and can be used to manage GameObjects' transformations.
+- The shaders now can be loaded using a single file instead of separating Vertex Shader and Fragment Shader.
+- Added Node Editor for future material editing with shaders.
+
 # High-Level System: Shader Pipeline
 
 The last assignment sub-system chosen for Ymir Engine was the Shader Pipeline, which is the sequence of stages that a graphics processing unit (GPU) 
