@@ -92,9 +92,25 @@ depending on the result of the compilation.
 
 ### Dynamic Uniform Detection
 
+When you load a Shader on the engine, it has an algorythm to detect editable uniforms that you may have created on the
+shader's code. Once detected, the engine displays them for you on the inspector and binds them with the shader code, so
+that you can modify the value from the inspector directly without having to hardcode them.
+
+* The engine is capable of distinguish between int, float, bool and vectors, and shows you the appropiate ImGui widget to modify
+the value accordingly.
+
+* Some Uniforms may appear on the shader code but not in the inspector. That's because they are essential for the shader functionality
+and shouldn't be manipulated by the user. Some examples of this kind of uniforms are: model, view, projection, selected and time.
+
+* If you delete an existing editable uniform from a shader and then recompile it, the inspector will react as well and will delete that
+uniform from the list because is no longer there. The same happens if you add a new uniform on the code and save the changes (it will
+be added to the list of uniforms and will appear on the inspector).
+
 ![Dynamic Uniform Detection](https://github.com/francesctr4/Ymir-Engine/assets/99948892/035d0867-9977-46af-bc0f-2d74130cdbf6)
 
 ### Shader Library
+
+
 
 ![Shader Library](https://github.com/francesctr4/Ymir-Engine/assets/99948892/7ceac485-7f61-4a56-afae-99c31081b3c4)
 
