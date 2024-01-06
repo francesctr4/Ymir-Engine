@@ -42,6 +42,8 @@ to the user, in order to serve as an environment to create games:
 * The engine uses Dear ImGui to provide several windows to customize and manage different aspects of the engine,
 in order to serve as a controller for the user to take advantage of the features implemented on the engine.
 
+![Editor](https://github.com/francesctr4/Ymir-Engine/assets/99948892/86ab7a4b-2204-49c4-8e50-d3df6fc46cec)
+
 ### Graphics Pipeline (with Shaders)
 
 * The engine uses Assimp to import the desired geometry into the engine. The rendering pipeline involves loading the meshes from Assimp
@@ -73,9 +75,15 @@ on the scene are children of the root node. Each mesh and element is its own gam
 * Hierarchy: a window that displays the full GameObject tree structure of the current scene.
 * Inspector: a window that displays information about the active components of the current selected GameObject on the scene.
 
+![Hierarchy](https://github.com/francesctr4/Ymir-Engine/assets/99948892/20a4fb0c-ab60-41c5-ad65-0d50524fd4be)
+
+![Inspector](https://github.com/francesctr4/Ymir-Engine/assets/99948892/d049d089-3f79-4528-80e5-f1690cb8c3b3)
+
 ### Console
 
 * An ImGui window that displays all the engine messages and LOGs so that the user can see and understand what's going on.
+
+![Console](https://github.com/francesctr4/Ymir-Engine/assets/99948892/93786131-1b3a-4291-b242-c8f9536fc1b7)
 
 ## Engine Editor
 
@@ -106,6 +114,7 @@ of view simultaneously.
 * They are saved in Library folder using the custom file format.
 
 ![CFF1](https://github.com/francesctr4/Ymir-Engine/assets/99948892/ab4936cb-8735-4006-a326-2bae3e5d8f1e)
+
 ![CFF2](https://github.com/francesctr4/Ymir-Engine/assets/99948892/66f07bbb-c153-4b91-9563-05836f5633c0)
 
 ### Serialization
