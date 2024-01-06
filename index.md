@@ -36,7 +36,11 @@ Game Developer in C++ and C# with high focus on low level systems and engine-rel
 
 # High-Level System: Shader Pipeline
 
-- Detailed explanation of last assignment sub-system, containing two animated gif that shows editor and in-game functionality.
+The last assignment sub-system chosen for Ymir Engine was the Shader Pipeline, which is the sequence of stages that a graphics processing unit (GPU) 
+goes through to render graphics in computer graphics applications. Shaders are small programs written in languages like OpenGL Shading Language (GLSL) 
+that run on the GPU and are used to control various aspects of the rendering process.
+
+* In order to implement the Shader Pipeline in the engine, several features have been developed. They are explained below:
 
 ### Shader Pipeline for rendering geometry (VAO)
 
@@ -110,33 +114,52 @@ be added to the list of uniforms and will appear on the inspector).
 
 ### Shader Library
 
+The engine keeps track of the loaded shaders and lets you change between them on the Component Material of the GameObjects.
 
+* If some shader is loaded or deleted, the engine will react accordingly and will modify the list of loaded shaders.
 
 ![Shader Library](https://github.com/francesctr4/Ymir-Engine/assets/99948892/7ceac485-7f61-4a56-afae-99c31081b3c4)
 
 ### Water Shader
 
+There is a flat mesh (plane) on the scene that simulates simple water. The shader is made from:
+
+* Vertex Shader: creates simple wave movement using sinusoidal functions.
+* Fragment Shader: the color of the pixels changes based on its height (dark blue on the bottom, light blue/white on the top).
+
 ![Water Shader](https://github.com/francesctr4/Ymir-Engine/assets/99948892/4611846f-ed47-4209-864a-2e98939c84e5)
 
 ### ...and more shaders!
 
+* In order to test the capabily of the engine to actually create the shaders and use them on runtime, some shaders have 
+been created:
+
 #### Lava Shader
+
+* Water Shader Variant
+
 ![Lava Shader](https://github.com/francesctr4/Ymir-Engine/assets/99948892/dfecc094-7a8f-45c9-89e7-301fc4ab66b9)
 
-#### Rainbow Shader
+#### Rainbow Shader 
+
+* Mario Bros Star Effect
+
 ![Rainbow Shader](https://github.com/francesctr4/Ymir-Engine/assets/99948892/27e77ceb-043a-4add-a81f-ede8fd426cd5)
 
 #### Color Shader
+
+* Add color to the material of a GameObject. You can even modify some light settings!
+
 ![Color Shader](https://github.com/francesctr4/Ymir-Engine/assets/99948892/e1b75436-febf-4141-a79b-c329a9a35b6e)
 
 # Workflow Video
 
-- One minute video speed-up that shows the process of authoring scenes in your editor, especially with your core technology from the last assignment (captured from the computer, not mobile).
+* Finally, this video shows a speed-up showcase on how to create the demo scene, required for the final delivery of the Game Engines subject, from scratch.
+Moreover, the video emphasizes the Shader Pipeline and shows the general functionality of all the systems explained above.
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/KRQcgcFDksc?si=ImCD4ViJ6wsMqt0H" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 # Repository and Releases
-
-- Link to the code repository and last release to download.
 
 ### Repository Link: [Ymir Engine](https://github.com/francesctr4/Ymir-Engine)
 
