@@ -84,11 +84,15 @@ on the scene are children of the root node. Each mesh and element is its own gam
 * The camera of the engine has been reworked into a MathGeoLib frustum, that manages all the calculations of the matrices internally.
 It is really useful to be able to implement the Frustum Culling system, that discards GameObjects outside the Game Camera.
 
+![Frustum](https://github.com/francesctr4/Ymir-Engine/assets/99948892/dc064540-e025-48c2-b725-f0a848e36865)
+
 ### Scene & Game Framebuffers
 
 * The engine has two ImGui windows to separate the game view from scene view, just as Unity does. In order to achieve this functionality,
 two OpenGL framebuffers have been created, one in each camera, in the respective ImGui window so that we are able to see the two points
 of view simultaneously.
+
+![Framebuffers](https://github.com/francesctr4/Ymir-Engine/assets/99948892/47d58086-2554-4f6c-b533-69bcc49d4566)
 
 ### Custom File Format
 
@@ -100,6 +104,9 @@ of view simultaneously.
   * Materials --> .ymat (not implemented yet)
  
 * They are saved in Library folder using the custom file format.
+
+![CFF1](https://github.com/francesctr4/Ymir-Engine/assets/99948892/ab4936cb-8735-4006-a326-2bae3e5d8f1e)
+![CFF2](https://github.com/francesctr4/Ymir-Engine/assets/99948892/66f07bbb-c153-4b91-9563-05836f5633c0)
 
 ### Serialization
 
@@ -122,6 +129,10 @@ the resources are still not managed properly. If the project ends up growing in 
 
 * The engine has a Play/Stop/Step system that manages the simulation of the game scene. At the moment the functionality is limited
 because of the resource manager current state, but all the timers and buttons work correctly.
+
+![Time1](https://github.com/francesctr4/Ymir-Engine/assets/99948892/1caf83d5-7453-4b6f-bd8f-48c5443d7f5b)
+![Time2](https://github.com/francesctr4/Ymir-Engine/assets/99948892/47ca44dd-7ed7-4d1e-b6a7-cfaf982e28e3)
+![Time3](https://github.com/francesctr4/Ymir-Engine/assets/99948892/7e8caf8e-43df-4f95-a773-567b8bd4e7ca)
 
 # High-Level System: Shader Pipeline
 
