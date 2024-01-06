@@ -32,11 +32,54 @@ Game Developer in C++ and C# with high focus on low level systems and engine-rel
   
 # Ymir Engine: Main Core Sub-Systems
 
-- Short explanation of the main core sub-systems.
+The engine is made from several core sub-systems that work together to provide the necessary features 
+to the user, in order to serve as an environment to create games:
 
-### v0.1 - Geometry Viewer
+## Geometry Viewer
 
-- Baker House automatically loaded at the start.
+### Editor
+
+
+
+### Graphics Pipeline (with Shaders)
+
+
+
+### Drag & Drop
+
+
+
+### GameObject Structure & Components
+
+
+### Hierarchy & Inspector
+
+
+### Console
+
+
+
+## Engine Editor
+
+### Camera Frustum
+
+
+### Time Management
+
+
+### Serialization
+
+
+### Custom File Format
+
+
+### Scene & Game Framebuffers
+
+
+### Resource Management
+
+
+
 - Two models provided in FBX format with one channel diffuse texture.
 - Drag&Drop of FBX files from anywhere in the Hard Drive.
 - Drag&Drop of DDS/PNG files (apply the texture to the selected GameObject).
@@ -65,11 +108,6 @@ Game Developer in C++ and C# with high focus on low level systems and engine-rel
 
 ### v0.2 - Engine Editor
 
-- The ‘Street Environment’ scene is automatically loaded at the start.
-- The user is be able to use the inspector to modify a GameObject:
-    - Hierarchy: delete, reparent, create empty and create children.
-    - Transform: translate, rotate and scale GameObjects.
-    - Camera is a component with settings that can be modified.
 - GameObjects can be picked from the world using the mouse.
 - All meshes use a bounding volume (AABB) and can be discarded using Frustum Culling.
 - Models, meshes and textures are saved to Ymir Engine format under “Library” folder.
