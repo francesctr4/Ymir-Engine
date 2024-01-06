@@ -39,11 +39,15 @@ to the user, in order to serve as an environment to create games:
 
 ### Editor
 
-* The engine provides a 
+* The engine uses Dear ImGui to provide several windows to customize and manage different aspects of the engine,
+in order to serve as a controller for the user to take advantage of the features implemented on the engine.
 
 ### Graphics Pipeline (with Shaders)
 
-
+* The engine uses Assimp to import the desired geometry into the engine. The rendering pipeline involves loading the meshes from Assimp
+and creating the necessary OpenGL buffers to generate the geometry. Moreover, in the case of this engine, shaders are being used
+alongside the buffers and a Vertex Array Object (VAO) in order to use the programmable pipeline of OpenGL and to be able to do
+the Shader Pipeline as the last assignment's High-Level System.
 
 ### Drag & Drop
 
@@ -90,33 +94,6 @@ The GameObjects can have children and parents, the same way as Unity manages its
 
 ### Resource Management
 
-
-
-- Two models provided in FBX format with one channel diffuse texture.
-- Drag&Drop of FBX files from anywhere in the Hard Drive.
-- Drag&Drop of DDS/PNG files (apply the texture to the selected GameObject).
-- GameObject structure, one for each loaded mesh.
-- Three components available for the GameObjects: Transform, Mesh and Material.
-- Unity-like camera controls.
-- Editor Windows:
-  - Console: Show LOGs.
-  - Configuration:
-    - A graph for the frames per second.
-    - Configuration for variables on each module (renderer, window, input, textures).
-    - Information output of memory consumption and hardware detection.
-    - OpenGL configuration.
-    - ...and more!
-  - Hierarchy: list with all GameObjects with tree structure. The user is able to select a GameObject through this window.
-  - Inspector: displays information about the components of the selected GameObject.
-- About Modal Window to get info about the engine.
-- Menu to load basic shapes.
-
-## Additional functionality (Cool features!)
-
-- Early Shader Implementation for Rendering Geometry with VAO (Vertex Shader and Fragment Shader).
-- Apply Transformations to Geometry with the Transform Component (Translation, Rotation and Scale).
-- Custom Icon Uploaded to the Engine Executable.
-- Extensive primitive library inside the engine on GameObject menu.
 
 ### v0.2 - Engine Editor
 
