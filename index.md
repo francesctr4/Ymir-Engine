@@ -92,11 +92,22 @@ of view simultaneously.
 
 ### Custom File Format
 
-* 
+* Ymir Engine has its own custom file format for some of the files that can be opened with it:
+
+  * Meshes --> .ymesh
+  * Models --> .ymodel
+  * Scenes --> .yscene
+  * Materials --> .ymat (not implemented yet)
+ 
+* They are saved in Library folder using the custom file format.
 
 ### Serialization
 
-* 
+* Serialization is the process of converting data structures or objects into a format that can be easily stored, transmitted, or reconstructed later.
+The engine does this in order to save the GameObject stucture of the Scene (including the Components), so that it can be saved and reconstructed when loaded.
+
+* The GameObjects in the scene are identified using an UID (Unique IDentificator). Some other elements in the engine also use the UID format to be identified,
+for example, the textures.
 
 ### Resource Management
 
@@ -106,34 +117,6 @@ of view simultaneously.
 
 * The engine has a Play/Stop/Step system that manages the simulation of the game scene. At the moment the functionality is limited
 because of the serialization problems, but all the timers and buttons work correctly.
-
-### v0.2 - Engine Editor
-
-- GameObjects can be picked from the world using the mouse.
-- All meshes use a bounding volume (AABB) and can be discarded using Frustum Culling.
-- Models, meshes and textures are saved to Ymir Engine format under “Library” folder.
-- Scene is serialized to a file that can be loaded.
-- The user can Start / Pause / Stop the simulation and recover its original state.
-- The editor has 2 windows:
-    - One with the scene (Editor view).
-    - Another one captured from a GameObject with a camera component (Main Game Camera).
-    - Each one has its own framebuffer and the user can visualize both at the same time.
-- Resource Management:
-    - Assets Window that shows all user assets.
-    - The user can drop/import new files. Assets window reacts properly.
-    - On first use, the temporal folder Library is created and meta files are generated for each new imported asset.
-    - Library can be regenerated if deleted.
-    - The imported assets are saved in Library folder with Ymir Engine custom file format.
-
-## Additional functionality (Cool features!)
-
-- There is a space skybox by default. In the folder Assets/Skybox there is more skybox textures in case you want to test several environments.
-- The Assets and Library Windows have some files highlighted on blue, you can interact with them to read the contents inside the engine.
-- When you select a GameObject, the shader makes an orange highlight to the mesh.
-- There is an option in Inspector -> Mesh Component to turn on/off the Normal Map of the selected Mesh (done by shader).
-- The Gizmo has been implemented and can be used to manage GameObjects' transformations.
-- The shaders now can be loaded using a single file instead of separating Vertex Shader and Fragment Shader.
-- Added Node Editor for future material editing with shaders.
 
 # High-Level System: Shader Pipeline
 
