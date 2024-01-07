@@ -29,7 +29,7 @@ _**Joel Romero Botella**_
 
 ## Disclaimer
 
-- The Release build may weigh a little (1.612 KB) because of the .fbx stored in the Assets folder (Debug build weighs 6.243 KB).
+- The Release build may weigh a little (1.707 KB) because of the .fbx stored in the Assets folder (Debug build weighs 6.655 KB).
 
 ## Instructions
 
@@ -73,7 +73,7 @@ _**Joel Romero Botella**_
 
 ### Additional Instructions
 
-- The Resource Manager is not finished for this delivery, although you can find the source files in progress (Resources classes and Importers).
+- The Resource Manager is not finished, although you can find the source files in progress (Resources classes and Importers).
 This means that all the loading of the meshes is being done by Assimp using the Assets file (it will take some time to start the engine).
 
 - The Scene Loading and Saving currently only loads and saves the GameObject structure of the scene and the editor camera position.
@@ -164,7 +164,7 @@ _Node Editor_
 
 - The vertex normals and the face normals do not follow exactly the GameObject transformations.
 
-- The Gizmo is only usable with meshes with a shader and is visible above the editor. Moreover, on first use, it resets the initial transformation of the GameObject.
+- The Gizmo is only usable with meshes with a shader and is visible above the editor.
 
 - Mouse picking can only be done with real transformations, not the ones in the shader. So when you move the GameObject with the gizmo, you can't no longer mouse pick the GameObject.
   
