@@ -2612,7 +2612,7 @@ void ModuleEditor::DrawGizmo(const ImVec2& sceneWindowPos, const ImVec2& sceneCo
             // Get the transform component of the current game object.
             CTransform* ctransform = (CTransform*)(*it)->GetComponent(ComponentType::TRANSFORM);
 
-            //modelMatrix = ctransform->mGlobalMatrix;
+            modelMatrix = ctransform->mGlobalMatrix;
 
             // Copy the model matrix to a float array for ImGuizmo.
             float modelPtr[16];
