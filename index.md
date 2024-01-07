@@ -13,20 +13,19 @@ for educational purposes.
 
 # Team Members: About Us
 
-- Team or members photo and quick explanation of the individual work of each member.
-
 ### _**Francesc Teruel Rodríguez**_
 
-![profile](https://github.com/francesctr4/Ymir-Engine/assets/99948892/9d5a7869-07fb-407c-b0e6-7201c8fa4307)
+![Francesc](https://github.com/francesctr4/Ymir-Engine/assets/99948892/9d5a7869-07fb-407c-b0e6-7201c8fa4307)
 
 Game Developer in C++ and C# with high focus on low level systems and engine-related programming.
-
-* ### Contributions to the project:
-  * filler text
   
 * **GitHub:** [francesctr4](https://github.com/francesctr4)
 
 ### _**Joel Romero Botella**_
+
+<img src="https://github.com/francesctr4/Ymir-Engine/assets/99948892/c35d1fd0-f955-4701-b52c-fce1050910da" alt="Joel" width="400"/>
+
+Game Designer specialized in the field of characters and levels, with a medium level of knowledge in 3D Modeling.
 
 * **GitHub:** [Joeltecke25](https://github.com/Joeltecke25)
   
