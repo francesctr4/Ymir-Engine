@@ -2,7 +2,7 @@
 
 ### Repository Link: [Ymir Engine](https://github.com/francesctr4/Ymir-Engine)
 
-### Current release version: v0.3 - Shader Pipeline
+### Current release version: [v0.3 - Shader Pipeline](https://github.com/francesctr4/Ymir-Engine/releases/tag/v0.3)
 
 ### GitHub page: [Ymir Engine Website](https://francesctr4.github.io/Ymir-Engine/)
 
