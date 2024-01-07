@@ -277,7 +277,7 @@ Moreover, the video emphasizes the Shader Pipeline and shows the general functio
 
 ### Repository Link: [Ymir Engine](https://github.com/francesctr4/Ymir-Engine)
 
-### Last Release Link: (not yet)
+### Last Release Link: [v0.3 - Shader Pipeline](https://github.com/francesctr4/Ymir-Engine/releases/tag/v0.3)
 
 # License
 
